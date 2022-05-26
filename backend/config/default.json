@@ -1,0 +1,4 @@
+{
+    "mongoURI" : "mongodb+srv://seminarioapp:It3ag5f9YzZQzACw@seminarioapp.gxusp.mongodb.net/SeminarioAppDB?retryWrites=true&w=majority",
+    "jwtSecret" : "UADE_1C_Seminario"
+}

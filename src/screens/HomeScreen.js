@@ -11,8 +11,8 @@ const HomeScreen = ({navigation}) => {
     onPress={() => navigation.navigate('Scanner')}
     />
     <Button 
-    title="Go to Test"
-    onPress={() => navigation.navigate('Test')}
+    title="Go to Principal"
+    onPress={() => navigation.navigate('Principal')}
     />
     <Button 
     title="Go to LoginScreen"

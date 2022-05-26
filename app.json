@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "UADE_1C2022_Seminario_Grupo1",
-    "slug": "UADE_1C2022_Seminario_Grupo1",
+    "name": "recetas-front",
+    "slug": "recetas-front",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
