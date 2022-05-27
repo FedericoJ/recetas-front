@@ -1,17 +1,19 @@
 import React from 'react';
-import { View,StyleSheet} from 'react-native';
+import { ScrollView,StyleSheet} from 'react-native';
 import { Divider, Flex, Box, Heading, Center,NativeBaseProvider,Text,Button } from "native-base";
 import Tabs from '../components/Tabs';
 import Galeria from '../components/Carousel';
+import Categorias from '../components/Categorias'
 
 
 const Principal  = ({navigation}) => {
 
 return (
-    <View>
+    <ScrollView style={styles.container}>
         <Tabs/>
         <Galeria/>
-     </View>
+        <Categorias/>
+     </ScrollView>
   );
 };
 
