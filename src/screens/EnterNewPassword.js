@@ -14,15 +14,11 @@ import {
   import axios from 'axios'
   import { useNavigation } from '@react-navigation/native';
   
-  const DigitVerify = () => {
+  const EnterNewPassword = () => {
 
     const navigation = useNavigation();
-    const [ Code1 , setCode1] = useState("");
-    const [ Code2 , setCode2] = useState("");
-    const [ Code3 , setCode3] = useState("");
-    const [ Code4 , setCode4] = useState("");
-    const [ Code5 , setCode5] = useState("");
-    const [ Code6 , setCode6] = useState("");
+    const [ Password , setPassword] = useState("");
+    const [ RepPassword , setRepPassword] = useState("");
 
     const baseUrl =  config.baseUrl;
     const RegisterPassword = async () => {
@@ -46,8 +42,7 @@ import {
     }
     ;
 
-  return <View style={styles.container}>
-    <Center w="100%">
+  return <Center w="100%">
      <ScrollView maxW="400" h="600" style={styles.scrollView} _contentContainerStyle={{
       px: "20px",
       mb: "4",
@@ -67,63 +62,50 @@ import {
           <Center>  
         <Heading size="xlg" color="coolGray.800" _dark={{
         color: "warmGray.50"
-      }} fontWeight="semibold" fontSize="18">
-          Ingresa el código de validación
+      }} fontWeight="semibold" fontSize="30">
+          RecetApp
         </Heading>
         </Center>
-        </Box>
+        <Box safeArea p="2"  w="100%" maxW="290" py="2"></Box>
+        <Center>
+        <Heading mt="1" color="coolGray.800" _dark={{
+        color: "warmGray.50"
+      }} fontWeight="medium" fontSize="20">
+          Ingresa nueva contraseña
+        </Heading>
+        </Center>
         <VStack space={3} mt="5">
-        <Box flexDirection="row" safeArea p="2"  w="20%" maxW="290" py="8">
         <FormControl isRequired>
             <Input 
-              value={Code1}
-              onChangeText={setCode1}/>
+              type="password"
+              placeholder="Contraseña"
+              value={Password}
+              onChangeText={setPassword}/>
           </FormControl>
           <FormControl isRequired>
             <Input 
-              value={Code2}
-              onChangeText={setCode2}/>
-          </FormControl>
-          <FormControl isRequired>
-            <Input 
-              value={Code3}
-              onChangeText={setCode3}/>
-          </FormControl>
-          <FormControl isRequired>
-            <Input 
-              value={Code4}
-              onChangeText={setCode4}/>
-          </FormControl>
-          <FormControl isRequired>
-            <Input 
-              value={Code5}
-              onChangeText={setCode5}/>
-          </FormControl>
-          <FormControl isRequired>
-            <Input 
-              value={Code6}
-              onChangeText={setCode6}/>
-          </FormControl>
-          </Box>
-          <Button mx="1" size="xs"  variant="link" colorScheme="muted"
-            onPress={() => alert("Código enviado nuevamente")} >
-            Enviar nuevamente
-          </Button> 
+              type="password"
+              placeholder="Repetir Contraseña"
+              value={RepPassword}
+              onChangeText={setRepPassword}
+            />
+        </FormControl>
           <Button mt="2" colorScheme="red" 
-            onPress={() => navigation.navigate('EnterNewPassword')} >
-            Continuar
+            onPress={() => navigation.navigate('Login')} >
+            Finalizar
+          </Button>
+          <Button mt="2" colorScheme="dark" 
+            onPress={() => navigation.navigate('Inicio')}>
+            Cancelar
           </Button>
         </VStack>
-        
+      </Box>
       </ScrollView>
     </Center>;
-  </View>
+
 };
 
 const styles = StyleSheet.create({
-  container: {
-    backgroundColor:"pink",
-  },
 
   centerContent: {
     justifyContent:'center',
@@ -143,7 +125,7 @@ const styles = StyleSheet.create({
         return (
           <NativeBaseProvider>
             <Center flex={1} px="3">
-                <DigitVerify />
+                <EnterNewPassword />
             </Center>
           </NativeBaseProvider>
         );
