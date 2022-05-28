@@ -13,6 +13,7 @@ import {
   import config from "../config/default.json";
   import axios from 'axios'
   import { useNavigation } from '@react-navigation/native';
+import { ButtonRecuperar } from '../components/ButtonsLogin';
   
   const RecoveryPasswordScreen = () => {
 
@@ -88,10 +89,7 @@ import {
               onChangeText={setMail}
             />
         </FormControl>
-          <Button mt="2" colorScheme="red" 
-            onPress={() => navigation.navigate('DigitVerify')} >
-            Recuperar
-          </Button>
+          <ButtonRecuperar text="Recuperar" color="#0a0a0a"/>
           <Button mt="2" colorScheme="dark" onPress={() => navigation.navigate('Home')}>
             Cancelar
           </Button>
