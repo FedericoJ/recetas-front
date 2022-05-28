@@ -22,6 +22,10 @@ const HomeScreen = ({navigation}) => {
     title="Go to Register"
     onPress={() => navigation.navigate('Register')}
     />
+        <Button 
+    title="Go to Set Password"
+    onPress={() => navigation.navigate('RegisterPassword')}
+    />
     <Button 
     title="Go to Register Success"
     onPress={() => navigation.navigate('RegisterSuccess')}
@@ -29,6 +33,14 @@ const HomeScreen = ({navigation}) => {
         <Button 
     title="Go to Register Failed"
     onPress={() => navigation.navigate('RegisterFailed')}
+    />
+    <Button 
+    title="Go to Inicio"
+    onPress={() => navigation.navigate('Inicio')}
+    />
+    <Button 
+    title="Go to Splash"
+    onPress={() => navigation.navigate('Splash')}
     />
   </View>
   )

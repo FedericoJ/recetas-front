@@ -1,7 +1,6 @@
 import React from 'react';
 import { Box, Text, Heading, VStack, CheckCircleIcon, Button, HStack, Center, NativeBaseProvider, Icon  } from "native-base";
-import { Platform } from 'react-native';
-import { Ionicons, FontAwesome } from '@expo/vector-icons';
+import { StyleSheet, Image, View} from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 
 const RegisterSuccessScreen = () => {
@@ -9,28 +8,49 @@ const RegisterSuccessScreen = () => {
 const navigation = useNavigation();
 
     return <Center w="100%">
-      <Box safeArea p="2" py="8" w="90%" maxW="290">
+      <Box safeArea p="1" py="1" w="100%" maxW="290">
           <Center>
-      <Icon
-        as={Ionicons}
-        name="checkmark-circle"
-        size="40"
-        color="indigo.600"
-      />
-      </Center>
-        <Heading size="lg" fontWeight="600" color="coolGray.800" _dark={{
+      <View style={styles.centerContent}>
+        <Image
+          style={{ width: 100, height: 100, marginBottom: 30 }}
+          source = {{ uri: "https://reactjs.org/logo-og.png" }}
+        /> 
+      <Box safeArea p="1" py="1" w="100%" maxW="290" marginBottom= "100">
+      <Center>
+        <Heading size="lg" color="coolGray.800" _dark={{
         color: "warmGray.50"
-      }}>
-          El Registro Fue Realizado Correctamente
+      }} fontWeight="semibold" fontSize="30">
+          RecetApp
         </Heading>
+        </Center> 
+      </Box> 
+      <Box safeArea p="1" py="1" w="100%" maxW="290" marginBottom= "100">
+      <Center>
+        <Heading size="lg" color="coolGray.800" _dark={{
+        color: "warmGray.50"
+      }} fontWeight="semibold" fontSize="50">
+          Bienvenido!
+        </Heading>
+        </Center> 
+      </Box>
+      </View>
+      </Center>
         <VStack space={3} mt="5">
-          <Button mt="2" colorScheme="indigo" onPress={() => { navigation.navigate('Login')}}>
+          <Button mt="2" colorScheme="red" onPress={() => { navigation.navigate('Login')}}>
             Ingresar
           </Button>
         </VStack>
       </Box>
     </Center>;
 };
+
+const styles = StyleSheet.create({
+
+  centerContent: {
+    justifyContent:'center',
+    alignItems:'center'
+  }
+});
     export default () => {
         return (
           <NativeBaseProvider>

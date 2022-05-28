@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { StyleSheet} from 'react-native';
+import { StyleSheet,Text, Image, View} from 'react-native';
 import { 
   Box,
   Heading,
@@ -9,45 +9,18 @@ import {
   Button, 
   Center, 
   NativeBaseProvider, 
-  ScrollView,
-  CheckIcon,
-  Select } from "native-base";
+  ScrollView} from "native-base";
   import config from "../config/default.json";
   import axios from 'axios'
   import { useNavigation } from '@react-navigation/native';
-
+  
   const RegisterScreen = () => {
 
     const navigation = useNavigation();
-    const [ firstName, setFirstName] = useState("");
-    const [ lastName , setLastName]  = useState("");
-    const [ password , setPassword] = useState("");
+    const [ Usuario , setUsuario] = useState("");
     const [ email    , setEmail] = useState("");
-    const [ gender   , setGender] = useState("");
-    const [ condition, setCondition]= useState("");
-    
-    const [ genderList, setGenderList] = useState([]); 
-    const [ conditionsList, setConditionList] = useState([]); 
 
     const baseUrl =  config.baseUrl;
-
-    const getGenders = async () => {
-      try{
-        const response = await axios.get(`${baseUrl}/gender/GetGenders`)
-        setGenderList(response.data)
-      }catch(error){
-        console.log(error)
-      }    
-    }
-    const getConditions = async () => {
-      try{
-        const response = await axios.get(`${baseUrl}/condition/GetConditions`);
-        setConditionList(response.data);
-      }catch(error){
-        console.log(error)
-      } 
-    }
-
     const Register = async () => {
 
       const setup = {
@@ -67,11 +40,7 @@ import {
         navigation.navigate('RegisterFailed')
       }
     }
-
-    useEffect(() => {
-      getGenders();
-      getConditions();
-    },[]);
+    ;
 
   return <Center w="100%">
      <ScrollView maxW="400" h="600" style={styles.scrollView} _contentContainerStyle={{
@@ -79,31 +48,45 @@ import {
       mb: "4",
       minW: "72"
     }}>
-      <Box safeArea p="2" w="90%" maxW="290" py="8">
+      <Box safeArea p="2" py="8" w="100%" maxW="290"></Box>
+       <Center>
+       <View style={styles.centerContent}>
+        <Image
+          style={{ width: 100, height: 100, marginBottom: 15 }}
+          source = {{ uri: "https://reactjs.org/logo-og.png" }}
+        />
+        
+    </View>
+      </Center>
+      <Box safeArea p="2"  w="100%" maxW="290" py="8">
+        <Center>  
         <Heading size="lg" color="coolGray.800" _dark={{
         color: "warmGray.50"
-      }} fontWeight="semibold">
-          Bienvenido
+      }} fontWeight="semibold" fontSize="30">
+          RecetApp
         </Heading>
+        </Center>
+        <Center>
         <Heading mt="1" color="coolGray.600" _dark={{
         color: "warmGray.200"
       }} fontWeight="medium" size="xs">
-          Registrate para continuar!
+          Ingresá tus datos
         </Heading>
+        </Center>
         <VStack space={3} mt="5">
-        <FormControl isRequired>
+        {/* <FormControl isRequired>
             <FormControl.Label>Nombre</FormControl.Label>
             <Input 
               value={firstName}
               onChangeText={setFirstName}
             />
-        </FormControl>
-        <FormControl isRequired>
+        </FormControl> */}
+        {/* <FormControl isRequired>
             <FormControl.Label>Apellido</FormControl.Label>
             <Input 
               value={lastName}
               onChangeText={setLastName}/>
-        </FormControl>
+        </FormControl> */}
         <FormControl isRequired>
             <FormControl.Label>Email</FormControl.Label>
             <Input 
@@ -111,14 +94,21 @@ import {
               onChangeText={setEmail}/>
           </FormControl>
           <FormControl isRequired>
+            <FormControl.Label>Usuario</FormControl.Label>
+            <Input 
+              value={Usuario}
+              onChangeText={setUsuario}
+            />
+        </FormControl>
+          {/* <FormControl isRequired>
             <FormControl.Label>Password</FormControl.Label>
             <Input 
               type="password" 
               value={password}
               onChangeText={setPassword}/>
-          </FormControl>
+          </FormControl> */}
           
-          <FormControl w="3/4" maxW="300">
+          {/* <FormControl w="3/4" maxW="300">
             <FormControl.Label>Genero</FormControl.Label>
               <Select 
                 selectedValue={gender}
@@ -133,9 +123,9 @@ import {
                     <Select.Item key={gender._id} label={gender.desc} value={gender.desc} />
                   ))}
               </Select>
-          </FormControl>
+          </FormControl> */}
 
-          <FormControl w="3/4" maxW="300" isRequired>
+          {/* <FormControl w="3/4" maxW="300" isRequired>
             <FormControl.Label>Condicion</FormControl.Label>
               <Select 
                 selectedValue={condition}
@@ -150,9 +140,12 @@ import {
                     <Select.Item key={condition._id} label={condition.desc} value={condition.desc} />
                   ))}          
               </Select>
-      </FormControl>
-          <Button mt="2" colorScheme="indigo" onPress={Register}>
+      </FormControl> */}
+          <Button mt="2" colorScheme="red" onPress={Register}>
             Registrarse
+          </Button>
+          <Button mt="2" colorScheme="dark" onPress={Register}>
+            Cancelar
           </Button>
         </VStack>
       </Box>
@@ -161,6 +154,11 @@ import {
 };
 
 const styles = StyleSheet.create({
+
+  centerContent: {
+    justifyContent:'center',
+    alignItems:'center'
+  },
 
   scrollView: {
     marginHorizontal: 1,
