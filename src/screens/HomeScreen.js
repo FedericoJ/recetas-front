@@ -42,7 +42,11 @@ const HomeScreen = ({navigation}) => {
     title="Go to Splash"
     onPress={() => navigation.navigate('Splash')}
     />
-  </View>
+    <Button 
+    title="Go to Recovery Password"
+    onPress={() => navigation.navigate('RecoveryPassword')}
+    />
+    </View>
   )
 };
 

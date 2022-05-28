@@ -12,6 +12,8 @@ import RegisterFailedScreen from './src/screens/RegisterFailedScreen';
 import Principal from './src/screens/Principal';
 import InicioScreen from './src/screens/InicioScreen';
 import SplashScreen from './src/screens/SplashScreen';
+import RecoveryPasswordScreen from './src/screens/RecoveryPasswordScreen';
+import DigitVerify from './src/screens/DigitVerify';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 
 
@@ -34,6 +36,8 @@ const App = () =>{
         <Stack.Screen name = "Principal" component={Principal} />
         <Stack.Screen name = "Inicio" component={InicioScreen} />
         <Stack.Screen name = "Splash" component={SplashScreen} />
+        <Stack.Screen name = "RecoveryPassword" component={RecoveryPasswordScreen} />
+        <Stack.Screen name = "DigitVerify" component={DigitVerify} />
       </Stack.Navigator>
 
     
