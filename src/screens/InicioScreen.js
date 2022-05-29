@@ -2,13 +2,14 @@ import React from 'react';
 import { Box, Text, Heading, VStack, CheckCircleIcon, Button, HStack, Center, NativeBaseProvider, Icon  } from "native-base";
 import { StyleSheet, Image, View} from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+import {  ButtonFondoBlanco, ButtonFondoRosa } from '../components/ButtonsLogin';
 
 const InicioScreen = () => {
 
 const navigation = useNavigation();
 
     return <Center w="100%">
-      <Box safeArea p="1" py="1" w="100%" maxW="290" marginBottom= "100">
+      <Box safeArea p="1" py="1" w="100%" maxW="290" marginBottom= "50">
       <Center>
         <Heading size="lg" color="coolGray.800" _dark={{
         color: "warmGray.50"
@@ -21,18 +22,14 @@ const navigation = useNavigation();
           <Center>
       <View style={styles.centerContent}>
         <Image
-          style={{ width: 100, height: 100, marginBottom: 100 }}
-          source = {{ uri: "https://reactjs.org/logo-og.png" }}
+          style={{ width: 150, height: 150, marginBottom: 100 }}
+          source = { require('../assets/logo.png') }
         />   
       </View>
       </Center>
         <VStack space={3} mt="5">
-        <Button mt="2" colorScheme="red" onPress={InicioScreen}>
-            Inicia Sesión
-          </Button>
-          <Button mt="2" colorScheme="dark" onPress={InicioScreen}>
-            Registrate
-          </Button>
+        <ButtonFondoRosa text="Inicia Sesión" onPress={() => navigation.navigate('Login')}/>
+        <ButtonFondoBlanco text="Registrate" onPress={() => navigation.navigate('Register')}/>
         </VStack>
       </Box>
     </Center>;

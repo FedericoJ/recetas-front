@@ -1,60 +1,127 @@
-import * as React from "react";
-import { Box, Text, Heading, VStack, FormControl, Input, Link, Button, HStack, Center, NativeBaseProvider } from "native-base";
+import React, { useState, useEffect } from 'react'
+import { StyleSheet,Text, Image, View} from 'react-native';
+import { 
+  Box,
+  Heading,
+  VStack, 
+  FormControl, 
+  Input, 
+  Button, 
+  Center, 
+  NativeBaseProvider, 
+  ScrollView,
+  HStack,
+  Link} from "native-base";
+  import config from "../config/default.json";
+  import axios from 'axios'
+  import { useNavigation } from '@react-navigation/native';
+  import {  ButtonFondoBlanco, ButtonFondoRosa } from '../components/ButtonsLogin';
+  
+  const LoginScreen = () => {
 
+    const navigation = useNavigation();
+    const [ Usuario , setUsuario] = useState("");
+    const [ Password    , setPassword] = useState("");
 
-//export default function LoginScreen({ navigation })
+    const baseUrl =  config.baseUrl;
+    const Login = async () => {
 
-const LoginScreen = () => {
+      const setup = {
+        headers:{
+          'content-type' : 'application/json'
+        }
+      }
+      const body = JSON.stringify({firstName,lastName,password,email, gender, condition})
+
+      try {
+        const res = await axios.post(`${baseUrl}/users/`,body,setup);
+        navigation.navigate('RegisterSuccess')
+        console.log(res.data);
+        console.log(res)
+      }catch(error){
+        console.log("Here")
+        navigation.navigate('RegisterFailed')
+      }
+    }
+    ;
+
   return <Center w="100%">
-      <Box safeArea p="2" py="8" w="90%" maxW="290">
-        <Heading size="lg" fontWeight="600" color="coolGray.800" _dark={{
+     <ScrollView maxW="400" h="600" style={styles.scrollView} _contentContainerStyle={{
+      px: "20px",
+      mb: "4",
+      minW: "72"
+    }}>
+      <Box safeArea p="2" py="8" w="100%" maxW="290"></Box>
+       <Center>
+       <View style={styles.centerContent}>
+        <Image
+          style={{ width: 150, height: 150, marginBottom: 0}}
+          source = { require('../assets/logo.png') }
+        />
+        
+    </View>
+      </Center>
+      <Box safeArea p="2"  w="100%" maxW="290" py="8">
+        <Center>  
+        <Heading size="lg" color="coolGray.800" _dark={{
         color: "warmGray.50"
-      }}>
-          Welcome
+      }} fontWeight="semibold" fontSize="30">
+          RecetApp
         </Heading>
-        <Heading mt="1" _dark={{
+        </Center>
+        <Center>
+        <Heading mt="1" color="coolGray.600" _dark={{
         color: "warmGray.200"
-      }} color="coolGray.600" fontWeight="medium" size="xs">
-          Sign in to continue!
+      }} fontWeight="medium" size="xs">
+          Ingresá tus credenciales
         </Heading>
-
+        </Center>
         <VStack space={3} mt="5">
-          <FormControl>
-            <FormControl.Label>Email ID</FormControl.Label>
-            <Input />
+        <FormControl isRequired>
+            <FormControl.Label>Usuario</FormControl.Label>
+            <Input 
+              value={Usuario}
+              onChangeText={setUsuario}/>
           </FormControl>
-          <FormControl>
+          <FormControl isRequired>
             <FormControl.Label>Password</FormControl.Label>
-            <Input type="password" />
+            <Input 
+              value={Password}
+              onChangeText={setPassword}
+            />
+        </FormControl>
+          <ButtonFondoRosa text="Ingresar" onPress={() => navigation.navigate('Principal')}/>
+          <ButtonFondoBlanco text="Cancelar" onPress={() => navigation.navigate('Inicio')}/>
+          <HStack mt="6" justifyContent="center" onPress={() => navigation.navigate('Inicio')}>
             <Link _text={{
-            fontSize: "xs",
-            fontWeight: "500",
-            color: "indigo.500"
-          }} alignSelf="flex-end" mt="1">
-              Forget Password?
-            </Link>
-          </FormControl>
-          <Button mt="2" colorScheme="indigo">
-            Sign in
-          </Button>
-          <HStack mt="6" justifyContent="center">
-            <Text fontSize="sm" color="coolGray.600" _dark={{
-            color: "warmGray.200"
-          }}>
-              I'm a new user.{" "}
-            </Text>
-            <Link _text={{
-            color: "indigo.500",
+            color: "#AC6363",
             fontWeight: "medium",
             fontSize: "sm"
           }} href="#">
-              Sign Up
+              ¿Olvidaste tu contraseña?
             </Link>
           </HStack>
         </VStack>
       </Box>
+      </ScrollView>
     </Center>;
 };
+
+const styles = StyleSheet.create({
+
+  centerContent: {
+    justifyContent:'center',
+    alignItems:'center'
+  },
+
+  scrollView: {
+    marginHorizontal: 1,
+    marginVertical: 1,
+  },
+  text: {
+    fontSize: 42,
+  },
+});
 
     export default () => {
         return (

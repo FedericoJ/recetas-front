@@ -54,7 +54,7 @@ import {  ButtonFondoBlanco, ButtonFondoRosa } from '../components/ButtonsLogin'
        <Center>
        <View style={styles.centerContent}>
         <Image
-          style={{ width: 100, height: 100, marginBottom: 15 }}
+          style={{ width: 150, height: 150, marginBottom: 15 }}
           source = { require('../assets/logo.png') }
         />
         

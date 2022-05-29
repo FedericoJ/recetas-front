@@ -13,6 +13,7 @@ import {
   import config from "../config/default.json";
   import axios from 'axios'
   import { useNavigation } from '@react-navigation/native';
+  import {  ButtonFondoBlanco, ButtonFondoRosa } from '../components/ButtonsLogin';
   
   const RegisterPasswordScreen = () => {
 
@@ -53,8 +54,8 @@ import {
        <Center>
        <View style={styles.centerContent}>
         <Image
-          style={{ width: 100, height: 100, marginBottom: 15 }}
-          source = {{ uri: "https://reactjs.org/logo-og.png" }}
+          style={{ width: 150, height: 150, marginBottom: 0 }}
+          source = { require('../assets/logo.png') }
         />
         
     </View>
@@ -75,19 +76,6 @@ import {
         </Heading>
         </Center>
         <VStack space={3} mt="5">
-        {/* <FormControl isRequired>
-            <FormControl.Label>Nombre</FormControl.Label>
-            <Input 
-              value={firstName}
-              onChangeText={setFirstName}
-            />
-        </FormControl> */}
-        {/* <FormControl isRequired>
-            <FormControl.Label>Apellido</FormControl.Label>
-            <Input 
-              value={lastName}
-              onChangeText={setLastName}/>
-        </FormControl> */}
         <FormControl isRequired>
             <FormControl.Label>Nombre</FormControl.Label>
             <Input 
@@ -108,53 +96,8 @@ import {
               onChangeText={setPassword2}
             />
         </FormControl>
-          {/* <FormControl isRequired>
-            <FormControl.Label>Password</FormControl.Label>
-            <Input 
-              type="password" 
-              value={password}
-              onChangeText={setPassword}/>
-          </FormControl> */}
-          
-          {/* <FormControl w="3/4" maxW="300">
-            <FormControl.Label>Genero</FormControl.Label>
-              <Select 
-                selectedValue={gender}
-                minWidth="200" 
-                _selectedItem={{
-                bg: "indigo",
-                endIcon: <CheckIcon size={5} />
-                }} 
-                mt="1"
-                onValueChange={itemValue =>setGender(itemValue)}>
-                  {genderList.map( (gender) => (
-                    <Select.Item key={gender._id} label={gender.desc} value={gender.desc} />
-                  ))}
-              </Select>
-          </FormControl> */}
-
-          {/* <FormControl w="3/4" maxW="300" isRequired>
-            <FormControl.Label>Condicion</FormControl.Label>
-              <Select 
-                selectedValue={condition}
-                minWidth="200" 
-                _selectedItem={{
-                bg: "indigo",
-                endIcon: <CheckIcon size={5} />
-                }} 
-                mt="1"
-                onValueChange={itemValue =>setCondition(itemValue)}>
-                  {conditionsList.map( (condition) => (
-                    <Select.Item key={condition._id} label={condition.desc} value={condition.desc} />
-                  ))}          
-              </Select>
-      </FormControl> */}
-          <Button mt="2" colorScheme="red" onPress={RegisterPassword}>
-            Finalizar
-          </Button>
-          <Button mt="2" colorScheme="dark" onPress={RegisterPassword}>
-            Cancelar
-          </Button>
+          <ButtonFondoRosa text="Finalizar" onPress={() => navigation.navigate('RegisterSuccess')}/>
+          <ButtonFondoBlanco text="Cancelar" onPress={() => navigation.navigate('Inicio')}/>
         </VStack>
       </Box>
       </ScrollView>

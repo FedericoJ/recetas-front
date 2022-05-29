@@ -21,8 +21,8 @@ const navigation = useNavigation();
           <Center>
       <View style={styles.centerContent}>
         <Image
-          style={{ width: 100, height: 100, marginBottom: 100 }}
-          source = {{ uri: "https://reactjs.org/logo-og.png" }}
+          style={{ width: 250, height: 250, marginBottom: 100 }}
+          source = { require('../assets/logo.png') }
         />   
       </View>
       </Center>
