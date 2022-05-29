@@ -13,7 +13,7 @@ import {
   import config from "../config/default.json";
   import axios from 'axios'
   import { useNavigation } from '@react-navigation/native';
-import { ButtonRecuperar } from '../components/ButtonsLogin';
+import {  ButtonFondoBlanco, ButtonFondoRosa } from '../components/ButtonsLogin';
   
   const RecoveryPasswordScreen = () => {
 
@@ -43,7 +43,8 @@ import { ButtonRecuperar } from '../components/ButtonsLogin';
     }
     ;
 
-  return <Center w="100%">
+  return <View style={styles.container}>
+    <Center w="100%">
      <ScrollView maxW="400" h="600" style={styles.scrollView} _contentContainerStyle={{
       px: "20px",
       mb: "4",
@@ -54,7 +55,7 @@ import { ButtonRecuperar } from '../components/ButtonsLogin';
        <View style={styles.centerContent}>
         <Image
           style={{ width: 100, height: 100, marginBottom: 15 }}
-          source = {{ uri: "https://reactjs.org/logo-og.png" }}
+          source = { require('../assets/logo.png') }
         />
         
     </View>
@@ -80,27 +81,31 @@ import { ButtonRecuperar } from '../components/ButtonsLogin';
             <Input 
               placeholder="Usuario"
               value={Usuario}
+              backgroundColor="#FFFFFF"
               onChangeText={setUsuario}/>
           </FormControl>
           <FormControl isRequired>
             <Input 
               placeholder="Mail"
               value={Mail}
+              backgroundColor="#FFFFFF"
               onChangeText={setMail}
             />
         </FormControl>
-          <ButtonRecuperar text="Recuperar" color="#0a0a0a"/>
-          <Button mt="2" colorScheme="dark" onPress={() => navigation.navigate('Home')}>
-            Cancelar
-          </Button>
+          <ButtonFondoRosa text="Recuperar" onPress={() => navigation.navigate('DigitVerify')}/>
+          <ButtonFondoBlanco text="Cancelar" onPress={() => navigation.navigate('Home')}/>
         </VStack>
       </Box>
       </ScrollView>
-    </Center>;
-
+    </Center>
+    </View>
 };
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#D6B1B1',
+  },
 
   centerContent: {
     justifyContent:'center',

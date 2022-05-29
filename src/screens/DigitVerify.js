@@ -13,6 +13,7 @@ import {
   import config from "../config/default.json";
   import axios from 'axios'
   import { useNavigation } from '@react-navigation/native';
+import { ButtonFondoRosa } from '../components/ButtonsLogin';
   
   const DigitVerify = () => {
 
@@ -58,7 +59,7 @@ import {
        <View style={styles.centerContent}>
         <Image
           style={{ width: 100, height: 100, marginBottom: 15 }}
-          source = {{ uri: "https://reactjs.org/logo-og.png" }}
+          source = { require('../assets/logo.png') }
         />
         
     </View>
@@ -67,41 +68,61 @@ import {
           <Center>  
         <Heading size="xlg" color="coolGray.800" _dark={{
         color: "warmGray.50"
-      }} fontWeight="semibold" fontSize="18">
-          Ingresa el código de validación
+      }} fontWeight="semibold" fontSize="30">
+          RecetApp
         </Heading>
         </Center>
         </Box>
+        <Box safeArea p="2"  w="100%" maxW="290" py="2"></Box>
+        <Center>
+        <Heading mt="1" color="coolGray.800" _dark={{
+        color: "warmGray.50"
+      }} fontWeight="medium" fontSize="20">
+          Ingresa el código de validación
+        </Heading>
+        </Center>
         <VStack space={3} mt="5">
-        <Box flexDirection="row" safeArea p="2"  w="20%" maxW="290" py="8">
+        <Box flexDirection="row"  safeArea p="2"  w="20%" maxW="290" py="8">
         <FormControl isRequired>
             <Input 
+              maxLength={1}
               value={Code1}
+              backgroundColor="#FFFFFF"
               onChangeText={setCode1}/>
           </FormControl>
           <FormControl isRequired>
             <Input 
+              maxLength={1}
               value={Code2}
+              backgroundColor="#FFFFFF"
               onChangeText={setCode2}/>
           </FormControl>
           <FormControl isRequired>
             <Input 
+              maxLength={1}
               value={Code3}
+              backgroundColor="#FFFFFF"
               onChangeText={setCode3}/>
           </FormControl>
           <FormControl isRequired>
             <Input 
+              maxLength={1}
               value={Code4}
+              backgroundColor="#FFFFFF"
               onChangeText={setCode4}/>
           </FormControl>
           <FormControl isRequired>
             <Input 
+              maxLength={1}
               value={Code5}
+              backgroundColor="#FFFFFF"
               onChangeText={setCode5}/>
           </FormControl>
           <FormControl isRequired>
             <Input 
+              maxLength={1}
               value={Code6}
+              backgroundColor="#FFFFFF"
               onChangeText={setCode6}/>
           </FormControl>
           </Box>
@@ -109,10 +130,7 @@ import {
             onPress={() => alert("Código enviado nuevamente")} >
             Enviar nuevamente
           </Button> 
-          <Button mt="2" colorScheme="red" 
-            onPress={() => navigation.navigate('EnterNewPassword')} >
-            Continuar
-          </Button>
+          <ButtonFondoRosa text="Continuar" onPress={() => navigation.navigate('EnterNewPassword')} />
         </VStack>
         
       </ScrollView>
@@ -123,7 +141,7 @@ import {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor:"pink",
+    backgroundColor: '#D6B1B1',
   },
 
   centerContent: {

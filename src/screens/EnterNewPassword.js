@@ -13,6 +13,7 @@ import {
   import config from "../config/default.json";
   import axios from 'axios'
   import { useNavigation } from '@react-navigation/native';
+import { ButtonFondoBlanco, ButtonFondoRosa } from '../components/ButtonsLogin';
   
   const EnterNewPassword = () => {
 
@@ -42,7 +43,8 @@ import {
     }
     ;
 
-  return <Center w="100%">
+  return <View style={styles.container}>
+  <Center w="100%">
      <ScrollView maxW="400" h="600" style={styles.scrollView} _contentContainerStyle={{
       px: "20px",
       mb: "4",
@@ -53,7 +55,7 @@ import {
        <View style={styles.centerContent}>
         <Image
           style={{ width: 100, height: 100, marginBottom: 15 }}
-          source = {{ uri: "https://reactjs.org/logo-og.png" }}
+          source = { require('../assets/logo.png') }
         />
         
     </View>
@@ -77,6 +79,7 @@ import {
         <VStack space={3} mt="5">
         <FormControl isRequired>
             <Input 
+              backgroundColor="#FFFFFF"
               type="password"
               placeholder="Contraseña"
               value={Password}
@@ -84,28 +87,28 @@ import {
           </FormControl>
           <FormControl isRequired>
             <Input 
+              backgroundColor="#FFFFFF"
               type="password"
               placeholder="Repetir Contraseña"
               value={RepPassword}
               onChangeText={setRepPassword}
             />
         </FormControl>
-          <Button mt="2" colorScheme="red" 
-            onPress={() => navigation.navigate('Login')} >
-            Finalizar
-          </Button>
-          <Button mt="2" colorScheme="dark" 
-            onPress={() => navigation.navigate('Inicio')}>
-            Cancelar
-          </Button>
+          <ButtonFondoRosa text="Finalizar" onPress={() => navigation.navigate('Login')} />
+          <ButtonFondoBlanco text="Cancelar" onPress={() => navigation.navigate('Inicio')} />
         </VStack>
       </Box>
       </ScrollView>
-    </Center>;
+    </Center>  
+    </View>
 
 };
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#D6B1B1',
+  },
 
   centerContent: {
     justifyContent:'center',
