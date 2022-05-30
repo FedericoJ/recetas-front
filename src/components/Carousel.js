@@ -64,17 +64,17 @@ export default class Galeria extends React.Component {
 
         const tipos =[
        
-            {tipo:"Pasta",tipoImage:imagesrc},
-            {tipo:"Comida china",tipoImage:imagesrc},
-            {tipo:"Milanesas",tipoImage:imagesrc},
-            {tipo:"Hamburguesas",tipoImage:imagesrc},
-            {tipo:"Helados",tipoImage:imagesrc},
-            {tipo:"Postres",tipoImage:imagesrc},
+            {tipo:"Pasta",calificacion:3.5,usuario:"@mamacora",tipoImage:imagesrc},
+            {tipo:"Comida china",calificacion:3.5,usuario:"@mamacora",tipoImage:imagesrc},
+            {tipo:"Milanesas",calificacion:4.5,usuario:"@mamacora",tipoImage:imagesrc},
+            {tipo:"Hamburguesas estilo Campo",calificacion:3.5,usuario: "@mamacora",tipoImage:imagesrc},
+            {tipo:"Helados",calificacion:2,usuario:"@mamacora",tipoImage:imagesrc},
+            {tipo:"Postres",calificacion:1,usuario:"@mamacora",tipoImage:imagesrc},
        ];
 
         return (
-          <SafeAreaView style={{ backgroundColor:'#ffff',alignItems:"left" }}>
-            <Text style={{marginVertical:'5%',marginHorizontal:'5%'}}> Destacado de la semana </Text>
+          <SafeAreaView style={{alignItems:"left" ,marginLeft:'5%', marginTop:'2%'}}>
+            <Text  style={{marginVertical:'5%',fontSize:20, fontWeight: "bold"}}>Lo destacado de la semana </Text>
             <View style={{ flex: 1, flexDirection:'row', justifyContent: 'center', }}>
                 <Carousel
                   layout={"default"}
@@ -82,7 +82,7 @@ export default class Galeria extends React.Component {
                   //data={this.state.carouselItems}
                   data ={tipos}
                   sliderWidth={300}
-                  itemWidth={300}
+                  itemWidth={400}
                   //renderItem={this._renderItem}
                   renderItem={({item}) =>(<Recetas tipos ={item}/>)}
                   onSnapToItem = { index => this.setState({activeIndex:index}) } />

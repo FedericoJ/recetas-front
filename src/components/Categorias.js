@@ -24,8 +24,9 @@ import Tipos from './Tipos';
 const Categorias =()=>{
 
     return (
-        <SafeAreaView style={{ backgroundColor:'#afff' }}>
-            <FlatList data ={tipos}
+        <SafeAreaView style={{ marginVertical:'5%'}}>
+        <Text  style={{textAlign:"center", marginVertical:'1%' , fontSize:20,fontWeight:"bold"}}> Categorias </Text>
+            <FlatList style={{marginHorizontal:'1%'}} data ={tipos}
             numColumns={2}
             renderItem={({item}) =>    (<Tipos tipos ={item}/>)}>
                 

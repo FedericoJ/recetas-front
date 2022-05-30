@@ -13,7 +13,7 @@ import {
   import config from "../config/default.json";
   import axios from 'axios'
   import { useNavigation } from '@react-navigation/native';
-import {  ButtonFondoBlanco, ButtonFondoRosa } from '../components/ButtonsLogin';
+  import {  ButtonFondoBlanco, ButtonFondoRosa } from '../components/ButtonsLogin';
   
   const RecoveryPasswordScreen = () => {
 
@@ -44,13 +44,9 @@ import {  ButtonFondoBlanco, ButtonFondoRosa } from '../components/ButtonsLogin'
     ;
 
   return <View style={styles.container}>
-    <Center w="100%">
-     <ScrollView maxW="400" h="600" style={styles.scrollView} _contentContainerStyle={{
-      px: "20px",
-      mb: "4",
-      minW: "72"
-    }}>
-      <Box safeArea p="2" py="8" w="100%" maxW="290"></Box>
+    <Center style={styles.container} >
+     <View  style={styles.container} >
+      <Box safeArea p="2" w="100%" maxW="290"></Box>
        <Center>
        <View style={styles.centerContent}>
         <Image
@@ -60,7 +56,7 @@ import {  ButtonFondoBlanco, ButtonFondoRosa } from '../components/ButtonsLogin'
         
     </View>
         </Center>
-        <Box safeArea p="2"  w="100%" maxW="290" py="8">
+        <Box safeArea p="2"  w="100%"  py="8">
           <Center>  
         <Heading size="xlg" color="coolGray.800" _dark={{
         color: "warmGray.50"
@@ -81,14 +77,14 @@ import {  ButtonFondoBlanco, ButtonFondoRosa } from '../components/ButtonsLogin'
             <Input 
               placeholder="Usuario"
               value={Usuario}
-              backgroundColor="#FFFFFF"
+              backgroundColor="#FFFFF"
               onChangeText={setUsuario}/>
           </FormControl>
           <FormControl isRequired>
             <Input 
               placeholder="Mail"
               value={Mail}
-              backgroundColor="#FFFFFF"
+              backgroundColor="#FFFF"
               onChangeText={setMail}
             />
         </FormControl>
@@ -96,7 +92,7 @@ import {  ButtonFondoBlanco, ButtonFondoRosa } from '../components/ButtonsLogin'
           <ButtonFondoBlanco text="Cancelar" onPress={() => navigation.navigate('Home')}/>
         </VStack>
       </Box>
-      </ScrollView>
+      </View>
     </Center>
     </View>
 };
@@ -113,7 +109,7 @@ const styles = StyleSheet.create({
   },
 
   scrollView: {
-    marginHorizontal: 1,
+
     marginVertical: 1,
   },
   text: {
@@ -124,7 +120,7 @@ const styles = StyleSheet.create({
     export default () => {
         return (
           <NativeBaseProvider>
-            <Center flex={1} px="3">
+            <Center style={styles.container} >
                 <RecoveryPasswordScreen />
             </Center>
           </NativeBaseProvider>
