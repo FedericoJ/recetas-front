@@ -3,7 +3,6 @@ import {
   Text, 
   View,
   SafeAreaView, StyleSheet } from 'react-native';
-
 import Carousel from 'react-native-snap-carousel';
 import Recetas from './Recetas';
 
