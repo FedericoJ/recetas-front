@@ -22,7 +22,7 @@ const navigation = useNavigation();
           <Center>
       <View style={styles.centerContent}>
         <Image
-          style={{ width: 150, height: 150, marginBottom: 100 }}
+          style={{ width: 150, height: 160, marginBottom: 100 }}
           source = { require('../assets/logo.png') }
         />   
       </View>

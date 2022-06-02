@@ -17,7 +17,8 @@ class Ingredients extends React.Component{
         this.state={
 
             unidades:[{label:"kg",value:1},
-                   {label:"g",value:2}]
+                   {label:"g",value:2}
+                    ]
         }
     }
 
@@ -44,9 +45,10 @@ class Ingredients extends React.Component{
 
                     </NativeBaseProvider>
 
-                    <RNPickerSelect
+                    <RNPickerSelect style={{width:'40%'}}
                         onValueChange={(value) => console.log(value)}
                         items={this.state.unidades}
+                        placeholder="unidad"
                     />
 
 

@@ -5,11 +5,7 @@ const HomeScreen = ({navigation}) => {
 
   return (
   <View>
-    <Text style={styles.text}>Seminario</Text>
-    <Button 
-    title="Go to Scanner"
-    onPress={() => navigation.navigate('Scanner')}
-    />
+    <Text style={styles.text}>RecetApp</Text>
     <Button 
     title="Go to Principal"
     onPress={() => navigation.navigate('Principal')}
@@ -30,10 +26,7 @@ const HomeScreen = ({navigation}) => {
     title="Go to Register Success"
     onPress={() => navigation.navigate('RegisterSuccess')}
     />
-        <Button 
-    title="Go to Register Failed"
-    onPress={() => navigation.navigate('RegisterFailed')}
-    />
+    
     <Button 
     title="Go to Inicio"
     onPress={() => navigation.navigate('Inicio')}

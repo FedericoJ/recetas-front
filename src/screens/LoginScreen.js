@@ -46,7 +46,7 @@ import {
     ;
 
   return <Center w="100%">
-     <ScrollView maxW="400" h="600" style={styles.scrollView} _contentContainerStyle={{
+     <View maxW="400" h="600" style={styles.scrollView} _contentContainerStyle={{
       px: "20px",
       mb: "4",
       minW: "72"
@@ -93,17 +93,17 @@ import {
           <ButtonFondoRosa text="Ingresar" onPress={() => navigation.navigate('Principal')}/>
           <ButtonFondoBlanco text="Cancelar" onPress={() => navigation.navigate('Inicio')}/>
           <HStack mt="6" justifyContent="center" onPress={() => navigation.navigate('Inicio')}>
-            <Link _text={{
+            <Link  onPress={() => navigation.navigate('RecoveryPassword')} _text={{
             color: "#AC6363",
             fontWeight: "medium",
-            fontSize: "sm"
-          }} href="#">
+            fontSize: "sm",
+          }}>
               ¿Olvidaste tu contraseña?
             </Link>
           </HStack>
         </VStack>
       </Box>
-      </ScrollView>
+      </View>
     </Center>;
 };
 
