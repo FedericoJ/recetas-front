@@ -77,7 +77,7 @@ import {
             <Input 
               placeholder="Usuario"
               value={Usuario}
-              backgroundColor="#FFFFF"
+              backgroundColor="#FFFF"
               onChangeText={setUsuario}/>
           </FormControl>
           <FormControl isRequired>
