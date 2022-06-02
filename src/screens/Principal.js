@@ -8,12 +8,14 @@ import { FloatingAction } from "react-native-floating-action";
 import { FAB } from 'react-native-paper';
 
 
+
 const Principal  = ({navigation}) => {
+
 
 return (
     <ScrollView style={styles.container}>
         <Tabs/>
-        <Galeria/>
+        <Galeria navegacion={navigation}/>
         <Categorias/>
 
          <FAB style={styles.fab}

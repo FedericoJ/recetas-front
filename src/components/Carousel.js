@@ -59,6 +59,8 @@ export default class Galeria extends React.Component {
 
     render() {
 
+        const  navigation  = this.props.navegacion;
+
         const imagesrc="https://s3.amazonaws.com/arc-wordpress-client-uploads/infobae-wp/wp-content/uploads/2018/05/25115909/hamburguesa-destacada.jpg";
 
         const tipos =[
@@ -83,7 +85,7 @@ export default class Galeria extends React.Component {
                   sliderWidth={300}
                   itemWidth={400}
                   //renderItem={this._renderItem}
-                  renderItem={({item}) =>(<Recetas tipos ={item}/>)}
+                  renderItem={({item}) =>(<Recetas navegacion={navigation} tipos ={item}/>)}
                   onSnapToItem = { index => this.setState({activeIndex:index}) } />
             </View>
           </SafeAreaView>

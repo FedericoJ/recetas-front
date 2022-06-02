@@ -2,16 +2,21 @@ import * as React from 'react';
 import {View,Text,Image,TouchableOpacity} from 'react-native';
 import Stars from 'react-native-stars';
 import { FontAwesome, MaterialCommunityIcons } from '@expo/vector-icons'; 
+import { useNavigation } from '@react-navigation/native';
 
 
 
 class Recetas extends React.Component{
 
-    render(){
+    render(
+        
+    ){
         const {tipo,usuario,calificacion,tipoImage} = this.props.tipos;
+        const  navigation  = this.props.navegacion;
         return (
             
-            <TouchableOpacity style={{backgroundColor:'#ffff',marginVertical:'2%'}}>
+
+            <TouchableOpacity style={{backgroundColor:'#ffff',marginVertical:'2%'}} onPress = { () => navigation.navigate('Receta') }>
                 
                 <View style={{flexDirection:"row",width:'50%' ,margin:1 }}>
 
@@ -43,7 +48,8 @@ class Recetas extends React.Component{
                                     count={5}
                                     starSize={16}
                                     fullStar= {<FontAwesome name="star" color="blue" />}
-                                    emptyStar= {<FontAwesome name="star-o" color="blue" />}/>
+                                    emptyStar= {<FontAwesome name="star-o" color="blue" />}
+                                    halfStar={<FontAwesome name="star-half" color="blue" />} />
 
                                  <Text style={{textAlign:"left",fontSize:12,marginRight:'1%'}}>
                                     {calificacion}

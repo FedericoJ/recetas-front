@@ -4,6 +4,7 @@ import {
   View,
   SafeAreaView,
 FlatList } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 
 import Recetas from './Recetas';
 
@@ -23,12 +24,14 @@ import Recetas from './Recetas';
 
 const Categorias =()=>{
 
+    const navigation = useNavigation();
+
     return (
         <SafeAreaView style={{ marginVertical:'5%'}}>
         <Text  style={{textAlign:"center",fontSize:20,fontWeight:"bold",marginBottom:'2%'}}> Resultados </Text>
             <FlatList style= {{marginHorizontal:'5%'}} data ={tipos}
                 numColumns={1}
-                renderItem={({item}) =>    (<Recetas tipos ={item}/>)}>
+                renderItem={({item}) => (<Recetas navegacion={navigation} tipos ={item}/>)}>
                 
              </FlatList>
 
