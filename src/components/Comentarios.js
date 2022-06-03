@@ -27,39 +27,41 @@ class Comentarios extends React.Component{
 
             comentariosList.push(
 
-                  
+                <View>   
                 
-                <View style={{alignItems:"center", marginTop:'2%', marginBottom:'2%', marginHorizontal:'5%'}}>
-                 
-                    <FontAwesome name="user" size={30} color="black" />
+                    <View style={{alignItems:"center", flexDirection:"row" ,marginTop:'2%', marginBottom:'2%', marginHorizontal:'5%'}}>
                     
+                        <FontAwesome name="user" size={30} color="black" />
+                        
 
-                    <Text style={{fontSize:20, color:"black"}}> {element.usuario} </Text>
+                        <Text style={{fontSize:20, color:"black"}}> {element.usuario} </Text>
+                        
+                        <NativeBaseProvider>
+
+                        <TouchableOpacity style={{width:'10%',alignItems:'flex-start'}}>
+                            <Stars 
+                                display={element.calificacion}
+                                spacing={4}
+                                count={5}
+                                starSize={30}
+                                fullStar= {<FontAwesome size={30} name="star" color="blue" />}
+                                emptyStar= {<FontAwesome size={30} name="star-o" color="blue" />}
+                                halfStar={<FontAwesome size={30} name="star-half" color="blue" />} />
+
+                        </TouchableOpacity>
                     
-                    <NativeBaseProvider>
-
-                    <TouchableOpacity style={{width:'10%',alignItems:'flex-start'}}>
-                        <Stars 
-                            display={element.calificacion}
-                            spacing={4}
-                            count={5}
-                            starSize={30}
-                            fullStar= {<FontAwesome size={30} name="star" color="blue" />}
-                            emptyStar= {<FontAwesome size={30} name="star-o" color="blue" />}
-                            halfStar={<FontAwesome size={30} name="star-half" color="blue" />} />
-
-                    </TouchableOpacity>
-                 
-                    </NativeBaseProvider>
+                        </NativeBaseProvider>
+                       
+                    </View>
 
 
-                    <NativeBaseProvider>
-                
+                     <NativeBaseProvider>
+                    
                     <TextArea style={{backgroundColor:"#ffff"}} w ="90%" mx ="5" value= {element.comentario} placeholder="Disabled TextArea" />
 
                     </NativeBaseProvider>
 
-                    </View>
+                </View>
 
             )
             

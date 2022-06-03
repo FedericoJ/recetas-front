@@ -37,6 +37,8 @@ class Ingredients extends React.Component{
 
             ingredientsList.push(
 
+                <View>
+
                 <View style={{flexDirection:"row" , justifyContent:"center",alignItems:"center", marginTop:'5%', marginBottom:'2%', marginLeft:'5%'}}>
 
                     <Text style={{fontSize:16, width:'60%'}}> {element.nombre} </Text> 
@@ -62,6 +64,8 @@ class Ingredients extends React.Component{
 
 
                 </View>
+
+            </View>
                         
 
             )
