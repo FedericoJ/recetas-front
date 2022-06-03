@@ -83,7 +83,7 @@ const DigitVerify = () => {
           </Heading>
         </Center>
         <VStack space={3} mt="5">
-          <Box flexDirection="row" safeArea p="2" w="20%" maxW="290" py="8" alignItems='center'>
+          <Box alignitems = "center" flexDirection="row" safeArea p="2" w="20%" maxW="290" py="8">
             <FormControl isRequired>
               <Input
                 mx='1'
@@ -168,7 +168,7 @@ const styles = StyleSheet.create({
 export default () => {
   return (
     <NativeBaseProvider>
-      <Center flex={1} px="3">
+      <Center style={styles.container} flex={1} px="3">
         <DigitVerify />
       </Center>
     </NativeBaseProvider>
