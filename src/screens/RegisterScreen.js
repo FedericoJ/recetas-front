@@ -29,11 +29,11 @@ import {
           'content-type' : 'application/json'
         }
       }
-      const body = JSON.stringify({firstName,lastName,password,email, gender, condition})
+      const body = JSON.stringify({Usuario, email})
 
       try {
-        const res = await axios.post(`${baseUrl}/users/`,body,setup);
-        navigation.navigate('RegisterSuccess')
+        const res = await axios.post(`${baseUrl}/usuario/crearInvitado`,body,setup);
+        navigation.navigate('RegisterPassword')
         console.log(res.data);
         console.log(res)
       }catch(error){
@@ -88,7 +88,7 @@ import {
               onChangeText={setUsuario}
             />
         </FormControl>
-          <ButtonFondoRosa text="Registrarse" onPress={() => navigation.navigate('RegisterPassword')}/>
+          <ButtonFondoRosa text="Registrarse" onPress={Register}/>
           <ButtonFondoBlanco text="Cancelar" onPress={() => navigation.navigate('Inicio')}/>
         </VStack>
       </Box>

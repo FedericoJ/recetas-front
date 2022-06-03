@@ -23,7 +23,6 @@ import { createDrawerNavigator } from '@react-navigation/drawer';
 const Stack = createNativeStackNavigator();
 
 //const Drawer = createDrawerNavigator();
-
 const App = () =>{
   return(
     <NavigationContainer>

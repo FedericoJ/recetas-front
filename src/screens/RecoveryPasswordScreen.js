@@ -22,18 +22,18 @@ import {
     const [ Mail , setMail] = useState("");
 
     const baseUrl =  config.baseUrl;
-    const RegisterPassword = async () => {
+    const RecoveryPassword = async () => {
 
       const setup = {
         headers:{
           'content-type' : 'application/json'
         }
       }
-      const body = JSON.stringify({firstName,lastName,password,email, gender, condition})
+      const body = JSON.stringify({Mail})
 
       try {
-        const res = await axios.post(`${baseUrl}/users/`,body,setup);
-        navigation.navigate('RegisterSuccess')
+        const res = await axios.post(`${baseUrl}/usuario/SendRecoveryPassword`,body,setup);
+        navigation.navigate('DigitVerify')
         console.log(res.data);
         console.log(res)
       }catch(error){
@@ -88,7 +88,7 @@ import {
               onChangeText={setMail}
             />
         </FormControl>
-          <ButtonFondoRosa text="Recuperar" onPress={() => navigation.navigate('DigitVerify')}/>
+          <ButtonFondoRosa text="Recuperar" onPress={RecoveryPassword}/>
           <ButtonFondoBlanco text="Cancelar" onPress={() => navigation.navigate('Home')}/>
         </VStack>
       </Box>

@@ -23,23 +23,23 @@ import {
     const [ Password2    , setPassword2] = useState("");
 
     const baseUrl =  config.baseUrl;
-    const RegisterPassword = async () => {
+    const RegisterPasswordScreen = async () => {
 
       const setup = {
         headers:{
           'content-type' : 'application/json'
         }
       }
-      const body = JSON.stringify({firstName,lastName,password,email, gender, condition})
+      const body = JSON.stringify({Nombre,Password})
 
       try {
-        const res = await axios.post(`${baseUrl}/users/`,body,setup);
+        const res = await axios.post(`${baseUrl}/usuario/crearInvitado`,body,setup);
         navigation.navigate('RegisterSuccess')
         console.log(res.data);
         console.log(res)
       }catch(error){
         console.log("Here")
-        navigation.navigate('RegisterFailed')
+        navigation.navigate('Principal')
       }
     }
     ;
@@ -96,7 +96,7 @@ import {
               onChangeText={setPassword2}
             />
         </FormControl>
-          <ButtonFondoRosa text="Finalizar" onPress={() => navigation.navigate('RegisterSuccess')}/>
+          <ButtonFondoRosa text="Finalizar" onPress={RegisterPasswordScreen}/>
           <ButtonFondoBlanco text="Cancelar" onPress={() => navigation.navigate('Inicio')}/>
         </VStack>
       </Box>
