@@ -32,9 +32,9 @@ return (
             <Text style={{fontSize:20, width:'90%',fontWeight:"bold"}}> Milanga </Text>
 
 
-            <Text style={{fontSize:20}}> 4.1 </Text>
+            <Text onPress={() => navigation.navigate('ComentarioReceta')} style={{fontSize:20}}> 4.1 </Text>
 
-            <FontAwesome name="star" color="#FFD700" />
+            <FontAwesome onPress={() => navigation.navigate('ComentarioReceta')} name="star" color="#FFD700" />
 
 
         </View>

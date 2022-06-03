@@ -44,7 +44,7 @@ import {
     ;
 
   return <Center w="100%">
-     <ScrollView maxW="400" h="600" style={styles.scrollView} _contentContainerStyle={{
+     <View maxW="400" h="600" style={styles.scrollView} _contentContainerStyle={{
       px: "20px",
       mb: "4",
       minW: "72"
@@ -53,7 +53,7 @@ import {
        <Center>
        <View style={styles.centerContent}>
         <Image
-          style={{ width: 150, height: 150, marginBottom: 0}}
+          style={{ width: 150, height: 160, marginBottom: 0}}
           source = { require('../assets/logo.png') }
         />
         
@@ -92,7 +92,7 @@ import {
           <ButtonFondoBlanco text="Cancelar" onPress={() => navigation.navigate('Inicio')}/>
         </VStack>
       </Box>
-      </ScrollView>
+      </View>
     </Center>;
 };
 

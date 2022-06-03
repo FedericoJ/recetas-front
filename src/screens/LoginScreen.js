@@ -55,7 +55,7 @@ import {
        <Center>
        <View style={styles.centerContent}>
         <Image
-          style={{ width: 150, height: 150, marginBottom: 0}}
+          style={{ width: 150, height: 160, marginBottom: 0}}
           source = { require('../assets/logo.png') }
         />
         

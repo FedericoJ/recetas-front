@@ -18,6 +18,7 @@ import EnterNewPassword from './src/screens/EnterNewPassword';
 import Results from './src/screens/Results';
 import Receta from './src/screens/ViewReceta';
 import { createDrawerNavigator } from '@react-navigation/drawer';
+import ComentarioRecetaScreen from './src/screens/ComentarioRecetaScreen';
 
 
 const Stack = createNativeStackNavigator();
@@ -43,6 +44,7 @@ const App = () =>{
         <Stack.Screen name = "EnterNewPassword" component={EnterNewPassword} />
         <Stack.Screen name = "Results" component={Results} />
         <Stack.Screen name = "Receta" component={Receta} />
+        <Stack.Screen name = "ComentarioReceta" component={ComentarioRecetaScreen} />
       </Stack.Navigator>
 
     
@@ -74,4 +76,5 @@ export default App;
         <Stack.Screen name = "Principal" component={Principal} />
         <Stack.Screen name = "Inicio" component={InicioScreen} />
         <Stack.Screen name = "Splash" component={SplashScreen} />
+        <Stack.Screen name = "ComentarioReceta" component={ComentarioRecetaScreen} />
       </Stack.Navigator>*/
