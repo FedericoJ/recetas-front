@@ -91,6 +91,7 @@ export default class Galeria extends React.Component {
           </SafeAreaView>
         );
 
+
     }
 
 
