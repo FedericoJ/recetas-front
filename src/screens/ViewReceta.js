@@ -2,7 +2,7 @@ import React from 'react';
 import { ScrollView,StyleSheet,Image,View,Text,TouchableOpacity,TextInput} from 'react-native';
 import { FontAwesome, MaterialCommunityIcons } from '@expo/vector-icons'; 
 import Stars from 'react-native-stars';
-import {NativeBaseProvider,TextArea,Input} from "native-base";
+import {NativeBaseProvider,TextArea,Input,Divider} from "native-base";
 import Ingredients from "../components/Ingredients";
 
 
@@ -102,12 +102,17 @@ return (
             </View>
 
 
+            <Divider  thickness="2" />
+
+            <Text style={{ marginTop:'5%',marginHorizontal:'5%',fontSize:20,fontWeight:"bold"}}> Ingredientes </Text>
+
+
+            <Ingredients ingredientes ={arringredientes} />
+
+
+            <Divider my="2" thickness="2" />
+
         </NativeBaseProvider>
-
-        <Text style={{ marginTop:'10%',marginHorizontal:'5%',fontSize:20,fontWeight:"bold"}}> Ingredientes </Text>
-
-
-        <Ingredients ingredientes ={arringredientes} />
 
 
      </ScrollView>
