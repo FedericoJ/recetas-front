@@ -34,7 +34,7 @@ import {
       const body = JSON.stringify({mail, password})
 
       try {
-        const res = await axios.get(`${baseUrl}/usuario/login`,body,setup);
+        const res = await axios.post(`${baseUrl}/usuario/login`,body,setup);
         navigation.navigate('Principal')
         console.log(res.data);
         console.log(res)
