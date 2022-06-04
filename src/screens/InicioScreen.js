@@ -28,7 +28,7 @@ const navigation = useNavigation();
       </View>
       </Center>
         <VStack space={3} mt="5">
-        <ButtonFondoRosa text="Inicia Sesión" onPress={() => navigation.navigate('Login')}/>
+        <ButtonFondoRosa text="Iniciar Sesión" onPress={() => navigation.navigate('Login')}/>
         <ButtonFondoBlanco text="Registrate" onPress={() => navigation.navigate('Register')}/>
         </VStack>
       </Box>
@@ -39,7 +39,7 @@ const styles = StyleSheet.create({
 
   container: {
     flex: 1,
-    backgroundColor: '#D6B1B1',
+    backgroundColor: '#FBE192',
   },
 
   centerContent: {
