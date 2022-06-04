@@ -20,8 +20,8 @@ import {
   const LoginScreen = () => {
 
     const navigation = useNavigation();
-    const [ Usuario , setUsuario] = useState("");
-    const [ Password    , setPassword] = useState("");
+    const [ mail , setUsuario] = useState("");
+    const [ password    , setPassword] = useState("");
 
     const baseUrl =  config.baseUrl;
     const Login = async () => {
@@ -31,16 +31,16 @@ import {
           'content-type' : 'application/json'
         }
       }
-      const body = JSON.stringify({firstName,lastName,password,email, gender, condition})
+      const body = JSON.stringify({mail, password})
 
       try {
-        const res = await axios.post(`${baseUrl}/users/`,body,setup);
-        navigation.navigate('RegisterSuccess')
+        const res = await axios.get(`${baseUrl}/usuario/login`,body,setup);
+        navigation.navigate('Principal')
         console.log(res.data);
         console.log(res)
       }catch(error){
-        console.log("Here")
-        navigation.navigate('RegisterFailed')
+        console.log("Error")
+        alert("Error de login")
       }
     }
     ;
@@ -80,17 +80,17 @@ import {
         <FormControl isRequired>
             <FormControl.Label>Usuario</FormControl.Label>
             <Input 
-              value={Usuario}
+              value={mail}
               onChangeText={setUsuario}/>
           </FormControl>
           <FormControl isRequired>
             <FormControl.Label>Password</FormControl.Label>
             <Input 
-              value={Password}
+              value={password}
               onChangeText={setPassword}
             />
         </FormControl>
-          <ButtonFondoRosa text="Ingresar" onPress={() => navigation.navigate('Principal')}/>
+          <ButtonFondoRosa text="Ingresar" onPress={Login}/>
           <ButtonFondoBlanco text="Cancelar" onPress={() => navigation.navigate('Inicio')}/>
           <HStack mt="6" justifyContent="center" onPress={() => navigation.navigate('Inicio')}>
             <Link  onPress={() => navigation.navigate('RecoveryPassword')} _text={{

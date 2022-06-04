@@ -18,8 +18,8 @@ import {
   const RegisterScreen = () => {
 
     const navigation = useNavigation();
-    const [ Usuario , setUsuario] = useState("");
-    const [ email    , setEmail] = useState("");
+    const [ nickname , setUsuario] = useState("");
+    const [ mail    , setEmail] = useState("");
 
     const baseUrl =  config.baseUrl;
     const Register = async () => {
@@ -29,7 +29,7 @@ import {
           'content-type' : 'application/json'
         }
       }
-      const body = JSON.stringify({Usuario, email})
+      const body = JSON.stringify({nickname, mail})
 
       try {
         const res = await axios.post(`${baseUrl}/usuario/crearInvitado`,body,setup);
@@ -38,7 +38,7 @@ import {
         console.log(res)
       }catch(error){
         console.log("Here")
-        navigation.navigate('RegisterFailed')
+        alert("Login fallido")
       }
     }
     ;
@@ -78,13 +78,13 @@ import {
         <FormControl isRequired>
             <FormControl.Label>Email</FormControl.Label>
             <Input 
-              value={email}
+              value={mail}
               onChangeText={setEmail}/>
           </FormControl>
           <FormControl isRequired>
             <FormControl.Label>Usuario</FormControl.Label>
             <Input 
-              value={Usuario}
+              value={nickname}
               onChangeText={setUsuario}
             />
         </FormControl>
