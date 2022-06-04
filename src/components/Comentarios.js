@@ -34,11 +34,11 @@ class Comentarios extends React.Component{
                         <FontAwesome name="user" size={30} color="black" />
                         
 
-                        <Text style={{fontSize:20, color:"black"}}> {element.usuario} </Text>
+                        <Text style={{fontSize:20, widht:'%90', color:"black"}}> {element.usuario} </Text>
                         
                         <NativeBaseProvider>
 
-                        <TouchableOpacity style={{width:'10%',alignItems:'flex-start'}}>
+                        <TouchableOpacity style={{alignItems:'right'}}>
                             <Stars 
                                 display={element.calificacion}
                                 spacing={4}
