@@ -1,11 +1,36 @@
-import React from 'react';
-import { ScrollView,StyleSheet,Image,View,Text,TouchableOpacity,TextInput} from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { ScrollView,StyleSheet,Image,View,Text,TouchableOpacity,TextInput, Modal} from 'react-native';
 import { FontAwesome, MaterialCommunityIcons } from '@expo/vector-icons'; 
 import Stars from 'react-native-stars';
-import {NativeBaseProvider,TextArea,Input,Divider} from "native-base";
+import {NativeBaseProvider,TextArea,Input, FormControl,VStack, HStack,Link} from "native-base";
 import Ingredients from "../components/Ingredients";
-import Steps from "../components/Step";
+import {  ButtonModal, ButtonFondoRosaModal } from '../components/ButtonsLogin';
+import Box from '@mui/material/Box';
+import Rating from '@mui/material/Rating';
+import Typography from '@mui/material/Typography';
+    
 
+const ModalPoup = ({visible, children}) => {
+    const [showModal, setShowModal] = React.useState(visible);
+    React.useEffect(() => {
+        toggleModal();
+    },[visible])
+    const toggleModal = () =>{
+        if(visible){
+            setShowModal(true);
+        }
+        else {setShowModal(false)};
+    }
+    
+    return <Modal transparent visible={showModal}>
+        <View style={styles.modalBackGround}>
+            <View style={[styles.modalContainer]}>
+                {children}
+            </View>
+        </View>
+    </Modal>;
+
+};
 
 
 const tipoImage='https://d320djwtwnl5uo.cloudfront.net/recetas/cover/milan_SuLEW9PUrTwyi0npoGIKD5zNqHmcAb.png';
@@ -27,6 +52,12 @@ const arrPasos =[
 
 
 const ViewReceta  = ({navigation}) => {
+    const [visible, setVisible] = React.useState(false);
+    const [Comentario , setComentario] = useState("");
+    const [value, setValue] = React.useState(0);
+
+
+
 
 return (
     <ScrollView style={styles.container}>
@@ -55,8 +86,66 @@ return (
         </View>
 
         <View style={{flexDirection:"row" , alignItems:"center", marginTop:'2%', marginBottom:'2%', marginHorizontal:'5%'}}>
+            <ModalPoup visible = {visible}>
+                <View style = {{alignItems: 'flex-start'}}>
+                    <Text style={{fontSize:20, color:"black"}}> Calificación </Text>
+                    <View style={{flexDirection:"row" , alignItems:"center", marginTop:'2%', marginBottom:'2%', marginHorizontal:'5%'}}>
+                    {/* asigno espacio */}
 
-            <TouchableOpacity style={{width:'90%',alignItems:'flex-start'}}>
+                     </View>
+                     <Box
+                        sx={{
+                            '& > legend': { mt: 2 },
+                        }}
+                    >
+                    <Rating
+                        name="simple-controlled"
+                        value={value}
+                        size="large"
+                        precision={0.5}
+                        onChange={(event, newValue) => {
+                        setValue(newValue);
+                    }}
+                    />
+                    </Box>
+                    <View style={{flexDirection:"row" , alignItems:"center", marginTop:'2%', marginBottom:'2%', marginHorizontal:'5%'}}>
+                    {/* asigno espacio */}
+
+                     </View>
+                    <Text style={{fontSize:20, color:"black"}}> Agrega tu comentario </Text>
+                    
+                    <View style={{flexDirection:"row" , alignItems:"center", marginTop:'2%', marginBottom:'2%', marginHorizontal:'5%'}}>
+                    {/* asigno espacio */}
+
+                     </View>
+                    <TextInput
+                        style={styles.input}
+                        value={Comentario}
+                        onChangeText={setComentario}
+                        multiline={true}
+                        numberOfLines={4}
+                    />
+                    <View>
+                    </View>
+                    <View style={{flexDirection:"row" , alignItems:"center", marginTop:'2%', marginBottom:'2%', marginHorizontal:'5%'}}>
+                    {/* asigno espacio */}
+
+                     </View>
+
+                </View>
+                
+                <View style={{flexDirection:"row" , alignItems:"center", marginTop:'1%', marginBottom:'1%', marginHorizontal:'1%'}}>
+
+                <ButtonModal text="Atras" onPress={() => { navigation.navigate('Receta');setVisible(false); }}/>
+                <ButtonModal text="Guardar" onPress={() => { navigation.navigate('Receta');setVisible(false); }}/>
+
+                </View> 
+
+
+
+            </ModalPoup>
+
+            <TouchableOpacity onPress={() => setVisible(true)} style={{width:'90%',alignItems:'flex-start'}}>
                 <Stars 
                     display={4.1}
                     spacing={4}
@@ -135,6 +224,36 @@ const styles = StyleSheet.create({
       flex: 1,
       backgroundColor:'#D6B1B1'
     },
+    modalBackGround: {
+        flex: 1,
+        backgroundColor: 'rgba(0,0,0,0.5)',
+        justifyContent: 'center',
+        alignItems: 'center',
+      },
+    modalContainer: {
+        width: '80%',
+        backgroundColor: '#F7F4F4',
+        paddingHorizontal: 20,
+        paddingVertical: 30,
+        borderRadius: 20,
+        elevation: 20,
+      },
+    header: {
+        width: '100%',
+        height: 40,
+        alignItems: 'flex-end',
+        justifyContent: 'center',
+      },
+    input: {
+        height: "100%", 
+        borderColor: 'gray', 
+        borderWidth: 1,
+        width: '100%',
+        justifyContent: "center",
+        alignItems: "stretch",
+    },
+
+
 
 
   });

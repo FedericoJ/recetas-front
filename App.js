@@ -19,6 +19,9 @@ import Results from './src/screens/Results';
 import Receta from './src/screens/ViewReceta';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import ComentarioRecetaScreen from './src/screens/ComentarioRecetaScreen';
+import PerfilScreen from './src/screens/PerfilScreen';
+import EditarPerfilScreen from './src/screens/EditarPerfilScreen';
+import CambiarContraseniaScreen from './src/screens/CambiarContraseniaScreen';
 
 
 const Stack = createNativeStackNavigator();
@@ -45,6 +48,9 @@ const App = () =>{
         <Stack.Screen name = "Results" component={Results} />
         <Stack.Screen name = "Receta" component={Receta} />
         <Stack.Screen name = "ComentarioReceta" component={ComentarioRecetaScreen} />
+        <Stack.Screen name = "Perfil" component={PerfilScreen} />
+        <Stack.Screen name = "EditarPerfil" component={EditarPerfilScreen} />
+        <Stack.Screen name = "CambiarContrasenia" component={CambiarContraseniaScreen} />
       </Stack.Navigator>
 
     

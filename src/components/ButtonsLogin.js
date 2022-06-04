@@ -97,3 +97,64 @@ export function ButtonConIconoFondoRosa (props) {
         </TouchableOpacity>
     )
 }
+
+export function ButtonModal (props) {
+
+    const { text, onPress } = props
+
+    return(
+        <TouchableOpacity
+            style = {{
+                backgroundColor: '#F7F4F4',
+                alignSelf: 'center',
+                borderRadius: 5,
+                width: '50%',
+                marginVertical: 10,
+                paddingVertical: 10,
+            }}
+            onPress = { onPress }
+            >
+            <Text
+                style = {{
+                    color: '#AC6363',
+                    textAlign : 'center',
+                    fontWeight: 'bold',
+                }}
+            >
+                { text }
+            </Text>
+        </TouchableOpacity>
+    )
+}
+
+export function ButtonModalUnico (props) {
+
+    const { onPress, text } = props
+
+    return(
+        <TouchableOpacity
+            style = {{
+                backgroundColor: '#F7F4F4',
+                alignSelf: 'center',
+                borderRadius: 5,
+                width: '100%',
+                marginVertical: 10,
+                paddingVertical: 10,
+                borderWidth: 1,
+                borderColor: '#F7F4F4',
+            }}
+            onPress = { onPress }
+            >
+            <Text
+                style = {{
+                    color: '#AC6363',
+                    textAlign : 'center',
+                    fontWeight: 'bold',
+                }}
+            >
+                { text }
+            </Text>
+        </TouchableOpacity>
+    )
+
+}
