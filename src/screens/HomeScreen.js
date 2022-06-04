@@ -40,8 +40,8 @@ const HomeScreen = ({navigation}) => {
     onPress={() => navigation.navigate('RecoveryPassword')}
     />
     <Button 
-    title="Go to Comentario Receta"
-    onPress={() => navigation.navigate('ComentarioReceta')}
+    title="Go to Perfil"
+    onPress={() => navigation.navigate('Perfil')}
     />
     </View>
   )

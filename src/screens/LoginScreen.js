@@ -92,7 +92,7 @@ import {
         </FormControl>
           <ButtonFondoRosa text="Ingresar" onPress={() => navigation.navigate('Principal')}/>
           <ButtonFondoBlanco text="Cancelar" onPress={() => navigation.navigate('Inicio')}/>
-          <HStack mt="6" justifyContent="center" onPress={() => navigation.navigate('Inicio')}>
+          <HStack mt="6" justifyContent="center" >
             <Link  onPress={() => navigation.navigate('RecoveryPassword')} _text={{
             color: "#AC6363",
             fontWeight: "medium",

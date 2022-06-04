@@ -54,12 +54,21 @@ class Comentarios extends React.Component{
                        
                     </View>
 
+                    <View style={{flexDirection:"row" , alignItems:"center", marginTop:'2%', marginBottom:'2%', marginHorizontal:'5%'}}>
+                    {/* asigno espacio */}
+
+                     </View>
 
                      <NativeBaseProvider>
                     
                     <TextArea style={{backgroundColor:"#ffff"}} w ="90%" mx ="5" value= {element.comentario} placeholder="Disabled TextArea" />
 
                     </NativeBaseProvider>
+
+                    <View style={{flexDirection:"row" , alignItems:"center", marginTop:'2%', marginBottom:'2%', marginHorizontal:'5%'}}>
+                    {/* asigno espacio */}
+
+                    </View>
 
                 </View>
 
