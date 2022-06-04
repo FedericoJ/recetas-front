@@ -98,6 +98,11 @@ import {
 
 const styles = StyleSheet.create({
 
+  container: {
+    flex: 1,
+    backgroundColor: '#D6B1B1',
+  },
+
   centerContent: {
     justifyContent:'center',
     alignItems:'center'
@@ -115,7 +120,7 @@ const styles = StyleSheet.create({
     export default () => {
         return (
           <NativeBaseProvider>
-            <Center flex={1} px="3">
+            <Center style={styles.container} flex={1} px="3">
                 <RegisterScreen />
             </Center>
           </NativeBaseProvider>
