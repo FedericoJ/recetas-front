@@ -6,26 +6,52 @@ import {NativeBaseProvider,TextArea,Input,Select,CheckIcon,HStack} from "native-
 import RNPickerSelect from 'react-native-picker-select';
 
 
+
+
+const images =[
+
+    {
+        source: {
+            uri: 'https://cdn.pixabay.com/photo/2017/08/17/10/47/paris-2650808_960_720.jpg',
+        },
+        title: 'Prueba',
+        width: 806,
+        height: 720,
+    },
+
+]
+
+
+
+
 const Steps = ({ pasos }) => {
 
         return (
             <View>
                {pasos &&
                 pasos.map((element, i) => (
-                    
-                    <View style={{flexDirection:"row" ,alignItems:"flex-start", marginTop:'5%', marginBottom:'2%', marginLeft:'5%'}}>
 
-                        <Text style={{fontSize:20, fontWeight:"bold"}}> {element.idPaso} </Text> 
+                    <View>
 
-                        <NativeBaseProvider>
+                        <View style={{flexDirection:"row" ,alignItems:"flex-start", marginTop:'5%', marginBottom:'2%', marginLeft:'5%'}}>
 
-                            <TextArea style={{backgroundColor:"#ffff"}} w="90%" mr="5" ml ="2" value={element.descripcion} 
-                                placeholder="Disabled TextArea" isDisabled />
-                            
-                        </NativeBaseProvider>
+                            <Text style={{fontSize:20, fontWeight:"bold"}}> {element.idPaso} </Text> 
+
+                            <NativeBaseProvider>
+
+                                <TextArea style={{backgroundColor:"#ffff"}} w="90%" mr="5" ml ="2" value={element.descripcion} 
+                                    placeholder="Disabled TextArea" isDisabled />
+                                
+                            </NativeBaseProvider>
+
+
+
+                        </View>
+
                     </View>
                         
                 ))}
+
 
               </View>    
             

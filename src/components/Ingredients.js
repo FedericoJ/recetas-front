@@ -23,7 +23,7 @@ const InputSelectCombo = ({item, unidades}) => {
     <Select
       style={{backgroundColor:'#ffff'}}
       selectedValue={unidadSeleccionada}
-      w='30%'
+      w='40%'
       mx="2"
       _selectedItem={{
         bg: "indigo",
@@ -70,6 +70,7 @@ const Ingredients = ({ ingredientes }) => {
             <Text style={{ fontSize: 16, width: "60%" }}>{element.nombre}</Text>
 
             <InputSelectCombo  unidades={unidades} item={element}/>
+            
           </View>
         ))}
 
