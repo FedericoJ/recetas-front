@@ -77,21 +77,24 @@ import {
         </Center>
         <VStack space={3} mt="5">
         <FormControl isRequired>
-            <FormControl.Label>Nombre</FormControl.Label>
             <Input 
+              placeholder="Nombre"
+              backgroundColor="#FFFF"
               value={Nombre}
               onChangeText={setNombre}/>
           </FormControl>
           <FormControl isRequired>
-            <FormControl.Label>Contraseña</FormControl.Label>
             <Input 
+              placeholder="Contraseña"
+              backgroundColor="#FFFF"
               value={Password}
               onChangeText={setPassword}
             />
         </FormControl>
         <FormControl isRequired>
-            <FormControl.Label>Repetir Contraseña</FormControl.Label>
             <Input 
+              placeholder="Repetir Contraseña"
+              backgroundColor="#FFFF"
               value={Password2}
               onChangeText={setPassword2}
             />
@@ -106,6 +109,12 @@ import {
 };
 
 const styles = StyleSheet.create({
+
+  container: {
+    flex: 1,
+    backgroundColor: '#D6B1B1',
+  },
+
 
   centerContent: {
     justifyContent:'center',
@@ -124,7 +133,7 @@ const styles = StyleSheet.create({
     export default () => {
         return (
           <NativeBaseProvider>
-            <Center flex={1} px="3">
+            <Center style={styles.container} flex={1} px="3">
                 <RegisterPasswordScreen />
             </Center>
           </NativeBaseProvider>

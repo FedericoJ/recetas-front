@@ -28,7 +28,7 @@ const navigation = useNavigation();
       </View>
       </Center>
         <VStack space={3} mt="5">
-        <ButtonFondoRosa text="Inicia Sesión" onPress={() => navigation.navigate('Login')}/>
+        <ButtonFondoRosa text="Iniciar Sesión" onPress={() => navigation.navigate('Login')}/>
         <ButtonFondoBlanco text="Registrate" onPress={() => navigation.navigate('Register')}/>
         </VStack>
       </Box>
@@ -36,6 +36,11 @@ const navigation = useNavigation();
 };
 
 const styles = StyleSheet.create({
+
+  container: {
+    flex: 1,
+    backgroundColor: '#FBE192',
+  },
 
   centerContent: {
     justifyContent:'center',
@@ -45,7 +50,7 @@ const styles = StyleSheet.create({
     export default () => {
         return (
           <NativeBaseProvider>
-            <Center flex={1} px="3">
+            <Center style={styles.container}  flex={1} px="3">
                 <InicioScreen />
             </Center>
           </NativeBaseProvider>
