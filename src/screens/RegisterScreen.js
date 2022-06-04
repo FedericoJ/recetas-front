@@ -76,14 +76,16 @@ import {
         </Center>
         <VStack space={3} mt="5">
         <FormControl isRequired>
-            <FormControl.Label>Email</FormControl.Label>
             <Input 
+              placeholder="Email"
+              backgroundColor="#FFFF"
               value={mail}
               onChangeText={setEmail}/>
           </FormControl>
           <FormControl isRequired>
-            <FormControl.Label>Usuario</FormControl.Label>
             <Input 
+              placeholder="Usuario"
+              backgroundColor="#FFFF"
               value={nickname}
               onChangeText={setUsuario}
             />
