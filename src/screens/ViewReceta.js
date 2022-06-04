@@ -33,17 +33,23 @@ const ModalPoup = ({visible, children}) => {
 };
 
 
-
 const tipoImage='https://d320djwtwnl5uo.cloudfront.net/recetas/cover/milan_SuLEW9PUrTwyi0npoGIKD5zNqHmcAb.png';
 
 //select I.nombre, U.cantidad, UNI.descripcion, UNI.IdUnidad, R.idReceta
 
 const arringredientes =[
     {nombre:"Pan rallado",cantidad: 100},
-    {nombre: "Cuadrada", cantidad: 500},
-    {nombre: "Huevos", cantidad:4}
-
+    {nombre:"Queso rallado",cantidad: 150},
+    {nombre:"Salamin con queso",cantidad: 150},
 ]
+
+const arrPasos =[
+    {idPaso:1,descripcion: "Aca cortamos la cebolla en juliana"},
+    {idPaso:2,descripcion: "Abrimos la nalga al medio mientras le entramos a ella"},
+    {idPaso:3,descripcion: "Agregamos sal a piacere"}
+]   
+ 
+
 
 const ViewReceta  = ({navigation}) => {
     const [visible, setVisible] = React.useState(false);
@@ -64,7 +70,6 @@ return (
 
             <Text style={{fontSize:20, width:'90%',fontWeight:"bold"}}> Milanga </Text>
 
-
             <Text onPress={() => navigation.navigate('ComentarioReceta')} style={{fontSize:20}}> 4.1 </Text>
 
             <FontAwesome onPress={() => navigation.navigate('ComentarioReceta')} name="star" color="#FFD700" />
@@ -73,7 +78,6 @@ return (
         </View>
 
          <View style={{flexDirection:"row" , alignItems:"center", marginTop:'2%', marginBottom:'2%', marginHorizontal:'5%'}}>
-
 
             <FontAwesome name="user" size={30} color="gray" />
 
@@ -193,12 +197,22 @@ return (
             </View>
 
 
+            <Divider  thickness="2" />
+
+            <Text style={{ marginTop:'5%',marginHorizontal:'5%',fontSize:25,fontWeight:"bold"}}> Ingredientes </Text>
+
+
+            <Ingredients ingredientes ={arringredientes} />
+
+
+            <Divider my="2" thickness="2" />
+
+             <Text style={{ marginTop:'5%',marginHorizontal:'5%',fontSize:25,fontWeight:"bold"}}> Pasos </Text>
+
+            <Steps pasos ={arrPasos}/>
+            
+
         </NativeBaseProvider>
-
-        <Text style={{ marginTop:'10%',marginHorizontal:'5%',fontSize:20,fontWeight:"bold"}}> Ingredientes </Text>
-
-
-        <Ingredients ingredientes ={arringredientes} />
 
 
      </ScrollView>

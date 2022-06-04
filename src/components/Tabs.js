@@ -6,43 +6,47 @@ import {  ButtonConIconoFondoRosa } from './ButtonsLogin';
 import { useNavigation } from '@react-navigation/native';
 
   
+    const ITEMS = [{
+        name: "ingrediente",
+        label: "Ingrediente",
+    },
+    {
+        name: "plato",
+        label: "Plato",
+    },
+    {
+        name: "tipo",
+        label: "Tipo",
+    },
+    {
+        name: "usuario",
+        label: "Usuario",
+    }];
+
+    const activeItemClass = {fontSize:15, color: '#AC6363',textDecorationLine: 'underline'};
+    const inactiveItemClass = {fontSize:15, color: 'gray',textDecorationLine: 'underline'};
+
     const Tabs  = () => {
 
         const navigation = useNavigation();
+        
+        const [activeElement, setActiveElement] = React.useState('ingrediente');
+    
+        const onPressHandler = (item) => {
+            setActiveElement(item.name);
+        }
 
         return (
             <NativeBaseProvider style={{backgroundColor:'#ffff'}}>
                
                     <View style={styles.container}>
+                        {ITEMS.map( (item, i) => (
+                            <TouchableOpacity key={item.name} onPress={() => onPressHandler(item)}>
 
-                         <TouchableOpacity style={{marginLeft:'2%'}}>
+                                <Text  style={activeElement === item.name ? activeItemClass : inactiveItemClass}> {item.label} </Text>
 
-                                <Text  style={{fontSize:15, color: '#AC6363',textDecorationLine: 'underline'}}> Ingrediente </Text>
-
-                        </TouchableOpacity>
-
-                        <TouchableOpacity style={{}}>
-
-                            <Text  style={{fontSize:15, color: 'gray',textDecorationLine: 'underline'}}> Plato </Text>
-
-                        </TouchableOpacity>
-
-                        <TouchableOpacity style={{}}>
-
-                            <Text  style={{fontSize:15, color: 'gray',textDecorationLine: 'underline'}}> Tipo </Text>
-
-                        </TouchableOpacity>
-        
-                       
-                        <TouchableOpacity style={{marginRight:'5%'}}>
-
-                            <Text  style={{fontSize:15, color: 'gray',textDecorationLine: 'underline'}}> Usuario </Text>
-
-                        </TouchableOpacity>
-            
-                       
-            
-    
+                            </TouchableOpacity>
+                        ))}
                     </View>
 
 
