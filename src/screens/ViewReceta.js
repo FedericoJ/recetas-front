@@ -2,13 +2,13 @@ import React, { useState, useEffect } from 'react';
 import { ScrollView,StyleSheet,Image,View,Text,TouchableOpacity,TextInput, Modal} from 'react-native';
 import { FontAwesome, MaterialCommunityIcons } from '@expo/vector-icons'; 
 import Stars from 'react-native-stars';
-import {NativeBaseProvider,TextArea,Input, FormControl,VStack, HStack,Link} from "native-base";
+import {NativeBaseProvider,TextArea,Input, FormControl,VStack, HStack,Link,Divider} from "native-base";
 import Ingredients from "../components/Ingredients";
 import {  ButtonModal, ButtonFondoRosaModal } from '../components/ButtonsLogin';
 import Box from '@mui/material/Box';
 import Rating from '@mui/material/Rating';
 import Typography from '@mui/material/Typography';
-    
+import Steps from "../components/Step"    
 
 const ModalPoup = ({visible, children}) => {
     const [showModal, setShowModal] = React.useState(visible);
