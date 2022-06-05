@@ -33,12 +33,13 @@ const App = () => {
       <Stack.Navigator>
         {isAuthenticated && (
           <>
+            {/* aca usas solo una pantalla, porque el resto van como hijas de las otras */}
+            <Stack.Screen name="Home" component={HomeScreen} />
             <Stack.Screen
               name="Principal"
               options={{ headerShown: false }}
               component={Principal}
             />
-            <Stack.Screen name="Home" component={HomeScreen} />
             <Stack.Screen name="Scanner" component={ScannerScreen} />
             <Stack.Screen name="Inicio" component={InicioScreen} />
             <Stack.Screen name="DigitVerify" component={DigitVerify} />
