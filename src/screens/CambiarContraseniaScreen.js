@@ -47,11 +47,11 @@ import {
      
 
   return <Center w="100%">
-                        <View style={{flexDirection:"row" , alignItems:"center", marginTop:'2%', marginBottom:'2%', marginHorizontal:'5%'}}>
-                    {/* asigno espacio */} 
+    <View style={{flexDirection:"row" , alignItems:"center", marginTop:'10%', marginBottom:'1%', marginHorizontal:'5%'}}>
 
-                     </View>
-     <View maxW="400" h="600" style={styles.scrollView} _contentContainerStyle={{
+
+                     
+     <View maxW="600" h="600" style={styles.scrollView} _contentContainerStyle={{
       px: "20px",
       mb: "4",
       minW: "72"
@@ -66,14 +66,14 @@ import {
         </Center>
         <VStack space={3} mt="5">
         <FormControl isRequired>
-            <FormControl.Label>Contraseña</FormControl.Label>
             <Input 
+              placeholder="Contraseña"
               value={Password}
               onChangeText={setPassword}/>
           </FormControl>
-          <FormControl isRequired >
-            <FormControl.Label>Repetir Contraseña</FormControl.Label>
+          <FormControl isRequired>
             <Input 
+              placeholder="Repetir Contraseña"
               value={Password2}
               onChangeText={setPassword2}
             />
@@ -99,7 +99,11 @@ import {
                 
                 </View> 
 
+                
+
             </ModalPoup>
+
+            </View>
 
     </Center>;
 

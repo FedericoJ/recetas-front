@@ -52,21 +52,21 @@ import {
         </Center>
         <VStack space={3} mt="5">
         <FormControl isRequired>
-            <FormControl.Label>Nombre</FormControl.Label>
-            <Input 
+            <Input
+              placeholder="Nombre" 
               value={nombre}
               onChangeText={setNombre}/>
           </FormControl>
           <FormControl >
-            <FormControl.Label>Usuario</FormControl.Label>
-            <Input 
+            <Input
+              placeholder="Usuario" 
               value={usuario}
               isDisabled
             />
         </FormControl>
         <FormControl >
-            <FormControl.Label>Mail</FormControl.Label>
-            <Input 
+            <Input
+              placeholder="Mail" 
               value={mail}
               isDisabled
             />
