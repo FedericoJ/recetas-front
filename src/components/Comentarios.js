@@ -29,7 +29,7 @@ class Comentarios extends React.Component{
 
                 <View>   
                 
-                    <View style={{alignItems:"center", flexDirection:"row" ,marginTop:'2%', marginBottom:'2%', marginHorizontal:'5%'}}>
+                    <View style={{alignItems:"flex-end", flexDirection:"row" ,marginTop:'2%', marginBottom:'2%', marginHorizontal:'5%'}}>
                     
                         <FontAwesome name="user" size={30} color="black" />
                         
@@ -38,7 +38,7 @@ class Comentarios extends React.Component{
                         
                         <NativeBaseProvider>
 
-                        <TouchableOpacity style={{alignItems:'right'}}>
+                        <TouchableOpacity style={{flexDirection:"column", alignItems:'flex-end'}}>
                             <Stars 
                                 display={element.calificacion}
                                 spacing={4}
