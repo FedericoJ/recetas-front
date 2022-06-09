@@ -23,6 +23,7 @@ import ComentarioRecetaScreen from "./src/screens/ComentarioRecetaScreen";
 import PerfilScreen from "./src/screens/PerfilScreen";
 import EditarPerfilScreen from "./src/screens/EditarPerfilScreen";
 import CambiarContraseniaScreen from "./src/screens/CambiarContraseniaScreen";
+import Favoritos from "./src/screens/Favoritos";
 
 const Stack = createNativeStackNavigator();
 
@@ -85,6 +86,10 @@ const App = () => {
             <Stack.Screen
               name="CambiarContrasenia"
               component={CambiarContraseniaScreen}
+            />
+            <Stack.Screen
+              name="Favoritos"
+              component={Favoritos}
             />
           </>
         )}
