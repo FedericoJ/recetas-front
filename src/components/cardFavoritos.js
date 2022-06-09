@@ -51,14 +51,14 @@ const Favorito =()=>{
     return (
         <SafeAreaView style={{ marginVertical:'5%'}}>
           
-        <Text  style={{textAlign:"center",fontSize:20,fontWeight:"bold",marginBottom:'2%'}}> Favoritos </Text>
-        <Swipeable overshootRight={false} renderRightActions={RenderRight}> 
+        <Text  style={{textAlign:"center",fontSize:20,fontWeight:"bold",marginBottom:'2%'}}> Favoritos </Text> 
             <FlatList style= {{marginHorizontal:'5%'}} data ={tipos}
                 numColumns={1}
-                renderItem={({item, index}) => (<RecetasFavoritos navegacion={navigation} tipos ={item} index={index} />)}>
+                renderItem={({item, index}) =>(
+                <Swipeable overshootRight={false} renderRightActions={RenderRight}> 
+                 <RecetasFavoritos navegacion={navigation} tipos ={item} index={index} />
+                 </Swipeable>)}>
              </FlatList>
-             </Swipeable>
-
 
         </SafeAreaView>
 
