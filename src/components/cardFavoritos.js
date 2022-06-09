@@ -15,11 +15,11 @@ import { Swipeable } from 'react-native-gesture-handler';
   const tipos =[
        
     {tipo:"Pasta",calificacion:3.5,usuario:"@mamacora",tipoImage:imagesrc},
-    //{tipo:"Comida china",calificacion:3.5,usuario:"@mamacora",tipoImage:imagesrc},
-    // {tipo:"Milanesas",calificacion:4.5,usuario:"@mamacora",tipoImage:imagesrc},
-    // {tipo:"Hamburguesas estilo Campo",calificacion:3.5,usuario: "@mamacora",tipoImage:imagesrc},
-    // {tipo:"Helados",calificacion:2,usuario:"@mamacora",tipoImage:imagesrc},
-    // {tipo:"Postres",calificacion:1,usuario:"@mamacora",tipoImage:imagesrc},
+    {tipo:"Comida china",calificacion:3.5,usuario:"@mamacora",tipoImage:imagesrc},
+    {tipo:"Milanesas",calificacion:4.5,usuario:"@mamacora",tipoImage:imagesrc},
+    {tipo:"Hamburguesas estilo Campo",calificacion:3.5,usuario: "@mamacora",tipoImage:imagesrc},
+    {tipo:"Helados",calificacion:2,usuario:"@mamacora",tipoImage:imagesrc},
+    {tipo:"Postres",calificacion:1,usuario:"@mamacora",tipoImage:imagesrc},
 ];
 
  const RenderRight = (progress,dragX) =>{
