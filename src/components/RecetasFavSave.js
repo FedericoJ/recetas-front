@@ -11,7 +11,7 @@ class Recetas extends React.Component{
     render(
         
     ){
-        const {tipo,usuario,calificacion,tipoImage} = this.props.tipos;
+        const {id,tipo,usuario,calificacion,tipoImage} = this.props.tipos;
         const  navigation  = this.props.navegacion;
         return (
             

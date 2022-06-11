@@ -24,6 +24,8 @@ import PerfilScreen from "./src/screens/PerfilScreen";
 import EditarPerfilScreen from "./src/screens/EditarPerfilScreen";
 import CambiarContraseniaScreen from "./src/screens/CambiarContraseniaScreen";
 import Favoritos from "./src/screens/Favoritos";
+import Guardadas from "./src/screens/Guardadas";
+import MisRecetas from "./src/screens/MisRecetas";
 
 const Stack = createNativeStackNavigator();
 
@@ -90,6 +92,14 @@ const App = () => {
             <Stack.Screen
               name="Favoritos"
               component={Favoritos}
+            />
+            <Stack.Screen
+              name="Guardadas"
+              component={Guardadas}
+            />
+              <Stack.Screen
+              name="MisRecetas"
+              component={MisRecetas}
             />
           </>
         )}

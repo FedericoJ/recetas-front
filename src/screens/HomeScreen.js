@@ -47,6 +47,15 @@ const HomeScreen = ({navigation}) => {
     title="Go to Favoritos"
     onPress={() => navigation.navigate('Favoritos')}
     />
+    <Button 
+    title="Go to Guardadas"
+    onPress={() => navigation.navigate('Guardadas')}
+    />
+    <Button 
+    title="Go to Mis Recetas"
+    onPress={() => navigation.navigate('MisRecetas')}
+    />
+    
     </View>
   )
 };

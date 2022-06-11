@@ -47,7 +47,7 @@ import { Swipeable } from 'react-native-gesture-handler';
  
 
 
-const Favorito =()=>{
+const Guardada =()=>{
     const navigation = useNavigation();
     const [item, setItem] = useState(tipos);
     const deleteItem = (id) => {
@@ -58,7 +58,7 @@ const Favorito =()=>{
       
         <SafeAreaView style={{ marginVertical:'5%'}}>
           
-        <Text  style={{textAlign:"center",fontSize:20,fontWeight:"bold",marginBottom:'2%'}}> Favoritos </Text> 
+        <Text  style={{textAlign:"center",fontSize:20,fontWeight:"bold",marginBottom:'2%'}}> Guardadas </Text> 
             <FlatList style= {{marginHorizontal:'5%'}} data ={tipos}
                 numColumns={1}
                 renderItem={({item, index}) =>(
@@ -72,4 +72,4 @@ const Favorito =()=>{
 
 }
 
-export default Favorito;
+export default Guardada;
