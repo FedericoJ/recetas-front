@@ -199,3 +199,64 @@ export function ButtonModalUnico (props) {
     )
 
 }
+
+export function ButtonCreateRosa (props) {
+
+    const { text, onPress } = props
+
+    return(
+        <TouchableOpacity
+            style = {{
+                backgroundColor: '#AC6363',
+                alignSelf: 'center',
+                borderRadius: 5,
+                width: '40%',
+                marginVertical: 10,
+                paddingVertical: 10,
+                marginHorizontal: "5%"
+            }}
+            onPress = { onPress }
+            >
+            <Text
+                style = {{
+                    color: '#fcfafa',
+                    textAlign : 'center',
+                    fontWeight: 'bold',
+                }}
+            >
+                { text }
+            </Text>
+        </TouchableOpacity>
+    )
+}
+
+export function ButtonCreateBlanco (props) {
+
+    const { text, onPress } = props
+
+    return(
+        <TouchableOpacity
+            style = {{
+                backgroundColor: '#fcfafa',
+                alignSelf: 'center',
+                borderRadius: 5,
+                width: '40%',
+                marginVertical: 10,
+                paddingVertical: 10,
+                marginHorizontal: "5%",
+                borderColor: '#AC6363',
+            }}
+            onPress = { onPress }
+            >
+            <Text
+                style = {{
+                    color: '#AC6363',
+                    textAlign : 'center',
+                    fontWeight: 'bold',
+                }}
+            >
+                { text }
+            </Text>
+        </TouchableOpacity>
+    )
+}

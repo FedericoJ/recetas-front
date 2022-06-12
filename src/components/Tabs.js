@@ -73,6 +73,7 @@ import Icon2 from '@mdi/react';
                                             } />
                     
                     <View style={styles.container}>
+                        
                         <ButtonConIconoFondoRosa text="Contiene" onPress={() => console.log("hola")}/>
                         <ButtonConIconoNegro text="Ordenar" onPress={() => setVisible(true)}/>
                         

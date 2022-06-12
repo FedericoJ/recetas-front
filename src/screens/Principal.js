@@ -18,7 +18,7 @@ const Principal = ({ navigation }) => {
         icon="pencil"
         label="Nueva"
         uppercase={false}
-        onPress={() => console.log("Pressed")}
+        onPress={() =>navigation.navigate('CreateReceta')}
       />
     </ScrollView>
   );
