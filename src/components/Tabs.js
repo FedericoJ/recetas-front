@@ -1,11 +1,16 @@
-import React from 'react';
-import { Divider, Flex, Box, Heading, Center,NativeBaseProvider,Text,Button,Input,Icon,View } from "native-base";
+import React, { useState } from 'react';
+import { Divider, Flex, Box, Heading, Center,NativeBaseProvider,Text,Button,Input,Icon,View,Modal } from "native-base";
 import {StyleSheet,TouchableOpacity} from 'react-native';
 import { MaterialIcons } from "@expo/vector-icons";
-import {  ButtonConIconoFondoRosa } from './ButtonsLogin';
+import {  ButtonConIconoFondoRosa, ButtonConIconoNegro, ButtonFondoRosa } from './ButtonsLogin';
 import { useNavigation } from '@react-navigation/native';
+import { fabClasses } from '@mui/material';
+import { mdiAlphaACircleOutline } from '@mdi/js';
+import { mdiAccountCircle } from '@mdi/js';
+import { mdiCalendarClock } from '@mdi/js';
+import Icon2 from '@mdi/react';
 
-  
+
     const ITEMS = [{
         name: "ingrediente",
         label: "Ingrediente",
@@ -27,8 +32,14 @@ import { useNavigation } from '@react-navigation/native';
     const inactiveItemClass = {fontSize:15, color: 'gray',textDecorationLine: 'underline'};
 
     const Tabs  = () => {
+        
+
 
         const navigation = useNavigation();
+        const [visible, setVisible] = useState(false);
+        const [orderA, setOrderA] = useState(true);
+        const [orderB, setOrderB] = useState(true);
+        const [orderC, setOrderC] = useState(true);
         
         const [activeElement, setActiveElement] = React.useState('ingrediente');
     
@@ -52,7 +63,7 @@ import { useNavigation } from '@react-navigation/native';
 
                     <View style={{alignItems:"left",backgroundColor:'#ffff'}}>
 
-                        <Input style={{backgroundColor:'#ffff'}} mx="2" my="3" size="xs" placeholder="Input" 
+                        <Input style={{backgroundColor:'#ffff'}} mx="2" my="3" size="large" placeholder="Input" 
                         InputRightElement={
                                             <TouchableOpacity
                                                 onPress = { () => navigation.navigate('Results') }
@@ -61,11 +72,64 @@ import { useNavigation } from '@react-navigation/native';
                                             </TouchableOpacity>
                                             } />
                     
-
+                    <View style={styles.container}>
+                        
                         <ButtonConIconoFondoRosa text="Contiene" onPress={() => console.log("hola")}/>
-
-
+                        <ButtonConIconoNegro text="Ordenar" onPress={() => setVisible(true)}/>
+                        
                     </View>
+                    </View>
+
+                        <View style={{alignItems:"left",backgroundColor:'#ffff'}}>
+
+                        <section>
+                            {(() =>{
+                                switch (visible){
+                                    case true : return (
+                                        <><View style={{marginHorizontal:"25%", alignItems:"center", flexDirection:"row",justifyContent:"space-between"}}>
+                                        <TouchableOpacity onPress={() => setOrderA(false)}> 
+                                        <section>
+                                        {(() =>{
+                                            switch (orderA){  
+                                                case true : return (<Icon2 path={mdiAlphaACircleOutline} title="User Profile" size={1} color="black" />);
+                                                case false: return ( <><TouchableOpacity onPress={() => setOrderA(true)}> <Icon2 path={mdiAlphaACircleOutline} title="User Profile" size={1} color="green" /> </TouchableOpacity></>);            
+                                            }
+                                        })()}
+                                        </section>
+                                        </TouchableOpacity>
+                                        <TouchableOpacity onPress={() => setOrderB(false)}> 
+                                        <section>
+                                        {(() =>{
+                                            switch (orderB){  
+                                                case true : return (<Icon2 path={mdiAccountCircle } title="User Profile" size={1} color="black" />);
+                                                case false: return (<><TouchableOpacity onPress={() => setOrderB(true)}> <Icon2 path={mdiAccountCircle } title="User Profile" size={1} color="green" /> </TouchableOpacity></>);            
+                                            }
+                                        })()}
+                                        </section>
+                                        </TouchableOpacity>
+                                        <TouchableOpacity onPress={() => setOrderC(false)}> 
+                                        <section>
+                                        {(() =>{
+                                            switch (orderC){  
+                                                case true : return (<Icon2 path={mdiCalendarClock  } title="User Profile" size={1} color="black" />);
+                                                case false: return (<><TouchableOpacity onPress={() => setOrderC(true)}><Icon2 path={mdiCalendarClock  } title="User Profile" size={1} color="green" /></TouchableOpacity></>);            
+                                            }
+                                        })()}
+                                        </section>
+                                        </TouchableOpacity>
+                                        </View>
+                                        
+                                        <View style={{marginTop:"5%" ,marginHorizontal:"30%", alignItems:"center", flexDirection:"row",justifyContent:"space-between"}}>
+                                        <ButtonFondoRosa text="Aplicar" onPress={() => setVisible(false)} />
+                                        </View></>) ;
+                                    case false : return null;
+                                }
+                            })()}
+                            </section>
+                            
+                    </View>
+
+
 
             </NativeBaseProvider>
           );
@@ -84,6 +148,15 @@ import { useNavigation } from '@react-navigation/native';
           backgroundColor:'#ffff',
           justifyContent:"space-between"
         },
+        ordernar: {
+            flex: 1,
+            flexDirection:"row",
+            alignItems:"center",
+            backgroundColor:'#ffff',
+            justifyContent:"space-between"
+          },
+
+
       });
     
         

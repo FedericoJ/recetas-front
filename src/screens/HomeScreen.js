@@ -43,6 +43,23 @@ const HomeScreen = ({navigation}) => {
     title="Go to Perfil"
     onPress={() => navigation.navigate('Perfil')}
     />
+        <Button 
+    title="Go to Favoritos"
+    onPress={() => navigation.navigate('Favoritos')}
+    />
+    <Button 
+    title="Go to Guardadas"
+    onPress={() => navigation.navigate('Guardadas')}
+    />
+    <Button 
+    title="Go to Mis Recetas"
+    onPress={() => navigation.navigate('MisRecetas')}
+    />
+    <Button 
+    title="Go to Crear Receta"
+    onPress={() => navigation.navigate('CreateReceta')}
+    />
+    
     </View>
   )
 };

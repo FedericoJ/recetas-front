@@ -1,6 +1,8 @@
 import React from 'react';
 import {View, Text, TouchableOpacity, StyleSheet} from 'react-native';
-import { AntDesign } from '@expo/vector-icons';;
+import { AntDesign } from '@expo/vector-icons';
+import { mdiSwapVerticalBold } from '@mdi/js';
+import Icon from '@mdi/react';
 
 export function ButtonFondoRosa (props) {
 
@@ -72,10 +74,10 @@ export function ButtonConIconoFondoRosa (props) {
                 backgroundColor: '#AC6363',
                 borderRadius: 5,
                 width: '20%',
-                height: '30%',
+                height: '50%',
                 marginVertical: 2,
                 marginBottom:'10%',
-                marginHorizontal:'2%',
+                marginHorizontal:'3%',
                 alignItems:"center",
                 justifyContent:"center",
                 flexDirection:"row"
@@ -88,6 +90,45 @@ export function ButtonConIconoFondoRosa (props) {
             <Text
                 style = {{
                     color: '#fcfafa',
+                    textAlign : 'center',
+                    fontWeight: 'bold',
+                }}
+            >
+                { text }
+            </Text>
+        </TouchableOpacity>
+    )
+}
+
+export function ButtonConIconoNegro (props) {
+
+    const { text, onPress } = props
+
+    return(
+        <TouchableOpacity
+            style = {{
+                backgroundColor: 'white',
+                borderRadius: 5,
+                width: '20%',
+                height: '50%',
+                marginVertical: 2,
+                marginBottom:'10%',
+                marginHorizontal:'3%',
+                alignItems:"center",
+                justifyContent:"center",
+                flexDirection:"row"
+            }}            
+            onPress = { onPress }
+            >
+            <Icon path={mdiSwapVerticalBold}
+                title="User Profile"
+                size={1}
+                color="black"
+            />
+
+            <Text
+                style = {{
+                    color: 'black',
                     textAlign : 'center',
                     fontWeight: 'bold',
                 }}
@@ -157,4 +198,65 @@ export function ButtonModalUnico (props) {
         </TouchableOpacity>
     )
 
+}
+
+export function ButtonCreateRosa (props) {
+
+    const { text, onPress } = props
+
+    return(
+        <TouchableOpacity
+            style = {{
+                backgroundColor: '#AC6363',
+                alignSelf: 'center',
+                borderRadius: 5,
+                width: '40%',
+                marginVertical: 10,
+                paddingVertical: 10,
+                marginHorizontal: "5%"
+            }}
+            onPress = { onPress }
+            >
+            <Text
+                style = {{
+                    color: '#fcfafa',
+                    textAlign : 'center',
+                    fontWeight: 'bold',
+                }}
+            >
+                { text }
+            </Text>
+        </TouchableOpacity>
+    )
+}
+
+export function ButtonCreateBlanco (props) {
+
+    const { text, onPress } = props
+
+    return(
+        <TouchableOpacity
+            style = {{
+                backgroundColor: '#fcfafa',
+                alignSelf: 'center',
+                borderRadius: 5,
+                width: '40%',
+                marginVertical: 10,
+                paddingVertical: 10,
+                marginHorizontal: "5%",
+                borderColor: '#AC6363',
+            }}
+            onPress = { onPress }
+            >
+            <Text
+                style = {{
+                    color: '#AC6363',
+                    textAlign : 'center',
+                    fontWeight: 'bold',
+                }}
+            >
+                { text }
+            </Text>
+        </TouchableOpacity>
+    )
 }

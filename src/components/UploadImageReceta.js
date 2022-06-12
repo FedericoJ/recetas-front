@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Image, View, Platform, TouchableOpacity, Text, StyleSheet } from 'react-native';
 import { AntDesign } from '@expo/vector-icons';
 
-export default function UploadImage() {
+export default function UploadImageReceta() {
  const [image, setImage] = useState(null);
  const addImage=()=>{};
 
@@ -14,7 +14,7 @@ export default function UploadImage() {
 
 <View style={imageUploaderStyles.uploadBtnContainer}>
 <TouchableOpacity onPress={addImage} style={imageUploaderStyles.uploadBtn} >
-<Text>{image ? 'Edit' : 'Upload'} Image</Text>
+<Text>{image ? 'Edita' : 'Carga'} una Imagen</Text>
 <AntDesign name="camera" size={20} color="black" />
 </TouchableOpacity>
 </View>
@@ -28,11 +28,11 @@ export default function UploadImage() {
 const imageUploaderStyles=StyleSheet.create({
    container:{
        elevation:2,
-       height:150,
-       width:150,
+       height:200,
+    //    width:150,
        backgroundColor:'#efefef',
        position:'relative',
-       borderRadius:999,
+    //    borderRadius:999,
        overflow:'hidden',
    },
    uploadBtnContainer:{

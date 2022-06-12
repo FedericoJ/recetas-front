@@ -1,27 +1,31 @@
 import React from 'react';
-import { ScrollView,StyleSheet} from 'react-native';
-import { Divider, Flex, Box, Heading, Center,NativeBaseProvider,Text,Button } from "native-base";
+import { ScrollView,StyleSheet, View,SafeAreaView,FlatList,Button} from 'react-native';
+import { Divider, Flex, Box, Heading, Center,NativeBaseProvider,Text } from "native-base";
 import Tabs from '../components/Tabs';
 import Galeria from '../components/cardResults';
 import Categorias from '../components/Categorias'
 import { FloatingAction } from "react-native-floating-action";
 import { FAB } from 'react-native-paper';
+import Favorito from '../components/cardFavoritos';
 
 
-const Principal  = ({navigation}) => {
+
+const Favoritos  = ({navigation}) => {
+
+
 
 return (
     <ScrollView style={styles.container}>
-        <Tabs/>
 
-        <Galeria/>
+        <Favorito/>
+
       
          <FAB style={styles.fab}
           extended
           icon="pencil"
           label ="Nueva"
           uppercase={false}
-          onPress={() => navigation.navigate('CreateReceta')}
+          onPress={() => console.log('Pressed')}
           />
 
      </ScrollView>
@@ -42,7 +46,6 @@ const styles = StyleSheet.create({
       backgroundColor:"#FFD700"
       
     },
-
   });
 
-export default Principal;
+export default Favoritos;
