@@ -2,31 +2,15 @@ import React, { useState } from 'react';
 import { Divider, Flex, Box, Heading, Center,NativeBaseProvider,Text,Button,Input,Icon,View,Modal } from "native-base";
 import {StyleSheet,TouchableOpacity} from 'react-native';
 import { MaterialIcons } from "@expo/vector-icons";
-import {  ButtonConIconoFondoRosa, ButtonConIconoNegro, ButtonModal } from './ButtonsLogin';
+import {  ButtonConIconoFondoRosa, ButtonConIconoNegro, ButtonFondoRosa } from './ButtonsLogin';
 import { useNavigation } from '@react-navigation/native';
+import { fabClasses } from '@mui/material';
+import { mdiAlphaACircleOutline } from '@mdi/js';
+import { mdiAccountCircle } from '@mdi/js';
+import { mdiCalendarClock } from '@mdi/js';
+import Icon2 from '@mdi/react';
 
-// const ModalPoup = ({ visible, children }) => {
-//     const [showModal, setShowModal] = React.useState(visible);
-//     React.useEffect(() => {
-//       toggleModal();
-//     }, [visible]);
-//     const toggleModal = () => {
-//       if (visible) {
-//         setShowModal(true);
-//       } else {
-//         setShowModal(false);
-//       }
-//     };
-  
-//     return (
-//       <Modal transparent visible={showModal}>
-//         <View style={styles.modalBackGround}>
-//           <View style={[styles.modalContainer]}>{children}</View>
-//         </View>
-//       </Modal>
-//     );
-//   };
-  
+
     const ITEMS = [{
         name: "ingrediente",
         label: "Ingrediente",
@@ -53,6 +37,9 @@ import { useNavigation } from '@react-navigation/native';
 
         const navigation = useNavigation();
         const [visible, setVisible] = useState(false);
+        const [orderA, setOrderA] = useState(true);
+        const [orderB, setOrderB] = useState(true);
+        const [orderC, setOrderC] = useState(true);
         
         const [activeElement, setActiveElement] = React.useState('ingrediente');
     
@@ -87,52 +74,58 @@ import { useNavigation } from '@react-navigation/native';
                     
                     <View style={styles.container}>
                         <ButtonConIconoFondoRosa text="Contiene" onPress={() => console.log("hola")}/>
-                        <ButtonConIconoNegro text="Ordenar" onPress={() => setVisible(false)}/>
+                        <ButtonConIconoNegro text="Ordenar" onPress={() => setVisible(true)}/>
                         
                     </View>
                     </View>
 
-                        <View style={styles.container} visible={visible}>
+                        <View style={{alignItems:"left",backgroundColor:'#ffff'}}>
 
-                        <Text>Pero que chupa pija</Text>
-
+                        <section>
+                            {(() =>{
+                                switch (visible){
+                                    case true : return (
+                                        <><View style={{marginHorizontal:"25%", alignItems:"center", flexDirection:"row",justifyContent:"space-between"}}>
+                                        <TouchableOpacity onPress={() => setOrderA(false)}> 
+                                        <section>
+                                        {(() =>{
+                                            switch (orderA){  
+                                                case true : return (<Icon2 path={mdiAlphaACircleOutline} title="User Profile" size={1} color="black" />);
+                                                case false: return ( <><TouchableOpacity onPress={() => setOrderA(true)}> <Icon2 path={mdiAlphaACircleOutline} title="User Profile" size={1} color="green" /> </TouchableOpacity></>);            
+                                            }
+                                        })()}
+                                        </section>
+                                        </TouchableOpacity>
+                                        <TouchableOpacity onPress={() => setOrderB(false)}> 
+                                        <section>
+                                        {(() =>{
+                                            switch (orderB){  
+                                                case true : return (<Icon2 path={mdiAccountCircle } title="User Profile" size={1} color="black" />);
+                                                case false: return (<><TouchableOpacity onPress={() => setOrderB(true)}> <Icon2 path={mdiAccountCircle } title="User Profile" size={1} color="green" /> </TouchableOpacity></>);            
+                                            }
+                                        })()}
+                                        </section>
+                                        </TouchableOpacity>
+                                        <TouchableOpacity onPress={() => setOrderC(false)}> 
+                                        <section>
+                                        {(() =>{
+                                            switch (orderC){  
+                                                case true : return (<Icon2 path={mdiCalendarClock  } title="User Profile" size={1} color="black" />);
+                                                case false: return (<><TouchableOpacity onPress={() => setOrderC(true)}><Icon2 path={mdiCalendarClock  } title="User Profile" size={1} color="green" /></TouchableOpacity></>);            
+                                            }
+                                        })()}
+                                        </section>
+                                        </TouchableOpacity>
+                                        </View>
+                                        
+                                        <View style={{marginTop:"5%" ,marginHorizontal:"30%", alignItems:"center", flexDirection:"row",justifyContent:"space-between"}}>
+                                        <ButtonFondoRosa text="Aplicar" onPress={() => setVisible(false)} />
+                                        </View></>) ;
+                                    case false : return null;
+                                }
+                            })()}
+                            </section>
                             
-                        {/* <ModalPoup visible={visible}>
-                            <View style={{ alignItems: "flex-start" }}>
-                                <Text style={{ fontSize: 20, color: "black" }}> Calificación </Text>
-                                <Text style={{ fontSize: 20, color: "black" }}>
-                                {" "}
-                                Agrega tu comentario{" "}
-                                </Text>
-                            </View> 
-
-                        <View
-                            style={{
-                            flexDirection: "row",
-                            alignItems: "center",
-                            marginTop: "1%",
-                            marginBottom: "1%",
-                            marginHorizontal: "1%",
-                            }}
-                        >
-                            <ButtonModal
-                            text="Atras"
-                            onPress={() => {
-                                navigation.navigate("Results");
-                                setVisible(false);
-                            }}
-                            />
-                            <ButtonModal
-                            text="Guardar"
-                            onPress={() => {
-                                navigation.navigate("Results");
-                                setVisible(false);
-                            }}
-                            />
-                        </View>
-                        </ModalPoup> */}
-
-
                     </View>
 
 
@@ -154,26 +147,14 @@ import { useNavigation } from '@react-navigation/native';
           backgroundColor:'#ffff',
           justifyContent:"space-between"
         },
-        modalBackGround: {
+        ordernar: {
             flex: 1,
-            backgroundColor: "rgba(0,0,0,0.5)",
-            justifyContent: "center",
-            alignItems: "center",
+            flexDirection:"row",
+            alignItems:"center",
+            backgroundColor:'#ffff',
+            justifyContent:"space-between"
           },
-          modalContainer: {
-            width: "80%",
-            backgroundColor: "#F7F4F4",
-            paddingHorizontal: 20,
-            paddingVertical: 30,
-            borderRadius: 20,
-            elevation: 20,
-          },
-          header: {
-            width: "100%",
-            height: 40,
-            alignItems: "flex-end",
-            justifyContent: "center",
-          },
+
 
       });
     
