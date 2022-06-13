@@ -1,14 +1,5 @@
 import React, { useState } from "react";
-import {
-  ScrollView,
-  StyleSheet,
-  Image,
-  View,
-  Text,
-  TouchableOpacity,
-  TextInput,
-  Modal,
-} from "react-native";
+import {  ScrollView,  StyleSheet,  Image,  View,  Text,  TouchableOpacity,  TextInput,  Modal,} from "react-native";
 import { FontAwesome, MaterialCommunityIcons } from "@expo/vector-icons";
 import { NativeBaseProvider, TextArea, Input, Divider, FormControl,VStack } from "native-base";
 import TipoComidas from "../components/TipoComida";
@@ -16,9 +7,12 @@ import { ButtonModal, ButtonFondoBlanco, ButtonFondoRosa, ButtonCreateBlanco,But
 import Box from "@mui/material/Box";
 import Steps from "../components/Step";
 import UploadImageReceta from '../components/UploadImageReceta';
+import { useNavigation } from '@react-navigation/native';
+import { ProgressSteps, ProgressStep } from 'react-native-progress-steps';
 
 
-const CreateReceta = ({ navigation }) => {
+const CreateReceta = () => {
+  const navigation = useNavigation();
   const [visible, setVisible] = React.useState(false);
   const [value, setValue] = React.useState(0);
   const [titulo , setTitulo] = useState("");
@@ -26,149 +20,175 @@ const CreateReceta = ({ navigation }) => {
   const [porciones , setPorciones] = useState("");
   const [personas , setPersonas] = useState("");
 
-
-
-
   return (
     <ScrollView style={styles.container}>
-      <View style={styles.botones}>
-      <ButtonCreateBlanco text="Cancelar"  onPress={() => navigation.navigate('Principal')}/>
-      <ButtonCreateRosa text="Guardar"   onPress={() => navigation.navigate('ViewReceta')}/>
-      </View>
+           <NativeBaseProvider>
 
-      <View style={{ width: "100%", height: 200 }}>
-        <UploadImageReceta/>
-      </View>
-      <NativeBaseProvider>
+         {/* <View style={{flex: 1,progressBarColor: "red",completedProgressBarColor:"red"}}> */}
+          <ProgressSteps>
+              <ProgressStep label="Descripción">
+               <ScrollView style={styles.container}>
+                <Text
+                    style={{
+                      marginTop: "5%",
+                      marginBottom: "5%",
+                      marginHorizontal: "5%",
+                      fontSize: 25,
+                      fontWeight: "bold"
+                    }}
+                  >
+                    {" "}
+                    Descripcion{" "}
+                  </Text>
 
-      <View
-        style={{
-          flexDirection: "row",
-          alignItems: "center",
-          marginTop: "5%",
-          marginBottom: "2%",
-          marginHorizontal: "5%",
-        }}
-      >
-        <FormControl isRequired>
-            <Input 
-              placeholder="Titulo"
-              backgroundColor="#FFFF"
-              value={titulo}
-              onChangeText={setTitulo}/>
-          </FormControl>
+                <View style={{ width: "100%", height: 200 }}>
+                  <UploadImageReceta/>
+                </View>
+                <NativeBaseProvider>
 
-      </View>
+                <View
+                  style={{
+                    flexDirection: "row",
+                    alignItems: "center",
+                    marginTop: "5%",
+                    marginBottom: "2%",
+                    marginHorizontal: "5%",
+                  }}
+                >
+                  <FormControl isRequired>
+                      <Input 
+                        placeholder="Titulo"
+                        backgroundColor="#FFFF"
+                        value={titulo}
+                        onChangeText={setTitulo}/>
+                    </FormControl>
 
-      <View
-        style={{
-          flexDirection: "row",
-          alignItems: "center",
-          marginTop: "2%",
-          marginBottom: "2%",
-          marginHorizontal: "5%",
-        }}
-      >
+                </View>
 
-      </View>
+                <View
+                  style={{
+                    flexDirection: "row",
+                    alignItems: "center",
+                    marginTop: "2%",
+                    marginBottom: "2%",
+                    marginHorizontal: "5%",
+                  }}
+                >
 
-
-        <TextArea
-          style={{ backgroundColor: "#ffff" }}
-          w="90%"
-          mx="5"
-          placeholder="Descripcion"
-          value={descripcion}
-          onChangeText={setDescripcion}
-        />
-
-        <View
-          style={{
-            flexDirection: "row",
-            alignItems: "center",
-            marginTop: "2%",
-            marginHorizontal: "5%",
-          }}
-        >
-          <Text style={{ fontSize: 16, width: "90%" }}> Categoria </Text>
+                </View>
 
 
-        </View>
+                  <TextArea
+                    style={{ backgroundColor: "#ffff" }}
+                    w="90%"
+                    mx="5"
+                    placeholder="Descripcion"
+                    value={descripcion}
+                    onChangeText={setDescripcion}
+                  />
 
-        <View
-          style={{
-            flexDirection: "row",
-            alignItems: "center",
-            marginTop: "5%",
-            marginHorizontal: "5%",
-          }}
-        >
-          <Text style={{ fontSize: 16, width: "90%" }}> Porciones </Text>
+                  <View
+                    style={{
+                      flexDirection: "row",
+                      alignItems: "center",
+                      marginTop: "2%",
+                      marginHorizontal: "5%",
+                    }}
+                  >
+                    <Text style={{ fontSize: 16, width: "90%" }}> Categoria </Text>
 
-          <Input
-            style={{ backgroundColor: "#ffff", textAlign: "center" }}
-            mx="1"
-            w="15%"
-            placeholder=""
-            value={porciones}
-            onChangeText={setPorciones}
-          />
-        </View>
+                </View>
 
-        <View
-          style={{
-            flexDirection: "row",
-            alignItems: "center",
-            marginTop: "5%",
-            marginBottom: "2%",
-            marginHorizontal: "5%",
-          }}
-        >
-          <Text style={{ fontSize: 16, width: "90%" }}> Personas </Text>
+                  <View
+                    style={{
+                      flexDirection: "row",
+                      alignItems: "center",
+                      marginTop: "5%",
+                      marginHorizontal: "5%",
+                    }}
+                  >
+                    <Text style={{ fontSize: 16, width: "90%" }}> Porciones </Text>
 
-          <Input
-            style={{ backgroundColor: "#ffff", textAlign: "center" }}
-            mx="1"
-            w="15%"
-            placeholder=""
-            value={personas}
-            onChangeText={setPersonas}
-          />
-        </View>
+                    <Input
+                      style={{ backgroundColor: "#ffff", textAlign: "center" }}
+                      mx="1"
+                      w="15%"
+                      placeholder=""
+                      value={porciones}
+                      onChangeText={setPorciones}
+                    />
+                  </View>
 
-        <Divider thickness="2" />
+                  <View
+                    style={{
+                      flexDirection: "row",
+                      alignItems: "center",
+                      marginTop: "5%",
+                      marginBottom: "2%",
+                      marginHorizontal: "5%",
+                    }}
+                  >
+                    <Text style={{ fontSize: 16, width: "90%" }}> Personas </Text>
 
-        <Text
-          style={{
-            marginTop: "5%",
-            marginHorizontal: "5%",
-            fontSize: 25,
-            fontWeight: "bold",
-          }}
-        >
-          {" "}
-          Ingredientes{" "}
-        </Text>
-
-        <Divider my="2" thickness="2" />
-
-        <Text
-          style={{
-            marginTop: "5%",
-            marginHorizontal: "5%",
-            fontSize: 25,
-            fontWeight: "bold",
-          }}
-        >
-          {" "}
-          Pasos{" "}
-        </Text>
-
+                    <Input
+                      style={{ backgroundColor: "#ffff", textAlign: "center" }}
+                      mx="1"
+                      w="15%"
+                      placeholder=""
+                      value={personas}
+                      onChangeText={setPersonas}
+                    />
+                  </View>
+                  </NativeBaseProvider>
+              </ScrollView>
+              </ProgressStep>
+              <ProgressStep label="Ingredientes">
+              <ScrollView style={styles.container}>
+                    <NativeBaseProvider>
+                  <Text
+                    style={{
+                      marginTop: "5%",
+                      marginHorizontal: "5%",
+                      marginBottom: "2%",
+                      fontSize: 25,
+                      fontWeight: "bold",
+                    }}
+                  >
+                    {" "}
+                    Ingredientes{" "}
+                  </Text>
+                  </NativeBaseProvider>
+              </ScrollView>
+              </ProgressStep>
+              <ProgressStep label="Pasos" >
+              <View style={styles.botones}>
+                      <ButtonCreateRosa text="Guardar"   onPress={() => navigation.navigate('Receta')}/>
+                   </View>
+              <ScrollView style={styles.container}>
+                    <NativeBaseProvider>
+                  <Text
+                    style={{
+                      marginTop: "5%",
+                      marginHorizontal: "5%",
+                      marginBottom: "2%",
+                      fontSize: 25,
+                      fontWeight: "bold",
+                    }}
+                  >
+                    {" "}
+                    Pasos{" "}
+                  </Text>
+                  </NativeBaseProvider>
+              </ScrollView>
+              </ProgressStep>
+          </ProgressSteps>
+      {/* </View> */}
 
       </NativeBaseProvider>
     </ScrollView>
   );
 };
+
 
 const styles = StyleSheet.create({
   container: {
@@ -177,8 +197,8 @@ const styles = StyleSheet.create({
   },
   botones: {
     flexDirection:"row",
-    backgroundColor:'#ffff',
-    justifyContent:"space-between",
+    backgroundColor:"#D6B1B1",
+    justifyContent:"center",
   },
 });
 
