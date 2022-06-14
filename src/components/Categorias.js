@@ -18,6 +18,9 @@ import Tipos from './Tipos';
      {tipo:"Comida China",tipoImage:imagesrc},
      {tipo:"Helados",tipoImage:imagesrc},
      {tipo:"Postres",tipoImage:imagesrc},
+     {tipo:"Budines",tipoImage:imagesrc},
+     {tipo:"Tortas",tipoImage:imagesrc},
+     {tipo:"Scones-Libritos",tipoImage:imagesrc},
 ];
 
 
