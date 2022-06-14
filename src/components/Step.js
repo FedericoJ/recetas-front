@@ -13,8 +13,10 @@ import ImageView from 'react-native-image-view';
 
         imagenes && imagenes.map((imagen,indice) => (
 
-            auxSource.push({source:{uri:imagen.url},width:806,height:720})
+           
+             imagen.extension !=="mp4"  ? auxSource.push({source:{uri:imagen.url},width:806,height:720}) : null
 
+           
         ));    
 
         console.log(auxSource);
@@ -36,13 +38,15 @@ const ViewImagesAndVideo = ({imagenes},{indice}) => {
 
             {imagenes && imagenes.map((imagen,indice) => (
 
-                <TouchableOpacity style={{marginLeft:'1%'}} key={indice} onPress ={() =>setgaleriaSeleccionada(true)}>
-            
-                    <Image style={{  width:50,height:50}} source ={{uri:imagen.url}}>
-                        
-                    </Image>    
-            
-                </TouchableOpacity>
+                imagen.extension !== "mp4" ?
+                    <TouchableOpacity style={{marginLeft:'5%'}} key={indice} onPress ={() =>setgaleriaSeleccionada(true)}>
+                
+                        <Image style={{  width:50,height:50}} source ={{uri:imagen.url}}>
+                            
+                        </Image>    
+                
+                    </TouchableOpacity>
+                :null
 
             ))}
 
@@ -65,9 +69,9 @@ const ViewImagesAndVideo = ({imagenes},{indice}) => {
 const Steps = ({ pasos }) => {
 
         const Imagenes = [{
-            url: 'https://cdn.pixabay.com/photo/2017/08/17/10/47/paris-2650808_960_720.jpg'},
-            {url: 'https://d320djwtwnl5uo.cloudfront.net/recetas/cover/milan_SuLEW9PUrTwyi0npoGIKD5zNqHmcAb.png'},
-            {url: 'https://s3.amazonaws.com/arc-wordpress-client-uploads/infobae-wp/wp-content/uploads/2018/05/25115909/hamburguesa-destacada.jpg'}]
+            url: 'https://cdn.pixabay.com/photo/2017/08/17/10/47/paris-2650808_960_720.jpg',extension:"jpg"},
+            {url: 'https://d320djwtwnl5uo.cloudfront.net/recetas/cover/milan_SuLEW9PUrTwyi0npoGIKD5zNqHmcAb.png',extension:"mp4"},
+            {url: 'https://s3.amazonaws.com/arc-wordpress-client-uploads/infobae-wp/wp-content/uploads/2018/05/25115909/hamburguesa-destacada.jpg',extension:"jpg"}]
 
         return (
             <View>

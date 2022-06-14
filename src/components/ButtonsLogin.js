@@ -1,6 +1,6 @@
 import React from 'react';
 import {View, Text, TouchableOpacity, StyleSheet} from 'react-native';
-import { AntDesign } from '@expo/vector-icons';
+import { AntDesign,Entypo } from '@expo/vector-icons';
 import { mdiSwapVerticalBold } from '@mdi/js';
 import Icon from '@mdi/react';
 
@@ -100,6 +100,47 @@ export function ButtonConIconoFondoRosa (props) {
     )
 }
 
+
+export function ButtonConIconoFondoBlanco (props) {
+
+    const { text, onPress } = props
+
+    return(
+        <TouchableOpacity
+            style = {{
+                backgroundColor: '#fcfafa',
+                borderRadius: 5,
+                width: '30%',
+                height: '50%',
+                marginVertical: 2,
+                marginBottom:'10%',
+                borderColor: '#AC6363',
+                marginHorizontal:'3%',
+                alignItems:"center",
+                justifyContent:"center",
+                flexDirection:"row"
+            }}
+            onPress = { onPress }
+            >
+
+            <Entypo name="cross" size={15} color='#AC6363' />
+
+            <Text
+                style = {{
+                    color: '#AC6363',
+                    textAlign : 'center',
+                    fontWeight: 'bold',
+                }}
+            >
+                { text }
+            </Text>
+        </TouchableOpacity>
+    )
+}
+
+
+
+
 export function ButtonConIconoNegro (props) {
 
     const { text, onPress } = props
@@ -113,6 +154,7 @@ export function ButtonConIconoNegro (props) {
                 height: '50%',
                 marginVertical: 2,
                 marginBottom:'10%',
+                right:0,
                 marginHorizontal:'3%',
                 alignItems:"center",
                 justifyContent:"center",

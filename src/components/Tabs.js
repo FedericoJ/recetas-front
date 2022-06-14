@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Divider, Flex, Box, Heading, Center,NativeBaseProvider,Text,Button,Input,Icon,View,Modal } from "native-base";
 import {StyleSheet,TouchableOpacity} from 'react-native';
 import { MaterialIcons } from "@expo/vector-icons";
-import {  ButtonConIconoFondoRosa, ButtonConIconoNegro, ButtonFondoRosa } from './ButtonsLogin';
+import {  ButtonConIconoFondoRosa, ButtonConIconoNegro, ButtonFondoRosa, ButtonFondoBlanco,ButtonConIconoFondoBlanco } from './ButtonsLogin';
 import { useNavigation } from '@react-navigation/native';
 import { fabClasses } from '@mui/material';
 import { mdiAlphaACircleOutline } from '@mdi/js';
@@ -31,12 +31,15 @@ import Icon2 from '@mdi/react';
     const activeItemClass = {fontSize:15, color: '#AC6363',textDecorationLine: 'underline'};
     const inactiveItemClass = {fontSize:15, color: 'gray',textDecorationLine: 'underline'};
 
+   
+
     const Tabs  = () => {
         
 
 
         const navigation = useNavigation();
         const [visible, setVisible] = useState(false);
+        const[contiene,setContiene]=useState(true);
         const [orderA, setOrderA] = useState(true);
         const [orderB, setOrderB] = useState(true);
         const [orderC, setOrderC] = useState(true);
@@ -45,6 +48,32 @@ import Icon2 from '@mdi/react';
     
         const onPressHandler = (item) => {
             setActiveElement(item.name);
+        }
+
+        const Boton =() =>{
+
+            if (activeElement==='ingrediente'){
+
+                if (contiene){
+
+                    return (
+                        <ButtonConIconoFondoRosa text="Contiene" onPress={() => setContiene(false)}/>
+                    )
+                }else{
+
+                    return (
+                        <ButtonConIconoFondoBlanco text="No Contiene" onPress={() => setContiene(true)}/>
+                    )
+
+                }
+                
+
+            }else{
+                return null;
+            }
+
+           
+    
         }
 
         return (
@@ -74,62 +103,62 @@ import Icon2 from '@mdi/react';
                     
                     <View style={styles.container}>
                         
-                        <ButtonConIconoFondoRosa text="Contiene" onPress={() => console.log("hola")}/>
+                       {Boton()}
+
+                       
                         <ButtonConIconoNegro text="Ordenar" onPress={() => setVisible(true)}/>
+                    
                         
                     </View>
                     </View>
 
                         <View style={{alignItems:"left",backgroundColor:'#ffff'}}>
 
-                        <section>
-                            {(() =>{
-                                switch (visible){
-                                    case true : return (
-                                        <><View style={{marginHorizontal:"25%", alignItems:"center", flexDirection:"row",justifyContent:"space-between"}}>
-                                        <TouchableOpacity onPress={() => setOrderA(false)}> 
-                                        <section>
-                                        {(() =>{
-                                            switch (orderA){  
-                                                case true : return (<Icon2 path={mdiAlphaACircleOutline} title="User Profile" size={1} color="black" />);
-                                                case false: return ( <><TouchableOpacity onPress={() => setOrderA(true)}> <Icon2 path={mdiAlphaACircleOutline} title="User Profile" size={1} color="green" /> </TouchableOpacity></>);            
-                                            }
-                                        })()}
-                                        </section>
-                                        </TouchableOpacity>
-                                        <TouchableOpacity onPress={() => setOrderB(false)}> 
-                                        <section>
-                                        {(() =>{
-                                            switch (orderB){  
-                                                case true : return (<Icon2 path={mdiAccountCircle } title="User Profile" size={1} color="black" />);
-                                                case false: return (<><TouchableOpacity onPress={() => setOrderB(true)}> <Icon2 path={mdiAccountCircle } title="User Profile" size={1} color="green" /> </TouchableOpacity></>);            
-                                            }
-                                        })()}
-                                        </section>
-                                        </TouchableOpacity>
-                                        <TouchableOpacity onPress={() => setOrderC(false)}> 
-                                        <section>
-                                        {(() =>{
-                                            switch (orderC){  
-                                                case true : return (<Icon2 path={mdiCalendarClock  } title="User Profile" size={1} color="black" />);
-                                                case false: return (<><TouchableOpacity onPress={() => setOrderC(true)}><Icon2 path={mdiCalendarClock  } title="User Profile" size={1} color="green" /></TouchableOpacity></>);            
-                                            }
-                                        })()}
-                                        </section>
-                                        </TouchableOpacity>
-                                        </View>
-                                        
-                                        <View style={{marginTop:"5%" ,marginHorizontal:"30%", alignItems:"center", flexDirection:"row",justifyContent:"space-between"}}>
-                                        <ButtonFondoRosa text="Aplicar" onPress={() => setVisible(false)} />
-                                        </View></>) ;
-                                    case false : return null;
-                                }
-                            })()}
-                            </section>
-                            
+                            <section>
+                                {(() =>{
+                                    switch (visible){
+                                        case true : return (
+                                            <><View style={{marginHorizontal:"25%", alignItems:"center", flexDirection:"row",justifyContent:"space-between"}}>
+                                            <TouchableOpacity onPress={() => setOrderA(false)}> 
+                                            <section>
+                                            {(() =>{
+                                                switch (orderA){  
+                                                    case true : return (<Icon2 path={mdiAlphaACircleOutline} title="User Profile" size={1} color="black" />);
+                                                    case false: return ( <><TouchableOpacity onPress={() => setOrderA(true)}> <Icon2 path={mdiAlphaACircleOutline} title="User Profile" size={1} color="green" /> </TouchableOpacity></>);            
+                                                }
+                                            })()}
+                                            </section>
+                                            </TouchableOpacity>
+                                            <TouchableOpacity onPress={() => setOrderB(false)}> 
+                                            <section>
+                                            {(() =>{
+                                                switch (orderB){  
+                                                    case true : return (<Icon2 path={mdiAccountCircle } title="User Profile" size={1} color="black" />);
+                                                    case false: return (<><TouchableOpacity onPress={() => setOrderB(true)}> <Icon2 path={mdiAccountCircle } title="User Profile" size={1} color="green" /> </TouchableOpacity></>);            
+                                                }
+                                            })()}
+                                            </section>
+                                            </TouchableOpacity>
+                                            <TouchableOpacity onPress={() => setOrderC(false)}> 
+                                            <section>
+                                            {(() =>{
+                                                switch (orderC){  
+                                                    case true : return (<Icon2 path={mdiCalendarClock  } title="User Profile" size={1} color="black" />);
+                                                    case false: return (<><TouchableOpacity onPress={() => setOrderC(true)}><Icon2 path={mdiCalendarClock  } title="User Profile" size={1} color="green" /></TouchableOpacity></>);            
+                                                }
+                                            })()}
+                                            </section>
+                                            </TouchableOpacity>
+                                            </View>
+                                            
+                                            <View style={{marginTop:"5%" ,marginHorizontal:"30%", alignItems:"center", flexDirection:"row",justifyContent:"space-between"}}>
+                                            <ButtonFondoRosa text="Aplicar" onPress={() => setVisible(false)} />
+                                            </View></>) ;
+                                        case false : return null;
+                                    }
+                                })()}
+                                </section>
                     </View>
-
-
 
             </NativeBaseProvider>
           );

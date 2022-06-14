@@ -17,6 +17,8 @@ import { ButtonModal } from "../components/ButtonsLogin";
 import Box from "@mui/material/Box";
 import Rating from "@mui/material/Rating";
 import Steps from "../components/Step";
+import {ButtonFondoRosa} from '../components/ButtonsLogin';
+
 
 const ModalPoup = ({ visible, children }) => {
   const [showModal, setShowModal] = React.useState(visible);
@@ -347,6 +349,11 @@ const ViewReceta = ({ navigation }) => {
         </Text>
 
         <Steps pasos={arrPasos} />
+          
+         <View style={{marginTop:"2%",marginHorizontal:"5%",marginBottom:"5%"}} > 
+          <ButtonFondoRosa  text="Calcular Receta" onPress={()=> console.log("hola")}/>
+        </View>
+
       </NativeBaseProvider>
     </ScrollView>
   );

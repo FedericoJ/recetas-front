@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import {  ScrollView,  StyleSheet,  Image,  View,  Text,  TouchableOpacity,  TextInput,  Modal,} from "react-native";
 import { FontAwesome, MaterialCommunityIcons } from "@expo/vector-icons";
-import { NativeBaseProvider, TextArea, Input, Divider, FormControl,VStack } from "native-base";
+import { NativeBaseProvider, TextArea, Input, Divider, FormControl,VStack, HStack,Select,CheckIcon } from "native-base";
 import TipoComidas from "../components/TipoComida";
 import { ButtonModal, ButtonFondoBlanco, ButtonFondoRosa, ButtonCreateBlanco,ButtonCreateRosa } from "../components/ButtonsLogin";
 import Box from "@mui/material/Box";
@@ -19,6 +19,19 @@ const CreateReceta = () => {
   const [descripcion , setDescripcion] = useState("");
   const [porciones , setPorciones] = useState("");
   const [personas , setPersonas] = useState("");
+  const [categoriaSel,setCategoriaSel]=useState("1");
+
+  const [categorias, setCategorias] = useState([
+    { label: "Pasta", value: "1" },
+    { label: "Emapanadas", value: "2" },
+    { label: "Comida China", value: "3" },
+  ]);
+
+  const onChangeHandler = (item) => {
+    setCategoriaSel(item);
+  };
+
+
 
   return (
     <ScrollView style={styles.container}>
@@ -77,7 +90,6 @@ const CreateReceta = () => {
 
                 </View>
 
-
                   <TextArea
                     style={{ backgroundColor: "#ffff" }}
                     w="90%"
@@ -87,17 +99,31 @@ const CreateReceta = () => {
                     onChangeText={setDescripcion}
                   />
 
-                  <View
-                    style={{
-                      flexDirection: "row",
-                      alignItems: "center",
-                      marginTop: "2%",
-                      marginHorizontal: "5%",
-                    }}
-                  >
-                    <Text style={{ fontSize: 16, width: "90%" }}> Categoria </Text>
+                  
+                  <HStack mt="2" w="100%"  >
+                    <Text style={{ fontSize: 16, marginLeft:"5%" ,width:"45%" }}> Categoria </Text>
 
-                </View>
+                    <Select
+                        style={{backgroundColor:'#ffff'}}
+                        selectedValue={categoriaSel}
+                        mr="2"
+                        alignSelf="flex-end"
+                        _selectedItem={{
+                          bg: "indigo",
+                          endIcon: <CheckIcon size={5} />,
+                        }}
+                        onValueChange={onChangeHandler}
+                      >
+                        {categorias.map((categoria) => (
+                          <Select.Item
+                            key={categoria.value}
+                            label={categoria.label}
+                            value={categoria.value}
+                          />
+                        ))}
+                    </Select>
+
+                  </HStack>
 
                   <View
                     style={{

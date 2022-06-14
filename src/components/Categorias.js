@@ -12,10 +12,10 @@ import Tipos from './Tipos';
 
  const tipos =[
 
+     {tipo:"Pizza",tipoImage:imagesrc},
      {tipo:"Pasta",tipoImage:imagesrc},
-     {tipo:"Comida china",tipoImage:imagesrc},
-     {tipo:"Milanesas",tipoImage:imagesrc},
-     {tipo:"Hamburguesas",tipoImage:imagesrc},
+     {tipo:"Empanadas",tipoImage:imagesrc},
+     {tipo:"Comida China",tipoImage:imagesrc},
      {tipo:"Helados",tipoImage:imagesrc},
      {tipo:"Postres",tipoImage:imagesrc},
 ];
