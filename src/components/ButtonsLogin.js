@@ -210,7 +210,7 @@ export function ButtonCreateRosa (props) {
                 backgroundColor: '#AC6363',
                 alignSelf: 'center',
                 borderRadius: 5,
-                width: '40%',
+                width: '50%',
                 marginVertical: 10,
                 paddingVertical: 10,
                 marginHorizontal: "5%"
