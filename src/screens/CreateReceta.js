@@ -33,6 +33,8 @@ const ModalPoup = ({ visible, children }) => {
   );
 };
 
+
+
 const CreateReceta = () => {
   const navigation = useNavigation();
   const [visible, setVisible] = React.useState(false);
@@ -69,6 +71,10 @@ const CreateReceta = () => {
     setUnidadesSel(item);
   };
 
+  const onChangeBlur = () => {
+    setVisible(true)
+    console.log (visible);
+}
 
 
   return (
@@ -110,7 +116,9 @@ const CreateReceta = () => {
                         backgroundColor="#FFFF"
                         value={titulo}
                         onChangeText={setTitulo}
-                        fontSize= "25"/>
+                        fontSize= "25"
+                        onBlur = {() => onChangeBlur()
+                      }/>
                         
                     </FormControl>
                 </View>
