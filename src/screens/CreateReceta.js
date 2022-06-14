@@ -2,18 +2,42 @@ import React, { useState } from "react";
 import {  ScrollView,  StyleSheet,  Image,  View,  Text,  TouchableOpacity,  TextInput,  Modal,} from "react-native";
 import { FontAwesome, MaterialCommunityIcons } from "@expo/vector-icons";
 import { NativeBaseProvider, TextArea, Input, Divider, FormControl,VStack, HStack,Select,CheckIcon } from "native-base";
-import { ButtonModal, ButtonFondoBlanco, ButtonFondoRosa, ButtonCreateBlanco,ButtonCreateRosa } from "../components/ButtonsLogin";
+import { ButtonModal, ButtonFondoBlanco, ButtonFondoRosa, ButtonCreateBlanco,ButtonCreateRosa, ButtonModalUnico } from "../components/ButtonsLogin";
 import UploadImageReceta from '../components/UploadImageReceta';
 import UploadImagePaso from '../components/UploadImagePaso';
 import { useNavigation } from '@react-navigation/native';
 import { ProgressSteps, ProgressStep } from 'react-native-progress-steps';
 import { mdiPlusCircleOutline } from '@mdi/js';
-import Icon from '@mdi/react'
+import Icon from '@mdi/react';
+import Box from "@mui/material/Box";
 
+const ModalPoup = ({ visible, children }) => {
+  const [showModal, setShowModal] = React.useState(visible);
+  React.useEffect(() => {
+    toggleModal();
+  }, [visible]);
+  const toggleModal = () => {
+    if (visible) {
+      setShowModal(true);
+    } else {
+      setShowModal(false);
+    }
+  };
+
+  return (
+    <Modal transparent visible={showModal}>
+      <View style={styles.modalBackGround}>
+        <View style={[styles.modalContainer]}>{children}</View>
+      </View>
+    </Modal>
+  );
+};
 
 const CreateReceta = () => {
   const navigation = useNavigation();
   const [visible, setVisible] = React.useState(false);
+  const [visibleCarga, setVisibleCarga] = React.useState(false);
+  const [visibleWifi, setVisibleWifi] = React.useState(false);
   const [value, setValue] = React.useState(0);
   const [titulo , setTitulo] = useState("");
   const [descripcion , setDescripcion] = useState("");
@@ -44,7 +68,6 @@ const CreateReceta = () => {
   const onChangeHandler2 = (item) => {
     setUnidadesSel(item);
   };
-
 
 
 
@@ -90,7 +113,6 @@ const CreateReceta = () => {
                         fontSize= "25"/>
                         
                     </FormControl>
-
                 </View>
 
                 <View
@@ -189,8 +211,8 @@ const CreateReceta = () => {
                   </View>
                   </NativeBaseProvider>
               </ScrollView>
-              </ProgressStep>
-              <ProgressStep label="Ingredientes">
+              </ProgressStep >
+              <ProgressStep label="Ingredientes" >
               <ScrollView style={styles.container}>
                     <NativeBaseProvider>
                   <Text
@@ -273,8 +295,73 @@ const CreateReceta = () => {
               </ScrollView>
               </ProgressStep>
               <ProgressStep label="Pasos" >
+
+            <ModalPoup visible={visible}>
+            <View style={{ alignItems: "flex-start" }}>
+              <Text style={{ fontSize: 20, color: "black" }}>
+              No te encuentras conectado a una red WIFI ¿Deseas continuar con la carga?{" "}
+              </Text>
+            </View>
+
+            <View style={styles.botonesModal}>
+              <ButtonModal
+                text="No"
+                onPress={() => {
+                  setVisible(false);
+                  setVisibleWifi(true)
+                }}
+              />
+              <ButtonModal
+                text="Si"
+                onPress={() => {
+                  setVisible(false);
+                  setVisibleCarga(true)
+                }}
+              />
+            </View>
+          </ModalPoup>
+
+          <ModalPoup visible={visibleWifi}>
+            <View style={{ alignItems: "flex-start" }}>
+              <Text style={{ fontSize: 20, color: "black" }}>
+              La receta se cargará cuando estes conectado a una red WIFI
+              </Text>
+            </View>
+
+            <View
+              style={styles.botonesModal}>
+              <ButtonModalUnico
+                text="Aceptar"
+                onPress={() => {
+                  navigation.navigate("Principal");
+                  setVisibleWifi(false);
+                }}
+              />
+            </View>
+          </ModalPoup>
+
+          <ModalPoup visible={visibleCarga}>
+            <View style={{ alignItems: "flex-start" }}>
+              <Text style={{ fontSize: 20, color: "black" }}>
+              La receta se cargó correctamente, la verás publicada cuando sea autorizada
+              </Text>
+            </View>
+
+            <View
+              style={styles.botonesModal}>
+              <ButtonModalUnico
+                text="Aceptar"
+                onPress={() => {
+                  navigation.navigate("Receta");
+                  setVisibleCarga(false);
+                }}
+              />
+            </View>
+          </ModalPoup>
+
+
               <View style={styles.botones}>
-                      <ButtonCreateRosa text="Guardar"   onPress={() => navigation.navigate('Receta')}/>
+                      <ButtonCreateRosa text="Guardar"  onPress={() => {setVisible(true)}}/>
                    </View>
               <ScrollView style={styles.container}>
                     <NativeBaseProvider>
@@ -351,6 +438,41 @@ const styles = StyleSheet.create({
     flexDirection:"row",
     backgroundColor:"#D6B1B1",
     justifyContent:"left",
+  },
+  modalBackGround: {
+    flex: 1,
+    backgroundColor: "rgba(0,0,0,0.5)",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  modalContainer: {
+    width: "80%",
+    backgroundColor: "#F7F4F4",
+    paddingHorizontal: 20,
+    paddingVertical: 30,
+    borderRadius: 20,
+    elevation: 20,
+  },
+  header: {
+    width: "100%",
+    height: 40,
+    alignItems: "flex-end",
+    justifyContent: "center",
+  },
+  input: {
+    height: "100%",
+    borderColor: "gray",
+    borderWidth: 1,
+    width: "100%",
+    justifyContent: "center",
+    alignItems: "stretch",
+  },
+  botonesModal: {
+    flexDirection: "row",
+    alignItems: "center",
+    marginTop: "5%",
+    marginBottom: "1%",
+    marginHorizontal: "1%",
   },
 
 });
