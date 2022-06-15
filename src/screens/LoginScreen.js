@@ -1,21 +1,11 @@
 import React, { useState, useEffect } from 'react'
-import { StyleSheet,Text, Image, View} from 'react-native';
-import { 
-  Box,
-  Heading,
-  VStack, 
-  FormControl, 
-  Input, 
-  Button, 
-  Center, 
-  NativeBaseProvider, 
-  ScrollView,
-  HStack,
-  Link} from "native-base";
+import { StyleSheet,Text, Image, View,Modal} from 'react-native';
+import {  Box,  Heading,  VStack,   FormControl,   Input,   Button,   Center,   NativeBaseProvider,   ScrollView,  HStack,  Link, } from "native-base";
   import config from "../config/default.json";
   import axios from 'axios'
   import { useNavigation } from '@react-navigation/native';
-  import {  ButtonFondoBlanco, ButtonFondoRosa } from '../components/ButtonsLogin';
+  import {  ButtonFondoBlanco, ButtonFondoRosa,ButtonModalUnico } from '../components/ButtonsLogin';
+
   
   const LoginScreen = () => {
 
@@ -69,7 +59,7 @@ import {
         
       </View>
       </Center>
-       <View style={styles.centerContent}>
+       <View style={styles.centerContent} >
       <Box safeArea p="2"  w="100%" maxW="290" py="8">
         <Center>  
         <Heading size="lg" color="coolGray.800" _dark={{
@@ -85,7 +75,8 @@ import {
           Ingresá tus credenciales
         </Heading>
         </Center>
-        <VStack space={3} mt="5">
+
+        <VStack space={3} mt="5" >
         <FormControl isRequired>
             <Input 
               placeholder="Usuario"
@@ -101,9 +92,11 @@ import {
               onChangeText={setPassword}
             />
         </FormControl>
+        
           <ButtonFondoRosa text="Ingresar" onPress={Login}/>
           <ButtonFondoBlanco text="Cancelar" onPress={() => navigation.navigate('Inicio')}/>
           <HStack mt="6" justifyContent="center" >
+
             <Link  onPress={() => navigation.navigate('RecoveryPassword')} _text={{
             color: "#AC6363",
             fontWeight: "medium",
@@ -128,7 +121,8 @@ const styles = StyleSheet.create({
 
   centerContent: {
     justifyContent:'center',
-    alignItems:'center'
+    alignItems:'center',
+
   },
 
   scrollView: {

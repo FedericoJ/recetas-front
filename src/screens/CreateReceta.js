@@ -512,9 +512,6 @@ const styles = StyleSheet.create({
     marginTop: "2%",
     marginBottom: "1%",
   },
-  progressStep:{
-
-  }
 
 });
 

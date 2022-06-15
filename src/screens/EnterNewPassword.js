@@ -43,13 +43,12 @@ import { ButtonFondoBlanco, ButtonFondoRosa } from '../components/ButtonsLogin';
     }
     ;
 
-  return <View style={styles.container}>
-  <Center w="100%">
-     <ScrollView maxW="400" h="600" style={styles.scrollView} _contentContainerStyle={{
-      px: "20px",
-      mb: "4",
-      minW: "72"
-    }}>
+  return(
+        <View maxW="400" h="600" style={styles.scrollView} _contentContainerStyle={{
+          px: "20px",
+          mb: "4",
+          minW: "72"
+        }}>
       <Box safeArea p="2" py="8" w="100%" maxW="290"></Box>
        <Center>
        <View style={styles.centerContent}>
@@ -60,6 +59,7 @@ import { ButtonFondoBlanco, ButtonFondoRosa } from '../components/ButtonsLogin';
         
     </View>
         </Center>
+        <View style={styles.centerContent} >
         <Box safeArea p="2"  w="100%" maxW="290" py="8">
           <Center>  
         <Heading size="xlg" color="coolGray.800" _dark={{
@@ -98,11 +98,10 @@ import { ButtonFondoBlanco, ButtonFondoRosa } from '../components/ButtonsLogin';
           <ButtonFondoBlanco text="Cancelar" onPress={() => navigation.navigate('Inicio')} />
         </VStack>
       </Box>
-      </ScrollView>
-    </Center>  
+      </View>
     </View>
 
-};
+)};
 
 const styles = StyleSheet.create({
   container: {
@@ -127,9 +126,9 @@ const styles = StyleSheet.create({
     export default () => {
         return (
           <NativeBaseProvider>
-            <Center style={styles.container} flex={1} px="3">
+            <View style={styles.container}>
                 <EnterNewPassword />
-            </Center>
+            </View>
           </NativeBaseProvider>
         );
     };
