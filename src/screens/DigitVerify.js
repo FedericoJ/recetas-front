@@ -62,12 +62,10 @@ const DigitVerify = () => {
       }
     }
     const mail = '93.vazquezmartin@gmail.com';
-    const codigo = '1';
-    const body = JSON.stringify({ mail, codigo })
 
     try {
-      console.log(body);
-      const res = await axios.get(`${baseUrl}/usuario/validarCodigoRecuperacion`, body, setup);
+      console.log(Code1+Code2+Code3+Code4+Code5+Code6);
+      const res = await axios.get(`${baseUrl}/usuario/validarCodigoRecuperacion?mail=${mail}&codigo=${Code1+Code2+Code3+Code4+Code5+Code6}`, setup);
       if (res.status === 202) {
         alert("Ingresaste un código equivocado. Ingresalo nuevamente.");
       }

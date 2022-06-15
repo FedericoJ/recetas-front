@@ -90,6 +90,7 @@ import {  Box,  Heading,  VStack,   FormControl,   Input,   Button,   Center,   
               backgroundColor="#FFFF"
               value={password}
               onChangeText={setPassword}
+              secureTextEntry={true}
             />
         </FormControl>
         

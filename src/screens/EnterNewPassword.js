@@ -83,7 +83,8 @@ import { ButtonFondoBlanco, ButtonFondoRosa } from '../components/ButtonsLogin';
               type="password"
               placeholder="Contraseña"
               value={Password}
-              onChangeText={setPassword}/>
+              onChangeText={setPassword}
+              secureTextEntry={true}/>
           </FormControl>
           <FormControl isRequired>
             <Input 
@@ -92,6 +93,7 @@ import { ButtonFondoBlanco, ButtonFondoRosa } from '../components/ButtonsLogin';
               placeholder="Repetir Contraseña"
               value={RepPassword}
               onChangeText={setRepPassword}
+              secureTextEntry={true}
             />
         </FormControl>
           <ButtonFondoRosa text="Finalizar" onPress={() => navigation.navigate('Login')} />
