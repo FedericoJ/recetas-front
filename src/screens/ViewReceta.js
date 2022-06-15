@@ -114,7 +114,7 @@ const ViewReceta = ({ navigation }) => {
       >
         <FontAwesome name="user" size={30} color="gray" />
 
-        <Text style={{ fontSize: 12, color: "gray" }}> @mamacora </Text>
+        <Text style={{ fontSize: 16, color: "gray" }}> @mamacora </Text>
       </View>
 
       <View
@@ -254,6 +254,7 @@ const ViewReceta = ({ navigation }) => {
           style={{ backgroundColor: "#ffff" }}
           w="90%"
           mx="5"
+          fontSize= "16"
           value={
             "Tengo una vaca lechera no es una vaca cualquiera, me da leche descremada"
           }
@@ -274,6 +275,7 @@ const ViewReceta = ({ navigation }) => {
           <Input
             style={{ backgroundColor: "#ffff", textAlign: "center" }}
             mx="1"
+            fontSize= "16"
             value={"Americana"}
             placeholder="Americana"
           />
@@ -294,6 +296,7 @@ const ViewReceta = ({ navigation }) => {
             value={2}
             mx="1"
             w="15%"
+            fontSize= "16"
             placeholder="2"
           />
         </View>
@@ -314,6 +317,7 @@ const ViewReceta = ({ navigation }) => {
             value={1}
             mx="1"
             w="15%"
+            fontSize= "16"
             placeholder="2"
           />
         </View>
