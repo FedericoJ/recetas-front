@@ -43,10 +43,14 @@ import {
     }
     ;
 
-  return <View style={styles.container}>
-    <Center style={styles.container} >
-     <View  style={styles.container} >
-      <Box safeArea p="2" w="100%" maxW="290"></Box>
+  return (
+    
+    <View maxW="400" h="600" style={styles.scrollView} _contentContainerStyle={{
+      px: "20px",
+      mb: "4",
+      minW: "72"
+    }}>
+      <Box safeArea p="2" py="8" w="100%" maxW="290"></Box>
        <Center>
        <View style={styles.centerContent}>
         <Image
@@ -56,7 +60,8 @@ import {
         
     </View>
         </Center>
-        <Box safeArea p="2"  w="100%"  py="8">
+        <View style={styles.centerContent}>
+        <Box safeArea p="2"  w="100%" maxW="290" py="8">
           <Center>  
         <Heading size="xlg" color="coolGray.800" _dark={{
         color: "warmGray.50"
@@ -64,7 +69,7 @@ import {
           RecetApp
         </Heading>
         </Center>
-        <Box safeArea p="2"  w="100%" maxW="290" py="2"></Box>
+        {/* <Box safeArea p="2"  w="100%" maxW="290" py="8"> */}
         <Center>
         <Heading mt="1" color="coolGray.800" _dark={{
         color: "warmGray.50"
@@ -93,9 +98,9 @@ import {
         </VStack>
       </Box>
       </View>
-    </Center>
-    </View>
-};
+      </View>
+
+)};
 
 const styles = StyleSheet.create({
   container: {
@@ -120,9 +125,9 @@ const styles = StyleSheet.create({
     export default () => {
         return (
           <NativeBaseProvider>
-            <Center style={styles.container} >
+            <View style={styles.container} >
                 <RecoveryPasswordScreen />
-            </Center>
+            </View>
           </NativeBaseProvider>
         );
     };

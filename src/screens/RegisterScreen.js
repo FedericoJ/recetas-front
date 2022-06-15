@@ -43,7 +43,7 @@ import {
     }
     ;
 
-  return <Center w="100%">
+  return (
      <View maxW="400" h="600" style={styles.scrollView} _contentContainerStyle={{
       px: "20px",
       mb: "4",
@@ -59,6 +59,7 @@ import {
         
     </View>
       </Center>
+      <View style={styles.centerContent}>
       <Box safeArea p="2"  w="100%" maxW="290" py="8">
         <Center>  
         <Heading size="lg" color="coolGray.800" _dark={{
@@ -95,7 +96,8 @@ import {
         </VStack>
       </Box>
       </View>
-    </Center>;
+      </View>
+  )
 };
 
 const styles = StyleSheet.create({
@@ -122,9 +124,9 @@ const styles = StyleSheet.create({
     export default () => {
         return (
           <NativeBaseProvider>
-            <Center style={styles.container} flex={1} px="3">
+            <View style={styles.container} >
                 <RegisterScreen />
-            </Center>
+            </View>
           </NativeBaseProvider>
         );
     };

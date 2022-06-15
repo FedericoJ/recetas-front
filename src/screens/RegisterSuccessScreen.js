@@ -48,12 +48,16 @@ const styles = StyleSheet.create({
   centerContent: {
     justifyContent:'center',
     alignItems:'center'
-  }
+  },
+  container: {
+    flex: 1,
+    backgroundColor: '#D6B1B1',
+  },
 });
     export default () => {
         return (
           <NativeBaseProvider>
-            <Center flex={1} px="3">
+            <Center style={styles.container}>
                 <RegisterSuccessScreen />
             </Center>
           </NativeBaseProvider>

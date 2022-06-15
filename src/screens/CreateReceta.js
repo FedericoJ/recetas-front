@@ -50,6 +50,7 @@ const CreateReceta = () => {
   const [ingrediente , setIngrediente] = useState("");
   const [cantidad , setCantidad] = useState("");
   const [descPaso , setdescPaso] = useState("");
+  const [visibleExisteReceta , setVisibleExisteReceta] = useState("");
 
   const [categorias, setCategorias] = useState([
     { label: "Pasta", value: "1" },
@@ -72,7 +73,7 @@ const CreateReceta = () => {
   };
 
   const onChangeBlur = () => {
-    setVisible(true)
+    setVisibleExisteReceta(true)
     console.log (visible);
 }
 
@@ -80,8 +81,26 @@ const CreateReceta = () => {
   return (
     <ScrollView style={styles.container}>
            <NativeBaseProvider>
-          <ProgressSteps>
-              <ProgressStep label="Descripción">
+          <ProgressSteps 
+              disabledStepNumColor= "white" 
+              completedStepNumColor= "#D6B1B1" 
+              activeStepNumColor="#D6B1B1" 
+              completedLabelColor= "yellow" 
+              activeLabelFontSize="Large" 
+              activeLabelColor ="#AC6363" 
+              labelFontSize="0"
+              disabledStepIconColor ="white"
+              completedStepIconColor= "yellow"
+              completedProgressBarColor="yellow"
+              activeStepIconBorderColor="#AC6363" 
+          >
+              <ProgressStep 
+              label="Descripción"
+              nextBtnText= "Siguiente"
+              previousBtnText="Anterior"
+              nextBtnTextStyle= {{color:'black', fontWeight: 'bold'}}
+              
+              >
                <ScrollView style={styles.container}>
                 <Text
                     style={{
@@ -101,6 +120,34 @@ const CreateReceta = () => {
                 </View>
                 <NativeBaseProvider>
 
+                <ModalPoup visible={visibleExisteReceta}>
+                    <View style={{ alignItems: "flex-start" }}>
+                      <Text style={{ fontSize: 20, color: "black" }}>
+                      Ya existe una receta con este nombre
+                      </Text>
+                    </View>
+
+                    <View style={styles.botonesModal2}>
+                      <ButtonModal
+                        text="Editar"
+                        onPress={() => {
+                          setVisibleExisteReceta(false);
+                        }}
+                      />
+                      <ButtonModal
+                        text="Reemplazar"
+                        onPress={() => {
+                          setVisibleExisteReceta(false);
+                        }}
+                      />
+                      <ButtonModal
+                        text="Cancelar"
+                        onPress={() => {
+                          setVisibleExisteReceta(false);
+                        }}
+                      />
+                    </View>
+                  </ModalPoup>
                 <View
                   style={{
                     flexDirection: "row",
@@ -219,7 +266,7 @@ const CreateReceta = () => {
                   </View>
                   </NativeBaseProvider>
               </ScrollView>
-              </ProgressStep >
+              </ProgressStep> 
               <ProgressStep label="Ingredientes" >
               <ScrollView style={styles.container}>
                     <NativeBaseProvider>
@@ -482,6 +529,15 @@ const styles = StyleSheet.create({
     marginBottom: "1%",
     marginHorizontal: "1%",
   },
+  botonesModal2: {
+    flexDirection: "column",
+    alignItems: "flex-start",
+    marginTop: "2%",
+    marginBottom: "1%",
+  },
+  progressStep:{
+
+  }
 
 });
 
