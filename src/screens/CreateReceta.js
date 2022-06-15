@@ -80,31 +80,6 @@ const CreateReceta = () => {
 
   return (
     <ScrollView style={styles.container}>
-      <ModalPoup visible={visible}>
-            <View style={{ alignItems: "flex-start" }}>
-              <Text style={{ fontSize: 20, color: "black" }}>
-              No te encuentras conectado a una red WIFI ¿Deseas continuar con la carga?{" "}
-              </Text>
-            </View>
-
-            <View style={styles.botonesModal}>
-              <ButtonModal
-                text="No"
-                onPress={() => {
-                  setVisible(false);
-                  setVisibleWifi(true)
-                }}
-              />
-              <ButtonModal
-                text="Si"
-                onPress={() => {
-                  setVisible(false);
-                  setVisibleCarga(true)
-                }}
-              />
-            </View>
-      </ModalPoup>
-
            <NativeBaseProvider>
           <ProgressSteps 
               disabledStepNumColor= "white" 
