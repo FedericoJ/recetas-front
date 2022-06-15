@@ -26,6 +26,14 @@ import Tipos from './Tipos';
 
 const Categorias =()=>{
 
+
+    React.useEffect(() => {
+
+        //http://localhost:3000/ingredientes/getTiposreceta
+
+    },[]);
+  
+
     return (
         <SafeAreaView style={{ marginVertical:'5%'}}>
         <Text  style={{textAlign:"center", marginVertical:'1%' , fontSize:20,fontWeight:"bold"}}> Categorias </Text>
