@@ -33,7 +33,7 @@ import {
       const body = JSON.stringify({Nombre,Password})
 
       try {
-        const res = await axios.post(`${baseUrl}/usuario/crearInvitado`,body,setup);
+        const res = await axios.post(`${baseUrl}/usuario/crearInvitadoUpdate`,body,setup);
         navigation.navigate('RegisterSuccess')
         console.log(res.data);
         console.log(res)

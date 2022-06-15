@@ -38,7 +38,7 @@ import {
         console.log(res)
       }catch(error){
         console.log("Here")
-        navigation.navigate('RegisterFailed')
+        alert("Error")
       }
     }
     ;
