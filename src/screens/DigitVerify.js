@@ -54,23 +54,30 @@ const DigitVerify = () => {
 
 
   const baseUrl = config.baseUrl;
-  const RegisterPassword = async () => {
+  const Verify = async () => {
 
     const setup = {
       headers: {
         'content-type': 'application/json'
       }
     }
-    const body = JSON.stringify({ firstName, lastName, password, email, gender, condition })
+    const mail = '93.vazquezmartin@gmail.com';
+    const codigo = '1';
+    const body = JSON.stringify({ mail, codigo })
 
     try {
-      const res = await axios.post(`${baseUrl}/users/`, body, setup);
-      navigation.navigate('RegisterSuccess')
+      console.log(body);
+      const res = await axios.get(`${baseUrl}/usuario/validarCodigoRecuperacion`, body, setup);
+      if (res.status === 202) {
+        alert("Ingresaste un código equivocado. Ingresalo nuevamente.");
+      }
+      if (res.status === 201) {
+        navigation.navigate('EnterNewPassword')
+      }
       console.log(res.data);
-      console.log(res)
+      console.log(res);
     } catch (error) {
-      console.log("Here")
-      navigation.navigate('RegisterFailed')
+      alert("Error");
     }
   }
     ;
@@ -191,7 +198,7 @@ const DigitVerify = () => {
             onPress={() => alert("Código enviado nuevamente")} >
             Enviar nuevamente
           </Button> */}
-          <ButtonFondoRosa text="Continuar" onPress={() => navigation.navigate('EnterNewPassword')} />
+          <ButtonFondoRosa text="Continuar" onPress={() => Verify()} />
         </VStack>
 
       </ScrollView>

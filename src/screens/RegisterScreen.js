@@ -29,7 +29,6 @@ const RegisterScreen = () => {
 
   const RegisterUser= () => {
     if(!validateData()){
-      alert("Formato de mail invalido (OJO QUE ESTO SE TIENE QUE VER EN EL LABEL)");
       return;
     }
     Register();
@@ -40,7 +39,7 @@ const RegisterScreen = () => {
     let isValid = true
 
     if (!validateEmail(mail)) { 
-      setErrorEmail("Debes de ingresar un email válido.")
+      setErrorEmail("Formato de mail invalido")
       isValid = false
     }
     return isValid
@@ -115,6 +114,7 @@ const RegisterScreen = () => {
                 value={mail}
                 onChangeText={setEmail} />
             </FormControl>
+            <Text textAlign='center'>{errorEmail}</Text>
             <FormControl isRequired>
               <Input
                 placeholder="Usuario"
