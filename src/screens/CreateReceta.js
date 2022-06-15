@@ -49,6 +49,7 @@ const CreateReceta = () => {
   const [ingredientes,setIngredientes]=useState([{valor:"valor"}]);
   const [descPaso , setdescPaso] = useState("");
   const [visibleExisteReceta , setVisibleExisteReceta] = useState("");
+  const [conexion , setConexion] = useState("datos");
 
   const [categorias, setCategorias] = useState([
     { label: "Pasta", value: "1" },
@@ -92,6 +93,8 @@ const cargarIngrediente =() =>{
   const onChangeHandler2 = (item) => {
     setUnidadesSel(item);
   };
+
+
 
 
   return (<View>
@@ -151,7 +154,18 @@ const cargarIngrediente =() =>{
 
 }
 
+  const conexionWifi =() =>{
 
+  if (conexion==='wifi'){
+    return (
+       setVisible(true)
+    )
+    
+  }else{
+     setVisibleCarga(true)
+  }
+
+  }
 
   return (
     <ScrollView style={styles.container}>
@@ -426,6 +440,7 @@ const cargarIngrediente =() =>{
                 previousBtnTextStyle= {{color:'black', fontWeight: 'bold'}}
                 finishBtnText= ""
                 nextBtnDisabled="true"> 
+
               <ModalPoup visible={visible}>
             <View style={{ alignItems: "flex-start" }}>
               <Text style={{ fontSize: 20, color: "black" }}>
@@ -489,7 +504,7 @@ const cargarIngrediente =() =>{
             </View>
           </ModalPoup>
           <View style={styles.botones}>
-              <ButtonCreateRosa text="Guardar"  onPress={() => {setVisible(true)}}/>
+              <ButtonCreateRosa text="Guardar"  onPress={() => {conexionWifi()}}/>
           </View>
           </ProgressStep>
           </ProgressSteps>
