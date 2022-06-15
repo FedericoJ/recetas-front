@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { StyleSheet,Text, Image, View} from 'react-native';
+import { StyleSheet,Text, Image, View, Modal} from 'react-native';
 import { 
   Box,
   Heading,
@@ -13,13 +13,37 @@ import {
   import config from "../config/default.json";
   import axios from 'axios'
   import { useNavigation } from '@react-navigation/native';
-  import {  ButtonFondoBlanco, ButtonFondoRosa } from '../components/ButtonsLogin';
+  import {  ButtonFondoBlanco, ButtonFondoRosa, ButtonModalUnico } from '../components/ButtonsLogin';
+
+  const ModalPoup = ({ visible, children }) => {
+    const [showModal, setShowModal] = React.useState(visible);
+    React.useEffect(() => {
+      toggleModal();
+    }, [visible]);
+    const toggleModal = () => {
+      if (visible) {
+        setShowModal(true);
+      } else {
+        setShowModal(false);
+      }
+    };
+  
+    return (
+      <Modal transparent visible={showModal}>
+        <View style={styles.modalBackGround}>
+          <View style={[styles.modalContainer]}>{children}</View>
+        </View>
+      </Modal>
+    );
+  };
   
   const RecoveryPasswordScreen = () => {
 
     const navigation = useNavigation();
     const [ Usuario , setUsuario] = useState("");
     const [ Mail , setMail] = useState("");
+
+    const [visible, setVisible] = React.useState(false);
 
     const baseUrl =  config.baseUrl;
     const RecoveryPassword = async () => {
@@ -93,7 +117,28 @@ import {
               onChangeText={setMail}
             />
         </FormControl>
-          <ButtonFondoRosa text="Recuperar" onPress={RecoveryPassword}/>
+          
+        <ModalPoup visible={visible}>
+            <View style={{ alignItems: "flex-start" }}>
+              <Text style={{ fontSize: 20, color: "black" }}>
+              Te enviamos un correo para validar el usuario
+              </Text>
+            </View>
+
+            <View
+              style={styles.botonesModal}>
+              <ButtonModalUnico
+                text="Aceptar"
+                onPress={() => {
+                  navigation.navigate("DigitVerify");
+                  setVisible(false);
+                }}
+              />
+            </View>
+          </ModalPoup>
+
+        
+          <ButtonFondoRosa text="Recuperar" onPress={() => setVisible(true)}/>
           <ButtonFondoBlanco text="Cancelar" onPress={() => navigation.navigate('Home')}/>
         </VStack>
       </Box>
@@ -119,6 +164,33 @@ const styles = StyleSheet.create({
   },
   text: {
     fontSize: 42,
+  },
+  modalBackGround: {
+    flex: 1,
+    backgroundColor: "rgba(0,0,0,0.5)",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  modalContainer: {
+    width: "80%",
+    backgroundColor: "#F7F4F4",
+    paddingHorizontal: 20,
+    paddingVertical: 30,
+    borderRadius: 20,
+    elevation: 20,
+  },
+  header: {
+    width: "100%",
+    height: 40,
+    alignItems: "flex-end",
+    justifyContent: "center",
+  },
+  botonesModal: {
+    flexDirection: "row",
+    alignItems: "center",
+    marginTop: "5%",
+    marginBottom: "1%",
+    marginHorizontal: "1%",
   },
 });
 

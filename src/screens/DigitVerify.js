@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { StyleSheet, Text, Image, View } from 'react-native';
+import { StyleSheet, Text, Image, View, Modal } from 'react-native';
 import {
   Box,
   Heading,
@@ -9,12 +9,36 @@ import {
   Button,
   Center,
   NativeBaseProvider,
-  ScrollView
+  ScrollView, 
+  Link,
+  HStack
 } from "native-base";
 import config from "../config/default.json";
 import axios from 'axios'
 import { useNavigation } from '@react-navigation/native';
-import { ButtonFondoRosa } from '../components/ButtonsLogin';
+import { ButtonFondoRosa, ButtonModalUnico } from '../components/ButtonsLogin';
+
+const ModalPoup = ({ visible, children }) => {
+  const [showModal, setShowModal] = React.useState(visible);
+  React.useEffect(() => {
+    toggleModal();
+  }, [visible]);
+  const toggleModal = () => {
+    if (visible) {
+      setShowModal(true);
+    } else {
+      setShowModal(false);
+    }
+  };
+
+  return (
+    <Modal transparent visible={showModal}>
+      <View style={styles.modalBackGround}>
+        <View style={[styles.modalContainer]}>{children}</View>
+      </View>
+    </Modal>
+  );
+};
 
 const DigitVerify = () => {
 
@@ -25,6 +49,9 @@ const DigitVerify = () => {
   const [Code4, setCode4] = useState("");
   const [Code5, setCode5] = useState("");
   const [Code6, setCode6] = useState("");
+
+  const [visible, setVisible] = React.useState(false);
+
 
   const baseUrl = config.baseUrl;
   const RegisterPassword = async () => {
@@ -133,10 +160,37 @@ const DigitVerify = () => {
                 onChangeText={setCode6} />
             </FormControl>
           </Box>
-          <Button mx="1" size="xs" variant="link" colorScheme="muted"
+          <ModalPoup visible={visible}>
+            <View style={{ alignItems: "flex-start" }}>
+              <Text style={{ fontSize: 20, color: "black" }}>
+              Te enviamos un correo para validar el usuario
+              </Text>
+            </View>
+
+            <View
+              style={styles.botonesModal}>
+              <ButtonModalUnico
+                text="Aceptar"
+                onPress={() => {
+                  navigation.navigate("DigitVerify");
+                  setVisible(false);
+                }}
+              />
+            </View>
+          </ModalPoup>
+          <HStack mt="6" justifyContent="center" >
+          <Link  onPress={() => setVisible(true)} _text={{
+            color: "#AC6363",
+            fontWeight: "medium",
+            fontSize: "sm",
+          }}>
+              Enviar nuevamente
+            </Link>
+            </HStack>
+          {/* <Button mx="1" size="xs" variant="link" colorScheme="muted"
             onPress={() => alert("Código enviado nuevamente")} >
             Enviar nuevamente
-          </Button>
+          </Button> */}
           <ButtonFondoRosa text="Continuar" onPress={() => navigation.navigate('EnterNewPassword')} />
         </VStack>
 
@@ -162,6 +216,33 @@ const styles = StyleSheet.create({
   },
   text: {
     fontSize: 42,
+  },
+  modalBackGround: {
+    flex: 1,
+    backgroundColor: "rgba(0,0,0,0.5)",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  modalContainer: {
+    width: "80%",
+    backgroundColor: "#F7F4F4",
+    paddingHorizontal: 20,
+    paddingVertical: 30,
+    borderRadius: 20,
+    elevation: 20,
+  },
+  header: {
+    width: "100%",
+    height: 40,
+    alignItems: "flex-end",
+    justifyContent: "center",
+  },
+  botonesModal: {
+    flexDirection: "row",
+    alignItems: "center",
+    marginTop: "5%",
+    marginBottom: "1%",
+    marginHorizontal: "1%",
   },
 });
 

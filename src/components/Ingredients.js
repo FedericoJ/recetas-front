@@ -17,6 +17,7 @@ const InputSelectCombo = ({item, unidades}) => {
       textAlign:"center" }} 
       w='40%' 
       mx="2"
+      fontSize= "16"
       value={item.cantidad}
     />
 
@@ -25,8 +26,10 @@ const InputSelectCombo = ({item, unidades}) => {
       selectedValue={unidadSeleccionada}
       w='40%'
       mx="2"
+      fontSize= "16"
       _selectedItem={{
         bg: "indigo",
+        fontSize: "16",
         endIcon: <CheckIcon size={5} />,
       }}
       onValueChange={onChangeHandler}

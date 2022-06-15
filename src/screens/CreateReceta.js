@@ -160,36 +160,23 @@ const cargarIngrediente =() =>{
               disabledStepNumColor= "white" 
               completedStepNumColor= "#D6B1B1" 
               activeStepNumColor="#D6B1B1" 
-              completedLabelColor= "yellow" 
+              completedLabelColor= "#FFD700" 
               activeLabelFontSize="Large" 
               activeLabelColor ="#AC6363" 
-              labelFontSize="0"
+              labelFontSize= "0"
               disabledStepIconColor ="white"
-              completedStepIconColor= "yellow"
-              completedProgressBarColor="yellow"
+              completedStepIconColor= "#FFD700"
+              completedProgressBarColor="#FFD700"
               activeStepIconBorderColor="#AC6363" 
           >
               <ProgressStep 
               label="Descripción"
               nextBtnText= "Siguiente"
-              previousBtnText="Anterior"
+              // previousBtnText="Anterior"
               nextBtnTextStyle= {{color:'black', fontWeight: 'bold'}}
               
               >
                <ScrollView style={styles.container}>
-                <Text
-                    style={{
-                      marginTop: "5%",
-                      marginBottom: "5%",
-                      marginHorizontal: "5%",
-                      fontSize: 25,
-                      fontWeight: "bold"
-                    }}
-                  >
-                    {" "}
-                    Descripcion{" "}
-                  </Text>
-
                 <View style={{ width: "100%", height: 200 }}>
                   <UploadImageReceta/>
                 </View>
@@ -342,7 +329,12 @@ const cargarIngrediente =() =>{
                   </NativeBaseProvider>
               </ScrollView>
               </ProgressStep> 
-              <ProgressStep label="Ingredientes" >
+              <ProgressStep  
+                label="Ingredientes"
+                nextBtnText= "Siguiente"
+                previousBtnText="Anterior"
+                nextBtnTextStyle= {{color:'black', fontWeight: 'bold'}}
+                previousBtnTextStyle= {{color:'black', fontWeight: 'bold'}}>
               <ScrollView style={styles.container}>
                     <NativeBaseProvider>
                   <Text
@@ -381,67 +373,14 @@ const cargarIngrediente =() =>{
                   </NativeBaseProvider>
               </ScrollView>
               </ProgressStep>
-              <ProgressStep label="Pasos" >
-
- 
-
-          <ModalPoup visible={visibleWifi}>
-            <View style={{ alignItems: "flex-start" }}>
-              <Text style={{ fontSize: 20, color: "black" }}>
-              La receta se cargará cuando estes conectado a una red WIFI
-              </Text>
-            </View>
-
-            <View
-              style={styles.botonesModal}>
-              <ButtonModalUnico
-                text="Aceptar"
-                onPress={() => {
-                  navigation.navigate("Principal");
-                  setVisibleWifi(false);
-                }}
-              />
-            </View>
-          </ModalPoup>
-
-          <ModalPoup visible={visibleCarga}>
-            <View style={{ alignItems: "flex-start" }}>
-              <Text style={{ fontSize: 20, color: "black" }}>
-              La receta se cargó correctamente, la verás publicada cuando sea autorizada
-              </Text>
-            </View>
-
-            <View
-              style={styles.botonesModal}>
-              <ButtonModalUnico
-                text="Aceptar"
-                onPress={() => {
-                  navigation.navigate("Receta");
-                  setVisibleCarga(false);
-                }}
-              />
-            </View>
-          </ModalPoup>
-
-
-              <View style={styles.botones}>
-                      <ButtonCreateRosa text="Guardar"  onPress={() => {setVisible(true)}}/>
-                   </View>
+              <ProgressStep 
+                label="Pasos"
+                nextBtnText= "Siguiente"
+                previousBtnText="Anterior"
+                nextBtnTextStyle= {{color:'black', fontWeight: 'bold'}}
+                previousBtnTextStyle= {{color:'black', fontWeight: 'bold'}}> 
               <ScrollView style={styles.container}>
                     <NativeBaseProvider>
-                  <Text
-                    style={{
-                      marginTop: "5%",
-                      marginHorizontal: "5%",
-                      marginBottom: "2%",
-                      fontSize: 25,
-                      fontWeight: "bold",
-                    }}
-                  >
-                    {" "}
-                    Pasos{" "}
-                  </Text>
-
                   <TextArea
                     style={{ backgroundColor: "#ffff"}}
                     w="90%"
@@ -480,6 +419,79 @@ const cargarIngrediente =() =>{
                   </NativeBaseProvider>
               </ScrollView>
               </ProgressStep>
+              
+              <ProgressStep                 
+                label="Guardar"
+                previousBtnText="Anterior"
+                previousBtnTextStyle= {{color:'black', fontWeight: 'bold'}}
+                finishBtnText= ""
+                nextBtnDisabled="true"> 
+              <ModalPoup visible={visible}>
+            <View style={{ alignItems: "flex-start" }}>
+              <Text style={{ fontSize: 20, color: "black" }}>
+              No se encuentra conectado a una red WIFI. ¿Desea publicarla igualmente?
+              </Text>
+            </View>
+
+            <View
+              style={styles.botonesModal}>
+              <ButtonModal
+                text="No"
+                onPress={() => {
+                  setVisible(false);
+                  setVisibleWifi(true);
+                }}
+              />
+                <ButtonModal
+                text="Si"
+                onPress={() => {
+                  setVisible(false);
+                  setVisibleCarga(true);
+                }}
+              />
+            </View>
+          </ModalPoup>    
+            <ModalPoup visible={visibleWifi}>
+            <View style={{ alignItems: "flex-start" }}>
+              <Text style={{ fontSize: 20, color: "black" }}>
+              La receta se cargará cuando estes conectado a una red WIFI
+              </Text>
+            </View>
+
+            <View
+              style={styles.botonesModal}>
+              <ButtonModalUnico
+                text="Aceptar"
+                onPress={() => {
+                  navigation.navigate("Principal");
+                  setVisibleWifi(false);
+                }}
+              />
+            </View>
+          </ModalPoup>
+
+          <ModalPoup visible={visibleCarga}>
+            <View style={{ alignItems: "flex-start" }}>
+              <Text style={{ fontSize: 20, color: "black" }}>
+              La receta se cargó correctamente, la verás publicada cuando sea autorizada
+              </Text>
+            </View>
+
+            <View
+              style={styles.botonesModal}>
+              <ButtonModalUnico
+                text="Aceptar"
+                onPress={() => {
+                  navigation.navigate("Receta");
+                  setVisibleCarga(false);
+                }}
+              />
+            </View>
+          </ModalPoup>
+          <View style={styles.botones}>
+              <ButtonCreateRosa text="Guardar"  onPress={() => {setVisible(true)}}/>
+          </View>
+          </ProgressStep>
           </ProgressSteps>
 
       </NativeBaseProvider>
@@ -544,9 +556,6 @@ const styles = StyleSheet.create({
     marginTop: "2%",
     marginBottom: "1%",
   },
-  progressStep:{
-
-  }
 
 });
 
