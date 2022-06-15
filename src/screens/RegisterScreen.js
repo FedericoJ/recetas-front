@@ -9,19 +9,44 @@ import {
   Button,
   Center,
   NativeBaseProvider,
-  ScrollView
+  ScrollView, Modal
 } from "native-base";
 import config from "../config/default.json";
 import axios from 'axios'
 import { useNavigation } from '@react-navigation/native';
-import { ButtonFondoBlanco, ButtonFondoRosa } from '../components/ButtonsLogin';
+import { ButtonFondoBlanco, ButtonFondoRosa, ButtonModalUnico, ButtonModal } from '../components/ButtonsLogin';
 import { validateEmail } from '../helpers/emailValidator';
+
+// const ModalPoup = ({ visible, children }) => {
+//   const [showModal, setShowModal] = React.useState(visible);
+//   React.useEffect(() => {
+//     toggleModal();
+//   }, [visible]);
+//   const toggleModal = () => {
+//     if (visible) {
+//       setShowModal(true);
+//     } else {
+//       setShowModal(false);
+//     }
+//   };
+
+//   return (
+//     <Modal transparent visible={showModal}>
+//       <View style={styles.modalBackGround}>
+//         <View style={[styles.modalContainer]}>{children}</View>
+//       </View>
+//     </Modal>
+//   );
+// };
 
 const RegisterScreen = () => {
 
   const navigation = useNavigation();
   const [nickname, setUsuario] = useState("");
   const [mail, setEmail] = useState("");
+
+  // const [visible, setVisible] = React.useState(false);
+  // const [tipoErrorModal, setTipoErrorModal] = useState("");
 
   //Para validar mail y password
   const [errorEmail, setErrorEmail] = React.useState("")
@@ -74,6 +99,20 @@ const RegisterScreen = () => {
   }
     ;
 
+  //  const ErrorModal =() =>{
+
+  // if (tipoErrorModal==='200'){
+  //  return (
+  //       setVisible(true)
+  //     )  
+  //   }else if (tipoErrorModal==='202'){
+  //     setVisible(true)
+  //    }
+  //    else if (tipoErrorModal==='error'){
+  //      setVisible(true)
+  //  }
+  //  }
+
   return (
     <View maxW="400" h="600" style={styles.scrollView} _contentContainerStyle={{
       px: "20px",
@@ -123,7 +162,27 @@ const RegisterScreen = () => {
                 onChangeText={setUsuario}
               />
             </FormControl>
-            <ButtonFondoRosa text="Registrarse" onPress={RegisterUser} />
+{/* 
+            <ModalPoup visible={visible}>
+            <View style={{ alignItems: "flex-start" }}>
+              <Text style={{ fontSize: 20, color: "black" }}>
+              La receta se cargará cuando estes conectado a una red WIFI
+              </Text>
+            </View>
+
+            <View
+              style={styles.botonesModal}>
+              <ButtonModalUnico
+                text="Aceptar"
+                onPress={() => {
+                  navigation.navigate("Principal");
+                  setVisible(false);
+                }}
+              />
+            </View>
+          </ModalPoup> */}
+
+            <ButtonFondoRosa text="Registrarse" onPress={RegisterUser}/>
             <ButtonFondoBlanco text="Cancelar" onPress={() => navigation.navigate('Inicio')} />
           </VStack>
         </Box>
@@ -150,6 +209,41 @@ const styles = StyleSheet.create({
   },
   text: {
     fontSize: 42,
+  },
+  modalBackGround: {
+    flex: 1,
+    backgroundColor: "rgba(0,0,0,0.5)",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  modalContainer: {
+    width: "80%",
+    backgroundColor: "#F7F4F4",
+    paddingHorizontal: 20,
+    paddingVertical: 30,
+    borderRadius: 20,
+    elevation: 20,
+  },
+  header: {
+    width: "100%",
+    height: 40,
+    alignItems: "flex-end",
+    justifyContent: "center",
+  },
+  input: {
+    height: "100%",
+    borderColor: "gray",
+    borderWidth: 1,
+    width: "100%",
+    justifyContent: "center",
+    alignItems: "stretch",
+  },
+  botonesModal: {
+    flexDirection: "row",
+    alignItems: "center",
+    marginTop: "5%",
+    marginBottom: "1%",
+    marginHorizontal: "1%",
   },
 });
 
