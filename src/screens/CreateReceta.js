@@ -46,9 +46,7 @@ const CreateReceta = () => {
   const [porciones , setPorciones] = useState("");
   const [personas , setPersonas] = useState("");
   const [categoriaSel,setCategoriaSel]=useState("1");
-  const [unidadSel,setUnidadesSel]=useState("1");
-  const [ingrediente , setIngrediente] = useState("");
-  const [cantidad , setCantidad] = useState("");
+  const [ingredientes,setIngredientes]=useState([{valor:"valor"}]);
   const [descPaso , setdescPaso] = useState("");
   const [visibleExisteReceta , setVisibleExisteReceta] = useState("");
 
@@ -68,14 +66,91 @@ const CreateReceta = () => {
     { label: "Lt", value: "3" },
   ]);
 
-  const onChangeHandler2 = (item) => {
-    setUnidadesSel(item);
-  };
+  React.useEffect(() => {
+
+  },[ingredientes]);
 
   const onChangeBlur = () => {
     setVisibleExisteReceta(true)
     console.log (visible);
 }
+
+const agregarIngrediente =()=>{
+  var auxArray =ingredientes;
+  auxArray.push({valor:"1"});
+  setIngredientes(auxArray);
+
+  console.log(auxArray.length);
+}
+
+
+const cargarIngrediente =() =>{
+
+  const [unidadSel,setUnidadesSel]=useState("1");
+  const [ingrediente , setIngrediente] = useState("");
+  const [cantidad , setCantidad] = useState("");
+  const onChangeHandler2 = (item) => {
+    setUnidadesSel(item);
+  };
+
+
+  return (<View>
+      {ingredientes.map((ing,indice) => (
+        
+          <HStack mt="3" w="90%" key={indice} >
+          <Input
+              style={{ backgroundColor: "#ffff", textAlign: "center" }}
+              mx="1"
+              w="44%"
+              fontSize= "16"
+              placeholder="Ingrediente"
+              value={ingrediente}
+              onChangeText={setIngrediente}
+              marginLeft="5%"
+            />
+            <Input
+              style={{ backgroundColor: "#ffff", textAlign: "center" }}
+              mx="1"
+              w="21%"
+              fontSize= "16"
+              placeholder="Cant"
+              value={cantidad}
+              onChangeText={setCantidad}
+            />
+
+            <Select
+                style={{backgroundColor:'#ffff'}}
+                selectedValue={unidadSel}
+                marginRight="47%"
+                w="50%"
+                fontSize= "16"
+                mr="2"
+                alignSelf="flex-end"
+                _selectedItem={{
+                  bg: "indigo",
+                  endIcon: <CheckIcon size={1}  />,
+                }}
+                onValueChange={onChangeHandler2}
+                
+              >
+                {unidades.map((unidad) => (
+                  <Select.Item
+                    key={unidad.value}
+                    label={unidad.label}
+                    value={unidad.value}
+                  />
+                ))}
+            </Select>
+
+          </HStack>
+      ))}
+
+    </View>
+  
+  )
+
+}
+
 
 
   return (
@@ -282,53 +357,10 @@ const CreateReceta = () => {
                     {" "}
                     Ingredientes{" "}
                   </Text>
-                  <HStack mt="3" w="90%"  >
-                  <Input
-                      style={{ backgroundColor: "#ffff", textAlign: "center" }}
-                      mx="1"
-                      w="44%"
-                      fontSize= "16"
-                      placeholder="Ingrediente"
-                      value={ingrediente}
-                      onChangeText={setIngrediente}
-                      marginLeft="5%"
-                    />
-                     <Input
-                      style={{ backgroundColor: "#ffff", textAlign: "center" }}
-                      mx="1"
-                      w="21%"
-                      fontSize= "16"
-                      placeholder="Cant"
-                      value={cantidad}
-                      onChangeText={setCantidad}
-                    />
+                  
+                  {cargarIngrediente()}
 
-                    <Select
-                        style={{backgroundColor:'#ffff'}}
-                        selectedValue={unidadSel}
-                        marginRight="47%"
-                        w="50%"
-                        fontSize= "16"
-                        mr="2"
-                        alignSelf="flex-end"
-                        _selectedItem={{
-                          bg: "indigo",
-                          endIcon: <CheckIcon size={1}  />,
-                        }}
-                        onValueChange={onChangeHandler2}
-                        
-                      >
-                        {unidades.map((unidad) => (
-                          <Select.Item
-                            key={unidad.value}
-                            label={unidad.label}
-                            value={unidad.value}
-                          />
-                        ))}
-                    </Select>
-
-                  </HStack>
-                  <TouchableOpacity>
+                  <TouchableOpacity onPress={() => agregarIngrediente()}>
                   <View
                     style={{
                       flexDirection: "row",

@@ -69,7 +69,7 @@ import Icon2 from '@mdi/react';
                 
 
             }else{
-                return null;
+                return (<View style={{width:"70%"}}> </View>);
             }
 
            
