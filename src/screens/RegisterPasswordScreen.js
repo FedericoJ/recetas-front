@@ -14,13 +14,14 @@ import {
   import axios from 'axios'
   import { useNavigation } from '@react-navigation/native';
   import {  ButtonFondoBlanco, ButtonFondoRosa } from '../components/ButtonsLogin';
+import { mdiAlertRemove } from '@mdi/js';
   
   const RegisterPasswordScreen = () => {
 
     const navigation = useNavigation();
-    const [ Nombre , setNombre] = useState("");
-    const [ Password    , setPassword] = useState("");
-    const [ Password2    , setPassword2] = useState("");
+    const [ nombre , setNombre] = useState("");
+    const [ password    , setPassword] = useState("");
+    const [ password2    , setPassword2] = useState("");
 
     const baseUrl =  config.baseUrl;
     const RegisterPasswordScreen = async () => {
@@ -30,16 +31,16 @@ import {
           'content-type' : 'application/json'
         }
       }
-      const body = JSON.stringify({Nombre,Password})
+      const mail = localStorage.getItem('Mail');
+      const body = JSON.stringify({nombre,mail,password})
 
       try {
         const res = await axios.post(`${baseUrl}/usuario/crearInvitadoUpdate`,body,setup);
-        navigation.navigate('RegisterSuccess')
+        navigation.navigate('Inicio')
         console.log(res.data);
         console.log(res)
       }catch(error){
-        console.log("Here")
-        navigation.navigate('Principal')
+        alert("Error")
       }
     }
     ;
@@ -81,14 +82,14 @@ import {
             <Input 
               placeholder="Nombre"
               backgroundColor="#FFFF"
-              value={Nombre}
+              value={nombre}
               onChangeText={setNombre}/>
           </FormControl>
           <FormControl isRequired>
             <Input 
               placeholder="Contraseña"
               backgroundColor="#FFFF"
-              value={Password}
+              value={password}
               onChangeText={setPassword}
             />
         </FormControl>
@@ -96,7 +97,7 @@ import {
             <Input 
               placeholder="Repetir Contraseña"
               backgroundColor="#FFFF"
-              value={Password2}
+              value={password2}
               onChangeText={setPassword2}
             />
         </FormControl>

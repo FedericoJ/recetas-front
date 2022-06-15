@@ -14,6 +14,18 @@ import {
   import axios from 'axios'
   import { useNavigation } from '@react-navigation/native';
   import {  ButtonFondoBlanco, ButtonFondoRosa } from '../components/ButtonsLogin';
+
+  const validarFormulario = () => {
+    let campo = this.state.campo;
+    let error = {};
+    let formularioValido = true;
+ 
+    // Nombres y Apellidos
+    if (!campo["mail"]) {
+        formularioValido = false;
+        error["mail"] = "Por favor, ingresa tus Nombres y Apellidos.";
+    }
+  }
   
   const RegisterScreen = () => {
 
@@ -22,6 +34,7 @@ import {
     const [ mail    , setEmail] = useState("");
 
     const baseUrl =  config.baseUrl;
+
     const Register = async () => {
 
       const setup = {
@@ -33,12 +46,18 @@ import {
 
       try {
         const res = await axios.post(`${baseUrl}/usuario/crearInvitado`,body,setup);
-        navigation.navigate('RegisterPassword')
-        console.log(res.data);
-        console.log(res)
+        localStorage.setItem('Mail',mail);
+        if (res.status === 201) {
+          alert("Te hemos enviado un correo para validar tu usuario")
+          navigation.navigate('RegisterPassword')
+          const cat = localStorage.getItem('Mail');
+          console.log(cat);
+        }
+        if (res.status === 202) {
+          alert("El correo electronico ya se encuentra registrado. Haz click en recuperar y te enviaremos un mail")
+        }
       }catch(error){
-        console.log("Here")
-        alert("Login fallido")
+        alert("Ocurrio un error al momento de registrar su cuenta.")
       }
     }
     ;
@@ -91,7 +110,7 @@ import {
               onChangeText={setUsuario}
             />
         </FormControl>
-          <ButtonFondoRosa text="Registrarse" onPress={Register}/>
+          <ButtonFondoRosa text="Registrarse" onPress={validarFormulario}/>
           <ButtonFondoBlanco text="Cancelar" onPress={() => navigation.navigate('Inicio')}/>
         </VStack>
       </Box>
