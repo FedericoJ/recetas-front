@@ -39,7 +39,7 @@ const RegisterPasswordScreen = () => {
     let isValid = true
 
     if (password != password2) { 
-      setErrorPassword("Las contraseñas deben ser iguales")
+      setErrorPassword("Formato de contraseña incorrecto o no son iguales")
       isValid = false
     }
     return isValid

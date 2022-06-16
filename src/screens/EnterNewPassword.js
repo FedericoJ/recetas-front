@@ -37,7 +37,7 @@ import { ButtonFondoBlanco, ButtonFondoRosa } from '../components/ButtonsLogin';
       let isValid = true
   
       if (Password != RepPassword) { 
-        setErrorPassword("Las contraseñas deben ser iguales")
+        setErrorPassword("Formato de contraseña incorrecto o no son iguales")
         isValid = false
       }
       return isValid
