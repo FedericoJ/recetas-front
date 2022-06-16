@@ -27,6 +27,24 @@ const RegisterPasswordScreen = () => {
 
   const baseUrl = config.baseUrl;
 
+  const ValidatePassword= () => {
+    if(!validateData()){
+      return;
+    }
+    RegisterPassword(route.params.email, nombre, password);
+  }
+
+  const validateData = () => {
+    setErrorPassword("")
+    let isValid = true
+
+    if (password != password2) { 
+      setErrorPassword("Las contraseñas deben ser iguales")
+      isValid = false
+    }
+    return isValid
+  }
+
   const RegisterPassword = async (mail, nombre, password) => {
 
     const setup = {
@@ -108,7 +126,7 @@ const RegisterPasswordScreen = () => {
                 secureTextEntry={true}
               />
             </FormControl>
-            <ButtonFondoRosa text="Finalizar" onPress={() => RegisterPassword(route.params.email, nombre, password)} />
+            <ButtonFondoRosa text="Finalizar" onPress={() => ValidatePassword()} />
             <ButtonFondoBlanco text="Cancelar" onPress={() => navigation.navigate('Inicio')} />
           </VStack>
         </Box>

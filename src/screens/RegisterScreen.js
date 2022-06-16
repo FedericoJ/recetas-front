@@ -179,7 +179,7 @@ const RegisterScreen = () => {
             </View>
           </ModalPoup> */}
 
-            <ButtonFondoRosa text="Registrarse" onPress={Register}/>
+            <ButtonFondoRosa text="Registrarse" onPress={RegisterUser}/>
             <ButtonFondoBlanco text="Cancelar" onPress={() => navigation.navigate('Inicio')} />
           </VStack>
         </Box>
