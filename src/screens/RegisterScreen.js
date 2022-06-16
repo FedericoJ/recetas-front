@@ -83,12 +83,9 @@ const RegisterScreen = () => {
 
     try {
       const res = await axios.post(`${baseUrl}/usuario/crearInvitado`, body, setup);
-      localStorage.setItem('Mail', mail);
       if (res.status === 201) {
         alert("Te hemos enviado un correo para validar tu usuario")
-        navigation.navigate('RegisterPassword')
-        const cat = localStorage.getItem('Mail');
-        console.log(cat);
+        navigation.navigate('RegisterPassword',{email: mail})
       }
       if (res.status === 202) {
         alert("El correo electronico ya se encuentra registrado. Haz click en recuperar y te enviaremos un mail")
@@ -182,7 +179,7 @@ const RegisterScreen = () => {
             </View>
           </ModalPoup> */}
 
-            <ButtonFondoRosa text="Registrarse" onPress={RegisterUser}/>
+            <ButtonFondoRosa text="Registrarse" onPress={Register}/>
             <ButtonFondoBlanco text="Cancelar" onPress={() => navigation.navigate('Inicio')} />
           </VStack>
         </Box>

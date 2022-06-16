@@ -135,7 +135,7 @@ const RecoveryPasswordScreen = () => {
                   text="Aceptar"
                   onPress={() => {
                     setVisible(false);
-                    navigation.navigate('DigitVerify')
+                    navigation.navigate('DigitVerify',{email: mail})
                   }}
                 />
               </View>
