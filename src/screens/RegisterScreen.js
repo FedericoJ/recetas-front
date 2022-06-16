@@ -55,17 +55,9 @@ const RegisterScreen = () => {
 
   const RegisterUser= () => {
     if(!validateData()){
-      console.log("EntreValidateData");
       return;
     }
-    if(ValidateAlias()==true){
-      console.log("Entre");
-      return;
-    }else{
-      console.log(mail);
-      console.log(nickname);
-      Register();
-    }
+    ValidateAlias();
   }
 
   const validateData = () => {
@@ -83,7 +75,6 @@ const RegisterScreen = () => {
 
   const ValidateAlias = async () => {
     setErrorAlias("")
-    let existeAlias=false;
 
     const setup = {
       headers: {
@@ -93,19 +84,11 @@ const RegisterScreen = () => {
 
     try {
       const res = await axios.get(`${baseUrl}/usuario/validarAlias?alias=${nickname}`, setup);
-      console.log(res);
-      console.log(res.status);
-      console.log(res.status === 201);
       if(res.status === 201){
-        console.log("Entre a 201");
-        existeAlias = true;
-        setErrorAlias("Alias ya utilizado")
-        return existeAlias;
+        setErrorAlias("Alias ya utilizado");
       }
       if(res.status === 202){
-        console.log("Entre a 202");
-        existeAlias = false;
-        return existeAlias;
+        Register();
       }
     } catch (error) {
       alert("Ocurrio un error al momento de validar Alias.")
@@ -122,7 +105,9 @@ const RegisterScreen = () => {
     const body = JSON.stringify({ nickname, mail })
 
     try {
+      console.log("Antes de crear");
       const res = await axios.post(`${baseUrl}/usuario/crearInvitado`, body, setup);
+      console.log("Despues de crear");
       if (res.status === 201) {
         alert("Te hemos enviado un correo para validar tu usuario")
         navigation.navigate('RegisterPassword',{email: mail})
