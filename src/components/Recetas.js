@@ -4,14 +4,19 @@ import Stars from 'react-native-stars';
 import { FontAwesome, MaterialCommunityIcons } from '@expo/vector-icons'; 
 import { useNavigation } from '@react-navigation/native';
 
-
+/*CalificacionProm: "4.0000"
+Descripcion: "Budin de naranja con semillas de amapola"
+IdReceta: 1
+Nombre: "Budin naranja"
+alias: "mrv"
+foto: "https://www.clarin.com/img/2019/07/23/bs56zWpBq_1256x620__2.jpg#1591385524188"*/
 
 class Recetas extends React.Component{
 
     render(
         
     ){
-        const {tipo,usuario,calificacion,tipoImage} = this.props.tipos;
+        const {Descripcion,IdReceta,Nombre,alias,foto,CalificacionProm} = this.props.tipos;
         const  navigation  = this.props.navegacion;
         return (
             
@@ -20,18 +25,18 @@ class Recetas extends React.Component{
                 
                 <View style={{flexDirection:"row",width:'50%' ,margin:1 }}>
 
-                        <Image style={{resizeMode: 'cover',width: '100%',height: 100}}  source ={{uri:tipoImage}}>
+                        <Image style={{resizeMode: 'cover',width: '100%',height: 100}}  source ={{uri:foto}}>
                         
                         </Image>
 
                         <View style={{width:'100%',alignItems:'left'}}>
 
                             <Text style={{textAlign:"left",fontWeight:'bold',marginLeft:'5%'}}>
-                                {tipo}
+                                {Nombre}
                             </Text>
 
                             <Text style={{color:"#FFD700",textAlign:"left",fontWeight:'bold',marginLeft:'5%',marginVertical:'5%'}}>
-                                {usuario}
+                                {alias}
                             </Text>
 
                             <View style={{marginRight:'10%',alignItems:"flex-end",flexDirection:"row-reverse",justifyContent:"flex-start"}} >
@@ -43,7 +48,7 @@ class Recetas extends React.Component{
                                 </TouchableOpacity>
 
                                 <Stars 
-                                    display={calificacion}
+                                    display={CalificacionProm}
                                     spacing={4}
                                     count={5}
                                     starSize={16}
@@ -52,7 +57,7 @@ class Recetas extends React.Component{
                                     halfStar={<FontAwesome name="star-half" color="blue" />} />
 
                                  <Text style={{textAlign:"left",fontSize:12,marginRight:'1%'}}>
-                                    {calificacion}
+                                    {CalificacionProm}
                                 </Text>
                             
                             </View>

@@ -4,51 +4,59 @@ import {
   View,
   SafeAreaView,
 FlatList } from 'react-native';
+import axios from 'axios'
 
 import Tipos from './Tipos';
+import config from "../config/default.json";
+import useSWR from 'swr'
+import { NativeBaseProvider,Skeleton,VStack,Center } from 'native-base';
+import { mdiCameraMeteringCenter } from '@mdi/js';
+
 
   const imagesrc="https://resizer.glanacion.com/resizer/DX1-dyjtqe3efPEahil_dwkYeuQ=/768x0/filters:format(webp):quality(80)/cloudfront-us-east-1.images.arcpublishing.com/lanacionar/VLWFAANIWBGPFO4CSUHS7RYVVQ.jpg";
 
-
- const tipos =[
-
-     {tipo:"Pizza",tipoImage:imagesrc},
-     {tipo:"Pasta",tipoImage:imagesrc},
-     {tipo:"Empanadas",tipoImage:imagesrc},
-     {tipo:"Comida China",tipoImage:imagesrc},
-     {tipo:"Helados",tipoImage:imagesrc},
-     {tipo:"Postres",tipoImage:imagesrc},
-     {tipo:"Budines",tipoImage:imagesrc},
-     {tipo:"Tortas",tipoImage:imagesrc},
-     {tipo:"Scones-Libritos",tipoImage:imagesrc},
-];
+  const baseUrl =  config.baseUrl;
 
 
 const Categorias =()=>{
 
-
-    React.useEffect(() => {
-
-        //http://localhost:3000/ingredientes/getTiposreceta
-
-    },[]);
+    
+    const fetcher = url => axios.get(`${baseUrl}/ingredientes/getTiposreceta`).then(res => res.data)
   
+    const {data,error}=useSWR('/api/data', fetcher);
 
+    if (!data){
+        return (
+            <NativeBaseProvider>
+                    <Center>
+                    <VStack w="90%"  borderWidth="1" space={8} overflow="hidden" rounded="md" _dark={{
+                    borderColor: "coolGray.500"
+                        }} _light={{
+                    borderColor: "coolGray.200"
+                        }}>
+                    <Skeleton h="40" />
+                    <Skeleton.Text px="4" />
+                    <Skeleton px="4" my="4" rounded="md" startColor="primary.100" />
+                    </VStack>
+                </Center>
+        </NativeBaseProvider>
+      )
+    }else{
+
+    
     return (
-        <SafeAreaView style={{ marginVertical:'5%'}}>
-        <Text  style={{textAlign:"center", marginVertical:'1%' , fontSize:20,fontWeight:"bold"}}> Categorias </Text>
-            <FlatList style={{marginHorizontal:'1%'}} data ={tipos}
-            numColumns={2}
-            renderItem={({item}) =>    (<Tipos tipos ={item}/>)}>
-                
-             </FlatList>
+            <SafeAreaView style={{ marginVertical:'5%'}}>
+            <Text  style={{textAlign:"center", marginVertical:'1%' , fontSize:20,fontWeight:"bold"}}> Categorias </Text>
+                <FlatList style={{marginHorizontal:'1%'}} data ={data}
+                numColumns={2}
+                renderItem={({item}) => (<Tipos categorias ={item}/>)}>
+                    
+                </FlatList>
 
-        </SafeAreaView>
-      
-
-
-    )
-
+            </SafeAreaView>
+        
+        )
+    }
 }
 
 export default Categorias;
