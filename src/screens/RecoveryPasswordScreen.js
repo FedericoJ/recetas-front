@@ -59,7 +59,7 @@ const RecoveryPasswordScreen = () => {
     const body = JSON.stringify({ mail })
 
     try {
-      const res = await axios.post(`${baseUrl}/usuario/SendRecoveryPassword`, body, setup);
+      const res = await axios.get(`${baseUrl}/usuario/SendRecoveryPassword?mail=${mail}`, body, setup);
       if (res.status === 201) {
         setVisible(true);
       }

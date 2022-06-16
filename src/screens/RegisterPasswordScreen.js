@@ -23,13 +23,14 @@ const RegisterPasswordScreen = () => {
   const [nombre, setNombre] = useState("");
   const [password, setPassword] = useState("");
   const [password2, setPassword2] = useState("");
+  const [errorPassword, setErrorPassword] = React.useState("")
   const route = useRoute();
 
   const baseUrl = config.baseUrl;
 
   const ValidatePassword= () => {
     if(!validateData()){
-      return;
+      return(route.params.email,nombre,password);
     }
     RegisterPassword(route.params.email, nombre, password);
   }
@@ -126,6 +127,7 @@ const RegisterPasswordScreen = () => {
                 secureTextEntry={true}
               />
             </FormControl>
+            <Text textAlign='center'>{errorPassword}</Text>
             <ButtonFondoRosa text="Finalizar" onPress={() => ValidatePassword()} />
             <ButtonFondoBlanco text="Cancelar" onPress={() => navigation.navigate('Inicio')} />
           </VStack>

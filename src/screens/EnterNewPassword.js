@@ -27,7 +27,7 @@ import { ButtonFondoBlanco, ButtonFondoRosa } from '../components/ButtonsLogin';
 
     const ValidatePassword= () => {
       if(!validateData()){
-        return;
+        return(route.params.email,Password);
       }
       NewPassword(route.params.email);
     }

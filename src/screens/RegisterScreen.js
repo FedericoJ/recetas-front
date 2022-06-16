@@ -50,13 +50,22 @@ const RegisterScreen = () => {
 
   //Para validar mail y password
   const [errorEmail, setErrorEmail] = React.useState("")
+  const [errorAlias, setErrorAlias] = React.useState("")
   const [errorPassword, setErrorPassword] = useState("")
 
   const RegisterUser= () => {
     if(!validateData()){
+      console.log("EntreValidateData");
       return;
     }
-    Register();
+    if(ValidateAlias()==true){
+      console.log("Entre");
+      return;
+    }else{
+      console.log(mail);
+      console.log(nickname);
+      Register();
+    }
   }
 
   const validateData = () => {
@@ -71,6 +80,37 @@ const RegisterScreen = () => {
   }
 
   const baseUrl = config.baseUrl;
+
+  const ValidateAlias = async () => {
+    setErrorAlias("")
+    let existeAlias=false;
+
+    const setup = {
+      headers: {
+        'content-type': 'application/json'
+      }
+    }
+
+    try {
+      const res = await axios.get(`${baseUrl}/usuario/validarAlias?alias=${nickname}`, setup);
+      console.log(res);
+      console.log(res.status);
+      console.log(res.status === 201);
+      if(res.status === 201){
+        console.log("Entre a 201");
+        existeAlias = true;
+        setErrorAlias("Alias ya utilizado")
+        return existeAlias;
+      }
+      if(res.status === 202){
+        console.log("Entre a 202");
+        existeAlias = false;
+        return existeAlias;
+      }
+    } catch (error) {
+      alert("Ocurrio un error al momento de validar Alias.")
+    }
+  }
 
   const Register = async () => {
 
@@ -159,6 +199,7 @@ const RegisterScreen = () => {
                 onChangeText={setUsuario}
               />
             </FormControl>
+            <Text textAlign='center'>{errorAlias}</Text>
 {/* 
             <ModalPoup visible={visible}>
             <View style={{ alignItems: "flex-start" }}>
