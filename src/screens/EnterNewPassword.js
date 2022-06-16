@@ -12,7 +12,7 @@ import {
   ScrollView} from "native-base";
   import config from "../config/default.json";
   import axios from 'axios'
-  import { useNavigation } from '@react-navigation/native';
+  import { useNavigation, useRoute } from '@react-navigation/native';
 import { ButtonFondoBlanco, ButtonFondoRosa } from '../components/ButtonsLogin';
   
   const EnterNewPassword = () => {
@@ -20,25 +20,29 @@ import { ButtonFondoBlanco, ButtonFondoRosa } from '../components/ButtonsLogin';
     const navigation = useNavigation();
     const [ Password , setPassword] = useState("");
     const [ RepPassword , setRepPassword] = useState("");
+    const route = useRoute();
 
     const baseUrl =  config.baseUrl;
-    const RegisterPassword = async () => {
+    const NewPassword = async (mail) => {
 
       const setup = {
         headers:{
           'content-type' : 'application/json'
         }
       }
-      const body = JSON.stringify({firstName,lastName,password,email, gender, condition})
+      const password = Password;
+      const body = JSON.stringify({mail,password})
 
       try {
-        const res = await axios.post(`${baseUrl}/users/`,body,setup);
-        navigation.navigate('RegisterSuccess')
+        const res = await axios.post(`${baseUrl}/usuario/modificarPass`,body,setup);
+        if (res.status === 201) {
+          alert("Contraseña modificada, ya podés iniciar sesión.")
+          navigation.navigate('Login');
+        }
         console.log(res.data);
-        console.log(res)
+        console.log(res);
       }catch(error){
-        console.log("Here")
-        navigation.navigate('RegisterFailed')
+        alert(error);
       }
     }
     ;
@@ -96,7 +100,7 @@ import { ButtonFondoBlanco, ButtonFondoRosa } from '../components/ButtonsLogin';
               secureTextEntry={true}
             />
         </FormControl>
-          <ButtonFondoRosa text="Finalizar" onPress={() => navigation.navigate('Login')} />
+          <ButtonFondoRosa text="Finalizar" onPress={() => NewPassword(route.params.email)} />
           <ButtonFondoBlanco text="Cancelar" onPress={() => navigation.navigate('Inicio')} />
         </VStack>
       </Box>

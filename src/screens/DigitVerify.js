@@ -9,14 +9,34 @@ import {
   Button,
   Center,
   NativeBaseProvider,
-  ScrollView, 
+  ScrollView,
   Link,
   HStack
 } from "native-base";
 import config from "../config/default.json";
 import axios from 'axios'
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useRoute } from '@react-navigation/native';
 import { ButtonFondoRosa, ButtonModalUnico } from '../components/ButtonsLogin';
+
+
+
+  const RecoveryPassword = async (mail) => {
+
+    const setup = {
+      headers: {
+        'content-type': 'application/json'
+      }
+    }
+    const body = JSON.stringify({ mail })
+    const baseUrl = config.baseUrl;
+
+    try {
+      console.log(mail);
+      const res = await axios.post(`${baseUrl}/usuario/SendRecoveryPassword`, body, setup);
+    } catch (error) {
+      alert("Error");
+    }
+  }
 
 const ModalPoup = ({ visible, children }) => {
   const [showModal, setShowModal] = React.useState(visible);
@@ -40,6 +60,7 @@ const ModalPoup = ({ visible, children }) => {
   );
 };
 
+
 const DigitVerify = () => {
 
   const navigation = useNavigation();
@@ -49,159 +70,162 @@ const DigitVerify = () => {
   const [Code4, setCode4] = useState("");
   const [Code5, setCode5] = useState("");
   const [Code6, setCode6] = useState("");
+  const route = useRoute();
 
   const [visible, setVisible] = React.useState(false);
 
-
   const baseUrl = config.baseUrl;
-  const Verify = async () => {
 
-    const setup = {
-      headers: {
-        'content-type': 'application/json'
-      }
-    }
-    const mail = '93.vazquezmartin@gmail.com';
+  const functionCombined = () => {
+    setVisible(true);
+    RecoveryPassword(route.params.email);
+}
 
-    try {
-      console.log(Code1+Code2+Code3+Code4+Code5+Code6);
-      const res = await axios.get(`${baseUrl}/usuario/validarCodigoRecuperacion?mail=${mail}&codigo=${Code1+Code2+Code3+Code4+Code5+Code6}`, setup);
-      if (res.status === 202) {
-        alert("Ingresaste un código equivocado. Ingresalo nuevamente.");
-      }
-      if (res.status === 201) {
-        navigation.navigate('EnterNewPassword')
-      }
-      console.log(res.data);
-      console.log(res);
-    } catch (error) {
-      alert("Error");
+const Verify = async (mail) => {
+  const setup = {
+    headers: {
+      'content-type': 'application/json'
     }
   }
-    ;
 
-  return <View style={styles.container}>
-    <Center w="100%">
-      <ScrollView maxW="400" h="600" style={styles.scrollView} _contentContainerStyle={{
-        px: "20px",
-        mb: "4",
-        minW: "72"
-      }}>
-        <Box safeArea p="2" py="8" w="100%" maxW="290"></Box>
-        <Center>
-          <View style={styles.centerContent}>
-            <Image
-              style={{ width: 100, height: 100, marginBottom: 15 }}
-              source={require('../assets/logo.png')}
-            />
+  try {
+    const res = await axios.get(`${baseUrl}/usuario/validarCodigoRecuperacion?mail=${mail}&codigo=${Code1 + Code2 + Code3 + Code4 + Code5 + Code6}`, setup);
+    if (res.status === 202) {
+      alert("Ingresaste un código equivocado. Ingresalo nuevamente.");
+    }
+    if (res.status === 201) {
+      navigation.navigate('EnterNewPassword', { email: mail })
+    }
+    console.log(res.data);
+    console.log(res);
+  } catch (error) {
+    alert("Error");
+  }
+}
+  ;
 
-          </View>
-        </Center>
-        <Box safeArea p="2" w="100%" maxW="290" py="8">
-          <Center>
-            <Heading size="xlg" color="coolGray.800" _dark={{
-              color: "warmGray.50"
-            }} fontWeight="semibold" fontSize="30">
-              RecetApp
-            </Heading>
-          </Center>
-        </Box>
-        <Box safeArea p="2" w="100%" maxW="290" py="2"></Box>
+return <View style={styles.container}>
+  <Center w="100%">
+    <ScrollView maxW="400" h="600" style={styles.scrollView} _contentContainerStyle={{
+      px: "20px",
+      mb: "4",
+      minW: "72"
+    }}>
+      <Box safeArea p="2" py="8" w="100%" maxW="290"></Box>
+      <Center>
+        <View style={styles.centerContent}>
+          <Image
+            style={{ width: 100, height: 100, marginBottom: 15 }}
+            source={require('../assets/logo.png')}
+          />
+
+        </View>
+      </Center>
+      <Box safeArea p="2" w="100%" maxW="290" py="8">
         <Center>
-          <Heading mt="1" color="coolGray.800" _dark={{
+          <Heading size="xlg" color="coolGray.800" _dark={{
             color: "warmGray.50"
-          }} fontWeight="medium" fontSize="20">
-            Ingresa el código de validación
+          }} fontWeight="semibold" fontSize="30">
+            RecetApp
           </Heading>
         </Center>
-        <VStack space={3} mt="5">
-          <Box alignitems = "center" flexDirection="row" safeArea p="2" w="20%" maxW="290" py="8">
-            <FormControl isRequired>
-              <Input
-                mx='1'
-                maxLength={1}
-                value={Code1}
-                backgroundColor="#FFFFFF"
-                onChangeText={setCode1} />
-            </FormControl>
-            <FormControl isRequired>
-              <Input
-                mx='1'
-                maxLength={1}
-                value={Code2}
-                backgroundColor="#FFFFFF"
-                onChangeText={setCode2} />
-            </FormControl>
-            <FormControl isRequired>
-              <Input
-                mx='1'
-                maxLength={1}
-                value={Code3}
-                backgroundColor="#FFFFFF"
-                onChangeText={setCode3} />
-            </FormControl>
-            <FormControl isRequired>
-              <Input
-                mx='1'
-                maxLength={1}
-                value={Code4}
-                backgroundColor="#FFFFFF"
-                onChangeText={setCode4} />
-            </FormControl>
-            <FormControl isRequired>
-              <Input
-                mx='1'
-                maxLength={1}
-                value={Code5}
-                backgroundColor="#FFFFFF"
-                onChangeText={setCode5} />
-            </FormControl>
-            <FormControl isRequired>
-              <Input
-                mx='1'
-                maxLength={1}
-                value={Code6}
-                backgroundColor="#FFFFFF"
-                onChangeText={setCode6} />
-            </FormControl>
-          </Box>
-          <ModalPoup visible={visible}>
-            <View style={{ alignItems: "flex-start" }}>
-              <Text style={{ fontSize: 20, color: "black" }}>
+      </Box>
+      <Box safeArea p="2" w="100%" maxW="290" py="2"></Box>
+      <Center>
+        <Heading mt="1" color="coolGray.800" _dark={{
+          color: "warmGray.50"
+        }} fontWeight="medium" fontSize="20">
+          Ingresa el código de validación
+        </Heading>
+      </Center>
+      <VStack space={3} mt="5">
+        <Box alignitems="center" flexDirection="row" safeArea p="2" w="20%" maxW="290" py="8">
+          <FormControl isRequired>
+            <Input
+              mx='1'
+              maxLength={1}
+              value={Code1}
+              backgroundColor="#FFFFFF"
+              onChangeText={setCode1} />
+          </FormControl>
+          <FormControl isRequired>
+            <Input
+              mx='1'
+              maxLength={1}
+              value={Code2}
+              backgroundColor="#FFFFFF"
+              onChangeText={setCode2} />
+          </FormControl>
+          <FormControl isRequired>
+            <Input
+              mx='1'
+              maxLength={1}
+              value={Code3}
+              backgroundColor="#FFFFFF"
+              onChangeText={setCode3} />
+          </FormControl>
+          <FormControl isRequired>
+            <Input
+              mx='1'
+              maxLength={1}
+              value={Code4}
+              backgroundColor="#FFFFFF"
+              onChangeText={setCode4} />
+          </FormControl>
+          <FormControl isRequired>
+            <Input
+              mx='1'
+              maxLength={1}
+              value={Code5}
+              backgroundColor="#FFFFFF"
+              onChangeText={setCode5} />
+          </FormControl>
+          <FormControl isRequired>
+            <Input
+              mx='1'
+              maxLength={1}
+              value={Code6}
+              backgroundColor="#FFFFFF"
+              onChangeText={setCode6} />
+          </FormControl>
+        </Box>
+        <ModalPoup visible={visible}>
+          <View style={{ alignItems: "flex-start" }}>
+            <Text style={{ fontSize: 20, color: "black" }}>
               Te enviamos un correo para validar el usuario
-              </Text>
-            </View>
+            </Text>
+          </View>
 
-            <View
-              style={styles.botonesModal}>
-              <ButtonModalUnico
-                text="Aceptar"
-                onPress={() => {
-                  navigation.navigate("DigitVerify");
-                  setVisible(false);
-                }}
-              />
-            </View>
-          </ModalPoup>
-          <HStack mt="6" justifyContent="center" >
-          <Link  onPress={() => setVisible(true)} _text={{
+          <View
+            style={styles.botonesModal}>
+            <ButtonModalUnico
+              text="Aceptar"
+              onPress={() => {
+                navigation.navigate("DigitVerify");
+                setVisible(false);
+              }}
+            />
+          </View>
+        </ModalPoup>
+        <HStack mt="6" justifyContent="center" >
+          <Link onPress={() => functionCombined()} _text={{
             color: "#AC6363",
             fontWeight: "medium",
             fontSize: "sm",
           }}>
-              Enviar nuevamente
-            </Link>
-            </HStack>
-          {/* <Button mx="1" size="xs" variant="link" colorScheme="muted"
+            Enviar nuevamente
+          </Link>
+        </HStack>
+        {/* <Button mx="1" size="xs" variant="link" colorScheme="muted"
             onPress={() => alert("Código enviado nuevamente")} >
             Enviar nuevamente
           </Button> */}
-          <ButtonFondoRosa text="Continuar" onPress={() => Verify()} />
-        </VStack>
+        <ButtonFondoRosa text="Continuar" onPress={() => Verify(route.params.email)} />
+      </VStack>
 
-      </ScrollView>
-    </Center>
-  </View>
+    </ScrollView>
+  </Center>
+</View>
 };
 
 const styles = StyleSheet.create({

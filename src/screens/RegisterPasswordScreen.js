@@ -25,8 +25,6 @@ const RegisterPasswordScreen = () => {
   const [password2, setPassword2] = useState("");
   const route = useRoute();
 
-  const mail = 'mv@gmail.com';//route.params.email;
-
   const baseUrl = config.baseUrl;
 
   const RegisterPassword = async (mail, nombre, password) => {
