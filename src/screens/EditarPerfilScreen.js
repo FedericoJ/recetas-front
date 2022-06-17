@@ -55,13 +55,15 @@ import {
             <Input
               placeholder="Nombre" 
               value={nombre}
-              onChangeText={setNombre}/>
+              onChangeText={setNombre}
+              backgroundColor= 'white'/>
           </FormControl>
           <FormControl >
             <Input
               placeholder="Usuario" 
               value={usuario}
               isDisabled
+              backgroundColor= 'white'
             />
         </FormControl>
         <FormControl >
@@ -69,6 +71,7 @@ import {
               placeholder="Mail" 
               value={mail}
               isDisabled
+              backgroundColor= 'white'
             />
         </FormControl>
 
@@ -102,6 +105,12 @@ const styles = StyleSheet.create({
     padding:50,
     alignItems: 'center',
     justifyContent: 'center',
+    backgroundColor: '#D6B1B1',
+  },
+  container1: {
+    flex: 1,
+    backgroundColor: '#D6B1B1',
+    
   },
 
 });
@@ -109,7 +118,9 @@ const styles = StyleSheet.create({
     export default () => {
         return (
           <NativeBaseProvider>
+                <View style={styles.container1}>
                 <EditarPerfilScreen />
+                </View>
           </NativeBaseProvider>
         );
     };

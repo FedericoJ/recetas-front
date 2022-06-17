@@ -45,41 +45,40 @@ import {
     const [ Password2    , setPassword2] = useState("");
      
 
-  return <Center w="100%">
-    <View style={{flexDirection:"row" , alignItems:"center", marginTop:'10%', marginBottom:'1%', marginHorizontal:'5%'}}>
-
-
-                     
+  return (
+    <View style={{flexDirection:"row" , alignItems:"center", marginTop:'1%', marginBottom:'1%', marginHorizontal:'5%'}}>
+              
      <View maxW="600" h="600" style={styles.scrollView} _contentContainerStyle={{
       px: "20px",
       mb: "4",
       minW: "72"
     }}>
       <Box safeArea p="2"  w="100%" maxW="290" py="8">
-        <Center>  
         <Heading size="lg" color="coolGray.800" _dark={{
         color: "warmGray.50"
       }} fontWeight="semibold" fontSize="25">
           Cambiar Contraseña
         </Heading>
-        </Center>
-        <VStack space={3} mt="5">
+        <VStack space={3} mt="5" marginTop="20%">
         <FormControl isRequired>
             <Input 
               placeholder="Contraseña"
               value={Password}
-              onChangeText={setPassword}/>
+              onChangeText={setPassword}
+              backgroundColor= 'white'/>
           </FormControl>
           <FormControl isRequired>
             <Input 
               placeholder="Repetir Contraseña"
               value={Password2}
               onChangeText={setPassword2}
+              backgroundColor= 'white'
             />
         </FormControl>
+        <View marginTop="120%">
         <ButtonFondoRosa text="Guardar" onPress={() => setVisible(true)}/>
         <ButtonFondoBlanco text="Cancelar" onPress={() => navigation.navigate('Perfil')}/>
-
+        </View>
         </VStack>
       </Box>
       </View>
@@ -104,7 +103,7 @@ import {
 
             </View>
 
-    </Center>;
+  )
 
     
 };
@@ -124,9 +123,9 @@ const styles = StyleSheet.create({
     fontSize: 42,
   },
   container: {
-    padding:50,
+    flex: 1,
     alignItems: 'center',
-    justifyContent: 'center',
+    backgroundColor: '#D6B1B1',
   },
 
   modalBackGround: {
@@ -154,7 +153,9 @@ header: {
     export default () => {
         return (
           <NativeBaseProvider>
+            <View style={styles.container}>
                 <CambiarContraseniaScreen />
+                </View>
           </NativeBaseProvider>
         );
     };

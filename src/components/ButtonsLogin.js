@@ -1,8 +1,7 @@
 import React from 'react';
 import {View, Text, TouchableOpacity, StyleSheet} from 'react-native';
 import { AntDesign,Entypo } from '@expo/vector-icons';
-import { mdiSwapVerticalBold } from '@mdi/js';
-import Icon from '@mdi/react';
+import { Octicons } from '@expo/vector-icons';
 
 export function ButtonFondoRosa (props) {
 
@@ -154,7 +153,7 @@ export function ButtonConIconoNegro (props) {
                 height: '50%',
                 marginVertical: 2,
                 marginBottom:'10%',
-                right:0,
+                marginLeft:"50%",
                 marginHorizontal:'3%',
                 alignItems:"center",
                 justifyContent:"center",
@@ -162,11 +161,7 @@ export function ButtonConIconoNegro (props) {
             }}            
             onPress = { onPress }
             >
-            {/*<Icon path={mdiSwapVerticalBold}
-                title="User Profile"
-                size={1}
-                color="black"
-                />*/}
+            <Octicons name="filter" size={20} color="black" />
 
             <Text
                 style = {{
@@ -175,7 +170,7 @@ export function ButtonConIconoNegro (props) {
                     fontWeight: 'bold',
                 }}
             >
-                { text }
+               {" "} { text }
             </Text>
         </TouchableOpacity>
     )

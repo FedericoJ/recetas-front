@@ -1,5 +1,7 @@
 import React from 'react';
 import { useNavigation } from '@react-navigation/native';
+import { FontAwesome5 } from '@expo/vector-icons'; 
+import { FontAwesome } from '@expo/vector-icons'; 
 //import Icon from '@mdi/react'
 //import {mdiKeyVariant, mdiAccountCircle} from '@mdi/js'
 import { StyleSheet, Text, View,TouchableOpacity } from 'react-native';
@@ -13,16 +15,8 @@ const navigation = useNavigation();
     
     <View>
       <View style={{flexDirection:"row", marginTop:'10%', marginBottom:'10%', marginHorizontal:'5%'}}>
-
-      {/*  <Icon path={mdiAccountCircle}
-              title="User Profile"
-              size={1.5}
-              horizontal
-              vertical
-              rotate={180}
-              color="black"
-        />*/}
-        
+      <FontAwesome name="user" size={24} color="black" />
+      <Text>{"     "}</Text>
       <TouchableOpacity onPress={() => navigation.navigate('EditarPerfil')} > 
       <Text style={{fontSize:20}}> Editar Perfil </Text>
       </TouchableOpacity>
@@ -30,17 +24,10 @@ const navigation = useNavigation();
       </View>
 
       <View style={{flexDirection:"row", marginTop:'5%', marginBottom:'10%', marginHorizontal:'5%'}}>
-      {/*<Icon path={mdiKeyVariant}
-        title="User Profile"
-        size={1.5}
-        horizontal
-        vertical
-        rotate={90}
-        color="black"
-        />*/}
-
+      <FontAwesome5 name="key" size={24} color="black"/>
+          <Text>{"    "}</Text>
           <TouchableOpacity onPress={() => navigation.navigate('CambiarContrasenia')} >
-            <Text style={{fontSize:20}}> Cambiar Contrasenia </Text>
+            <Text style={{fontSize:20}}> Cambiar Contraseña </Text>
           </TouchableOpacity>
 
       </View>
@@ -51,9 +38,10 @@ const navigation = useNavigation();
 
 const styles = StyleSheet.create({
 
-  centerContent: {
+  container: {
     flex: 1,
-    padding: 20,
+    backgroundColor: '#D6B1B1',
+    
   },
  
 });
@@ -61,7 +49,9 @@ const styles = StyleSheet.create({
 
 export default () => {
         return (
+          <View style={styles.container}>
             <PerfilScreen />
+            </View>
         );
     };
     
