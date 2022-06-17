@@ -199,7 +199,6 @@ return <View style={styles.container}>
             <ButtonModalUnico
               text="Aceptar"
               onPress={() => {
-                navigation.navigate("DigitVerify");
                 setVisible(false);
               }}
             />

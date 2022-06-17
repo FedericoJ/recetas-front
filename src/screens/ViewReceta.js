@@ -187,7 +187,7 @@ const ViewReceta = ({ navigation }) => {
             style={{
               flexDirection: "row",
               alignItems: "center",
-              marginTop: "40%",
+              marginTop: "35%",
               marginBottom: "1%",
               marginHorizontal: "1%",
             }}

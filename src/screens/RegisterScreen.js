@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { StyleSheet, Text, Image, View } from 'react-native';
+import { StyleSheet, Text, Image, View, TouchableOpacity } from 'react-native';
 import {
   Box,
   Heading,
@@ -14,7 +14,7 @@ import {
 import config from "../config/default.json";
 import axios from 'axios'
 import { useNavigation } from '@react-navigation/native';
-import { ButtonFondoBlanco, ButtonFondoRosa, ButtonModalUnico, ButtonModal } from '../components/ButtonsLogin';
+import { ButtonFondoBlanco, ButtonFondoRosa, ButtonModalUnico, ButtonModal, ButtonAliasRecomendado } from '../components/ButtonsLogin';
 import { validateEmail } from '../helpers/emailValidator';
 
 // const ModalPoup = ({ visible, children }) => {
@@ -51,10 +51,16 @@ const RegisterScreen = () => {
   //Para validar mail y password
   const [errorEmail, setErrorEmail] = React.useState("")
   const [errorAlias, setErrorAlias] = React.useState("")
-  const [errorPassword, setErrorPassword] = useState("")
+  const [aliasRecomendado1, setAliasRecomendado1] = React.useState("")
+  const [aliasRecomendado2, setAliasRecomendado2] = React.useState("")
+  const [aliasRecomendado3, setAliasRecomendado3] = React.useState("")
 
-  const RegisterUser= () => {
-    if(!validateData()){
+  const setearUsuarioRecomendado = (usuario) => {
+    setUsuario(usuario);
+  }
+
+  const RegisterUser = () => {
+    if (!validateData()) {
       return;
     }
     ValidateAlias();
@@ -64,7 +70,7 @@ const RegisterScreen = () => {
     setErrorEmail("")
     let isValid = true
 
-    if (!validateEmail(mail)) { 
+    if (!validateEmail(mail)) {
       setErrorEmail("Formato de mail invalido")
       isValid = false
     }
@@ -84,10 +90,13 @@ const RegisterScreen = () => {
 
     try {
       const res = await axios.get(`${baseUrl}/usuario/validarAlias?alias=${nickname}`, setup);
-      if(res.status === 201){
-        setErrorAlias("Alias ya utilizado");
+      if (res.status === 201) {
+        setErrorAlias("Username en uso, cambialo o elegí uno");
+        setAliasRecomendado1(nickname + 1);
+        setAliasRecomendado2(nickname + 2);
+        setAliasRecomendado3(nickname + 3);
       }
-      if(res.status === 202){
+      if (res.status === 202) {
         Register();
       }
     } catch (error) {
@@ -108,7 +117,7 @@ const RegisterScreen = () => {
       const res = await axios.post(`${baseUrl}/usuario/crearInvitado`, body, setup);
       if (res.status === 201) {
         alert("Te hemos enviado un correo para validar tu usuario")
-        navigation.navigate('RegisterPassword',{email: mail})
+        navigation.navigate('RegisterPassword', { email: mail })
       }
       if (res.status === 202) {
         alert("El correo electronico ya se encuentra registrado. Haz click en recuperar y te enviaremos un mail")
@@ -183,8 +192,15 @@ const RegisterScreen = () => {
                 onChangeText={setUsuario}
               />
             </FormControl>
+
             <Text textAlign='center'>{errorAlias}</Text>
-{/* 
+
+            <Box alignitems="center" flexDirection="row" justifyContent='space-between' py="8">
+              <ButtonAliasRecomendado text={aliasRecomendado1} onPress={() => setearUsuarioRecomendado(aliasRecomendado1)}/>
+              <ButtonAliasRecomendado text={aliasRecomendado2} onPress={() => setearUsuarioRecomendado(aliasRecomendado2)}/>
+              <ButtonAliasRecomendado text={aliasRecomendado3} onPress={() => setearUsuarioRecomendado(aliasRecomendado3)}/>
+            </Box>
+            {/* 
             <ModalPoup visible={visible}>
             <View style={{ alignItems: "flex-start" }}>
               <Text style={{ fontSize: 20, color: "black" }}>
@@ -204,7 +220,7 @@ const RegisterScreen = () => {
             </View>
           </ModalPoup> */}
 
-            <ButtonFondoRosa text="Registrarse" onPress={RegisterUser}/>
+            <ButtonFondoRosa text="Registrarse" onPress={RegisterUser} />
             <ButtonFondoBlanco text="Cancelar" onPress={() => navigation.navigate('Inicio')} />
           </VStack>
         </Box>

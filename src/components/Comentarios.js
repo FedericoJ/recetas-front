@@ -55,7 +55,6 @@ class Comentarios extends React.Component{
                     </View>
 
                     <View style={{flexDirection:"row" , alignItems:"center", marginTop:'2%', marginBottom:'2%', marginHorizontal:'5%'}}>
-                    {/* asigno espacio */}
 
                      </View>
 
@@ -66,7 +65,6 @@ class Comentarios extends React.Component{
                     </NativeBaseProvider>
 
                     <View style={{flexDirection:"row" , alignItems:"center", marginTop:'2%', marginBottom:'2%', marginHorizontal:'5%'}}>
-                    {/* asigno espacio */}
 
                     </View>
 

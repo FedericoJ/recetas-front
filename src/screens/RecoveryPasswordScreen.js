@@ -127,8 +127,8 @@ const RecoveryPasswordScreen = () => {
                 <ButtonModalUnico
                   text="Aceptar"
                   onPress={() => {
-                    setVisible(false);
                     navigation.navigate('DigitVerify',{email: mail})
+                    setVisible(false);
                   }}
                 />
               </View>
