@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { StyleSheet,Text, Image, View} from 'react-native';
+import { StyleSheet,Text, Image, View, Modal} from 'react-native';
 import { 
   Box,
   Heading,
@@ -13,14 +13,37 @@ import {
   import config from "../config/default.json";
   import axios from 'axios'
   import { useNavigation, useRoute } from '@react-navigation/native';
-import { ButtonFondoBlanco, ButtonFondoRosa } from '../components/ButtonsLogin';
+import { ButtonFondoBlanco, ButtonFondoRosa, ButtonModalUnico } from '../components/ButtonsLogin';
   
+const ModalPoup = ({ visible, children }) => {
+  const [showModal, setShowModal] = React.useState(visible);
+  React.useEffect(() => {
+    toggleModal();
+  }, [visible])
+  const toggleModal = () => {
+    if (visible) {
+      setShowModal(true);
+    }
+    else { setShowModal(false) };
+  }
+
+  return <Modal transparent visible={showModal}>
+    <View style={styles.modalBackGround}>
+      <View style={[styles.modalContainer]}>
+        {children}
+      </View>
+    </View>
+  </Modal>;
+
+};
+
   const EnterNewPassword = () => {
 
     const navigation = useNavigation();
     const [ Password , setPassword] = useState("");
     const [ RepPassword , setRepPassword] = useState("");
     const [errorPassword, setErrorPassword] = React.useState("")
+    const [visible, setVisible] = React.useState(false);
     const route = useRoute();
 
     const baseUrl =  config.baseUrl;
@@ -57,8 +80,7 @@ import { ButtonFondoBlanco, ButtonFondoRosa } from '../components/ButtonsLogin';
       try {
         const res = await axios.post(`${baseUrl}/usuario/modificarPass`,body,setup);
         if (res.status === 201) {
-          alert("Contraseña modificada, ya podés iniciar sesión.")
-          navigation.navigate('Login');
+          setVisible(true);
         }
       }catch(error){
         alert(error);
@@ -106,6 +128,7 @@ import { ButtonFondoBlanco, ButtonFondoRosa } from '../components/ButtonsLogin';
               type="password"
               placeholder="Contraseña"
               value={Password}
+              autoFocus={true}
               onChangeText={setPassword}
               secureTextEntry={true}/>
           </FormControl>
@@ -120,6 +143,28 @@ import { ButtonFondoBlanco, ButtonFondoRosa } from '../components/ButtonsLogin';
             />
         </FormControl>
         <Text textAlign='center'>{errorPassword}</Text>
+        <ModalPoup visible={visible}>
+              <View style={{ alignItems: 'flex-start' }}>
+                <Text style={{ fontSize: 20, color: "black" }}>Contraseña modificada exitosamente, ya podes iniciar sesión </Text>
+                <View style={{ flexDirection: "row", alignItems: "center", marginTop: '2%', marginBottom: '2%', marginHorizontal: '5%' }}>
+                </View>
+              </View>
+
+              <View style={{ flexDirection: "row", alignItems: "center", marginTop: '1%', marginBottom: '1%', marginHorizontal: '1%' }}>
+
+              <ButtonModalUnico
+                text="Aceptar"
+                onPress={() => {
+                  navigation.navigate("Login");
+                  setVisible(false);
+                }}
+              />
+
+              </View>
+
+
+
+            </ModalPoup>
           <ButtonFondoRosa text="Finalizar" onPress={() => ValidatePassword()} />
           <ButtonFondoBlanco text="Cancelar" onPress={() => navigation.navigate('Inicio')} />
         </VStack>
@@ -138,6 +183,21 @@ const styles = StyleSheet.create({
   centerContent: {
     justifyContent:'center',
     alignItems:'center',
+  },
+
+  modalBackGround: {
+    flex: 1,
+    backgroundColor: 'rgba(0,0,0,0.5)',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  modalContainer: {
+    width: '80%',
+    backgroundColor: '#F7F4F4',
+    paddingHorizontal: 20,
+    paddingVertical: 30,
+    borderRadius: 20,
+    elevation: 20,
   },
 
   scrollView: {

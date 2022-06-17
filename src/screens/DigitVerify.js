@@ -16,7 +16,7 @@ import {
 import config from "../config/default.json";
 import axios from 'axios'
 import { useNavigation, useRoute } from '@react-navigation/native';
-import { ButtonFondoRosa, ButtonModalUnico } from '../components/ButtonsLogin';
+import { ButtonFondoRosa, ButtonModalUnico, ButtonModal } from '../components/ButtonsLogin';
 import { mdiMailboxOpen } from '@mdi/js';
 
 
@@ -55,6 +55,7 @@ const DigitVerify = () => {
   const route = useRoute();
 
   const [visible, setVisible] = React.useState(false);
+  const [visibleError, setVisibleError] = React.useState(false);
 
   const baseUrl = config.baseUrl;
 
@@ -91,7 +92,7 @@ const Verify = async (mail) => {
   try {
     const res = await axios.get(`${baseUrl}/usuario/validarCodigoRecuperacion?mail=${mail}&codigo=${Code1 + Code2 + Code3 + Code4 + Code5 + Code6}`, setup);
     if (res.status === 202) {
-      alert("Ingresaste un código equivocado. Ingresalo nuevamente.");
+      setVisibleError(true);
     }
     if (res.status === 201) {
       navigation.navigate('EnterNewPassword', { email: mail })
@@ -104,7 +105,7 @@ const Verify = async (mail) => {
 
 return <View style={styles.container}>
   <Center w="100%">
-    <ScrollView maxW="400" h="600" style={styles.scrollView} _contentContainerStyle={{
+    <View maxW="400" h="600" style={styles.scrollView} _contentContainerStyle={{
       px: "20px",
       mb: "4",
       minW: "72"
@@ -217,10 +218,22 @@ return <View style={styles.container}>
             onPress={() => alert("Código enviado nuevamente")} >
             Enviar nuevamente
           </Button> */}
+                <ModalPoup visible={visibleError}>
+          <View style={{ alignItems: "flex-start" }}>
+            <Text style={{ fontSize: 20, color: "black" }}>
+              Ingresaste un código equivocado. Ingrésalo nuevamente.
+            </Text>
+          </View>
+
+          <View
+            style={styles.botonesModal}>
+                <ButtonModalUnico text="Aceptar" onPress={() => { setVisibleError(false); }} />
+          </View>
+        </ModalPoup>
         <ButtonFondoRosa text="Continuar" onPress={() => Verify(route.params.email)} />
       </VStack>
 
-    </ScrollView>
+    </View>
   </Center>
 </View>
 };
