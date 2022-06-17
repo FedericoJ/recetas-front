@@ -60,8 +60,6 @@ import { ButtonFondoBlanco, ButtonFondoRosa } from '../components/ButtonsLogin';
           alert("Contraseña modificada, ya podés iniciar sesión.")
           navigation.navigate('Login');
         }
-        console.log(res.data);
-        console.log(res);
       }catch(error){
         alert(error);
       }
@@ -87,7 +85,7 @@ import { ButtonFondoBlanco, ButtonFondoRosa } from '../components/ButtonsLogin';
         <View style={styles.centerContent} >
         <Box safeArea p="2"  w="100%" maxW="290" py="8">
           <Center>  
-        <Heading size="xlg" color="coolGray.800" _dark={{
+        <Heading size="lg" color="coolGray.800" _dark={{
         color: "warmGray.50"
       }} fontWeight="semibold" fontSize="30">
           RecetApp

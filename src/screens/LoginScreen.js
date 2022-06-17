@@ -27,17 +27,12 @@ import {  Box,  Heading,  VStack,   FormControl,   Input,   Button,   Center,   
         const res = await axios.post(`${baseUrl}/usuario/login`,body,setup);
         if (res.status === 201) {
           navigation.navigate('Principal')
-          console.log(res.data);
-          console.log(res)
         }
         if (res.status === 202 || res.status === 203) {
-          console.log("Error")
-          console.log(res.data);
-          console.log(res)
           alert("Invalid username or password")
         }
       }catch(error){
-        console.log("Error")
+        console.log(error)
         alert("Servicio no disponible")
       }
     }

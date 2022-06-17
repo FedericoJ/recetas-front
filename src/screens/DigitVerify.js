@@ -96,8 +96,6 @@ const Verify = async (mail) => {
     if (res.status === 201) {
       navigation.navigate('EnterNewPassword', { email: mail })
     }
-    console.log(res.data);
-    console.log(res);
   } catch (error) {
     alert("Error");
   }
@@ -123,7 +121,7 @@ return <View style={styles.container}>
       </Center>
       <Box safeArea p="2" w="100%" maxW="290" py="8">
         <Center>
-          <Heading size="xlg" color="coolGray.800" _dark={{
+          <Heading size="lg" color="coolGray.800" _dark={{
             color: "warmGray.50"
           }} fontWeight="semibold" fontSize="30">
             RecetApp

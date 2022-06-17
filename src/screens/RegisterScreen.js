@@ -105,15 +105,14 @@ const RegisterScreen = () => {
     const body = JSON.stringify({ nickname, mail })
 
     try {
-      console.log("Antes de crear");
       const res = await axios.post(`${baseUrl}/usuario/crearInvitado`, body, setup);
-      console.log("Despues de crear");
       if (res.status === 201) {
         alert("Te hemos enviado un correo para validar tu usuario")
         navigation.navigate('RegisterPassword',{email: mail})
       }
       if (res.status === 202) {
         alert("El correo electronico ya se encuentra registrado. Haz click en recuperar y te enviaremos un mail")
+        //MRV(17-06):Del recuperar tiene que validar si tiene la registración completa. Sino la tiene, tiene que mandarlo a soporte. Caso contrario lo tiene que dejar.
       }
     } catch (error) {
       alert("Ocurrio un error al momento de registrar su cuenta.")
