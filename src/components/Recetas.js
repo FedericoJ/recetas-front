@@ -19,6 +19,9 @@ class Recetas extends React.Component{
     ){
         const {Descripcion,IdReceta,Nombre,alias,foto,CalificacionProm} = this.props.tipos;
         const  navigation  = this.props.navegacion;
+
+        console.log(foto);
+
         return (
             
 

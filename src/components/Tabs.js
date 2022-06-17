@@ -52,6 +52,7 @@ const ModalPoup = ({ visible, children }) => {
         }];
 
         const navigation = useNavigation();
+        const [busqueda,setBusqueda] =useState("");
         const [visible, setVisible] = useState(false);
         const[contiene,setContiene]=useState(true);
         const [activeElement, setActiveElement] = useState("ingrediente");
@@ -84,11 +85,11 @@ const ModalPoup = ({ visible, children }) => {
                     servicio="RecetaPorNombre";
                 }
                 if(activeElement ==="tipo"){
-                    servicio="getRecetaPorNombreTipo";
+                    servicio="recetaPorNombreTipo";
                 }
                    
 
-            navigation.navigate('Results',{service: servicio})
+            navigation.navigate('Results',{service: servicio,nombre:busqueda})
 
         }
 
@@ -122,7 +123,7 @@ const ModalPoup = ({ visible, children }) => {
 
                     <View style={{backgroundColor:'#ffff'}}>
 
-                        <Input style={{backgroundColor:'#ffff'}} mx="2" my="3" size="large" placeholder="Input" 
+                        <Input style={{backgroundColor:'#ffff'}} value={busqueda} onChangeText={setBusqueda} mx="2" my="3" size="large" placeholder="Input" 
                         InputRightElement={
                                             <TouchableOpacity
                                                 onPress = { () => onPressSearch() }
