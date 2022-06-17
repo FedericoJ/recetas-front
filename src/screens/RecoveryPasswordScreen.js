@@ -108,13 +108,6 @@ const RecoveryPasswordScreen = () => {
           <VStack space={3} mt="5">
             <FormControl isRequired>
               <Input
-                placeholder="Usuario"
-                value={Usuario}
-                backgroundColor="#FFFF"
-                onChangeText={setUsuario} />
-            </FormControl>
-            <FormControl isRequired>
-              <Input
                 placeholder="Mail"
                 value={mail}
                 backgroundColor="#FFFF"
@@ -134,8 +127,8 @@ const RecoveryPasswordScreen = () => {
                 <ButtonModalUnico
                   text="Aceptar"
                   onPress={() => {
-                    setVisible(false);
                     navigation.navigate('DigitVerify',{email: mail})
+                    setVisible(false);
                   }}
                 />
               </View>
