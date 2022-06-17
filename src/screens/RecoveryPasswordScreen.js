@@ -50,7 +50,6 @@ const RecoveryPasswordScreen = () => {
   const baseUrl = config.baseUrl;
 
   const RecoveryPassword = async () => {
-
     const setup = {
       headers: {
         'content-type': 'application/json'
@@ -59,12 +58,11 @@ const RecoveryPasswordScreen = () => {
     const body = JSON.stringify({ mail })
 
     try {
-      const res = await axios.get(`${baseUrl}/usuario/SendRecoveryPassword?mail=${mail}`, body, setup);
+      console.log(mail);
+      const res = await axios.get(`${baseUrl}/usuario/SendRecoveryPassword?mail=${mail}`, setup);
       if (res.status === 201) {
         setVisible(true);
       }
-      console.log(res.data);
-      console.log(res);
    
     }catch(error){
     console.log(error.msg)
