@@ -1,15 +1,15 @@
 import React from 'react';
-import {View, Text, TouchableOpacity, StyleSheet} from 'react-native';
-import { AntDesign,Entypo } from '@expo/vector-icons';
+import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
+import { AntDesign, Entypo } from '@expo/vector-icons';
 import { Octicons } from '@expo/vector-icons';
 
-export function ButtonFondoRosa (props) {
+export function ButtonFondoRosa(props) {
 
     const { text, onPress } = props
 
-    return(
+    return (
         <TouchableOpacity
-            style = {{
+            style={{
                 backgroundColor: '#AC6363',
                 alignSelf: 'center',
                 borderRadius: 5,
@@ -17,28 +17,28 @@ export function ButtonFondoRosa (props) {
                 marginVertical: 10,
                 paddingVertical: 10,
             }}
-            onPress = { onPress }
-            >
+            onPress={onPress}
+        >
             <Text
-                style = {{
+                style={{
                     color: '#fcfafa',
-                    textAlign : 'center',
+                    textAlign: 'center',
                     fontWeight: 'bold',
                 }}
             >
-                { text }
+                {text}
             </Text>
         </TouchableOpacity>
     )
 }
 
-export function ButtonFondoBlanco (props) {
+export function ButtonFondoBlanco(props) {
 
     const { onPress, text } = props
 
-    return(
+    return (
         <TouchableOpacity
-            style = {{
+            style={{
                 backgroundColor: '#fcfafa',
                 alignSelf: 'center',
                 borderRadius: 5,
@@ -48,90 +48,90 @@ export function ButtonFondoBlanco (props) {
                 borderWidth: 1,
                 borderColor: '#AC6363',
             }}
-            onPress = { onPress }
-            >
+            onPress={onPress}
+        >
             <Text
-                style = {{
+                style={{
                     color: '#AC6363',
-                    textAlign : 'center',
+                    textAlign: 'center',
                 }}
             >
-                { text }
+                {text}
             </Text>
         </TouchableOpacity>
     )
 
 }
 
-export function ButtonConIconoFondoRosa (props) {
+export function ButtonConIconoFondoRosa(props) {
 
     const { text, onPress } = props
 
-    return(
+    return (
         <TouchableOpacity
-            style = {{
+            style={{
                 backgroundColor: '#AC6363',
                 borderRadius: 5,
                 width: '20%',
                 height: '50%',
                 marginVertical: 2,
-                marginBottom:'10%',
-                marginHorizontal:'3%',
-                alignItems:"center",
-                justifyContent:"center",
-                flexDirection:"row"
+                marginBottom: '10%',
+                marginHorizontal: '3%',
+                alignItems: "center",
+                justifyContent: "center",
+                flexDirection: "row"
             }}
-            onPress = { onPress }
-            >
+            onPress={onPress}
+        >
 
             <AntDesign name="check" size={15} color='#fcfafa' />
 
             <Text
-                style = {{
+                style={{
                     color: '#fcfafa',
-                    textAlign : 'center',
+                    textAlign: 'center',
                     fontWeight: 'bold',
                 }}
             >
-                { text }
+                {text}
             </Text>
         </TouchableOpacity>
     )
 }
 
 
-export function ButtonConIconoFondoBlanco (props) {
+export function ButtonConIconoFondoBlanco(props) {
 
     const { text, onPress } = props
 
-    return(
+    return (
         <TouchableOpacity
-            style = {{
+            style={{
                 backgroundColor: '#fcfafa',
                 borderRadius: 5,
                 width: '30%',
                 height: '50%',
                 marginVertical: 2,
-                marginBottom:'10%',
+                marginBottom: '10%',
                 borderColor: '#AC6363',
-                marginHorizontal:'3%',
-                alignItems:"center",
-                justifyContent:"center",
-                flexDirection:"row"
+                marginHorizontal: '3%',
+                alignItems: "center",
+                justifyContent: "center",
+                flexDirection: "row"
             }}
-            onPress = { onPress }
-            >
+            onPress={onPress}
+        >
 
             <Entypo name="cross" size={15} color='#AC6363' />
 
             <Text
-                style = {{
+                style={{
                     color: '#AC6363',
-                    textAlign : 'center',
+                    textAlign: 'center',
                     fontWeight: 'bold',
                 }}
             >
-                { text }
+                {text}
             </Text>
         </TouchableOpacity>
     )
@@ -140,49 +140,49 @@ export function ButtonConIconoFondoBlanco (props) {
 
 
 
-export function ButtonConIconoNegro (props) {
+export function ButtonConIconoNegro(props) {
 
     const { text, onPress } = props
 
-    return(
+    return (
         <TouchableOpacity
-            style = {{
+            style={{
                 backgroundColor: 'white',
                 borderRadius: 5,
                 width: '20%',
                 height: '50%',
                 marginVertical: 2,
-                marginBottom:'10%',
-                marginLeft:"50%",
-                marginHorizontal:'3%',
-                alignItems:"center",
-                justifyContent:"center",
-                flexDirection:"row"
-            }}            
-            onPress = { onPress }
-            >
+                marginBottom: '10%',
+                marginLeft: "50%",
+                marginHorizontal: '3%',
+                alignItems: "center",
+                justifyContent: "center",
+                flexDirection: "row"
+            }}
+            onPress={onPress}
+        >
             <Octicons name="filter" size={20} color="black" />
 
             <Text
-                style = {{
+                style={{
                     color: 'black',
-                    textAlign : 'center',
+                    textAlign: 'center',
                     fontWeight: 'bold',
                 }}
             >
-               {" "} { text }
+                {" "} {text}
             </Text>
         </TouchableOpacity>
     )
 }
 
-export function ButtonModal (props) {
+export function ButtonModal(props) {
 
     const { text, onPress } = props
 
-    return(
+    return (
         <TouchableOpacity
-            style = {{
+            style={{
                 backgroundColor: '#F7F4F4',
                 alignSelf: 'center',
                 borderRadius: 5,
@@ -190,28 +190,28 @@ export function ButtonModal (props) {
                 marginVertical: 10,
                 paddingVertical: 10,
             }}
-            onPress = { onPress }
-            >
+            onPress={onPress}
+        >
             <Text
-                style = {{
+                style={{
                     color: '#AC6363',
-                    textAlign : 'center',
+                    textAlign: 'center',
                     fontWeight: 'bold',
                 }}
             >
-                { text }
+                {text}
             </Text>
         </TouchableOpacity>
     )
 }
 
-export function ButtonModalUnico (props) {
+export function ButtonModalUnico(props) {
 
     const { onPress, text } = props
 
-    return(
+    return (
         <TouchableOpacity
-            style = {{
+            style={{
                 backgroundColor: '#F7F4F4',
                 alignSelf: 'center',
                 borderRadius: 5,
@@ -221,29 +221,29 @@ export function ButtonModalUnico (props) {
                 borderWidth: 1,
                 borderColor: '#F7F4F4',
             }}
-            onPress = { onPress }
-            >
+            onPress={onPress}
+        >
             <Text
-                style = {{
+                style={{
                     color: '#AC6363',
-                    textAlign : 'center',
+                    textAlign: 'center',
                     fontWeight: 'bold',
                 }}
             >
-                { text }
+                {text}
             </Text>
         </TouchableOpacity>
     )
 
 }
 
-export function ButtonCreateRosa (props) {
+export function ButtonCreateRosa(props) {
 
     const { text, onPress } = props
 
-    return(
+    return (
         <TouchableOpacity
-            style = {{
+            style={{
                 backgroundColor: '#AC6363',
                 alignSelf: 'center',
                 borderRadius: 5,
@@ -252,28 +252,30 @@ export function ButtonCreateRosa (props) {
                 paddingVertical: 10,
                 marginHorizontal: "5%"
             }}
-            onPress = { onPress }
-            >
+            onPress={onPress}
+        >
             <Text
-                style = {{
+                style={{
                     color: '#fcfafa',
-                    textAlign : 'center',
+                    textAlign: 'center',
                     fontWeight: 'bold',
                 }}
             >
-                { text }
+                {text}
             </Text>
         </TouchableOpacity>
     )
 }
 
-export function ButtonCreateBlanco (props) {
+
+
+export function ButtonCreateBlanco(props) {
 
     const { text, onPress } = props
 
-    return(
+    return (
         <TouchableOpacity
-            style = {{
+            style={{
                 backgroundColor: '#fcfafa',
                 alignSelf: 'center',
                 borderRadius: 5,
@@ -283,16 +285,43 @@ export function ButtonCreateBlanco (props) {
                 marginHorizontal: "5%",
                 borderColor: '#AC6363',
             }}
-            onPress = { onPress }
-            >
+            onPress={onPress}
+        >
             <Text
-                style = {{
+                style={{
                     color: '#AC6363',
-                    textAlign : 'center',
+                    textAlign: 'center',
                     fontWeight: 'bold',
                 }}
             >
-                { text }
+                {text}
+            </Text>
+        </TouchableOpacity>
+    )
+}
+
+export function ButtonAliasRecomendado(props) {
+
+    const { text, onPress } = props
+
+    return (
+        <TouchableOpacity
+            style={{
+                backgroundColor: '#788896',
+                borderRadius: 5,
+                marginVertical: 2,
+                alignItems: "center",
+                width: '30%',
+                justifyContent: 'space-between'
+            }}
+            onPress={onPress}
+        >
+            <Text
+                style={{
+                    color: 'white'
+                  }}
+            >
+                {text}
             </Text>
         </TouchableOpacity>
     )
