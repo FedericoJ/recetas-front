@@ -2,6 +2,7 @@ import React from 'react';
 import {View, Text, TouchableOpacity, StyleSheet} from 'react-native';
 import { AntDesign,Entypo } from '@expo/vector-icons';
 import { Octicons } from '@expo/vector-icons';
+import { Button } from 'native-base';
 
 export function ButtonFondoRosa (props) {
 
@@ -72,7 +73,7 @@ export function ButtonConIconoFondoRosa (props) {
             style = {{
                 backgroundColor: '#AC6363',
                 borderRadius: 5,
-                width: '20%',
+                width: '30%',
                 height: '50%',
                 marginVertical: 2,
                 marginBottom:'10%',
@@ -99,7 +100,6 @@ export function ButtonConIconoFondoRosa (props) {
     )
 }
 
-
 export function ButtonConIconoFondoBlanco (props) {
 
     const { text, onPress } = props
@@ -108,12 +108,12 @@ export function ButtonConIconoFondoBlanco (props) {
         <TouchableOpacity
             style = {{
                 backgroundColor: '#fcfafa',
+                borderColor: '#AC6363',
                 borderRadius: 5,
                 width: '30%',
                 height: '50%',
                 marginVertical: 2,
                 marginBottom:'10%',
-                borderColor: '#AC6363',
                 marginHorizontal:'3%',
                 alignItems:"center",
                 justifyContent:"center",
@@ -153,7 +153,7 @@ export function ButtonConIconoNegro (props) {
                 height: '50%',
                 marginVertical: 2,
                 marginBottom:'10%',
-                marginLeft:"50%",
+                marginLeft:"40%",
                 marginHorizontal:'3%',
                 alignItems:"center",
                 justifyContent:"center",
@@ -295,5 +295,27 @@ export function ButtonCreateBlanco (props) {
                 { text }
             </Text>
         </TouchableOpacity>
+    )
+}
+
+export function ButtonInvisible () {
+
+    return(
+        <Button
+            style = {{
+                backgroundColor: 'transparent',
+                borderRadius: 5,
+                width: '30%',
+                height: '50%',
+                marginVertical: 2,
+                marginBottom:'10%',
+                marginHorizontal:'3%',
+                alignItems:"center",
+                justifyContent:"center",
+                flexDirection:"row"
+            }}
+
+            >
+        </Button>
     )
 }

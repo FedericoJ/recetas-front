@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Divider, Flex, Box, Heading, Center,NativeBaseProvider,Text,Button,Input,Icon,View } from "native-base";
 import {StyleSheet,TouchableOpacity, Modal} from 'react-native';
-import {  ButtonConIconoFondoRosa, ButtonConIconoNegro, ButtonFondoRosa, ButtonFondoBlanco,ButtonConIconoFondoBlanco,ButtonModalUnico } from './ButtonsLogin';
+import {  ButtonConIconoFondoRosa, ButtonConIconoNegro,ButtonFondoRosa, ButtonFondoBlanco,ButtonConIconoFondoBlanco,ButtonModalUnico, ButtonInvisible } from './ButtonsLogin';
 import { useNavigation } from '@react-navigation/native';
 import { FontAwesome } from '@expo/vector-icons'; 
 import { MaterialIcons } from '@expo/vector-icons';
@@ -104,7 +104,7 @@ const ModalPoup = ({ visible, children }) => {
                 }
                
             }else{
-                return (<View style={{width:"70%"}}></View>)
+                return (<ButtonInvisible/>)
             }
                   
         }
@@ -173,7 +173,6 @@ const ModalPoup = ({ visible, children }) => {
                             </View>
                         </ModalPoup>
 
-                        
                             <ButtonConIconoNegro text="Ordenar" onPress={() => setVisible(true)}/>
                         </View>
                 </View>    
