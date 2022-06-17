@@ -20,9 +20,30 @@ import { ButtonFondoBlanco, ButtonFondoRosa } from '../components/ButtonsLogin';
     const navigation = useNavigation();
     const [ Password , setPassword] = useState("");
     const [ RepPassword , setRepPassword] = useState("");
+    const [errorPassword, setErrorPassword] = React.useState("")
     const route = useRoute();
 
     const baseUrl =  config.baseUrl;
+
+    const ValidatePassword= () => {
+      if(!validateData()){
+        return(route.params.email,Password);
+      }
+      NewPassword(route.params.email);
+    }
+
+    const validateData = () => {
+      setErrorPassword("")
+      let isValid = true
+  
+      if (Password != RepPassword) { 
+        setErrorPassword("Formato de contraseña incorrecto o no son iguales")
+        isValid = false
+      }
+      return isValid
+    }
+
+
     const NewPassword = async (mail) => {
 
       const setup = {
@@ -100,7 +121,8 @@ import { ButtonFondoBlanco, ButtonFondoRosa } from '../components/ButtonsLogin';
               secureTextEntry={true}
             />
         </FormControl>
-          <ButtonFondoRosa text="Finalizar" onPress={() => NewPassword(route.params.email)} />
+        <Text textAlign='center'>{errorPassword}</Text>
+          <ButtonFondoRosa text="Finalizar" onPress={() => ValidatePassword()} />
           <ButtonFondoBlanco text="Cancelar" onPress={() => navigation.navigate('Inicio')} />
         </VStack>
       </Box>

@@ -50,13 +50,14 @@ const RegisterScreen = () => {
 
   //Para validar mail y password
   const [errorEmail, setErrorEmail] = React.useState("")
+  const [errorAlias, setErrorAlias] = React.useState("")
   const [errorPassword, setErrorPassword] = useState("")
 
   const RegisterUser= () => {
     if(!validateData()){
       return;
     }
-    Register();
+    ValidateAlias();
   }
 
   const validateData = () => {
@@ -72,6 +73,28 @@ const RegisterScreen = () => {
 
   const baseUrl = config.baseUrl;
 
+  const ValidateAlias = async () => {
+    setErrorAlias("")
+
+    const setup = {
+      headers: {
+        'content-type': 'application/json'
+      }
+    }
+
+    try {
+      const res = await axios.get(`${baseUrl}/usuario/validarAlias?alias=${nickname}`, setup);
+      if(res.status === 201){
+        setErrorAlias("Alias ya utilizado");
+      }
+      if(res.status === 202){
+        Register();
+      }
+    } catch (error) {
+      alert("Ocurrio un error al momento de validar Alias.")
+    }
+  }
+
   const Register = async () => {
 
     const setup = {
@@ -82,7 +105,9 @@ const RegisterScreen = () => {
     const body = JSON.stringify({ nickname, mail })
 
     try {
+      console.log("Antes de crear");
       const res = await axios.post(`${baseUrl}/usuario/crearInvitado`, body, setup);
+      console.log("Despues de crear");
       if (res.status === 201) {
         alert("Te hemos enviado un correo para validar tu usuario")
         navigation.navigate('RegisterPassword',{email: mail})
@@ -159,6 +184,7 @@ const RegisterScreen = () => {
                 onChangeText={setUsuario}
               />
             </FormControl>
+            <Text textAlign='center'>{errorAlias}</Text>
 {/* 
             <ModalPoup visible={visible}>
             <View style={{ alignItems: "flex-start" }}>
@@ -179,7 +205,7 @@ const RegisterScreen = () => {
             </View>
           </ModalPoup> */}
 
-            <ButtonFondoRosa text="Registrarse" onPress={Register}/>
+            <ButtonFondoRosa text="Registrarse" onPress={RegisterUser}/>
             <ButtonFondoBlanco text="Cancelar" onPress={() => navigation.navigate('Inicio')} />
           </VStack>
         </Box>

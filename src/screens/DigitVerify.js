@@ -17,26 +17,8 @@ import config from "../config/default.json";
 import axios from 'axios'
 import { useNavigation, useRoute } from '@react-navigation/native';
 import { ButtonFondoRosa, ButtonModalUnico } from '../components/ButtonsLogin';
+import { mdiMailboxOpen } from '@mdi/js';
 
-
-
-  const RecoveryPassword = async (mail) => {
-
-    const setup = {
-      headers: {
-        'content-type': 'application/json'
-      }
-    }
-    const body = JSON.stringify({ mail })
-    const baseUrl = config.baseUrl;
-
-    try {
-      console.log(mail);
-      const res = await axios.post(`${baseUrl}/usuario/SendRecoveryPassword`, body, setup);
-    } catch (error) {
-      alert("Error");
-    }
-  }
 
 const ModalPoup = ({ visible, children }) => {
   const [showModal, setShowModal] = React.useState(visible);
@@ -76,9 +58,27 @@ const DigitVerify = () => {
 
   const baseUrl = config.baseUrl;
 
-  const functionCombined = () => {
+  const functionCombined = (mail) => {
     setVisible(true);
-    RecoveryPassword(route.params.email);
+    RecoveryPassword(mail);
+}
+
+const RecoveryPassword = async (mail) => {
+
+  const setup = {
+    headers: {
+      'content-type': 'application/json'
+    }
+  }
+  const body = JSON.stringify({ mail })
+  const baseUrl = config.baseUrl;
+
+  try {
+    console.log(mail);
+    const res = await axios.get(`${baseUrl}/usuario/SendRecoveryPassword?mail=${mail}`, body, setup);
+  } catch (error) {
+    alert("Error");
+  }
 }
 
 const Verify = async (mail) => {
@@ -208,7 +208,7 @@ return <View style={styles.container}>
           </View>
         </ModalPoup>
         <HStack mt="6" justifyContent="center" >
-          <Link onPress={() => functionCombined()} _text={{
+          <Link onPress={() => functionCombined(route.params.email)} _text={{
             color: "#AC6363",
             fontWeight: "medium",
             fontSize: "sm",
