@@ -1,21 +1,28 @@
 import React from 'react';
-import { ScrollView,StyleSheet} from 'react-native';
+import { ScrollView,StyleSheet,View} from 'react-native';
 import { Divider, Flex, Box, Heading, Center,NativeBaseProvider,Text,Button } from "native-base";
 import Tabs from '../components/Tabs';
 import Galeria from '../components/cardResults';
 import Categorias from '../components/Categorias'
 import { FloatingAction } from "react-native-floating-action";
 import { FAB } from 'react-native-paper';
+import {useRoute } from '@react-navigation/native';
 
 
-const Principal  = ({navigation}) => {
+const Results  = ({navigation}) => {
+
+  const route=useRoute();
+
+  const baseUrl =  config.baseUrl;
+
+  const fetcher = url => axios.get(`${baseUrl}/receta/${route.params.service}`).then(res => res.data)
+
+  const {data,error}=useSWR(`${baseUrl}/receta/${route.params.service}`, fetcher);
 
 return (
-    <ScrollView style={styles.container}>
-        <Tabs/>
-
+    <View style={styles.container}>
+        <Tabs style={{}}/>
         <Galeria/>
-      
          <FAB style={styles.fab}
           extended
           icon="pencil"
@@ -23,8 +30,7 @@ return (
           uppercase={false}
           onPress={() => navigation.navigate('CreateReceta')}
           />
-
-     </ScrollView>
+     </View>
   );
 };
 
@@ -45,4 +51,4 @@ const styles = StyleSheet.create({
 
   });
 
-export default Principal;
+export default Results;

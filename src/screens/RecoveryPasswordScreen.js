@@ -66,8 +66,12 @@ const RecoveryPasswordScreen = () => {
       console.log(res.data);
       console.log(res);
    
+    }catch(error){
+    console.log(error.msg)
+    }
+
   }
-    ;
+    
 
   return (
 
@@ -205,4 +209,4 @@ export default () => {
       </View>
     </NativeBaseProvider>
   );
-};
+}

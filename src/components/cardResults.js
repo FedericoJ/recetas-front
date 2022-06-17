@@ -13,23 +13,19 @@ import Recetas from './Recetas';
 
   const tipos =[
        
-    {tipo:"Pasta",calificacion:3.5,usuario:"@mamacora",tipoImage:imagesrc},
-    {tipo:"Comida china",calificacion:3.5,usuario:"@mamacora",tipoImage:imagesrc},
-    {tipo:"Milanesas",calificacion:4.5,usuario:"@mamacora",tipoImage:imagesrc},
-    {tipo:"Hamburguesas estilo Campo",calificacion:3.5,usuario: "@mamacora",tipoImage:imagesrc},
-    {tipo:"Helados",calificacion:2,usuario:"@mamacora",tipoImage:imagesrc},
-    {tipo:"Postres",calificacion:1,usuario:"@mamacora",tipoImage:imagesrc},
+    {Nombre:"Pasta",IdReceta: 1,alias:"@mamacora",foto:imagesrc,CalificacionProm:3.5,},
+    {Nombre:"Pasta",IdReceta: 1,alias:"@mamacora",foto:imagesrc,CalificacionProm:3.5,},
+   
 ];
-
 
 const Categorias =()=>{
 
     const navigation = useNavigation();
 
     return (
-        <SafeAreaView style={{ marginVertical:'5%'}}>
+        <SafeAreaView style={{height:"70%"}}>
         <Text  style={{textAlign:"center",fontSize:20,fontWeight:"bold",marginBottom:'2%'}}> Resultados </Text>
-            <FlatList style= {{marginHorizontal:'5%'}} data ={tipos}
+            <FlatList style= {{marginHorizontal:'2%'}} data ={tipos}
                 numColumns={1}
                 renderItem={({item}) => (<Recetas navegacion={navigation} tipos ={item}/>)}>
                 

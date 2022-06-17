@@ -1,40 +1,31 @@
 import React, { useState } from 'react';
 import { Divider, Flex, Box, Heading, Center,NativeBaseProvider,Text,Button,Input,Icon,View,Modal } from "native-base";
 import {StyleSheet,TouchableOpacity} from 'react-native';
-//import { MaterialIcons } from "@expo/vector-icons";
 import {  ButtonConIconoFondoRosa, ButtonConIconoNegro, ButtonFondoRosa, ButtonFondoBlanco,ButtonConIconoFondoBlanco } from './ButtonsLogin';
 import { useNavigation } from '@react-navigation/native';
-//import { mdiAlphaACircleOutline } from '@mdi/js';
-//import { mdiAccountCircle } from '@mdi/js';
-//import { mdiCalendarClock } from '@mdi/js';
-//import Icon2 from '@mdi/react';
+import { FontAwesome } from '@expo/vector-icons'; 
 
-
-    const ITEMS = [{
-        name: "ingrediente",
-        label: "Ingrediente",
-    },
-    {
-        name: "plato",
-        label: "Plato",
-    },
-    {
-        name: "tipo",
-        label: "Tipo",
-    },
-    {
-        name: "usuario",
-        label: "Usuario",
-    }];
-
-    const activeItemClass = {marginTop:'10%',fontSize:15, color: '#AC6363',textDecorationLine: 'underline'};
-    const inactiveItemClass = {marginTop:'10%',fontSize:15, color: 'gray',textDecorationLine: 'underline'};
-
-   
+    const activeItemClass = {fontSize:15, color: '#AC6363',textDecorationLine: 'underline'};
+    const inactiveItemClass = {fontSize:15, color: 'gray',textDecorationLine: 'underline'};
 
     const Tabs  = () => {
-        
 
+        const ITEMS = [{
+            name: "ingrediente",
+            label: "Ingrediente",
+        },
+        {
+            name: "plato",
+            label: "Plato",
+        },
+        {
+            name: "tipo",
+            label: "Tipo",
+        },
+        {
+            name: "usuario",
+            label: "Usuario",
+        }];
 
         const navigation = useNavigation();
         const [visible, setVisible] = useState(false);
@@ -42,37 +33,57 @@ import { useNavigation } from '@react-navigation/native';
         const [orderA, setOrderA] = useState(true);
         const [orderB, setOrderB] = useState(true);
         const [orderC, setOrderC] = useState(true);
+        const [activeElement, setActiveElement] = useState("ingrediente");
         
-        const [activeElement, setActiveElement] = React.useState('ingrediente');
-    
+        var servicio = "recetaPorIngrediente";
+
         const onPressHandler = (item) => {
-            setActiveElement(item.name);
+            setActiveElement(item.name)
+            //console.log(item.name);
+        };
+
+
+        const onPressSearch =() =>{
+
+          
+                if (activeElement ==="ingrediente"){
+                    if (contiene) {
+                        servicio="recetaPorIngrediente";
+                    }else{
+                        servicio="recetaSinIngrediente";
+                    }
+                }
+
+                if(activeElement ==="usuario"){
+                    servicio="recetaPorUsuario";
+                }   
+                if(activeElement ==="plato"){
+                    servicio="RecetaPorNombre";
+                }
+                if(activeElement ==="tipo"){
+                    servicio="getRecetaPorNombreTipo";
+                }
+                   
+
+            navigation.navigate('Results',{service: servicio})
+
         }
+
+         // return (<ButtonConIconoFondoBlanco text="No Contiene" onPress={() => setContiene(true)}/>)
 
         const Boton =() =>{
 
-            if (activeElement==='ingrediente'){
-
+            if (activeElement ==="ingrediente"){
                 if (contiene){
-
-                    return (
-                        <ButtonConIconoFondoRosa text="Contiene" onPress={() => setContiene(false)}/>
-                    )
+                    return (<ButtonConIconoFondoRosa text="Contiene" onPress={() => setContiene(false)}/>)
                 }else{
-
-                    return (
-                        <ButtonConIconoFondoBlanco text="No Contiene" onPress={() => setContiene(true)}/>
-                    )
-
+                    return (<ButtonConIconoFondoBlanco text="No Contiene" onPress={() => setContiene(true)}/>)
                 }
-                
-
+               
             }else{
-                return (<View style={{width:"70%"}}> </View>);
+                return (<View style={{width:"70%"}}></View>)
             }
-
-           
-    
+                  
         }
 
         return (
@@ -81,34 +92,26 @@ import { useNavigation } from '@react-navigation/native';
                     <View style={styles.container}>
                         {ITEMS.map( (item, i) => (
                             <TouchableOpacity key={item.name} onPress={() => onPressHandler(item)}>
-
                                 <Text  style={activeElement === item.name ? activeItemClass : inactiveItemClass}> {item.label} </Text>
-
                             </TouchableOpacity>
                         ))}
                     </View>
-
 
                     <View style={{backgroundColor:'#ffff'}}>
 
                         <Input style={{backgroundColor:'#ffff'}} mx="2" my="3" size="large" placeholder="Input" 
                         InputRightElement={
                                             <TouchableOpacity
-                                                onPress = { () => navigation.navigate('Results') }
+                                                onPress = { () => onPressSearch() }
                                             >
-                                               {/* <Icon as={<MaterialIcons name="search" />} size={8} ml="2" color="muted.400" />*/}
+                                               {<FontAwesome name="search" size={24} color="black"/>}
                                             </TouchableOpacity>
                                             } />
                     
-                    <View style={styles.container}>
-                        
-                       {Boton()}
-
-                       
-                        <ButtonConIconoNegro text="Ordenar" onPress={() => setVisible(true)}/>
-                    
-                        
-                    </View>
+                        <View style={{flexDirection:"row",alignItems:"center",backgroundColor:'#ffff',}}>
+                            <Boton> </Boton>
+                            <ButtonConIconoNegro text="Ordenar" onPress={() => setVisible(true)}/>
+                        </View>
                     </View>
 
                         <View style={{backgroundColor:'#ffff'}}>
@@ -170,21 +173,13 @@ import { useNavigation } from '@react-navigation/native';
 
     const styles = StyleSheet.create({
         container: {
-        height:"30%",
+            height:"20%",
           flexDirection:"row",
+          marginTop:"5%",
           alignItems:"center",
           backgroundColor:'#ffff',
           justifyContent:"space-between"
-        },
-        ordernar: {
-            flex: 1,
-            flexDirection:"row",
-            alignItems:"center",
-            backgroundColor:'#ffff',
-            justifyContent:"space-between"
-          },
-
-
+        }
       });
     
         

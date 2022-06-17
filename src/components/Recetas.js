@@ -4,6 +4,7 @@ import Stars from 'react-native-stars';
 import { FontAwesome, MaterialCommunityIcons } from '@expo/vector-icons'; 
 import { useNavigation } from '@react-navigation/native';
 
+
 /*CalificacionProm: "4.0000"
 Descripcion: "Budin de naranja con semillas de amapola"
 IdReceta: 1
@@ -21,7 +22,7 @@ class Recetas extends React.Component{
         return (
             
 
-            <TouchableOpacity style={{backgroundColor:'#ffff',marginVertical:'2%'}} onPress = { () => navigation.navigate('Receta') }>
+            <TouchableOpacity style={{backgroundColor:'#ffff',marginVertical:'2%',marginRight:"8%"}} onPress = { () => navigation.navigate('Receta') }>
                 
                 <View style={{flexDirection:"row",width:'50%' ,margin:1 }}>
 
@@ -39,7 +40,7 @@ class Recetas extends React.Component{
                                 {alias}
                             </Text>
 
-                            <View style={{marginRight:'10%',alignItems:"flex-end",flexDirection:"row-reverse",justifyContent:"flex-start"}} >
+                            <View style={{marginRight:'20%',alignItems:"flex-end",flexDirection:"row-reverse",justifyContent:"flex-start"}} >
 
                                 <TouchableOpacity>
 
@@ -48,7 +49,7 @@ class Recetas extends React.Component{
                                 </TouchableOpacity>
 
                                 <Stars 
-                                    display={CalificacionProm}
+                                    value={CalificacionProm}
                                     spacing={4}
                                     count={5}
                                     starSize={16}
@@ -61,17 +62,9 @@ class Recetas extends React.Component{
                                 </Text>
                             
                             </View>
-
-                           
-
-
                         </View>
-
-
                 </View>
-
             </TouchableOpacity>    
-
         )
     }
 

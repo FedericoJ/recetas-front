@@ -44,8 +44,8 @@ const Categorias =()=>{
 
     
     return (
-            <SafeAreaView style={{ marginVertical:'5%'}}>
-            <Text  style={{textAlign:"center", marginVertical:'1%' , fontSize:20,fontWeight:"bold"}}> Categorias </Text>
+            <SafeAreaView style={{height: '50%'}}>
+            <Text  style={{textAlign:"center",marginVertical:'1%' , fontSize:20,fontWeight:"bold"}}> Categorias </Text>
                 <FlatList style={{marginHorizontal:'1%'}} data ={data}
                 numColumns={2}
                 renderItem={({item}) => (<Tipos categorias ={item}/>)}>

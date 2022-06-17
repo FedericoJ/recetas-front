@@ -52,9 +52,9 @@ import { NativeBaseProvider,Skeleton,VStack,Center } from 'native-base';
        }else{
 
         return (
-            <View style={{marginLeft:'5%', height: 200}}>
+            <View style={{flex:1,marginLeft:'5%', height: '40%'}}>
               <Text  style={{fontSize:20, fontWeight: "bold"}}>Lo destacado de la semana </Text>
-              <View style={{ flex: 1, flexDirection:'row', justifyContent: 'center'}}>
+              <View style={{ flexDirection:'row', justifyContent: 'center'}}>
                   <Carousel
                     layout={"default"}
                     //ref={ref => this.carousel = ref}
