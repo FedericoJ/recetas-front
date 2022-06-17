@@ -18,9 +18,6 @@ import ImageView from 'react-native-image-view';
 
            
         ));    
-
-        console.log(auxSource);
-
         images = auxSource;
 
     }

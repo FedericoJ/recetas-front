@@ -186,7 +186,7 @@ const ModalPoup = ({ visible, children }) => {
 
     const styles = StyleSheet.create({
         container: {
-            height:"20%",
+            height:"15%",
           flexDirection:"row",
           marginTop:"5%",
           alignItems:"center",

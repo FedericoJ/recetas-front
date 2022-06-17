@@ -11,21 +11,22 @@ const InputSelectCombo = ({item, unidades}) => {
   };
 
   return(<NativeBaseProvider>
-    <HStack>
-    <Input
+    <HStack w="100%">
+
+      <Input
       style={{backgroundColor:'#ffff',
       textAlign:"center" }} 
-      w='40%' 
-      mx="2"
       fontSize= "16"
-      value={item.cantidad}
+      w="25%"
+      ml="10"
+      value={item.cantidad.toString()}
     />
 
     <Select
       style={{backgroundColor:'#ffff'}}
       selectedValue={unidadSeleccionada}
-      w='40%'
-      mx="2"
+      ml="2"
+      minWidth="40%"
       fontSize= "16"
       _selectedItem={{
         bg: "indigo",
@@ -68,9 +69,10 @@ const Ingredients = ({ ingredientes }) => {
               marginTop: "5%",
               marginBottom: "2%",
               marginLeft: "5%",
+              width:"100%"
             }}
           >
-            <Text style={{ fontSize: 16, width: "60%" }}>{element.nombre}</Text>
+            <Text style={{ fontSize: 16 , width:"40%"}}>{element.nombre}</Text>
 
             <InputSelectCombo  unidades={unidades} item={element}/>
             

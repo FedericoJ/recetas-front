@@ -5,6 +5,7 @@ import { FontAwesome, MaterialCommunityIcons } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
 
 
+
 /*CalificacionProm: "4.0000"
 Descripcion: "Budin de naranja con semillas de amapola"
 IdReceta: 1
@@ -20,12 +21,11 @@ class Recetas extends React.Component{
         const {Descripcion,IdReceta,Nombre,alias,foto,CalificacionProm} = this.props.tipos;
         const  navigation  = this.props.navegacion;
 
-        console.log(foto);
 
         return (
             
 
-            <TouchableOpacity style={{backgroundColor:'#ffff',marginVertical:'2%',marginRight:"8%"}} onPress = { () => navigation.navigate('Receta') }>
+            <TouchableOpacity style={{backgroundColor:'#ffff',marginVertical:'2%',marginRight:"8%"}} onPress = { () => navigation.navigate('Receta',{datos:this.props.tipos}) }>
                 
                 <View style={{flexDirection:"row",width:'50%' ,margin:1 }}>
 

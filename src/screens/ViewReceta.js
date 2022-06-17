@@ -17,6 +17,10 @@ import { ButtonModal } from "../components/ButtonsLogin";
 import { Rating, AirbnbRating } from 'react-native-ratings';
 import Steps from "../components/Step";
 import {ButtonFondoRosa} from '../components/ButtonsLogin';
+import {useRoute } from '@react-navigation/native';
+import config from "../config/default.json";
+import useSWR from 'swr'
+import axios from 'axios'
 
 
 const ModalPoup = ({ visible, children }) => {
@@ -66,11 +70,19 @@ const ViewReceta = ({ navigation }) => {
   const [Comentario, setComentario] = useState("");
   const [value, setValue] = React.useState(0);
 
+  const route=useRoute();
+
+
+
+  const values = route.params.datos;
+
+  console.log(values);
+
   return (
     <ScrollView style={styles.container}>
       <Image
         style={{ width: "100%", height: 200 }}
-        source={{ uri: tipoImage }}
+        source={{ uri: values.foto }}
       ></Image>
 
       <View
@@ -84,7 +96,7 @@ const ViewReceta = ({ navigation }) => {
       >
         <Text style={{ fontSize: 20, width: "90%", fontWeight: "bold" }}>
           {" "}
-          Milanga{" "}
+          {values.Nombre}{" "}
         </Text>
 
         <Text
@@ -92,7 +104,7 @@ const ViewReceta = ({ navigation }) => {
           style={{ fontSize: 20 }}
         >
           {" "}
-          4.1{" "}
+          {values.CalificacionProm}{" "}
         </Text>
 
         <FontAwesome
@@ -113,7 +125,7 @@ const ViewReceta = ({ navigation }) => {
       >
         <FontAwesome name="user" size={30} color="gray" />
 
-        <Text style={{ fontSize: 16, color: "gray" }}> @mamacora </Text>
+        <Text style={{ fontSize: 16, color: "gray", marginLeft:'1%' }}>{values.alias} </Text>
       </View>
 
       <View
@@ -183,14 +195,14 @@ const ViewReceta = ({ navigation }) => {
             <ButtonModal
               text="Atras"
               onPress={() => {
-                navigation.navigate("Receta");
+                //navigation.navigate("Receta");
                 setVisible(false);
               }}
             />
             <ButtonModal
               text="Guardar"
               onPress={() => {
-                navigation.navigate("Receta");
+                //navigation.navigate("Receta");
                 setVisible(false);
               }}
             />
@@ -203,7 +215,7 @@ const ViewReceta = ({ navigation }) => {
           style={{ width: "90%", alignItems: "flex-start" }}
         >
           <Stars
-            display={4.1}
+            value={values.CalificacionProm}
             spacing={4}
             count={5}
             starSize={30}
@@ -224,9 +236,7 @@ const ViewReceta = ({ navigation }) => {
           w="90%"
           mx="5"
           fontSize= "16"
-          value={
-            "Tengo una vaca lechera no es una vaca cualquiera, me da leche descremada"
-          }
+          value={values.Descripcion}
           placeholder="Disabled TextArea"
           isDisabled
         />
@@ -239,14 +249,15 @@ const ViewReceta = ({ navigation }) => {
             marginHorizontal: "5%",
           }}
         >
-          <Text style={{ fontSize: 16, width: "90%" }}> Categoria </Text>
+          <Text style={{ fontSize: 16 }}> Categoria </Text>
 
           <Input
             style={{ backgroundColor: "#ffff", textAlign: "center" }}
-            mx="1"
+            ml="7"
             fontSize= "16"
-            value={"Americana"}
-            placeholder="Americana"
+            isDisabled
+            w="70%"
+            value={values.DescTipo}
           />
         </View>
 
@@ -258,15 +269,14 @@ const ViewReceta = ({ navigation }) => {
             marginHorizontal: "5%",
           }}
         >
-          <Text style={{ fontSize: 16, width: "90%" }}> Porciones </Text>
+          <Text style={{ fontSize: 16,width:"85%"}}> Porciones </Text>
 
           <Input
-            style={{ backgroundColor: "#ffff", textAlign: "center" }}
-            value={2}
-            mx="1"
-            w="15%"
             fontSize= "16"
-            placeholder="2"
+            isDisabled
+            w="15%"
+            style={{ backgroundColor: "#ffff", textAlign: "left"}}
+            value={values.Porciones.toString()}
           />
         </View>
 
@@ -279,12 +289,12 @@ const ViewReceta = ({ navigation }) => {
             marginHorizontal: "5%",
           }}
         >
-          <Text style={{ fontSize: 16, width: "90%" }}> Personas </Text>
+          <Text style={{ fontSize: 16, width: "85%" }}> Personas </Text>
 
           <Input
             style={{ backgroundColor: "#ffff", textAlign: "center" }}
-            value={1}
-            mx="1"
+            value={values.CantidadPersonas.toString()}
+            isDisabled
             w="15%"
             fontSize= "16"
             placeholder="2"
