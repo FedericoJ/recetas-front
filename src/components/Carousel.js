@@ -20,21 +20,17 @@ import { NativeBaseProvider,Skeleton,VStack,Center } from 'native-base';
 
         const tipos =[
        
-            {tipo:"Pasta",calificacion:3.5,usuario:"@mamacora",tipoImage:imagesrc},
-            {tipo:"Comida china",calificacion:3.5,usuario:"@mamacora",tipoImage:imagesrc},
-            {tipo:"Milanesas",calificacion:4.5,usuario:"@mamacora",tipoImage:imagesrc},
-            {tipo:"Hamburguesas estilo Campo",calificacion:3.5,usuario: "@mamacora",tipoImage:imagesrc},
-            {tipo:"Helados",calificacion:2,usuario:"@mamacora",tipoImage:imagesrc},
-            {tipo:"Postres",calificacion:1,usuario:"@mamacora",tipoImage:imagesrc},
+            {Nombre:"Pasta",IdReceta: 1,alias:"@mamacora",foto:imagesrc,CalificacionProm:3.5,},
+            {Nombre:"Pasta",IdReceta: 1,alias:"@mamacora",foto:imagesrc,CalificacionProm:3.5,},
+           
        ];
 
+       
        const baseUrl =  config.baseUrl;
 
-       const fetcher = url => axios.get(`${baseUrl}/receta/recetasSemana`).then(res => res.data)
+      const fetcher = url => axios.get(`${baseUrl}/receta/recetasSemana`).then(res => res.data)
   
-       const {data,error}=useSWR(`${baseUrl}/receta/recetasSemana`, fetcher);
-
-       console.log (data);
+      const {data,error}=useSWR(`${baseUrl}/receta/recetasSemana`, fetcher);
 
        if (!data){
             return (
@@ -56,9 +52,9 @@ import { NativeBaseProvider,Skeleton,VStack,Center } from 'native-base';
        }else{
 
         return (
-            <SafeAreaView style={{alignItems:"left" ,marginLeft:'5%', marginTop:'2%'}}>
-              <Text  style={{marginVertical:'5%',fontSize:20, fontWeight: "bold"}}>Lo destacado de la semana </Text>
-              <View style={{ flex: 1, flexDirection:'row', justifyContent: 'center', }}>
+            <View style={{marginLeft:'5%', height: 200}}>
+              <Text  style={{fontSize:20, fontWeight: "bold"}}>Lo destacado de la semana </Text>
+              <View style={{ flex: 1, flexDirection:'row', justifyContent: 'center'}}>
                   <Carousel
                     layout={"default"}
                     //ref={ref => this.carousel = ref}
@@ -68,15 +64,13 @@ import { NativeBaseProvider,Skeleton,VStack,Center } from 'native-base';
                     itemWidth={400}
                     //renderItem={this._renderItem}
                     renderItem={({item}) =>(<Recetas navegacion={navigation} tipos ={item}/>)}
-                    onSnapToItem = { index => this.setState({activeIndex:index}) } />
+                    //onSnapToItem = { index => this.setState({activeIndex:index}) }
+                     />
               </View>
-            </SafeAreaView>
+            </View>
           );
 
        }
-
-        
-
 
     }
 

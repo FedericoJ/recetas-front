@@ -1,5 +1,5 @@
 import React from "react";
-import { ScrollView, StyleSheet } from "react-native";
+import { ScrollView, StyleSheet,View } from "react-native";
 import Tabs from "../components/Tabs";
 import Galeria from "../components/Carousel";
 import Categorias from "../components/Categorias";
@@ -7,9 +7,12 @@ import { FAB } from "react-native-paper";
 
 const Principal = ({ navigation }) => {
   return (
-    <ScrollView style={styles.container}>
+    <View style={styles.container}>
+
       <Tabs />
+
       <Galeria navegacion={navigation} />
+
       <Categorias />
 
       <FAB
@@ -20,7 +23,7 @@ const Principal = ({ navigation }) => {
         uppercase={false}
         onPress={() =>navigation.navigate('CreateReceta')}
       />
-    </ScrollView>
+    </View>
   );
 };
 

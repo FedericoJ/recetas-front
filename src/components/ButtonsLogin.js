@@ -162,11 +162,11 @@ export function ButtonConIconoNegro (props) {
             }}            
             onPress = { onPress }
             >
-            <Icon path={mdiSwapVerticalBold}
+            {/*<Icon path={mdiSwapVerticalBold}
                 title="User Profile"
                 size={1}
                 color="black"
-            />
+                />*/}
 
             <Text
                 style = {{

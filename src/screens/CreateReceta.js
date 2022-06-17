@@ -20,6 +20,7 @@ import {
   HStack,
   Select,
   CheckIcon,
+  Box
 } from "native-base";
 import {
   ButtonModal,
@@ -35,7 +36,6 @@ import { useNavigation } from "@react-navigation/native";
 import { ProgressSteps, ProgressStep } from "react-native-progress-steps";
 import { mdiPlusCircleOutline } from "@mdi/js";
 import Icon from "@mdi/react";
-import Box from "@mui/material/Box";
 
 const ModalPoup = ({ visible, children }) => {
   const [showModal, setShowModal] = React.useState(visible);

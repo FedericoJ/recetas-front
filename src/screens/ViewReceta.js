@@ -14,8 +14,7 @@ import Stars from "react-native-stars";
 import { NativeBaseProvider, TextArea, Input, Divider } from "native-base";
 import Ingredients from "../components/Ingredients";
 import { ButtonModal } from "../components/ButtonsLogin";
-import Box from "@mui/material/Box";
-import Rating from "@mui/material/Rating";
+//import Rating from "@mui/material/Rating";
 import Steps from "../components/Step";
 import {ButtonFondoRosa} from '../components/ButtonsLogin';
 
@@ -140,7 +139,7 @@ const ViewReceta = ({ navigation }) => {
             >
               {/* asigno espacio */}
             </View>
-            <Box
+            {/*<Box
               sx={{
                 "& > legend": { mt: 2 },
               }}
@@ -153,8 +152,8 @@ const ViewReceta = ({ navigation }) => {
                 onChange={(event, newValue) => {
                   setValue(newValue);
                 }}
-              />
-            </Box>
+              />}
+            </Box>}
             <View
               style={{
                 flexDirection: "row",
@@ -164,8 +163,7 @@ const ViewReceta = ({ navigation }) => {
                 marginHorizontal: "5%",
               }}
             >
-              {/* asigno espacio */}
-            </View>
+            </View>*/}
             <Text style={{ fontSize: 20, color: "black" }}>
               {" "}
               Agrega tu comentario{" "}

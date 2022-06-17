@@ -58,16 +58,13 @@ const RecoveryPasswordScreen = () => {
     }
     const body = JSON.stringify({ mail })
 
-    try {
       const res = await axios.post(`${baseUrl}/usuario/SendRecoveryPassword`, body, setup);
       if (res.status === 201) {
         setVisible(true);
       }
       console.log(res.data);
       console.log(res);
-    } catch (error) {
-      alert("Error");
-    }
+   
   }
     ;
 
@@ -91,7 +88,7 @@ const RecoveryPasswordScreen = () => {
       <View style={styles.centerContent}>
         <Box safeArea p="2" w="100%" maxW="290" py="8">
           <Center>
-            <Heading size="xlg" color="coolGray.800" _dark={{
+            <Heading size="lg" color="coolGray.800" _dark={{
               color: "warmGray.50"
             }} fontWeight="semibold" fontSize="30">
               RecetApp

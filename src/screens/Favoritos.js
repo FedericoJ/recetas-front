@@ -15,7 +15,7 @@ const Favoritos  = ({navigation}) => {
 
 
 return (
-    <ScrollView style={styles.container}>
+    <View style={styles.container}>
 
         <Favorito/>
 
@@ -28,7 +28,7 @@ return (
           onPress={() => console.log('Pressed')}
           />
 
-     </ScrollView>
+     </View>
   );
 };
 

@@ -1,14 +1,13 @@
 import React, { useState } from 'react';
 import { Divider, Flex, Box, Heading, Center,NativeBaseProvider,Text,Button,Input,Icon,View,Modal } from "native-base";
 import {StyleSheet,TouchableOpacity} from 'react-native';
-import { MaterialIcons } from "@expo/vector-icons";
+//import { MaterialIcons } from "@expo/vector-icons";
 import {  ButtonConIconoFondoRosa, ButtonConIconoNegro, ButtonFondoRosa, ButtonFondoBlanco,ButtonConIconoFondoBlanco } from './ButtonsLogin';
 import { useNavigation } from '@react-navigation/native';
-import { fabClasses } from '@mui/material';
-import { mdiAlphaACircleOutline } from '@mdi/js';
-import { mdiAccountCircle } from '@mdi/js';
-import { mdiCalendarClock } from '@mdi/js';
-import Icon2 from '@mdi/react';
+//import { mdiAlphaACircleOutline } from '@mdi/js';
+//import { mdiAccountCircle } from '@mdi/js';
+//import { mdiCalendarClock } from '@mdi/js';
+//import Icon2 from '@mdi/react';
 
 
     const ITEMS = [{
@@ -28,8 +27,8 @@ import Icon2 from '@mdi/react';
         label: "Usuario",
     }];
 
-    const activeItemClass = {fontSize:15, color: '#AC6363',textDecorationLine: 'underline'};
-    const inactiveItemClass = {fontSize:15, color: 'gray',textDecorationLine: 'underline'};
+    const activeItemClass = {marginTop:'10%',fontSize:15, color: '#AC6363',textDecorationLine: 'underline'};
+    const inactiveItemClass = {marginTop:'10%',fontSize:15, color: 'gray',textDecorationLine: 'underline'};
 
    
 
@@ -90,14 +89,14 @@ import Icon2 from '@mdi/react';
                     </View>
 
 
-                    <View style={{alignItems:"left",backgroundColor:'#ffff'}}>
+                    <View style={{backgroundColor:'#ffff'}}>
 
                         <Input style={{backgroundColor:'#ffff'}} mx="2" my="3" size="large" placeholder="Input" 
                         InputRightElement={
                                             <TouchableOpacity
                                                 onPress = { () => navigation.navigate('Results') }
                                             >
-                                                <Icon as={<MaterialIcons name="search" />} size={8} ml="2" color="muted.400" />
+                                               {/* <Icon as={<MaterialIcons name="search" />} size={8} ml="2" color="muted.400" />*/}
                                             </TouchableOpacity>
                                             } />
                     
@@ -112,9 +111,9 @@ import Icon2 from '@mdi/react';
                     </View>
                     </View>
 
-                        <View style={{alignItems:"left",backgroundColor:'#ffff'}}>
+                        <View style={{backgroundColor:'#ffff'}}>
 
-                            <section>
+                           {/*} <section>
                                 {(() =>{
                                     switch (visible){
                                         case true : return (
@@ -157,7 +156,7 @@ import Icon2 from '@mdi/react';
                                         case false : return null;
                                     }
                                 })()}
-                                </section>
+                            </section>*/}
                     </View>
 
             </NativeBaseProvider>
@@ -171,7 +170,7 @@ import Icon2 from '@mdi/react';
 
     const styles = StyleSheet.create({
         container: {
-          flex: 1,
+        height:"30%",
           flexDirection:"row",
           alignItems:"center",
           backgroundColor:'#ffff',

@@ -29,7 +29,7 @@ class Recetas extends React.Component{
                         
                         </Image>
 
-                        <View style={{width:'100%',alignItems:'left'}}>
+                        <View style={{width:'100%'}}>
 
                             <Text style={{textAlign:"left",fontWeight:'bold',marginLeft:'5%'}}>
                                 {Nombre}

@@ -15,7 +15,6 @@ import config from "../config/default.json";
 import axios from 'axios'
 import { useNavigation, useRoute } from '@react-navigation/native';
 import { ButtonFondoBlanco, ButtonFondoRosa } from '../components/ButtonsLogin';
-import { mdiAlertRemove } from '@mdi/js';
 
 const RegisterPasswordScreen = () => {
 
@@ -68,7 +67,7 @@ const RegisterPasswordScreen = () => {
       <View style={styles.centerContent}>
         <Box safeArea p="2" w="100%" maxW="290" py="8">
           <Center>
-            <Heading size="xlg" color="coolGray.800" _dark={{
+            <Heading size="lg" color="coolGray.800" _dark={{
               color: "warmGray.50"
             }} fontWeight="semibold" fontSize="30">
               RecetApp

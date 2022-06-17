@@ -8,12 +8,11 @@ import {
   Button, 
   Center, 
   NativeBaseProvider, 
-  ScrollView} from "native-base";
+  ScrollView,Box} from "native-base";
   import config from "../config/default.json";
   import axios from 'axios'
   import { useNavigation } from '@react-navigation/native';
   import {  ButtonFondoBlanco, ButtonFondoRosa,ButtonModalUnico, ButtonFondoRosaModal } from '../components/ButtonsLogin';
-  import Box from '@mui/material/Box';
 
 
   const ModalPoup = ({visible, children}) => {

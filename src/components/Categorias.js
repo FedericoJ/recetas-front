@@ -10,7 +10,6 @@ import Tipos from './Tipos';
 import config from "../config/default.json";
 import useSWR from 'swr'
 import { NativeBaseProvider,Skeleton,VStack,Center } from 'native-base';
-import { mdiCameraMeteringCenter } from '@mdi/js';
 
 
   const imagesrc="https://resizer.glanacion.com/resizer/DX1-dyjtqe3efPEahil_dwkYeuQ=/768x0/filters:format(webp):quality(80)/cloudfront-us-east-1.images.arcpublishing.com/lanacionar/VLWFAANIWBGPFO4CSUHS7RYVVQ.jpg";
@@ -23,7 +22,7 @@ const Categorias =()=>{
     
     const fetcher = url => axios.get(`${baseUrl}/ingredientes/getTiposreceta`).then(res => res.data)
   
-    const {data,error}=useSWR('/api/data', fetcher);
+    const {data,error}=useSWR(`${baseUrl}/ingredientes/getTiposreceta`, fetcher);
 
     if (!data){
         return (
