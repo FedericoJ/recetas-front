@@ -7,14 +7,14 @@ import {
   Text,
   TouchableOpacity,
   TextInput,
-  Modal,
+  Modal,Box,
 } from "react-native";
 import { FontAwesome, MaterialCommunityIcons } from "@expo/vector-icons";
 import Stars from "react-native-stars";
 import { NativeBaseProvider, TextArea, Input, Divider } from "native-base";
 import Ingredients from "../components/Ingredients";
 import { ButtonModal } from "../components/ButtonsLogin";
-//import Rating from "@mui/material/Rating";
+import { Rating, AirbnbRating } from 'react-native-ratings';
 import Steps from "../components/Step";
 import {ButtonFondoRosa} from '../components/ButtonsLogin';
 
@@ -126,34 +126,26 @@ const ViewReceta = ({ navigation }) => {
         }}
       >
         <ModalPoup visible={visible}>
+          
           <View style={{ alignItems: "flex-start" }}>
             <Text style={{ fontSize: 20, color: "black" }}> Calificación </Text>
             <View
               style={{
                 flexDirection: "row",
                 alignItems: "center",
-                marginTop: "2%",
+                marginTop: "4%",
                 marginBottom: "2%",
-                marginHorizontal: "5%",
-              }}
-            >
-              {/* asigno espacio */}
+                marginHorizontal: "1%",
+              }}>
+            <AirbnbRating
+              count={5}
+              reviews={[""]}
+              defaultRating={0}
+              size={30}
+              selectedColor="blue"
+              showRating={false}
+            />
             </View>
-            {/*<Box
-              sx={{
-                "& > legend": { mt: 2 },
-              }}
-            >
-              <Rating
-                name="simple-controlled"
-                value={value}
-                size="large"
-                precision={0.5}
-                onChange={(event, newValue) => {
-                  setValue(newValue);
-                }}
-              />}
-            </Box>}
             <View
               style={{
                 flexDirection: "row",
@@ -163,49 +155,27 @@ const ViewReceta = ({ navigation }) => {
                 marginHorizontal: "5%",
               }}
             >
-            </View>*/}
+            </View>
             <Text style={{ fontSize: 20, color: "black" }}>
               {" "}
               Agrega tu comentario{" "}
             </Text>
-
-            <View
-              style={{
-                flexDirection: "row",
-                alignItems: "center",
-                marginTop: "2%",
-                marginBottom: "2%",
-                marginHorizontal: "5%",
-              }}
-            >
-              {/* asigno espacio */}
-            </View>
-            <TextInput
-              style={styles.input}
-              value={Comentario}
-              onChangeText={setComentario}
-              multiline={true}
-              numberOfLines={4}
-            />
-            <View></View>
-            <View
-              style={{
-                flexDirection: "row",
-                alignItems: "center",
-                marginTop: "2%",
-                marginBottom: "2%",
-                marginHorizontal: "5%",
-              }}
-            >
-              {/* asigno espacio */}
-            </View>
+            <NativeBaseProvider>
+            <TextArea
+                marginTop="5%"
+                w="100%"
+                fontSize= "16"
+                value={Comentario}
+                onChangeText={setComentario}
+              />
+              </NativeBaseProvider>
           </View>
-
+          
           <View
             style={{
               flexDirection: "row",
               alignItems: "center",
-              marginTop: "1%",
+              marginTop: "40%",
               marginBottom: "1%",
               marginHorizontal: "1%",
             }}
@@ -225,6 +195,7 @@ const ViewReceta = ({ navigation }) => {
               }}
             />
           </View>
+          
         </ModalPoup>
 
         <TouchableOpacity
@@ -380,14 +351,8 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     elevation: 20,
   },
-  header: {
-    width: "100%",
-    height: 40,
-    alignItems: "flex-end",
-    justifyContent: "center",
-  },
   input: {
-    height: "100%",
+    height: "20%",
     borderColor: "gray",
     borderWidth: 1,
     width: "100%",
