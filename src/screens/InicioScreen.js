@@ -1,10 +1,33 @@
-import React from 'react';
+import React, {useState} from 'react';
 import { Box, Text, Heading, VStack, CheckCircleIcon, Button, HStack, Center, NativeBaseProvider, Icon  } from "native-base";
-import { StyleSheet, Image, View} from 'react-native';
+import { StyleSheet, Image, View, Modal} from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import {  ButtonFondoBlanco, ButtonFondoRosa } from '../components/ButtonsLogin';
+import {  ButtonFondoBlanco, ButtonFondoRosa , ButtonModal} from '../components/ButtonsLogin';
+import {useNetInfo} from "@react-native-community/netinfo";
+
 
 const InicioScreen = () => {
+
+  const netInfo = useNetInfo();
+
+  const wifiLogin = () => {
+    if(!netInfo.isConnected){
+      navigation.navigate("Wifi")
+    }
+    else {
+      navigation.navigate("Login") 
+    }
+  };
+
+  const wifiRegister = () => {
+    if(!netInfo.isConnected){
+      navigation.navigate("Wifi")
+    }
+    else {
+      navigation.navigate("Register") 
+    }
+  };
+
 
 const navigation = useNavigation();
 
@@ -28,8 +51,8 @@ const navigation = useNavigation();
       </View>
       </Center>
         <VStack space={3} mt="5">
-        <ButtonFondoRosa text="Iniciar Sesión" onPress={() => navigation.navigate('Login')}/>
-        <ButtonFondoBlanco text="Registrate" onPress={() => navigation.navigate('Register')}/>
+        <ButtonFondoRosa text="Iniciar Sesión" onPress={() => wifiLogin()}/>
+        <ButtonFondoBlanco text="Registrate" onPress={() => wifiRegister()}/>
         </VStack>
       </Box>
     </Center>;
@@ -45,7 +68,21 @@ const styles = StyleSheet.create({
   centerContent: {
     justifyContent:'center',
     alignItems:'center'
-  }
+  },
+  modalBackGround: {
+    flex: 1,
+    backgroundColor: 'rgba(0,0,0,0.5)',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+modalContainer: {
+    width: '80%',
+    backgroundColor: '#F7F4F4',
+    paddingHorizontal: 20,
+    paddingVertical: 30,
+    borderRadius: 20,
+    elevation: 20,
+  },
 });
     export default () => {
         return (

@@ -37,6 +37,15 @@ const WifiScreen = () => {
 
   const netInfo = useNetInfo();
 
+  const wifi = () => {
+    if(netInfo.type === "wifi"){
+      setVisible(true)
+    }
+    else {
+      setVisible(false)
+    }
+  };
+
 
 const navigation = useNavigation();
 
@@ -59,7 +68,7 @@ const navigation = useNavigation();
                 <ButtonModalUnico text="Aceptar"onPress={() => { setVisible(false) }}/>             
                 </View> 
          </ModalPoup>
-        <ButtonFondoRosa text="Validar" onPress={() => setVisible(true)}/>
+        <ButtonFondoRosa text="Validar" onPress={() => {setVisible(wifi)}}/>
         </Center>
       </View>
       
