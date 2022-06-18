@@ -21,6 +21,7 @@ import {useRoute } from '@react-navigation/native';
 import config from "../config/default.json";
 import useSWR from 'swr'
 import axios from 'axios'
+import variables from '../config/variables';
 
 
 const ModalPoup = ({ visible, children }) => {
@@ -61,11 +62,9 @@ const ViewReceta = ({ navigation }) => {
 
   const route=useRoute();
 
+  //const values = route.params.datos;
 
-
-  const values = route.params.datos;
-
-  console.log(values);
+  const values = variables.getTipos();
 
   return (
     <ScrollView style={styles.container}>

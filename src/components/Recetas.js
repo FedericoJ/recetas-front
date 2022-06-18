@@ -3,6 +3,7 @@ import {View,Text,Image,TouchableOpacity} from 'react-native';
 import Stars from 'react-native-stars';
 import { FontAwesome, MaterialCommunityIcons } from '@expo/vector-icons'; 
 import { useNavigation } from '@react-navigation/native';
+import variables from '../config/variables';
 
 
 
@@ -13,16 +14,24 @@ Nombre: "Budin naranja"
 alias: "mrv"
 foto: "https://www.clarin.com/img/2019/07/23/bs56zWpBq_1256x620__2.jpg#1591385524188"*/
 
+const recetasHandler=(tipos,navigation) =>{
+
+    variables.setTipos(tipos); 
+    navigation.navigate('Receta')
+}
+
+
 const Recetas=({tipos}) =>{
 
         const {Descripcion,IdReceta,Nombre,alias,foto,CalificacionProm} = tipos;
         const  navigation  = useNavigation();
 
+        
 
         return (
             
 
-            <TouchableOpacity style={{backgroundColor:'#ffff',marginVertical:'2%',marginRight:"8%"}} onPress = { () => navigation.navigate('Receta',{datos:tipos}) }>
+            <TouchableOpacity style={{backgroundColor:'#ffff',marginVertical:'2%',marginRight:"8%"}} onPress = { () => recetasHandler(tipos,navigation)}>
                 
                 <View style={{flexDirection:"row",width:'50%' ,margin:1 }}>
 

@@ -35,8 +35,12 @@ const ViewImagesAndVideo = ({idPaso},{indice}) => {
         {url: 'https://d320djwtwnl5uo.cloudfront.net/recetas/cover/milan_SuLEW9PUrTwyi0npoGIKD5zNqHmcAb.png',extension:"mp4"},
         {url: 'https://s3.amazonaws.com/arc-wordpress-client-uploads/infobae-wp/wp-content/uploads/2018/05/25115909/hamburguesa-destacada.jpg',extension:"jpg"}]
 
+    const baseUrl =  config.baseUrl;
 
-    
+
+
+    //if (imagenw.error) console.log(imagenw.error);
+
     armarView(imagenes);
   
     return(
@@ -86,14 +90,18 @@ const Steps = ({Receta}) => {
 
     const baseUrl =  config.baseUrl;
 
-    const fetcher = url => axios.get(`${baseUrl}/receta/getPasos?idReceta=${Receta}`).then(res => res.data)
+    var fetcher;
+
+    fetcher = url => axios.get(`${baseUrl}/receta/getPasos?idReceta=${Receta}`).then(res => res.data)
 
     const pasito=useSWR(`${baseUrl}/receta/getPasos?idReceta=${Receta}`, fetcher);
 
-    if(pasito.data) console.log(pasito.data);
+    
+    fetcher = url => axios.get(`${baseUrl}/ingredientes/getMultimedia?idReceta=${Receta}`).then(res => res.data)
 
+    const imagenw=useSWR(`${baseUrl}/ingredientes/getMultimedia?idReceta=${Receta}`, fetcher);
 
-        if (!pasito.data){
+        if (!pasito.data && !imagenw.data){
             return( <NativeBaseProvider>
                     <HStack space={8} justifyContent="center">
                       <Spinner color="warning.500" />
@@ -122,7 +130,7 @@ const Steps = ({Receta}) => {
 
                                 </View>
 
-                                <ViewImagesAndVideo imagenes={element.idPaso} indice={i}/>
+                                <ViewImagesAndVideo imagenes={imagenw.data} idPaso ={element.idPaso} indice={i}/>
 
                             </View>
                                 
