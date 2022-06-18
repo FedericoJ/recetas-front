@@ -75,8 +75,6 @@ const Ingredients = ({Receta}) => {
   
   const ingredientes=useSWR(`${baseUrl}/ingredientes/getIngredienteUtilizadoPorReceta?idReceta=${Receta}`, fetcher);
 
-  if (ingredientes.data) console.log(ingredientes.data);
-
 
   if (!ingredientes.data){
     return( <NativeBaseProvider>
