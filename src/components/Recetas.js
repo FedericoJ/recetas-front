@@ -30,12 +30,7 @@ const ModalPoup = ({ visible, children }) => {
   };
 
 
-const recetasHandler=(tipos,navigation) =>{
 
-    variables.setTipos(tipos); 
-    navigation.navigate('Receta');
-    
-}
 
 
 const Recetas=({tipos}) =>{
@@ -44,6 +39,12 @@ const Recetas=({tipos}) =>{
         const  navigation  = useNavigation();
         const netInfo = useNetInfo();
         const [noWifi, setNoWifi] = React.useState(false);
+        const recetasHandler=(tipos,navigation) =>{
+
+            variables.setTipos(tipos); 
+            navigation.navigate('Receta');
+            
+        }
     
         const wifi = () => {
           if(!netInfo.type === "wifi"){
@@ -53,7 +54,6 @@ const Recetas=({tipos}) =>{
             setNoWifi(true)
           }
         };
-
 
         return (<View>
 

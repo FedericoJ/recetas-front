@@ -10,7 +10,7 @@ import {useRoute } from '@react-navigation/native';
 import config from "../config/default.json";
 import useSWR from 'swr'
 import axios from 'axios'
-
+import variables from '../config/variables';
 
 const Results  = ({navigation}) => {
 
@@ -18,14 +18,18 @@ const Results  = ({navigation}) => {
 
   const baseUrl =  config.baseUrl;
 
-  const fetcher = url => axios.get(`${baseUrl}/receta/${route.params.service}?nombre=${route.params.nombre}`).then(res => res.data)
+  const service =variables.getServicio();
 
-  const {data,error}=useSWR(`${baseUrl}/receta/${route.params.service}?nombre=${route.params.nombre}`, fetcher);
+  const nombre=variables.getBusqueda();
+
+
+  const fetcher = url => axios.get(`${baseUrl}/receta/${service}?nombre=${nombre}`).then(res => res.data)
+
+  const {data,error}=useSWR(`${baseUrl}/receta/${service}?nombre=${nombre}`, fetcher);
 
   //console.log(route.params.service);
   //console.log(route.params.nombre);
   
-  console.log(`${baseUrl}/receta/${route.params.service}?nombre=${route.params.nombre}`);
 
   
     if (!data){

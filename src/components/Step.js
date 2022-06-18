@@ -10,15 +10,19 @@ import useSWR from 'swr'
 
     var images =[]
 
-    const armarView=(imagenes)=>{
+    const armarView=(imagenes,idPaso)=>{
 
         var auxSource=[];
 
+        console.log(idPaso);
+
         imagenes && imagenes.map((imagen,indice) => (
 
-           
-             imagen.extension !=="mp4"  ? auxSource.push({source:{uri:imagen.url},width:806,height:720}) : null
-
+            imagen.idPaso ===idPaso ?
+             imagen.extension !=="mp4"  ? 
+                auxSource.push({source:{uri:imagen.urlContenido},width:806,height:720}) 
+                : null
+            :null
            
         ));    
         images = auxSource;
@@ -26,7 +30,7 @@ import useSWR from 'swr'
     }
 
 
-const ViewImagesAndVideo = ({idPaso},{indice}) => {
+const ViewImagesAndVideo = ({imagenesw,idPaso,indice}) => {
 
     const [galeriaSeleccionada, setgaleriaSeleccionada] = React.useState(false);
     
@@ -37,25 +41,30 @@ const ViewImagesAndVideo = ({idPaso},{indice}) => {
 
     const baseUrl =  config.baseUrl;
 
-
+    console.log(imagenesw);
 
     //if (imagenw.error) console.log(imagenw.error);
 
-    armarView(imagenes);
+    armarView(imagenesw,idPaso);
   
+    /*"extension": "mp4",
+    "idPaso": 7,
+    "tipo_contenido": "video",
+    "urlContenido": "https://www.youtube.com/watch?v=eNV-06TE02g",*/
     return(
         <View key={indice} style={{flexDirection:"row",marginLeft:'10%'}}>
 
-            {imagenes && imagenes.map((imagen,indice) => (
-
-                imagen.extension !== "mp4" ?
-                    <TouchableOpacity style={{marginLeft:'5%'}} key={indice} onPress ={() =>setgaleriaSeleccionada(true)}>
-                
-                        <Image style={{  width:50,height:50}} source ={{uri:imagen.url}}>
-                            
-                        </Image>    
-                
-                    </TouchableOpacity>
+            {imagenesw && imagenesw.map((imagen,indice) => (
+                imagen.idPaso ===idPaso ?
+                    imagen.extension !== "mp4" ?
+                        <TouchableOpacity style={{marginLeft:'5%'}} key={indice} onPress ={() =>setgaleriaSeleccionada(true)}>
+                    
+                            <Image style={{  width:50,height:50}} source ={{uri:imagen.urlContenido}}>
+                                
+                            </Image>    
+                    
+                        </TouchableOpacity>
+                    :null
                 :null
 
             ))}
@@ -101,6 +110,8 @@ const Steps = ({Receta}) => {
 
     const imagenw=useSWR(`${baseUrl}/ingredientes/getMultimedia?idReceta=${Receta}`, fetcher);
 
+    if (pasito.error) console.log(`${baseUrl}/receta/getPasos?idReceta=${Receta}`);
+
         if (!pasito.data && !imagenw.data){
             return( <NativeBaseProvider>
                     <HStack space={8} justifyContent="center">
@@ -130,7 +141,7 @@ const Steps = ({Receta}) => {
 
                                 </View>
 
-                                <ViewImagesAndVideo imagenes={imagenw.data} idPaso ={element.idPaso} indice={i}/>
+                                <ViewImagesAndVideo imagenesw={imagenw.data} idPaso ={element.idPaso} indice={i}/>
 
                             </View>
                                 
