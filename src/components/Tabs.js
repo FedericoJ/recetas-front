@@ -5,6 +5,7 @@ import {  ButtonConIconoFondoRosa, ButtonConIconoNegro,ButtonFondoRosa, ButtonFo
 import { useNavigation } from '@react-navigation/native';
 import { FontAwesome } from '@expo/vector-icons'; 
 import { MaterialIcons } from '@expo/vector-icons';
+import variables from '../config/variables';
 
 
 const ModalPoup = ({ visible, children }) => {
@@ -87,9 +88,12 @@ const ModalPoup = ({ visible, children }) => {
                 if(activeElement ==="tipo"){
                     servicio="recetaPorNombreTipo";
                 }
-                   
+            
+            variables.setBusqueda(busqueda);
 
-            navigation.navigate('Results',{service: servicio,nombre:busqueda})
+            variables.setServicio(servicio);
+
+            navigation.navigate('Results')
 
         }
 
