@@ -57,7 +57,6 @@ const RegisterPasswordScreen = () => {
    try {
       const res = await axios.post(`${baseUrl}/usuario/crearInvitadoUpdate`, body, setup);
       if (res.status === 201) {
-        alert("Registración exitosa. Por favor logueese!")
         navigation.navigate('RegisterSuccess')
       }
     } catch (error) {

@@ -52,9 +52,23 @@ const RegisterScreen = () => {
   //Para validar mail y password
   const [errorEmail, setErrorEmail] = React.useState("");
   const [errorAlias, setErrorAlias] = React.useState("");
+  const [visibleAlias, setVisibleAlias] = useState(false);
   const [aliasRecomendado1, setAliasRecomendado1] = React.useState("");
   const [aliasRecomendado2, setAliasRecomendado2] = React.useState("");
   const [aliasRecomendado3, setAliasRecomendado3] = React.useState("");
+
+  const Alias = () => {
+    if (visibleAlias){
+      return(
+        <View flexDirection ="row" alignitems="center" justifyContent='space-between' py="8">
+      <ButtonAliasRecomendado text={aliasRecomendado1} onPress={() => setearUsuarioRecomendado(aliasRecomendado1)} />
+      <ButtonAliasRecomendado text={aliasRecomendado2} onPress={() => setearUsuarioRecomendado(aliasRecomendado2)} />
+      <ButtonAliasRecomendado text={aliasRecomendado3} onPress={() => setearUsuarioRecomendado(aliasRecomendado3)} />
+      </View>
+        )
+    }
+    else return(null)
+  }
 
   const setearUsuarioRecomendado = (usuario) => {
     setUsuario(usuario);
@@ -92,6 +106,7 @@ const RegisterScreen = () => {
     try {
       const res = await axios.get(`${baseUrl}/usuario/validarAlias?alias=${nickname}`, setup);
       if (res.status === 201) {
+        setVisibleAlias(true)
         setErrorAlias("Username en uso, cambialo o elegí uno");
         setAliasRecomendado1(nickname + 1);
         setAliasRecomendado2(nickname + 2);
@@ -183,12 +198,9 @@ const RegisterScreen = () => {
             </FormControl>
 
             <Text textAlign='center'>{errorAlias}</Text>
+            
+               <Alias></Alias>
 
-            <Box alignitems="center" flexDirection="row" justifyContent='space-between' py="8">
-              <ButtonAliasRecomendado text={aliasRecomendado1} onPress={() => setearUsuarioRecomendado(aliasRecomendado1)} />
-              <ButtonAliasRecomendado text={aliasRecomendado2} onPress={() => setearUsuarioRecomendado(aliasRecomendado2)} />
-              <ButtonAliasRecomendado text={aliasRecomendado3} onPress={() => setearUsuarioRecomendado(aliasRecomendado3)} />
-            </Box>
             <ModalPoup visible = {visible}>
                 <View style = {{alignItems: 'flex-start'}}>
                       <Text>Te hemos enviado un correo a dandote la bienvenida</Text>
