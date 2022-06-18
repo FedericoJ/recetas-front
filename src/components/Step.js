@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {View,Text,Image,TouchableOpacity} from 'react-native';
+import {View,Text,Image,TouchableOpacity,Button} from 'react-native';
 import Stars from 'react-native-stars';
 import { FontAwesome, MaterialCommunityIcons } from '@expo/vector-icons'; 
 import {NativeBaseProvider,TextArea,Input,Select,CheckIcon,HStack,Spinner} from "native-base";
@@ -7,14 +7,13 @@ import ImageView from 'react-native-image-view';
 import axios from 'axios'
 import config from "../config/default.json";
 import useSWR from 'swr'
+import { Video, AVPlaybackStatus } from 'expo-av'
 
     var images =[]
 
     const armarView=(imagenes,idPaso)=>{
 
         var auxSource=[];
-
-        console.log(idPaso);
 
         imagenes && imagenes.map((imagen,indice) => (
 
@@ -33,6 +32,8 @@ import useSWR from 'swr'
 const ViewImagesAndVideo = ({imagenesw,idPaso,indice}) => {
 
     const [galeriaSeleccionada, setgaleriaSeleccionada] = React.useState(false);
+    const video = React.useRef(null);
+    const [status, setStatus] = React.useState({});
     
     const imagenes = [{
         url: 'https://cdn.pixabay.com/photo/2017/08/17/10/47/paris-2650808_960_720.jpg',extension:"jpg"},
@@ -41,16 +42,8 @@ const ViewImagesAndVideo = ({imagenesw,idPaso,indice}) => {
 
     const baseUrl =  config.baseUrl;
 
-    console.log(imagenesw);
-
-    //if (imagenw.error) console.log(imagenw.error);
-
     armarView(imagenesw,idPaso);
-  
-    /*"extension": "mp4",
-    "idPaso": 7,
-    "tipo_contenido": "video",
-    "urlContenido": "https://www.youtube.com/watch?v=eNV-06TE02g",*/
+
     return(
         <View key={indice} style={{flexDirection:"row",marginLeft:'10%'}}>
 
@@ -64,7 +57,20 @@ const ViewImagesAndVideo = ({imagenesw,idPaso,indice}) => {
                             </Image>    
                     
                         </TouchableOpacity>
-                    :null
+                      :<View style={{marginLeft:"5%"}} key={indice}>
+                            <Video
+                                    ref={video}
+                                    style={{width: 150,
+                                        height: 100,}}
+                                    source={{
+                                        uri:imagen.urlContenido,
+                                        }}
+                                    useNativeControls
+                                    resizeMode="contain"
+                                    isLooping
+                                    onPlaybackStatusUpdate={status => setStatus(() => status)}
+                                />
+                        </View>
                 :null
 
             ))}
@@ -87,16 +93,6 @@ const ViewImagesAndVideo = ({imagenesw,idPaso,indice}) => {
 
 const Steps = ({Receta}) => {
 
-
-    const pasos = [
-        { idPaso: 1, descripcion: "Aca cortamos la cebolla en juliana" },
-        {
-          idPaso: 2,
-          descripcion: "Abrimos la  pechuga al medio como le gusta a godios",
-        },
-        { idPaso: 3, descripcion: "Agregamos sal a piacere" },
-      ];
-
     const baseUrl =  config.baseUrl;
 
     var fetcher;
@@ -110,7 +106,6 @@ const Steps = ({Receta}) => {
 
     const imagenw=useSWR(`${baseUrl}/ingredientes/getMultimedia?idReceta=${Receta}`, fetcher);
 
-    if (pasito.error) console.log(`${baseUrl}/receta/getPasos?idReceta=${Receta}`);
 
         if (!pasito.data && !imagenw.data){
             return( <NativeBaseProvider>
@@ -129,7 +124,7 @@ const Steps = ({Receta}) => {
 
                                 <View  style={{flexDirection:"row" ,alignItems:"flex-start", marginTop:'5%', marginBottom:'2%', marginLeft:'5%'}}>
 
-                                    <Text  style={{fontSize:20, fontWeight:"bold"}}> {element.idPaso} </Text> 
+                                    <Text  style={{fontSize:20, fontWeight:"bold"}}> {element.nroPaso} </Text> 
 
                                     <NativeBaseProvider >
 

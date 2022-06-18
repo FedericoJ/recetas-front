@@ -46,23 +46,46 @@ const ModalPoup = ({ visible, children }) => {
   );
 };
 
-const tipoImage =
-  "https://d320djwtwnl5uo.cloudfront.net/recetas/cover/milan_SuLEW9PUrTwyi0npoGIKD5zNqHmcAb.png";
-
-//select I.nombre, U.cantidad, UNI.descripcion, UNI.IdUnidad, R.idReceta
-
-
-
-
-
 const ViewReceta = ({ navigation }) => {
   const [visible, setVisible] = React.useState(false);
-  const [Comentario, setComentario] = useState("");
-  const [value, setValue] = React.useState(0);
+  const [comentarios, setComentario] = useState("");
+  const [calificacion, setCalificacion] = React.useState(0);
 
   const route=useRoute();
 
+
   //const values = route.params.datos;
+  const onGuardarComment =()=>{
+
+    console.log(calificacion);
+
+    setVisible(false);
+
+  // (idUsuario,idReceta,calificacion,comentarios)
+
+    /*const setup = {
+      headers: {
+        'content-type': 'application/json'
+      }
+    }
+    const body = JSON.stringify({ Comentario, value })
+
+    try {
+      const res = await axios.post(`${baseUrl}/receta/valorarReceta`, body, setup);
+      if (res.status === 201) {
+        setVisible(false);
+      }
+      if (res.status === 202 || res.status === 203) {
+        setVisible(true);
+        //alert("Invalid username or password")
+      }
+    } catch (error) {
+      console.log(error)
+      alert("Servicio no disponible")
+    }*/
+
+
+  }
 
   const values = variables.getTipos();
 
@@ -125,6 +148,7 @@ const ViewReceta = ({ navigation }) => {
           marginHorizontal: "5%",
         }}
       >
+      {/*Modal de comentarios*/}
         <ModalPoup visible={visible}>
           
           <View style={{ alignItems: "flex-start" }}>
@@ -137,13 +161,16 @@ const ViewReceta = ({ navigation }) => {
                 marginBottom: "2%",
                 marginHorizontal: "1%",
               }}>
-            <AirbnbRating
+
+              <AirbnbRating
               count={5}
+              selectedStar={(rating) => this.onStarRatingPress(rating)}
               reviews={[""]}
               defaultRating={0}
               size={30}
               selectedColor="blue"
               showRating={false}
+              onFinishRating={(rating)=>console.log(rating)}
             />
             </View>
             <View
@@ -165,7 +192,7 @@ const ViewReceta = ({ navigation }) => {
                 marginTop="5%"
                 w="100%"
                 fontSize= "16"
-                value={Comentario}
+                value={comentarios}
                 onChangeText={setComentario}
               />
               </NativeBaseProvider>
@@ -189,10 +216,8 @@ const ViewReceta = ({ navigation }) => {
             />
             <ButtonModal
               text="Guardar"
-              onPress={() => {
-                //navigation.navigate("Receta");
-                setVisible(false);
-              }}
+              onPress={() => onGuardarComment()
+              }
             />
           </View>
           
