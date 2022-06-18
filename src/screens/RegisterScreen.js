@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { StyleSheet, Text, Image, View, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, Image, View, TouchableOpacity, Modal } from 'react-native';
 import {
   Box,
   Heading,
@@ -9,51 +9,51 @@ import {
   Button,
   Center,
   NativeBaseProvider,
-  ScrollView, Modal
+  ScrollView
 } from "native-base";
 import config from "../config/default.json";
 import axios from 'axios'
 import { useNavigation } from '@react-navigation/native';
-import { ButtonFondoBlanco, ButtonFondoRosa, ButtonModalUnico, ButtonModal, ButtonAliasRecomendado } from '../components/ButtonsLogin';
+import { ButtonFondoBlanco, ButtonFondoRosa, ButtonAliasRecomendado, ButtonModalUnico, ButtonModal } from '../components/ButtonsLogin';
 import { validateEmail } from '../helpers/emailValidator';
 
-// const ModalPoup = ({ visible, children }) => {
-//   const [showModal, setShowModal] = React.useState(visible);
-//   React.useEffect(() => {
-//     toggleModal();
-//   }, [visible]);
-//   const toggleModal = () => {
-//     if (visible) {
-//       setShowModal(true);
-//     } else {
-//       setShowModal(false);
-//     }
-//   };
+const ModalPoup = ({visible, children}) => {
+  const [showModal, setShowModal] = React.useState(visible);
+  React.useEffect(() => {
+      toggleModal();
+  },[visible])
+  const toggleModal = () =>{
+      if(visible){
+          setShowModal(true);
+      }
+      else {setShowModal(false)};
+  }
+  
+  return <Modal transparent visible={showModal}>
+      <View style={styles.modalBackGround}>
+          <View style={[styles.modalContainer]}>
+              {children}
+          </View>
+      </View>
+  </Modal>;
 
-//   return (
-//     <Modal transparent visible={showModal}>
-//       <View style={styles.modalBackGround}>
-//         <View style={[styles.modalContainer]}>{children}</View>
-//       </View>
-//     </Modal>
-//   );
-// };
+};
 
 const RegisterScreen = () => {
+
+  const [visible, setVisible] = React.useState(false);
+  const [visibleMailRegistrado, setVisibleMailRegistrado] = React.useState(false);
 
   const navigation = useNavigation();
   const [nickname, setUsuario] = useState("");
   const [mail, setEmail] = useState("");
 
-  // const [visible, setVisible] = React.useState(false);
-  // const [tipoErrorModal, setTipoErrorModal] = useState("");
-
   //Para validar mail y password
-  const [errorEmail, setErrorEmail] = React.useState("")
-  const [errorAlias, setErrorAlias] = React.useState("")
-  const [aliasRecomendado1, setAliasRecomendado1] = React.useState("")
-  const [aliasRecomendado2, setAliasRecomendado2] = React.useState("")
-  const [aliasRecomendado3, setAliasRecomendado3] = React.useState("")
+  const [errorEmail, setErrorEmail] = React.useState("");
+  const [errorAlias, setErrorAlias] = React.useState("");
+  const [aliasRecomendado1, setAliasRecomendado1] = React.useState("");
+  const [aliasRecomendado2, setAliasRecomendado2] = React.useState("");
+  const [aliasRecomendado3, setAliasRecomendado3] = React.useState("");
 
   const setearUsuarioRecomendado = (usuario) => {
     setUsuario(usuario);
@@ -116,11 +116,10 @@ const RegisterScreen = () => {
     try {
       const res = await axios.post(`${baseUrl}/usuario/crearInvitado`, body, setup);
       if (res.status === 201) {
-        alert("Te hemos enviado un correo para validar tu usuario")
-        navigation.navigate('RegisterPassword', { email: mail })
+        setVisible(true);
       }
       if (res.status === 202) {
-        alert("El correo electronico ya se encuentra registrado. Haz click en recuperar y te enviaremos un mail")
+        setVisibleMailRegistrado(true);
         //MRV(17-06):Del recuperar tiene que validar si tiene la registración completa. Sino la tiene, tiene que mandarlo a soporte. Caso contrario lo tiene que dejar.
       }
     } catch (error) {
@@ -128,20 +127,6 @@ const RegisterScreen = () => {
     }
   }
     ;
-
-  //  const ErrorModal =() =>{
-
-  // if (tipoErrorModal==='200'){
-  //  return (
-  //       setVisible(true)
-  //     )  
-  //   }else if (tipoErrorModal==='202'){
-  //     setVisible(true)
-  //    }
-  //    else if (tipoErrorModal==='error'){
-  //      setVisible(true)
-  //  }
-  //  }
 
   return (
     <View maxW="400" h="600" style={styles.scrollView} _contentContainerStyle={{
@@ -196,31 +181,40 @@ const RegisterScreen = () => {
             <Text textAlign='center'>{errorAlias}</Text>
 
             <Box alignitems="center" flexDirection="row" justifyContent='space-between' py="8">
-              <ButtonAliasRecomendado text={aliasRecomendado1} onPress={() => setearUsuarioRecomendado(aliasRecomendado1)}/>
-              <ButtonAliasRecomendado text={aliasRecomendado2} onPress={() => setearUsuarioRecomendado(aliasRecomendado2)}/>
-              <ButtonAliasRecomendado text={aliasRecomendado3} onPress={() => setearUsuarioRecomendado(aliasRecomendado3)}/>
+              <ButtonAliasRecomendado text={aliasRecomendado1} onPress={() => setearUsuarioRecomendado(aliasRecomendado1)} />
+              <ButtonAliasRecomendado text={aliasRecomendado2} onPress={() => setearUsuarioRecomendado(aliasRecomendado2)} />
+              <ButtonAliasRecomendado text={aliasRecomendado3} onPress={() => setearUsuarioRecomendado(aliasRecomendado3)} />
             </Box>
-            {/* 
-            <ModalPoup visible={visible}>
-            <View style={{ alignItems: "flex-start" }}>
-              <Text style={{ fontSize: 20, color: "black" }}>
-              La receta se cargará cuando estes conectado a una red WIFI
-              </Text>
-            </View>
+            <ModalPoup visible = {visible}>
+                <View style = {{alignItems: 'flex-start'}}>
+                      <Text>Te hemos enviado un correo a dandote la bienvenida</Text>
+                </View>
+                <View style={{flexDirection:"row" , alignItems:"center", marginTop:'1%', marginBottom:'1%', marginHorizontal:'1%'}}>
+                <ButtonModalUnico text="Aceptar"onPress={() => {navigation.navigate('RegisterPassword',{email:mail}); setVisible(false);}}/>             
+                </View> 
+         </ModalPoup>
+         <ModalPoup visible={visibleMailRegistrado}>
+                  <View style={{ alignItems: "flex-start" }}>
+                    <Text style={{ fontSize: 20, color: "black" }}>
+                      El correo electrónico ya se encuentra registrado. Haz click en recuperar y te enviaremos un mail.
+                    </Text>
+                  </View>
 
-            <View
-              style={styles.botonesModal}>
-              <ButtonModalUnico
-                text="Aceptar"
-                onPress={() => {
-                  navigation.navigate("Principal");
-                  setVisible(false);
-                }}
-              />
-            </View>
-          </ModalPoup> */}
-
-            <ButtonFondoRosa text="Registrarse" onPress={RegisterUser} />
+                  <View style={styles.botonesModal}>
+                    <ButtonModal text="Recuperar"
+                      onPress={() => {
+                        navigation.navigate('RecoveryPassword');
+                        setVisibleMailRegistrado(false);
+                      }}
+                    />
+                    <ButtonModal text="Aceptar"
+                      onPress={() => {
+                        setVisibleMailRegistrado(false);
+                      }}
+                    />
+                  </View>
+                </ModalPoup>
+            <ButtonFondoRosa text="Registrarse" onPress={() => RegisterUser()}/>
             <ButtonFondoBlanco text="Cancelar" onPress={() => navigation.navigate('Inicio')} />
           </VStack>
         </Box>
@@ -248,20 +242,6 @@ const styles = StyleSheet.create({
   text: {
     fontSize: 42,
   },
-  modalBackGround: {
-    flex: 1,
-    backgroundColor: "rgba(0,0,0,0.5)",
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  modalContainer: {
-    width: "80%",
-    backgroundColor: "#F7F4F4",
-    paddingHorizontal: 20,
-    paddingVertical: 30,
-    borderRadius: 20,
-    elevation: 20,
-  },
   header: {
     width: "100%",
     height: 40,
@@ -275,6 +255,27 @@ const styles = StyleSheet.create({
     width: "100%",
     justifyContent: "center",
     alignItems: "stretch",
+  },
+  botonesModal: {
+    flexDirection: "row",
+    alignItems: "center",
+    marginTop: "5%",
+    marginBottom: "1%",
+    marginHorizontal: "1%",
+  },
+  modalBackGround: {
+    flex: 1,
+    backgroundColor: 'rgba(0,0,0,0.5)',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+modalContainer: {
+    width: '80%',
+    backgroundColor: '#F7F4F4',
+    paddingHorizontal: 20,
+    paddingVertical: 30,
+    borderRadius: 20,
+    elevation: 20,
   },
   botonesModal: {
     flexDirection: "row",
