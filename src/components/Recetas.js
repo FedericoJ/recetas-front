@@ -44,11 +44,32 @@ const Recetas=({tipos}) =>{
         const  navigation  = useNavigation();
         const netInfo = useNetInfo();
         const [noWifi, setNoWifi] = React.useState(false);
+    
+        const wifi = () => {
+          if(!netInfo.type === "wifi"){
+            recetasHandler(tipos,navigation)
+          }
+          else {
+            setNoWifi(true)
+          }
+        };
 
 
-        return (
+        return (<View>
 
-            <TouchableOpacity style={{backgroundColor:'#ffff',marginVertical:'2%',marginRight:"8%"}} onPress = { () => recetasHandler(tipos,navigation)}>
+            <ModalPoup visible={noWifi}>
+                <View style={{ alignItems: 'flex-start' }}>
+                <Text style={{ fontSize: 20, color: "black" }}>No se encuentra conectado a una red Wifi. ¿Desea continuar usando sus datos? </Text>
+                <View style={{ flexDirection: "row", alignItems: "center", marginTop: '2%', marginBottom: '2%', marginHorizontal: '5%' }}>
+                </View>
+                </View>
+                <View style={{ flexDirection: "row", alignItems: "center", marginTop: '1%', marginBottom: '1%', marginHorizontal: '1%' }}>
+                <ButtonModal text="Cancelar" onPress={() => { navigation.navigate('Principal'); setNoWifi(false); }} />
+                <ButtonModal text="Aceptar" onPress={() => { recetasHandler(tipos,navigation);setNoWifi(false) }} />
+                </View>
+            </ModalPoup>
+
+            <TouchableOpacity style={{backgroundColor:'#ffff',marginVertical:'2%',marginRight:"8%"}} onPress = { () => setNoWifi(wifi)}>
                 
                 <View style={{flexDirection:"row",width:'50%' ,margin:1 }}>
 
@@ -91,6 +112,7 @@ const Recetas=({tipos}) =>{
                         </View>
                 </View>
             </TouchableOpacity>  
+            </View>
         )
     }
 
