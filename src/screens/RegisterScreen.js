@@ -43,6 +43,7 @@ const RegisterScreen = () => {
 
   const [visible, setVisible] = React.useState(false);
   const [visibleMailRegistrado, setVisibleMailRegistrado] = React.useState(false);
+  const [visibleSoporte, setVisibleSoporte] = React.useState(false);
 
   const navigation = useNavigation();
   const [nickname, setUsuario] = useState("");
@@ -115,12 +116,15 @@ const RegisterScreen = () => {
 
     try {
       const res = await axios.post(`${baseUrl}/usuario/crearInvitado`, body, setup);
+      console.log(res);
       if (res.status === 201) {
         setVisible(true);
       }
       if (res.status === 202) {
         setVisibleMailRegistrado(true);
-        //MRV(17-06):Del recuperar tiene que validar si tiene la registración completa. Sino la tiene, tiene que mandarlo a soporte. Caso contrario lo tiene que dejar.
+      }
+      if (res.status === 203) {
+        setVisibleSoporte(true);
       }
     } catch (error) {
       alert("Ocurrio un error al momento de registrar su cuenta.")
@@ -214,6 +218,16 @@ const RegisterScreen = () => {
                     />
                   </View>
                 </ModalPoup>
+
+                <ModalPoup visible = {visibleSoporte}>
+                <View style = {{alignItems: 'flex-start'}}>
+                      <Text>Ocurrió un error al momento de recuperar su cuenta. Contactarse con recetapp@gmail.com</Text>
+                </View>
+                <View style={{flexDirection:"row" , alignItems:"center", marginTop:'1%', marginBottom:'1%', marginHorizontal:'1%'}}>
+                <ButtonModalUnico text="Aceptar"onPress={() => {setVisibleSoporte(false)}}/>             
+                </View> 
+         </ModalPoup>
+
             <ButtonFondoRosa text="Registrarse" onPress={() => RegisterUser()}/>
             <ButtonFondoBlanco text="Cancelar" onPress={() => navigation.navigate('Inicio')} />
           </VStack>
