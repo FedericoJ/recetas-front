@@ -50,11 +50,7 @@ const tipoImage =
 
 //select I.nombre, U.cantidad, UNI.descripcion, UNI.IdUnidad, R.idReceta
 
-const arringredientes = [
-  { nombre: "Pan rallado", cantidad: 100 },
-  { nombre: "Queso rallado", cantidad: 150 },
-  { nombre: "Salamin con queso", cantidad: 150 },
-];
+
 
 const arrPasos = [
   { idPaso: 1, descripcion: "Aca cortamos la cebolla en juliana" },
@@ -275,7 +271,7 @@ const ViewReceta = ({ navigation }) => {
             fontSize= "16"
             isDisabled
             w="15%"
-            style={{ backgroundColor: "#ffff", textAlign: "left"}}
+            style={{ backgroundColor: "#ffff", textAlign: "center"}}
             value={values.Porciones.toString()}
           />
         </View>
@@ -311,11 +307,10 @@ const ViewReceta = ({ navigation }) => {
             fontWeight: "bold",
           }}
         >
-          {" "}
           Ingredientes{" "}
         </Text>
 
-        <Ingredients ingredientes={arringredientes} />
+        <Ingredients Receta={values.IdReceta} />
 
         <Divider my="2" thickness="2" />
 
