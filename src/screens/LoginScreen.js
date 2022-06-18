@@ -6,7 +6,11 @@ import axios from 'axios'
 import { useNavigation } from '@react-navigation/native';
 import { ButtonFondoBlanco, ButtonFondoRosa, ButtonModal, ButtonModalUnico } from '../components/ButtonsLogin';
 import {useNetInfo} from "@react-native-community/netinfo";
+<<<<<<< HEAD
 import { UserContext } from "../context/RecetappContext";
+=======
+import variables from "../config/variables";
+>>>>>>> main
 
 
 const ModalPoup = ({ visible, children }) => {
@@ -66,6 +70,7 @@ const LoginScreen = () => {
     try {
       const res = await axios.post(`${baseUrl}/usuario/login`, body, setup);
       if (res.status === 201) {
+        variables.setUsuario(res.data.data[0].idUsuario);
         navigation.navigate('Principal')
         // login(mail);
       }

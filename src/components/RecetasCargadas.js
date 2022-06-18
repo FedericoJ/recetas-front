@@ -3,10 +3,8 @@ import {View,Text,Image,TouchableOpacity} from 'react-native';
 import Stars from 'react-native-stars';
 import { FontAwesome, MaterialCommunityIcons } from '@expo/vector-icons'; 
 import { useNavigation } from '@react-navigation/native';
-import { mdiCheckDecagram } from '@mdi/js';
-import { mdiMinusCircle } from '@mdi/js';
-import Icon from '@mdi/react';
-
+import { AntDesign } from '@expo/vector-icons';
+import { Entypo } from '@expo/vector-icons';
 
 
 
@@ -20,11 +18,21 @@ class Recetas extends React.Component{
         const  navigation  = this.props.navegacion;
         const {tipo,usuario,calificacion,tipoImage,autorizada} = this.props.tipos;
 
+        const recAutorizada =() =>{
+            if(autorizada ==="S"){
+                <AntDesign name="checkcircle" size={24} color="black" />
+            }
+            else{
+                <Entypo name="circle-with-cross" size={24} color="black" />
+            }
+        };
+    
+
         return (
             
         
 
-            <TouchableOpacity style={{backgroundColor:'#ffff',marginVertical:'2%'}} onPress = { () => navigation.navigate('Receta') }>
+            <TouchableOpacity style={{backgroundColor:'#ffff',marginVertical:'2%'}} onPress = { () => recetasHandler(tipos,navigation) }>
                 
                 <View style={{flexDirection:"row",width:'50%' ,margin:1 }}>
 
@@ -43,20 +51,8 @@ class Recetas extends React.Component{
                             </Text>
 
                             <View style={{marginRight:'10%',alignItems:"flex-end",flexDirection:"row-reverse",justifyContent:"flex-start"}} >
-                           <section>
-                            {(() =>{
-                                switch (autorizada){
-                                    case "true": return <Icon path={mdiCheckDecagram}
-                                    title="User Profile"
-                                    size={1}
-                                    color="green"/>;
-                                    case "false": return <Icon path={mdiMinusCircle}
-                                    title="User Profile"
-                                    size={1}
-                                    color="red"/>;
-                                }
-                            })()}
-                            </section>
+                            
+                            <recAutorizada></recAutorizada>
                             
                                 <Stars 
                                     display={calificacion}

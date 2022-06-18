@@ -1,6 +1,16 @@
 var tipos;
 var servicio;
 var busqueda;
+var idUsuario;
+
+const setUsuario=(idUser)=>{
+    idUsuario =idUser
+}
+
+const getUsuario=()=>{
+
+    return idUsuario; 
+}
 
 const setTipos=(datosReceta) =>{
     tipos =datosReceta;
@@ -27,4 +37,4 @@ const getBusqueda=()=>{
     return busqueda;
 }
 
-export default {setTipos,getTipos,setServicio,getServicio,setBusqueda,getBusqueda}
+export default {setTipos,getTipos,setServicio,getServicio,setBusqueda,getBusqueda,setUsuario,getUsuario}
