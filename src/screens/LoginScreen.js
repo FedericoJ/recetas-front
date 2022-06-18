@@ -5,6 +5,7 @@ import config from "../config/default.json";
 import axios from 'axios'
 import { useNavigation } from '@react-navigation/native';
 import { ButtonFondoBlanco, ButtonFondoRosa, ButtonModal, ButtonModalUnico } from '../components/ButtonsLogin';
+import {useNetInfo} from "@react-native-community/netinfo";
 
 
 const ModalPoup = ({ visible, children }) => {
@@ -32,12 +33,24 @@ const ModalPoup = ({ visible, children }) => {
 
 const LoginScreen = () => {
 
+  const netInfo = useNetInfo();
   const navigation = useNavigation();
   const [mail, setUsuario] = useState("");
   const [password, setPassword] = useState("");
   const [visible, setVisible] = React.useState(false);
+  const [noWifi, setNoWifi] = React.useState(false);
 
   const baseUrl = config.baseUrl;
+
+  const wifi = () => {
+    if(netInfo.type === "wifi"){
+      {Login()}
+    }
+    else {
+      setNoWifi(true)
+    }
+  };
+
   const Login = async () => {
 
     const setup = {
@@ -120,19 +133,25 @@ const LoginScreen = () => {
                 <View style={{ flexDirection: "row", alignItems: "center", marginTop: '2%', marginBottom: '2%', marginHorizontal: '5%' }}>
                 </View>
               </View>
-
               <View style={{ flexDirection: "row", alignItems: "center", marginTop: '1%', marginBottom: '1%', marginHorizontal: '1%' }}>
-
                 <ButtonModal text="Recuperar" onPress={() => { navigation.navigate('RecoveryPassword'); setVisible(false); }} />
                 <ButtonModal text="Aceptar" onPress={() => { setVisible(false); }} />
-
               </View>
-
-
-
             </ModalPoup>
 
-            <ButtonFondoRosa text="Ingresar" onPress={Login} />
+            <ModalPoup visible={noWifi}>
+              <View style={{ alignItems: 'flex-start' }}>
+                <Text style={{ fontSize: 20, color: "black" }}>No se encuentra conectado a una red Wifi. ¿Desea continuar usando sus datos? </Text>
+                <View style={{ flexDirection: "row", alignItems: "center", marginTop: '2%', marginBottom: '2%', marginHorizontal: '5%' }}>
+                </View>
+              </View>
+              <View style={{ flexDirection: "row", alignItems: "center", marginTop: '1%', marginBottom: '1%', marginHorizontal: '1%' }}>
+                <ButtonModal text="Cancelar" onPress={() => { navigation.navigate('Inicio'); setNoWifi(false); }} />
+                <ButtonModal text="Aceptar" onPress={() => { {Login()};setNoWifi(false) }} />
+              </View>
+            </ModalPoup>
+
+            <ButtonFondoRosa text="Ingresar" onPress={() => setNoWifi(wifi)} />
             <ButtonFondoBlanco text="Cancelar" onPress={() => navigation.navigate('Inicio')} />
             <HStack mt="6" justifyContent="center" >
 
