@@ -165,7 +165,7 @@ const CreateReceta = () => {
   };
 
   const wifi = () => {
-    if(!netInfo.type === "wifi"){
+    if(netInfo.type === "wifi"){
       setVisibleCarga(true)
     }
     else {
@@ -280,11 +280,10 @@ const CreateReceta = () => {
                   <Select
                     style={{ backgroundColor: "#ffff" }}
                     selectedValue={categoriaSel}
-                    marginRight="10%"
-                    w="70%"
-                    fontSize="16"
-                    mr="2"
-                    alignSelf="flex-end"
+                    flexDirection= "row"
+                    alignItems= "center"
+                    ml="3"
+                    w="62%"
                     _selectedItem={{
                       bg: "indigo",
                       endIcon: <CheckIcon size={5} />,
@@ -309,7 +308,7 @@ const CreateReceta = () => {
                     marginHorizontal: "5%",
                   }}
                 >
-                  <Text style={{fontSize:25,  width: "90%" }}>
+                  <Text style={{fontSize:25,  width: "55%" }}>
                     {" "}
                     Porciones{" "}
                   </Text>
@@ -334,7 +333,7 @@ const CreateReceta = () => {
                     marginHorizontal: "5%",
                   }}
                 >
-                  <Text style={{fontSize:25,width: "90%" }}> Personas </Text>
+                  <Text style={{fontSize:25,width: "55%" }}> Personas </Text>
 
                   <Input
                     style={{ backgroundColor: "#ffff", textAlign: "center" }}
