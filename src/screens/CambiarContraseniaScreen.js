@@ -43,7 +43,48 @@ import {
     const [visible, setVisible] = React.useState(false);
     const [ Password    , setPassword] = useState("");
     const [ Password2    , setPassword2] = useState("");
-     
+    const [errorPassword, setErrorPassword] = React.useState("")
+    
+    const ValidatePassword= () => {
+      if(!validateData()){
+        return;
+      }
+      NewPassword(email);
+    }
+
+    const validateData = () => {
+      setErrorPassword("")
+      let isValid = true
+  
+      if (Password != Password2) { 
+        setErrorPassword("Formato de contraseña incorrecto o no son iguales")
+        isValid = false
+      }
+      return isValid
+    }
+
+    const NewPassword = async (mail) => {
+
+      const setup = {
+        headers:{
+          'content-type' : 'application/json'
+        }
+      }
+      const password = Password;
+      const body = JSON.stringify({mail,password})
+
+      try {
+        const res = await axios.post(`${baseUrl}/usuario/modificarPass`,body,setup);
+        if (res.status === 201) {
+          setVisible(true);
+        }
+      }catch(error){
+        alert(error);
+      }
+    }
+    ;
+
+
 
   return (
     <View style={{flexDirection:"row" , alignItems:"center", marginTop:'1%', marginBottom:'1%', marginHorizontal:'5%'}}>
@@ -54,18 +95,22 @@ import {
       minW: "72"
     }}>
       <Box safeArea p="2"  w="100%" maxW="290" py="8">
+        <Center>
         <Heading size="lg" color="coolGray.800" _dark={{
         color: "warmGray.50"
       }} fontWeight="semibold" fontSize="25">
           Cambiar Contraseña
         </Heading>
+        </Center>
         <VStack space={3} mt="5" marginTop="20%">
         <FormControl isRequired>
             <Input 
               placeholder="Contraseña"
               value={Password}
               onChangeText={setPassword}
-              backgroundColor= 'white'/>
+              backgroundColor= 'white'
+              secureTextEntry={true}
+              />
           </FormControl>
           <FormControl isRequired>
             <Input 
@@ -73,10 +118,12 @@ import {
               value={Password2}
               onChangeText={setPassword2}
               backgroundColor= 'white'
+              secureTextEntry={true}
             />
         </FormControl>
+        <Text textAlign='center'>{errorPassword}</Text>
         <View marginTop="120%">
-        <ButtonFondoRosa text="Guardar" onPress={() => setVisible(true)}/>
+        <ButtonFondoRosa text="Guardar" onPress={() => ValidatePassword()}/>
         <ButtonFondoBlanco text="Cancelar" onPress={() => navigation.navigate('Perfil')}/>
         </View>
         </VStack>
