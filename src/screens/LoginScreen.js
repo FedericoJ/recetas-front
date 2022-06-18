@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 import { StyleSheet, Text, Image, View, Modal } from 'react-native';
 import { Box, Heading, VStack, FormControl, Input, Button, Center, NativeBaseProvider, ScrollView, HStack, Link, } from "native-base";
 import config from "../config/default.json";
@@ -6,6 +6,7 @@ import axios from 'axios'
 import { useNavigation } from '@react-navigation/native';
 import { ButtonFondoBlanco, ButtonFondoRosa, ButtonModal, ButtonModalUnico } from '../components/ButtonsLogin';
 import {useNetInfo} from "@react-native-community/netinfo";
+import { UserContext } from "../context/RecetappContext";
 
 
 const ModalPoup = ({ visible, children }) => {
@@ -17,7 +18,7 @@ const ModalPoup = ({ visible, children }) => {
     if (visible) {
       setShowModal(true);
     }
-    else { setShowModal(false) };
+    else { setShowModal(false) }
   }
 
   return <Modal transparent visible={showModal}>
@@ -40,6 +41,8 @@ const LoginScreen = () => {
   const [visible, setVisible] = React.useState(false);
   const [noWifi, setNoWifi] = React.useState(false);
 
+  const {login} = useContext(UserContext);
+
   const baseUrl = config.baseUrl;
 
   const wifi = () => {
@@ -59,11 +62,12 @@ const LoginScreen = () => {
       }
     }
     const body = JSON.stringify({ mail, password })
-
+    login(mail);
     try {
       const res = await axios.post(`${baseUrl}/usuario/login`, body, setup);
       if (res.status === 201) {
         navigation.navigate('Principal')
+        // login(mail);
       }
       if (res.status === 202 || res.status === 203) {
         setVisible(true);
@@ -147,7 +151,7 @@ const LoginScreen = () => {
               </View>
               <View style={{ flexDirection: "row", alignItems: "center", marginTop: '1%', marginBottom: '1%', marginHorizontal: '1%' }}>
                 <ButtonModal text="Cancelar" onPress={() => { navigation.navigate('Inicio'); setNoWifi(false); }} />
-                <ButtonModal text="Aceptar" onPress={() => { {Login()};setNoWifi(false) }} />
+                <ButtonModal text="Aceptar" onPress={() => { {Login()}setNoWifi(false) }} />
               </View>
             </ModalPoup>
 
