@@ -28,6 +28,7 @@ import Guardadas from "./src/screens/Guardadas";
 import MisRecetas from "./src/screens/MisRecetas";
 import CreateReceta from "./src/screens/CreateReceta";
 import WifiScreen from "./src/screens/WifiScreen";
+import NoResults from "./src/screens/NoResults";
 
 const Stack = createNativeStackNavigator();
 
@@ -110,6 +111,10 @@ const App = () => {
               <Stack.Screen
               name="Wifi"
               component={WifiScreen}
+            />
+              <Stack.Screen
+              name="NoResults"
+              component={NoResults}
             />
           </>
         )}

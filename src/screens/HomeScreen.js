@@ -63,6 +63,10 @@ const HomeScreen = ({navigation}) => {
     title="Go to wifi"
     onPress={() => navigation.navigate('Wifi')}
     />
+    <Button 
+    title="Go to NoResults"
+    onPress={() => navigation.navigate('NoResults')}
+    />
     
     </View>
   )
