@@ -52,14 +52,7 @@ const tipoImage =
 
 
 
-const arrPasos = [
-  { idPaso: 1, descripcion: "Aca cortamos la cebolla en juliana" },
-  {
-    idPaso: 2,
-    descripcion: "Abrimos la nalga al medio mientras le entramos a ella",
-  },
-  { idPaso: 3, descripcion: "Agregamos sal a piacere" },
-];
+
 
 const ViewReceta = ({ navigation }) => {
   const [visible, setVisible] = React.useState(false);
@@ -326,7 +319,7 @@ const ViewReceta = ({ navigation }) => {
           Pasos{" "}
         </Text>
 
-        <Steps pasos={arrPasos} />
+        <Steps Receta={values.IdReceta} />
           
          <View style={{marginTop:"2%",marginHorizontal:"5%",marginBottom:"5%"}} > 
           <ButtonFondoRosa  text="Calcular Receta" onPress={()=> console.log("hola")}/>

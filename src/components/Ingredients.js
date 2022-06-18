@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { View, Text } from "react-native";
 import { NativeBaseProvider, Input, Select, CheckIcon,HStack,Spinner} from "native-base";
 import axios from 'axios'
-import Tipos from './Tipos';
 import config from "../config/default.json";
 import useSWR from 'swr'
 
@@ -28,7 +27,7 @@ const InputSelectCombo = ({item, unidades}) => {
     />
 
     <Select
-      style={{backgroundColor:'#ffff'}}
+      style={{backgroundColor:'#ffff',textAlign:"center"}}
       selectedValue={unidadSeleccionada}
       ml="2"
       minWidth="40%"

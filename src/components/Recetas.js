@@ -13,19 +13,16 @@ Nombre: "Budin naranja"
 alias: "mrv"
 foto: "https://www.clarin.com/img/2019/07/23/bs56zWpBq_1256x620__2.jpg#1591385524188"*/
 
-class Recetas extends React.Component{
+const Recetas=({tipos}) =>{
 
-    render(
-        
-    ){
-        const {Descripcion,IdReceta,Nombre,alias,foto,CalificacionProm} = this.props.tipos;
-        const  navigation  = this.props.navegacion;
+        const {Descripcion,IdReceta,Nombre,alias,foto,CalificacionProm} = tipos;
+        const  navigation  = useNavigation();
 
 
         return (
             
 
-            <TouchableOpacity style={{backgroundColor:'#ffff',marginVertical:'2%',marginRight:"8%"}} onPress = { () => navigation.navigate('Receta',{datos:this.props.tipos}) }>
+            <TouchableOpacity style={{backgroundColor:'#ffff',marginVertical:'2%',marginRight:"8%"}} onPress = { () => navigation.navigate('Receta',{datos:tipos}) }>
                 
                 <View style={{flexDirection:"row",width:'50%' ,margin:1 }}>
 
@@ -71,6 +68,5 @@ class Recetas extends React.Component{
         )
     }
 
-}
 
 export default Recetas;
