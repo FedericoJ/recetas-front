@@ -34,8 +34,7 @@ import UploadImageReceta from "../components/UploadImageReceta";
 import UploadImagePaso from "../components/UploadImagePaso";
 import { useNavigation } from "@react-navigation/native";
 import { ProgressSteps, ProgressStep } from "react-native-progress-steps";
-import { mdiPlusCircleOutline } from "@mdi/js";
-import Icon from "@mdi/react";
+import { Ionicons } from '@expo/vector-icons';
 
 const ModalPoup = ({ visible, children }) => {
   const [showModal, setShowModal] = React.useState(visible);
@@ -381,12 +380,7 @@ const CreateReceta = () => {
                       marginHorizontal: "20%",
                     }}
                   >
-                    <Icon
-                      path={mdiPlusCircleOutline}
-                      title="User Profile"
-                      size={1}
-                      color="black"
-                    />
+                  <Ionicons name="add-circle-outline" size={24} color="black" />
 
                     <Text
                       style={{ fontSize: 20, width: "90%", fontWeight: "bold" }}
@@ -434,12 +428,7 @@ const CreateReceta = () => {
                       marginHorizontal: "30%",
                     }}
                   >
-                    <Icon
-                      path={mdiPlusCircleOutline}
-                      title="User Profile"
-                      size={1}
-                      color="black"
-                    />
+                  <Ionicons name="add-circle-outline" size={24} color="black" />
 
                     <Text
                       style={{ fontSize: 20, width: "90%", fontWeight: "bold" }}
