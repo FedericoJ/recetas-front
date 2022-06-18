@@ -9,7 +9,6 @@ import {
   TextInput,
   Modal,
 } from "react-native";
-import { FontAwesome, MaterialCommunityIcons } from "@expo/vector-icons";
 import {
   NativeBaseProvider,
   TextArea,
