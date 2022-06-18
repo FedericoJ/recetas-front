@@ -34,11 +34,6 @@ const ViewImagesAndVideo = ({imagenesw,idPaso,indice}) => {
     const [galeriaSeleccionada, setgaleriaSeleccionada] = React.useState(false);
     const video = React.useRef(null);
     const [status, setStatus] = React.useState({});
-    
-    const imagenes = [{
-        url: 'https://cdn.pixabay.com/photo/2017/08/17/10/47/paris-2650808_960_720.jpg',extension:"jpg"},
-        {url: 'https://d320djwtwnl5uo.cloudfront.net/recetas/cover/milan_SuLEW9PUrTwyi0npoGIKD5zNqHmcAb.png',extension:"mp4"},
-        {url: 'https://s3.amazonaws.com/arc-wordpress-client-uploads/infobae-wp/wp-content/uploads/2018/05/25115909/hamburguesa-destacada.jpg',extension:"jpg"}]
 
     const baseUrl =  config.baseUrl;
 
@@ -59,7 +54,7 @@ const ViewImagesAndVideo = ({imagenesw,idPaso,indice}) => {
                         </TouchableOpacity>
                       :<View style={{marginLeft:"5%"}} >
                             <Video
-                            
+                                    key={idPaso}
                                     ref={video}
                                     style={{width: 150,
                                         height: 100,}}

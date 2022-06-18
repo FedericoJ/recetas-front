@@ -24,6 +24,7 @@ import axios from 'axios'
 import variables from '../config/variables';
 
 
+
 const ModalPoup = ({ visible, children }) => {
   const [showModal, setShowModal] = React.useState(visible);
   React.useEffect(() => {
@@ -55,12 +56,13 @@ const ViewReceta = ({ navigation }) => {
 
 
   //const values = route.params.datos;
-  const onGuardarComment =(idReceta)=>{
+  const onGuardarComment = async (idReceta)=>{
 
-    console.log(calificacion);
+    const idUsuario =variables.getUsuario();
+    const baseUrl =  config.baseUrl;
 
-    console.log(idReceta);
-    console.log(comentarios);
+
+    console.log(`${baseUrl}/receta/valorarReceta`)
 
     console.log(variables.getUsuario());
 
@@ -68,26 +70,19 @@ const ViewReceta = ({ navigation }) => {
 
   // (idUsuario,idReceta,calificacion,comentarios)
 
-    /*const setup = {
+    const setup = {
       headers: {
         'content-type': 'application/json'
       }
     }
-    const body = JSON.stringify({ idReceta,comentarios, calificacion })
+    const body = JSON.stringify({idUsuario,idReceta,comentarios, calificacion })
 
-    try {
       const res = await axios.post(`${baseUrl}/receta/valorarReceta`, body, setup);
-      if (res.status === 201) {
+
+      if (res.status === 200) {
+        setComentario("");
         setVisible(false);
       }
-      if (res.status === 202 || res.status === 203) {
-        setVisible(true);
-        //alert("Invalid username or password")
-      }
-    } catch (error) {
-      console.log(error)
-      alert("Servicio no disponible")
-    }*/
 
 
   }
