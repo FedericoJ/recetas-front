@@ -43,7 +43,7 @@ const LoginScreen = () => {
   const baseUrl = config.baseUrl;
 
   const wifi = () => {
-    if(netInfo.type === "other"){
+    if(netInfo.type === "wifi"){
       {Login()}
     }
     else {

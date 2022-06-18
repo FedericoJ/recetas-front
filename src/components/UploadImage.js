@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Image, View, Platform, TouchableOpacity, Text, StyleSheet } from 'react-native';
 import { AntDesign } from '@expo/vector-icons';
+import ImagePicker from 'react-native-image-crop-picker';
 
 export default function UploadImage() {
  const [image, setImage] = useState(null);
