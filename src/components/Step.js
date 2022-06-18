@@ -57,8 +57,9 @@ const ViewImagesAndVideo = ({imagenesw,idPaso,indice}) => {
                             </Image>    
                     
                         </TouchableOpacity>
-                      :<View style={{marginLeft:"5%"}} key={indice}>
+                      :<View style={{marginLeft:"5%"}} >
                             <Video
+                            
                                     ref={video}
                                     style={{width: 150,
                                         height: 100,}}

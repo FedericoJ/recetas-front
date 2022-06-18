@@ -55,9 +55,14 @@ const ViewReceta = ({ navigation }) => {
 
 
   //const values = route.params.datos;
-  const onGuardarComment =()=>{
+  const onGuardarComment =(idReceta)=>{
 
     console.log(calificacion);
+
+    console.log(idReceta);
+    console.log(comentarios);
+
+    console.log(variables.getUsuario());
 
     setVisible(false);
 
@@ -68,7 +73,7 @@ const ViewReceta = ({ navigation }) => {
         'content-type': 'application/json'
       }
     }
-    const body = JSON.stringify({ Comentario, value })
+    const body = JSON.stringify({ idReceta,comentarios, calificacion })
 
     try {
       const res = await axios.post(`${baseUrl}/receta/valorarReceta`, body, setup);
@@ -170,7 +175,7 @@ const ViewReceta = ({ navigation }) => {
               size={30}
               selectedColor="blue"
               showRating={false}
-              onFinishRating={(rating)=>console.log(rating)}
+              onFinishRating={(rating)=>setCalificacion(rating)}
             />
             </View>
             <View
@@ -216,7 +221,7 @@ const ViewReceta = ({ navigation }) => {
             />
             <ButtonModal
               text="Guardar"
-              onPress={() => onGuardarComment()
+              onPress={() => onGuardarComment(values.IdReceta)
               }
             />
           </View>
