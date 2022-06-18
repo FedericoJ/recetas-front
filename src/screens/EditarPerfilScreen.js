@@ -19,20 +19,32 @@ import {
   const EditarPerfilScreen = () => {
 
     const navigation = useNavigation();
-     const [ nombre    , setNombre] = useState("");
-     const [ usuario    , getUsuario] = useState("pepito");
-     const [ mail    , getMail] = useState("pepito@gmail.com");
+     const [ nombre, setNombre] = useState("");
+     const [ usuario, getUsuario] = useState("");
+     const [ mail, getMail] = useState("");
      
 
     const baseUrl =  config.baseUrl;
-    const Register = async () => {
+    const EditarPerfil = async () => {
 
       const setup = {
         headers:{
           'content-type' : 'application/json'
         }
       }
+      const avatar = 'mrv'; //Ver como pasar esto.
+      const IdUsuario = '10';//IdUsuario; //Ver como pasar esto.
+      const body = JSON.stringify({nombre,avatar,IdUsuario})
 
+      try {
+        const res = await axios.post(`${baseUrl}/usuario/modificarUsuario`,body,setup);
+        console.log(res);
+        if (res.status === 201) {
+          navigation.navigate('Perfil');
+        }
+      }catch(error){
+        alert(error);
+      }
     }
     ;
 
@@ -78,8 +90,7 @@ import {
         <View style={styles.container}>
         <UploadImage/>
         </View>
-
-          <ButtonFondoRosa text="Guardar" onPress={() => navigation.navigate('Perfil')}/>
+          <ButtonFondoRosa text="Guardar" onPress={() => EditarPerfil()}/>
           <ButtonFondoBlanco text="Cancelar" onPress={() => navigation.navigate('Perfil')}/>
         </VStack>
       </Box>
