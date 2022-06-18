@@ -1,6 +1,16 @@
 var tipos;
 var servicio;
 var busqueda;
+var idUsuario;
+
+const setUsuario=(idUser)=>{
+    idUsuario =idUser
+}
+
+const getUsuario=()=>{
+
+    return idUsuario; 
+}
 
 const setTipos=(datosReceta) =>{
     tipos =datosReceta;
