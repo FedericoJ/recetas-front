@@ -6,6 +6,7 @@ import axios from 'axios'
 import { useNavigation } from '@react-navigation/native';
 import { ButtonFondoBlanco, ButtonFondoRosa, ButtonModal, ButtonModalUnico } from '../components/ButtonsLogin';
 import {useNetInfo} from "@react-native-community/netinfo";
+import variables from "../config/variables";
 
 
 const ModalPoup = ({ visible, children }) => {
@@ -63,6 +64,7 @@ const LoginScreen = () => {
     try {
       const res = await axios.post(`${baseUrl}/usuario/login`, body, setup);
       if (res.status === 201) {
+        variables.setUsuario(res.data.data[0].idUsuario);
         navigation.navigate('Principal')
       }
       if (res.status === 202 || res.status === 203) {

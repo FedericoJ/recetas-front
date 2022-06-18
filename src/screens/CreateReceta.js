@@ -7,7 +7,7 @@ import {
   Text,
   TouchableOpacity,
   TextInput,
-  Modal,
+  Modal, 
 } from "react-native";
 import {
   NativeBaseProvider,
@@ -19,7 +19,7 @@ import {
   HStack,
   Select,
   CheckIcon,
-  Box
+  Box, Center
 } from "native-base";
 import {
   ButtonModal,
@@ -34,6 +34,7 @@ import UploadImagePaso from "../components/UploadImagePaso";
 import { useNavigation } from "@react-navigation/native";
 import { ProgressSteps, ProgressStep } from "react-native-progress-steps";
 import { Ionicons } from '@expo/vector-icons';
+import {useNetInfo} from "@react-native-community/netinfo";
 
 const ModalPoup = ({ visible, children }) => {
   const [showModal, setShowModal] = React.useState(visible);
@@ -58,6 +59,7 @@ const ModalPoup = ({ visible, children }) => {
 };
 
 const CargarIngrediente = ({unidades, ingredientes}) => {
+
   const [unidadSel, setUnidadesSel] = useState("1");
   const [ingrediente, setIngrediente] = useState("");
   const [cantidad, setCantidad] = useState("");
@@ -122,8 +124,7 @@ const CargarIngrediente = ({unidades, ingredientes}) => {
 const CreateReceta = () => {
   const navigation = useNavigation();
   const [visible, setVisible] = React.useState(false);
-  const [visibleCarga, setVisibleCarga] = React.useState(false);
-  const [visibleWifi, setVisibleWifi] = React.useState(false);
+ 
   const [value, setValue] = React.useState(0);
   const [titulo, setTitulo] = useState("");
   const [descripcion, setDescripcion] = useState("");
@@ -133,7 +134,10 @@ const CreateReceta = () => {
   const [ingredientes, setIngredientes] = useState([{ valor: "valor" }]);
   const [descPaso, setdescPaso] = useState("");
   const [visibleExisteReceta, setVisibleExisteReceta] = useState("");
-  const [conexion, setConexion] = useState("datos");
+  const netInfo = useNetInfo();
+  const [noWifi, setNoWifi] = React.useState(false);
+  const [visibleCarga, setVisibleCarga] = React.useState(false);
+  const [visibleWifi, setVisibleWifi] = React.useState(false);
 
   const [categorias, setCategorias] = useState([
     { label: "Pasta", value: "1" },
@@ -160,25 +164,25 @@ const CreateReceta = () => {
     setIngredientes([{valor: "1"}, ...ingredientes,]);
   };
 
-  const conexionWifi = () => {
-    if (conexion === "wifi") {
-      return setVisible(true);
-    } else {
-      setVisibleCarga(true);
+  const wifi = () => {
+    if(netInfo.type === "wifi"){
+      setVisibleCarga(true)
+    }
+    else {
+      setNoWifi(true)
     }
   };
 
   return (
-    <ScrollView style={styles.container}>
+    <View style={styles.container}>
       <NativeBaseProvider>
         <ProgressSteps
           disabledStepNumColor="white"
           completedStepNumColor="#D6B1B1"
           activeStepNumColor="#D6B1B1"
           completedLabelColor="#FFD700"
-          activeLabelFontSize="Large"
+          activeLabelfontSize="Large"
           activeLabelColor="#AC6363"
-          labelFontSize="0"
           disabledStepIconColor="white"
           completedStepIconColor="#FFD700"
           completedProgressBarColor="#FFD700"
@@ -187,17 +191,17 @@ const CreateReceta = () => {
           <ProgressStep
             label="Descripción"
             nextBtnText="Siguiente"
-            // previousBtnText="Anterior"
+            previousBtnText="Anterior"
             nextBtnTextStyle={{ color: "black", fontWeight: "bold" }}
           >
-            <ScrollView style={styles.container}>
+            <View style={styles.container}>
               <View style={{ width: "100%", height: 200 }}>
                 <UploadImageReceta />
               </View>
               <NativeBaseProvider>
                 <ModalPoup visible={visibleExisteReceta}>
                   <View style={{ alignItems: "flex-start" }}>
-                    <Text style={{ fontSize: 20, color: "black" }}>
+                    <Text style={{  color: "black" }}>
                       Ya existe una receta con este nombre
                     </Text>
                   </View>
@@ -267,7 +271,7 @@ const CreateReceta = () => {
 
                 <HStack mt="2" w="100%">
                   <Text
-                    style={{ fontSize: 20, marginLeft: "5%", width: "45%" }}
+                    style={{fontSize:25, marginLeft: "5%", width: "45%" }}
                   >
                     {" "}
                     Categoria{" "}
@@ -276,11 +280,10 @@ const CreateReceta = () => {
                   <Select
                     style={{ backgroundColor: "#ffff" }}
                     selectedValue={categoriaSel}
-                    marginRight="10%"
-                    w="70%"
-                    fontSize="16"
-                    mr="2"
-                    alignSelf="flex-end"
+                    flexDirection= "row"
+                    alignItems= "center"
+                    ml="3"
+                    w="62%"
                     _selectedItem={{
                       bg: "indigo",
                       endIcon: <CheckIcon size={5} />,
@@ -305,7 +308,7 @@ const CreateReceta = () => {
                     marginHorizontal: "5%",
                   }}
                 >
-                  <Text style={{ fontSize: 20, width: "90%" }}>
+                  <Text style={{fontSize:25,  width: "55%" }}>
                     {" "}
                     Porciones{" "}
                   </Text>
@@ -330,7 +333,7 @@ const CreateReceta = () => {
                     marginHorizontal: "5%",
                   }}
                 >
-                  <Text style={{ fontSize: 20, width: "90%" }}> Personas </Text>
+                  <Text style={{fontSize:25,width: "55%" }}> Personas </Text>
 
                   <Input
                     style={{ backgroundColor: "#ffff", textAlign: "center" }}
@@ -343,7 +346,7 @@ const CreateReceta = () => {
                   />
                 </View>
               </NativeBaseProvider>
-            </ScrollView>
+            </View>
           </ProgressStep>
           <ProgressStep
             label="Ingredientes"
@@ -352,24 +355,13 @@ const CreateReceta = () => {
             nextBtnTextStyle={{ color: "black", fontWeight: "bold" }}
             previousBtnTextStyle={{ color: "black", fontWeight: "bold" }}
           >
-            <ScrollView style={styles.container}>
+            <View style={styles.container}>
               <NativeBaseProvider>
-                <Text
-                  style={{
-                    marginTop: "5%",
-                    marginHorizontal: "5%",
-                    marginBottom: "2%",
-                    fontSize: 25,
-                    fontWeight: "bold",
-                  }}
-                >
-                  {" "}
-                  Ingredientes{" "}
-                </Text>
 
                 <CargarIngrediente unidades={unidades} ingredientes={ingredientes}></CargarIngrediente>
 
-                <TouchableOpacity onPress={() => agregarIngrediente()}>
+                <TouchableOpacity onPress={() => agregarIngrediente()}
+                >
                   <View
                     style={{
                       flexDirection: "row",
@@ -379,10 +371,10 @@ const CreateReceta = () => {
                       marginHorizontal: "20%",
                     }}
                   >
-                  <Ionicons name="add-circle-outline" size={24} color="black" />
+                  <Ionicons name="add-circle-outline" size={25} color="black" />
 
                     <Text
-                      style={{ fontSize: 20, width: "90%", fontWeight: "bold" }}
+                      style={{fontSize:24, width: "90%", fontWeight: "bold" }}
                     >
                       {" "}
                       Agregar Ingrediente{" "}
@@ -390,7 +382,7 @@ const CreateReceta = () => {
                   </View>
                 </TouchableOpacity>
               </NativeBaseProvider>
-            </ScrollView>
+            </View>
           </ProgressStep>
           <ProgressStep
             label="Pasos"
@@ -399,7 +391,7 @@ const CreateReceta = () => {
             nextBtnTextStyle={{ color: "black", fontWeight: "bold" }}
             previousBtnTextStyle={{ color: "black", fontWeight: "bold" }}
           >
-            <ScrollView style={styles.container}>
+            <View style={styles.container}>
               <NativeBaseProvider>
                 <TextArea
                   style={{ backgroundColor: "#ffff" }}
@@ -413,7 +405,7 @@ const CreateReceta = () => {
                 />
                 <View style={styles.imagenPaso}>
                   <View style={{ width: "20%", marginLeft: "5%" }}>
-                    <UploadImagePaso />
+                   <UploadImagePaso />
                   </View>
                 </View>
 
@@ -422,15 +414,15 @@ const CreateReceta = () => {
                     style={{
                       flexDirection: "row",
                       alignItems: "flex-end",
-                      marginTop: "10%",
+                      marginTop: "5%",
                       marginBottom: "2%",
-                      marginHorizontal: "30%",
+                      marginHorizontal: "27%",
                     }}
                   >
-                  <Ionicons name="add-circle-outline" size={24} color="black" />
+                  <Ionicons name="add-circle-outline" size={25} color="black" />
 
                     <Text
-                      style={{ fontSize: 20, width: "90%", fontWeight: "bold" }}
+                      style={{fontSize:24, width: "90%", fontWeight: "bold" }}
                     >
                       {" "}
                       Agregar Paso{" "}
@@ -438,7 +430,7 @@ const CreateReceta = () => {
                   </View>
                 </TouchableOpacity>
               </NativeBaseProvider>
-            </ScrollView>
+            </View>
           </ProgressStep>
 
           <ProgressStep
@@ -446,40 +438,26 @@ const CreateReceta = () => {
             previousBtnText="Anterior"
             previousBtnTextStyle={{ color: "black", fontWeight: "bold" }}
             finishBtnText=""
-            nextBtnDisabled="true"
+            nextBtnDisabled={true}
           >
-            <ModalPoup visible={visible}>
-              <View style={{ alignItems: "flex-start" }}>
-                <Text style={{ fontSize: 20, color: "black" }}>
-                  No se encuentra conectado a una red WIFI. ¿Desea publicarla
-                  igualmente?
-                </Text>
-              </View>
-
-              <View style={styles.botonesModal}>
-                <ButtonModal
-                  text="No"
-                  onPress={() => {
-                    setVisible(false);
-                    setVisibleWifi(true);
-                  }}
-                />
-                <ButtonModal
-                  text="Si"
-                  onPress={() => {
-                    setVisible(false);
-                    setVisibleCarga(true);
-                  }}
-                />
-              </View>
+            <ModalPoup visible={noWifi}>
+                <View style={{ alignItems: 'flex-start' }}>
+                <Text style={{ fontSize: 20, color: "black" }}>No se encuentra conectado a una red Wifi. ¿Desea publicarla igualmente? </Text>
+                <View style={{ flexDirection: "row", alignItems: "center", marginTop: '2%', marginBottom: '2%', marginHorizontal: '5%' }}>
+                </View>
+                </View>
+                <View style={{ flexDirection: "row", alignItems: "center", marginTop: '1%', marginBottom: '1%', marginHorizontal: '1%' }}>
+                <ButtonModal text="Cancelar" onPress={() => { setNoWifi(false);setVisibleWifi(true) }} />
+                <ButtonModal text="Aceptar" onPress={() => {setNoWifi(false); setVisibleCarga(true) }} />
+                </View>
             </ModalPoup>
+            
             <ModalPoup visible={visibleWifi}>
               <View style={{ alignItems: "flex-start" }}>
-                <Text style={{ fontSize: 20, color: "black" }}>
+                <Text style={{ color: "black" }}>
                   La receta se cargará cuando estes conectado a una red WIFI
                 </Text>
               </View>
-
               <View style={styles.botonesModal}>
                 <ButtonModalUnico
                   text="Aceptar"
@@ -493,17 +471,16 @@ const CreateReceta = () => {
 
             <ModalPoup visible={visibleCarga}>
               <View style={{ alignItems: "flex-start" }}>
-                <Text style={{ fontSize: 20, color: "black" }}>
+                <Text style={{  color: "black" }}>
                   La receta se cargó correctamente, la verás publicada cuando
                   sea autorizada
                 </Text>
               </View>
-
               <View style={styles.botonesModal}>
                 <ButtonModalUnico
                   text="Aceptar"
                   onPress={() => {
-                    navigation.navigate("Receta");
+                    navigation.navigate("Principal");
                     setVisibleCarga(false);
                   }}
                 />
@@ -513,14 +490,14 @@ const CreateReceta = () => {
               <ButtonCreateRosa
                 text="Guardar"
                 onPress={() => {
-                  conexionWifi();
+                  wifi();
                 }}
               />
             </View>
           </ProgressStep>
         </ProgressSteps>
       </NativeBaseProvider>
-    </ScrollView>
+    </View>
   );
 };
 
@@ -537,7 +514,7 @@ const styles = StyleSheet.create({
   imagenPaso: {
     flexDirection: "row",
     backgroundColor: "#D6B1B1",
-    justifyContent: "left",
+    //justifyContent: "left",
   },
   modalBackGround: {
     flex: 1,

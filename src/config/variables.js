@@ -37,4 +37,4 @@ const getBusqueda=()=>{
     return busqueda;
 }
 
-export default {setTipos,getTipos,setServicio,getServicio,setBusqueda,getBusqueda}
+export default {setTipos,getTipos,setServicio,getServicio,setBusqueda,getBusqueda,setUsuario,getUsuario}

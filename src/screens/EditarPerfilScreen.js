@@ -15,13 +15,14 @@ import {
   import { useNavigation } from '@react-navigation/native';
   import {  ButtonFondoBlanco, ButtonFondoRosa } from '../components/ButtonsLogin';
   import UploadImage from '../components/UploadImage';
+  import variables from '../config/variables';
   
   const EditarPerfilScreen = () => {
 
     const navigation = useNavigation();
      const [ nombre, setNombre] = useState("");
-     const [ usuario, getUsuario] = useState("");
-     const [ mail, getMail] = useState("");
+     const [ usuario, setUsuario] = useState("");
+     const [ mail, setMail] = useState("");
      
 
     const baseUrl =  config.baseUrl;
@@ -33,7 +34,7 @@ import {
         }
       }
       const avatar = 'mrv'; //Ver como pasar esto.
-      const IdUsuario = '10';//IdUsuario; //Ver como pasar esto.
+      const IdUsuario = variables.getUsuario;
       const body = JSON.stringify({nombre,avatar,IdUsuario})
 
       try {
