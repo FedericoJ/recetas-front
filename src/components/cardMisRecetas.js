@@ -6,39 +6,57 @@ import {Animated,
 FlatList } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import RecetasCargadas from './RecetasCargadas';
-
-
-  const imagesrc="https://resizer.glanacion.com/resizer/DX1-dyjtqe3efPEahil_dwkYeuQ=/768x0/filters:format(webp):quality(80)/cloudfront-us-east-1.images.arcpublishing.com/lanacionar/VLWFAANIWBGPFO4CSUHS7RYVVQ.jpg";
-
-
-  const tipos =[
-       
-    {tipo:"Pasta",calificacion:3.5,usuario:"@mamacora",tipoImage:imagesrc,autorizada:'true'},
-    {tipo:"Comida china",calificacion:3.5,usuario:"@mamacora",tipoImage:imagesrc,autorizada:'false'},
-    {tipo:"Milanesas",calificacion:4.5,usuario:"@mamacora",tipoImage:imagesrc,autorizada:'true'},
-    {tipo:"Hamburguesas estilo Campo",calificacion:3.5,usuario: "@mamacora",tipoImage:imagesrc,autorizada:'false'},
-    {tipo:"Helados",calificacion:2,usuario:"@mamacora",tipoImage:imagesrc,autorizada:'true'},
-    {tipo:"Postres",calificacion:1,usuario:"@mamacora",tipoImage:imagesrc,autorizada:'true'},
-]; 
-
+import { NativeBaseProvider,Skeleton,VStack,Center } from 'native-base';
+import config from "../config/default.json";
+import useSWR from 'swr';
+import axios from 'axios';
+import variables from '../config/variables';
 
 const MiReceta =()=>{
+
     const navigation = useNavigation();
+       
+    const baseUrl =  config.baseUrl;
 
+    const nombre = 'mrv'//variables.getNick();
 
-    return (
-      
-        <SafeAreaView style={{ marginVertical:'5%'}}>
-          
-        <Text  style={{textAlign:"center",fontSize:20,fontWeight:"bold",marginBottom:'2%'}}> Mis Recetas </Text> 
-            <FlatList style= {{marginHorizontal:'5%'}} data ={tipos}
-                numColumns={1}
-                renderItem={({item}) =>(
-                 <RecetasCargadas navegacion={navigation} tipos ={item}/>)}>
-             </FlatList>
+    const fetcher = url => axios.get(`${baseUrl}/receta/recetaPorUsuario?nombre=${nombre}`).then(res => res.data)
 
-        </SafeAreaView>
-    )
+    const {data,error}=useSWR(`${baseUrl}/receta/recetaPorUsuario?nombre=${nombre}`, fetcher);
+
+    if (!data){
+        return (
+            <NativeBaseProvider>
+                    <Center>
+                    <VStack w="90%"  borderWidth="1" space={8} overflow="hidden" rounded="md" _dark={{
+                    borderColor: "coolGray.500"
+                        }} _light={{
+                    borderColor: "coolGray.200"
+                        }}>
+                    <Skeleton h="40" />
+                    <Skeleton.Text px="4" />
+                    <Skeleton px="4" my="4" rounded="md" startColor="primary.100" />
+                    </VStack>
+                </Center>
+        </NativeBaseProvider>
+        )
+    }else{
+
+        return (
+            <SafeAreaView style={{ marginVertical:'5%'}}>
+            
+            <Text  style={{textAlign:"center",fontSize:20,fontWeight:"bold",marginBottom:'2%'}}> Mis Recetas </Text> 
+                <FlatList style= {{marginHorizontal:'5%'}} data ={data}
+                    numColumns={1}
+                    renderItem={({item}) =>(
+                    <RecetasCargadas navegacion={navigation} tipos ={item}/>)}>
+                </FlatList>
+
+            </SafeAreaView>
+        )
+
+    }
+
 
 }
 

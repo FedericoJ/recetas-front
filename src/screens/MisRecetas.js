@@ -1,5 +1,5 @@
 import React from 'react';
-import { ScrollView,StyleSheet} from 'react-native';
+import { ScrollView,StyleSheet,View} from 'react-native';
 import { Divider, Flex, Box, Heading, Center,NativeBaseProvider,Text,Button } from "native-base";
 // import Tabs from '../components/Tabs';
 import Galeria from '../components/cardResults';
@@ -11,7 +11,7 @@ import { FAB } from 'react-native-paper';
 const MisRecetas  = ({navigation}) => {
 
 return (
-    <ScrollView style={styles.container}>
+    <View style={styles.container}>
         <MiReceta/>
       
          <FAB style={styles.fab}
@@ -22,7 +22,7 @@ return (
           onPress={() => console.log('Pressed')}
           />
 
-     </ScrollView>
+     </View>
   );
 };
 

@@ -6,21 +6,12 @@ import {Animated,
 FlatList } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import RecetasFavoritos from './RecetasFavSave';
-import { Swipeable } from 'react-native-gesture-handler';
-
-
-  const imagesrc="https://resizer.glanacion.com/resizer/DX1-dyjtqe3efPEahil_dwkYeuQ=/768x0/filters:format(webp):quality(80)/cloudfront-us-east-1.images.arcpublishing.com/lanacionar/VLWFAANIWBGPFO4CSUHS7RYVVQ.jpg";
-
-
-  const tipos =[
-       
-    {id:"1",tipo:"Pasta",calificacion:3.5,usuario:"@mamacora",tipoImage:imagesrc},
-    {id:"2",tipo:"Comida china",calificacion:3.5,usuario:"@mamacora",tipoImage:imagesrc},
-    {id:"3",tipo:"Milanesas",calificacion:4.5,usuario:"@mamacora",tipoImage:imagesrc},
-    {id:"4",tipo:"Hamburguesas estilo Campo",calificacion:3.5,usuario: "@mamacora",tipoImage:imagesrc},
-    {id:"5",tipo:"Helados",calificacion:2,usuario:"@mamacora",tipoImage:imagesrc},
-    {id:"6",tipo:"Postres",calificacion:1,usuario:"@mamacora",tipoImage:imagesrc},
-];
+import { Swipeable,GestureHandlerRootView } from 'react-native-gesture-handler';
+import config from "../config/default.json";
+import useSWR from 'swr'
+import axios from 'axios'
+import { NativeBaseProvider,Skeleton,VStack,Center } from 'native-base';
+import variables from '../config/variables';
 
  const RenderRight = (progress,dragX) =>{
    const scale = dragX.interpolate({
@@ -36,40 +27,74 @@ import { Swipeable } from 'react-native-gesture-handler';
      ]
    }
 
-
-
    return(
-     <View style= {{width:140, backgroundColor:"red", alignItems:"center", justifyContent:'center'}}>
-       <Animated.Text style= {[Style, {backgroundColor:'red',fontWeight:'600', color:'white'}]}>Eliminar</Animated.Text>
+     <View style= {{width:140, backgroundColor:"#DC143C", borderRadius: 20,alignItems:"center", justifyContent:'center'}}>
+       <Animated.Text style= {[Style, {fontWeight:'600', color:'white'}]}>Eliminar</Animated.Text>
      </View>
    )
  }
  
 
-
 const Favorito =()=>{
     const navigation = useNavigation();
-    const [item, setItem] = useState(tipos);
+    const [datos,setDatos] =useState([]);
+
+    const baseUrl =  config.baseUrl;
+    const idUsuario =1284;//variables.getUsuario();
+
+    const cargarDatos=()=>{
+
+      const navigation = useNavigation();
+       
+      const baseUrl =  config.baseUrl;
+
+      const fetcher = url => axios.get(`${baseUrl}/receta/getFavorito?idUsuario=${idUsuario}`).then(res => res.data)
+
+      const {data,error}=useSWR(`${baseUrl}/receta/recetasSemana`, fetcher)
+
+        if (data){
+            return (<SafeAreaView style={{ marginVertical:'5%'}}>
+            <Text  style={{textAlign:"center",fontSize:20,fontWeight:"bold",marginBottom:'2%'}}> Favoritos </Text> 
+            <FlatList style= {{marginHorizontal:'5%'}} data ={data}
+                  numColumns={1}
+                  renderItem={({item, index}) =>(
+                    <GestureHandlerRootView>
+                      <Swipeable overshootRight={false} onSwipeableRightOpen={()=>deleteItem(item.id)} renderRightActions={RenderRight}> 
+                        <RecetasFavoritos navegacion={navigation} tipos ={item}/>
+                        </Swipeable>
+                    </GestureHandlerRootView>)}>
+            </FlatList>
+          </SafeAreaView>
+          )
+        }else{
+          return (
+            <NativeBaseProvider>
+                    <Center>
+                    <VStack w="90%"  borderWidth="1" space={8} overflow="hidden" rounded="md" _dark={{
+                    borderColor: "coolGray.500"
+                        }} _light={{
+                    borderColor: "coolGray.200"
+                        }}>
+                    <Skeleton h="40" />
+                    <Skeleton.Text px="4" />
+                    <Skeleton px="4" my="4" rounded="md" startColor="primary.100" />
+                    </VStack>
+                </Center>
+            </NativeBaseProvider>)
+        }
+            
+
+    }
+    
+
     const deleteItem = (id) => {
       // alert ('item of ID: ${id} will be deleted')
+      //return cargarDatos();
     }
-
-    return (
+     
+  return cargarDatos();
       
-        <SafeAreaView style={{ marginVertical:'5%'}}>
-          
-        <Text  style={{textAlign:"center",fontSize:20,fontWeight:"bold",marginBottom:'2%'}}> Favoritos </Text> 
-            <FlatList style= {{marginHorizontal:'5%'}} data ={tipos}
-                numColumns={1}
-                renderItem={({item, index}) =>(
-                <Swipeable overshootRight={false} onSwipeableRightOpen={deleteItem(item.id)} renderRightActions={RenderRight}> 
-                 <RecetasFavoritos navegacion={navigation} tipos ={item} index={index} setItem={setItem}/>
-                 </Swipeable>)}>
-             </FlatList>
-
-        </SafeAreaView>
-    )
-
+      
 }
 
 export default Favorito;

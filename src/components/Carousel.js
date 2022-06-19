@@ -15,22 +15,12 @@ import { NativeBaseProvider,Skeleton,VStack,Center } from 'native-base';
     const Galeria =()=>{
 
         const navigation = useNavigation();
-
-        const imagesrc="https://s3.amazonaws.com/arc-wordpress-client-uploads/infobae-wp/wp-content/uploads/2018/05/25115909/hamburguesa-destacada.jpg";
-
-        const tipos =[
        
-            {Nombre:"Pasta",IdReceta: 1,alias:"@mamacora",foto:imagesrc,CalificacionProm:3.5,},
-            {Nombre:"Pasta",IdReceta: 1,alias:"@mamacora",foto:imagesrc,CalificacionProm:3.5,},
-           
-       ];
+        const baseUrl =  config.baseUrl;
 
-       
-       const baseUrl =  config.baseUrl;
-
-      const fetcher = url => axios.get(`${baseUrl}/receta/recetasSemana`).then(res => res.data)
+        const fetcher = url => axios.get(`${baseUrl}/receta/recetasSemana`).then(res => res.data)
   
-      const {data,error}=useSWR(`${baseUrl}/receta/recetasSemana`, fetcher);
+        const {data,error}=useSWR(`${baseUrl}/receta/recetasSemana`, fetcher);
 
        if (!data){
             return (

@@ -1,5 +1,5 @@
 {
     
-    "baseUrl": "https://recetas-node-deploy.herokuapp.com"
+    "baseUrl": "http://192.168.0.48:3000"
 }
 

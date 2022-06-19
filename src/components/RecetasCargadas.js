@@ -1,87 +1,95 @@
-import * as React from 'react';
-import {View,Text,Image,TouchableOpacity} from 'react-native';
+import React, { useState, useEffect } from 'react'
+import {View,Text,Image,TouchableOpacity, Modal,StyleSheet} from 'react-native';
 import Stars from 'react-native-stars';
-import { FontAwesome, MaterialCommunityIcons } from '@expo/vector-icons'; 
+import { FontAwesome, MaterialCommunityIcons,AntDesign,Entypo } from '@expo/vector-icons'; 
 import { useNavigation } from '@react-navigation/native';
-import { AntDesign } from '@expo/vector-icons';
-import { Entypo } from '@expo/vector-icons';
+import variables from '../config/variables';
+import { ButtonFondoBlanco, ButtonFondoRosa, ButtonModal, ButtonModalUnico } from '../components/ButtonsLogin';
 
 
+const Recetas=({tipos}) =>{
 
+        const {Descripcion,IdReceta,Nombre,alias,foto,CalificacionProm} = tipos;
+        const  navigation  = useNavigation();
 
-class Recetas extends React.Component{
-
-
-   render(
-        
-    ){
-        const  navigation  = this.props.navegacion;
-        const {tipo,usuario,calificacion,tipoImage,autorizada} = this.props.tipos;
-
-        const recAutorizada =() =>{
-            if(autorizada ==="S"){
-                <AntDesign name="checkcircle" size={24} color="black" />
+        const Autorizada =() =>{
+            if(tipos.SnAutorizada ==="S"){
+                return(<AntDesign style={{marginLeft:"2%"}}name="checkcircle" size={24} color="green" />)
             }
             else{
-                <Entypo name="circle-with-cross" size={24} color="black" />
+                return(<Entypo style={{marginLeft:"2%"}} name="circle-with-cross" size={24} color="red" />)
             }
         };
-    
 
-        return (
+
+        const recetasHandler=(tipos,navigation) =>{
+
+            variables.setTipos(tipos); 
+            navigation.navigate('Receta');
             
-        
+        }
+       
+        return (<View>
 
-            <TouchableOpacity style={{backgroundColor:'#ffff',marginVertical:'2%'}} onPress = { () => recetasHandler(tipos,navigation) }>
+            <TouchableOpacity style={{backgroundColor:'#ffff',marginVertical:'2%',marginRight:"8%", borderRadius: 20,height: 150}} onPress = { () => recetasHandler(tipos,navigation)}>
                 
-                <View style={{flexDirection:"row",width:'50%' ,margin:1 }}>
+                <View style={{flexDirection:"row",width:'50%' ,margin:1}}>
 
-                        <Image style={{resizeMode: 'cover',width: '100%',height: 100}}  source ={{uri:tipoImage}}>
+                        <Image style={{resizeMode: 'cover',width: '100%',height: 147,borderRadius: 20}}  source ={{uri:foto}}>
                         
                         </Image>
 
-                        <View style={{width:'100%',alignItems:'left'}}>
+                        <View style={{width:'95%'}}>
 
-                            <Text style={{textAlign:"left",fontWeight:'bold',marginLeft:'5%'}}>
-                                {tipo}
+                            <Text style={{textAlign:"left",fontWeight:'bold',marginLeft:'5%', fontSize:20}}>
+                                {Nombre}
                             </Text>
 
-                            <Text style={{color:"#FFD700",textAlign:"left",fontWeight:'bold',marginLeft:'5%',marginVertical:'5%'}}>
-                                {usuario}
+                            <Text style={{color:"#b39024",textAlign:"left",fontWeight:'bold',marginLeft:'5%',marginVertical:'3%',fontSize:15}}>
+                                {"@"}{alias}
                             </Text>
 
-                            <View style={{marginRight:'10%',alignItems:"flex-end",flexDirection:"row-reverse",justifyContent:"flex-start"}} >
-                            
-                            <recAutorizada></recAutorizada>
-                            
-                                <Stars 
-                                    display={calificacion}
+                            <View style={{marginTop:"15%",marginRight:'15%',alignItems:"flex-end",flexDirection:"row-reverse",justifyContent:"flex-start"}} >
+
+                                <Autorizada/>
+
+                                <Stars
+                                    value={CalificacionProm}
                                     spacing={4}
                                     count={5}
-                                    starSize={16}
-                                    fullStar= {<FontAwesome name="star" color="blue" />}
-                                    emptyStar= {<FontAwesome name="star-o" color="blue" />}
-                                    halfStar={<FontAwesome name="star-half" color="blue" />} />
+                                    starSize={15}
+                                    fullStar= {<FontAwesome size={15} name="star" color="gold" />}
+                                    emptyStar= {<FontAwesome size={15}  name="star-o" color="gold" />}
+                                    halfStar={<FontAwesome size={15}  name="star-half" color="gold" />} />
 
-                                 <Text style={{textAlign:"left",fontSize:12,marginRight:'1%'}}>
-                                    {calificacion}
+                                 <Text style={{textAlign:"left",fontSize:15,marginRight:'2%'}}>
+                                    {CalificacionProm}
                                 </Text>
                             
                             </View>
-
                            
-
-
                         </View>
-
-
                 </View>
-
-            </TouchableOpacity>    
-
+            </TouchableOpacity>  
+            </View>
         )
     }
 
-}
+const styles = StyleSheet.create({
+    modalBackGround: {
+        flex: 1,
+        backgroundColor: 'rgba(0,0,0,0.5)',
+        justifyContent: 'center',
+        alignItems: 'center',
+      },
+      modalContainer: {
+        width: '80%',
+        backgroundColor: '#F7F4F4',
+        paddingHorizontal: 20,
+        paddingVertical: 30,
+        borderRadius: 20,
+        elevation: 20,
+      },
+    });
 
 export default Recetas;

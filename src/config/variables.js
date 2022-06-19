@@ -3,21 +3,26 @@ var servicio;
 var busqueda;
 var idUsuario;
 var idReceta;
+var nickname;
 
 const setUsuario=(idUser)=>{
     idUsuario =idUser
-    console.log(idUsuario);
+}
+
+const setNick=(alias)=>{
+    nickname =alias;
+}
+
+const getNick=()=>{
+    return nickname;
 }
 
 const setReceta=(receta)=>{
-
     idReceta=receta;
 }
 
 const getReceta=()=>{
-
     return idReceta;
-
 }
 
 const getUsuario=()=>{
@@ -59,4 +64,6 @@ export default {
     setUsuario,
     getUsuario,
     setReceta,
-    getReceta}
+    getReceta,
+getNick,
+setNick}
