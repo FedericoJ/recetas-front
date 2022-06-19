@@ -124,7 +124,7 @@ const Steps = ({Receta}) => {
 
                                     <NativeBaseProvider >
 
-                                        <TextArea  style={{backgroundColor:"#ffff"}} w="90%" mr="5" ml ="2" value={element.texto} 
+                                        <TextArea  style={{fontSize:15, backgroundColor:"#ffff"}} w="90%" mr="5" ml ="2" value={element.texto} 
                                             placeholder="Disabled TextArea" isDisabled />
                                         
                                     </NativeBaseProvider>
