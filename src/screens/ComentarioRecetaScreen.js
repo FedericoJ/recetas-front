@@ -2,40 +2,79 @@ import React from 'react';
 import { ScrollView,StyleSheet,Image,View,Text,TouchableOpacity,TextInput} from 'react-native';
 import { FontAwesome, MaterialCommunityIcons } from '@expo/vector-icons'; 
 import Stars from 'react-native-stars';
-import {NativeBaseProvider,TextArea,Input} from "native-base";
-import Comentarios from "../components/Comentarios";
+import axios from 'axios'
+import config from "../config/default.json";
+import useSWR from 'swr';
+import variables from '../config/variables';
+import { NativeBaseProvider,Skeleton,VStack,Center,HStack,Spinner,TextArea} from 'native-base';
+import Ingredients from "../components/Ingredients";
+
+const Comentarios =({recetas}) =>{
+
+  const baseUrl =  config.baseUrl;
+
+  const fetcher = url => axios.get(`${baseUrl}/receta/getValoracionesByReceta?idReceta=${recetas}`).then(res => res.data)
+  
+  const ingredientes=useSWR(`${baseUrl}/receta/getValoracionesByReceta?idReceta=${recetas}`, fetcher);
 
 
+  if (!ingredientes.data){
+    return( <NativeBaseProvider>
+            <HStack space={8} justifyContent="center">
+              <Spinner color="warning.500" />
+            </HStack>
+            </NativeBaseProvider>)
+  }else{
+    return (
+      <View style={{marginBottom:"5%"}}>
+        {ingredientes.data &&
+          ingredientes.data.map((element, i) => (
+            <View key={i} style={{flexDirection:"column"}}>
+              <View style={{flexDirection:"row",marginBottom:"2%",marginHorizontal:'5%'}}>
+                  <FontAwesome name="user" size={30} color="black" />
+                  <Text style={{fontSize:20, width:'50%', color:"black"}}> @{element.nickname} </Text>
+                  <NativeBaseProvider>
+                          <Stars 
+                              display={element.calificacion}
+                              spacing={4}
+                              count={5}
+                              starSize={30}
+                              fullStar= {<FontAwesome size={20} name="star" color="blue" />}
+                              emptyStar= {<FontAwesome size={20} name="star-o" color="blue" />}
+                              halfStar={<FontAwesome size={20} name="star-half" color="blue" />} />
+                  </NativeBaseProvider>
+              </View>
+              <View style={{marginBottom:"10%"}}>
+                <NativeBaseProvider>
+                    <TextArea style={{backgroundColor:"#ffff"}} 
+                    w ="90%" 
+                    mx ="5" 
+                    fontSize="20" 
+                    isDisabled 
+                    value= {element.comentarios} 
+                    />
+                </NativeBaseProvider>
+                </View>
+              </View>
+                 
+          ))}
+  
+      </View>
+    );
+  }
+    
+  
+  }
+const ComentarioRecetaScreen= () => {
 
-const tipoImage='https://d320djwtwnl5uo.cloudfront.net/recetas/cover/milan_SuLEW9PUrTwyi0npoGIKD5zNqHmcAb.png';
+    return (
+      <ScrollView style={styles.container}>
+          <Text style={{ marginTop:'5%',marginBottom:"10%",marginHorizontal:'5%',fontSize:30,fontWeight:"bold"}}> Comentarios </Text>
+          <Comentarios recetas={1} />
+       </ScrollView>
+    );
+  } 
 
-
-const arrcomentarios =[
-    {usuario:"Pan rallado",calificacion: 1, comentario:"hola bebe"},
-    {usuario: "Cuadrada", calificacion: 2, comentario:"hola bebe2"},
-    {usuario: "Huevos", calificacion:4, comentario:"hola bebe3"}
-
-]
-
-const ComentarioRecetaScreen  = ({navigation}) => {
-
-return (
-    <ScrollView style={styles.container}>
-
-        <Text style={{ marginTop:'5%',marginHorizontal:'5%',fontSize:20,fontWeight:"bold"}}> Comentarios </Text>
-
-        <View style={{flexDirection:"row" , alignItems:"center", marginTop:'2%', marginBottom:'2%', marginHorizontal:'5%'}}>
-        {/* NO SE QUE HACE PERO LE DA UN ESPACIO */}
-
-        </View>
-
-
-        <Comentarios comentarios ={arrcomentarios} />
-
-
-     </ScrollView>
-  );
-};
 
 const styles = StyleSheet.create({
     container: {

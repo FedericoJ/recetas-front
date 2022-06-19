@@ -5,7 +5,7 @@ import { StyleSheet, Image, View, Modal,  StatusBar,
   TouchableOpacity,  SafeAreaView,
   ScrollView,
   Platform} from 'react-native';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation } from '@react-navigation/core';
 import { MaterialIcons } from '@expo/vector-icons';
 import { ButtonFondoRosa, ButtonModalUnico } from '../components/ButtonsLogin';
 import {useNetInfo} from "@react-native-community/netinfo";

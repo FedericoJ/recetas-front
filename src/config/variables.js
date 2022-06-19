@@ -2,10 +2,22 @@ var tipos;
 var servicio;
 var busqueda;
 var idUsuario;
+var idReceta;
 
 const setUsuario=(idUser)=>{
     idUsuario =idUser
     console.log(idUsuario);
+}
+
+const setReceta=(receta)=>{
+
+    idReceta=receta;
+}
+
+const getReceta=()=>{
+
+    return idReceta;
+
 }
 
 const getUsuario=()=>{
@@ -37,4 +49,14 @@ const getBusqueda=()=>{
     return busqueda;
 }
 
-export default {setTipos,getTipos,setServicio,getServicio,setBusqueda,getBusqueda,setUsuario,getUsuario}
+export default {
+    setTipos,
+    getTipos,
+    setServicio,
+    getServicio,
+    setBusqueda,
+    getBusqueda,
+    setUsuario,
+    getUsuario,
+    setReceta,
+    getReceta}

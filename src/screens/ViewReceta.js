@@ -60,7 +60,7 @@ const ViewReceta = ({ navigation }) => {
 
     const idUsuario =variables.getUsuario();
     const baseUrl =  config.baseUrl;
-
+    
 
     console.log(`${baseUrl}/receta/valorarReceta`)
 
@@ -88,6 +88,8 @@ const ViewReceta = ({ navigation }) => {
   }
 
   const values = variables.getTipos();
+
+  variables.setReceta(values.IdReceta)
 
   return (
     <ScrollView style={styles.container}>
@@ -119,7 +121,7 @@ const ViewReceta = ({ navigation }) => {
         </Text>
 
         <FontAwesome
-          onPress={() => navigation.navigate("ComentarioReceta")}
+          //onPress={() => navigation.navigate("ComentarioReceta")}
           name="star"
           color="#FFD700"
         />
@@ -216,7 +218,7 @@ const ViewReceta = ({ navigation }) => {
             />
             <ButtonModal
               text="Guardar"
-              onPress={() => onGuardarComment(values.idReceta)
+              onPress={() => onGuardarComment(values.IdReceta)
               }
             />
           </View>
