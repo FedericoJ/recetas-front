@@ -16,6 +16,7 @@ import {
   import {  ButtonFondoBlanco, ButtonFondoRosa } from '../components/ButtonsLogin';
   import UploadImage from '../components/UploadImage';
   import variables from '../config/variables';
+  import GalleryComponenet from '../components/Gallery';
   
   const EditarPerfilScreen = () => {
 
@@ -89,7 +90,7 @@ import {
         </FormControl>
 
         <View style={styles.container}>
-        <UploadImage/>
+        <GalleryComponenet/>
         </View>
           <ButtonFondoRosa text="Guardar" onPress={() => EditarPerfil()}/>
           <ButtonFondoBlanco text="Cancelar" onPress={() => navigation.navigate('Perfil')}/>

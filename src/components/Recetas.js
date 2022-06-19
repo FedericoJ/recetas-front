@@ -47,7 +47,7 @@ const Recetas=({tipos}) =>{
         }
     
         const wifi = () => {
-          if(!netInfo.type === "wifi"){
+          if(netInfo.type === "wifi"){
             recetasHandler(tipos,navigation)
           }
           else {
@@ -69,42 +69,42 @@ const Recetas=({tipos}) =>{
                 </View>
             </ModalPoup>
 
-            <TouchableOpacity style={{backgroundColor:'#ffff',marginVertical:'2%',marginRight:"8%"}} onPress = { () => setNoWifi(wifi)}>
+            <TouchableOpacity style={{backgroundColor:'#ffff',marginVertical:'2%',marginRight:"8%", borderRadius: 20,height: 150}} onPress = { () => setNoWifi(wifi)}>
                 
-                <View style={{flexDirection:"row",width:'50%' ,margin:1 }}>
+                <View style={{flexDirection:"row",width:'50%' ,margin:1}}>
 
-                        <Image style={{resizeMode: 'cover',width: '100%',height: 100}}  source ={{uri:foto}}>
+                        <Image style={{resizeMode: 'cover',width: '100%',height: 147,borderRadius: 20}}  source ={{uri:foto}}>
                         
                         </Image>
 
-                        <View style={{width:'100%'}}>
+                        <View style={{width:'95%'}}>
 
-                            <Text style={{textAlign:"left",fontWeight:'bold',marginLeft:'5%'}}>
+                            <Text style={{textAlign:"left",fontWeight:'bold',marginLeft:'5%', fontSize:20}}>
                                 {Nombre}
                             </Text>
 
-                            <Text style={{color:"#FFD700",textAlign:"left",fontWeight:'bold',marginLeft:'5%',marginVertical:'5%'}}>
-                                {alias}
+                            <Text style={{color:"#b39024",textAlign:"left",fontWeight:'bold',marginLeft:'5%',marginVertical:'3%',fontSize:15}}>
+                                {"@"}{alias}
                             </Text>
 
-                            <View style={{marginRight:'20%',alignItems:"flex-end",flexDirection:"row-reverse",justifyContent:"flex-start"}} >
+                            <View style={{marginTop:"15%",marginRight:'20%',alignItems:"flex-end",flexDirection:"row-reverse",justifyContent:"flex-start"}} >
 
                                 <TouchableOpacity>
 
-                                    <MaterialCommunityIcons name="heart-plus-outline" size={20} color="blue" />
+                                    <MaterialCommunityIcons name="heart-plus-outline" size={30} color="red" />
                             
                                 </TouchableOpacity>
-
-                                <Stars 
+ 
+                                <Stars
                                     value={CalificacionProm}
                                     spacing={4}
                                     count={5}
-                                    starSize={16}
-                                    fullStar= {<FontAwesome name="star" color="blue" />}
-                                    emptyStar= {<FontAwesome name="star-o" color="blue" />}
-                                    halfStar={<FontAwesome name="star-half" color="blue" />} />
+                                    starSize={15}
+                                    fullStar= {<FontAwesome size={15} name="star" color="gold" />}
+                                    emptyStar= {<FontAwesome size={15}  name="star-o" color="gold" />}
+                                    halfStar={<FontAwesome size={15}  name="star-half" color="gold" />} />
 
-                                 <Text style={{textAlign:"left",fontSize:12,marginRight:'1%'}}>
+                                 <Text style={{textAlign:"left",fontSize:15,marginRight:'2%'}}>
                                     {CalificacionProm}
                                 </Text>
                             

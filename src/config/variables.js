@@ -5,10 +5,10 @@ var idUsuario;
 
 const setUsuario=(idUser)=>{
     idUsuario =idUser
+    console.log(idUsuario);
 }
 
 const getUsuario=()=>{
-
     return idUsuario; 
 }
 

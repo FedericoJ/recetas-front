@@ -1,5 +1,6 @@
 import React from 'react';
 import { Text, StyleSheet, View, Button} from 'react-native';
+import GalleryComponenet from '../components/Gallery'
 
 const HomeScreen = ({navigation}) => {
 
@@ -67,7 +68,7 @@ const HomeScreen = ({navigation}) => {
     title="Go to NoResults"
     onPress={() => navigation.navigate('NoResults')}
     />
-    
+
     </View>
   )
 };
