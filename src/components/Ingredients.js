@@ -8,9 +8,25 @@ import useSWR from 'swr'
 const InputSelectCombo = ({item, unidades}) => {
 
   const [unidadSeleccionada, setUnidadSeleccionada] = useState(item.IdUnidad.toString());
+  const [cantidad,setCantidad]=useState(item.cantidad)
  
   const onChangeHandler = (item) => {
-    setUnidadSeleccionada(item);
+    
+    const baseUrl =  config.baseUrl;
+    var conversion =1;
+
+    try{
+      axios.get(`${baseUrl}/ingredientes/getFactorConversion?idOrigen=${unidadSeleccionada}&idDestino=${item}`)
+    .then(function(res){
+            conversion=res.data;
+            setCantidad(conversion * cantidad);
+            setUnidadSeleccionada(item);
+          })
+      .catch(function(error){console.log(error)});  
+    }catch(error){
+      console.log(error.msg)
+    }
+   
   };
 
   return(<NativeBaseProvider>
@@ -23,7 +39,7 @@ const InputSelectCombo = ({item, unidades}) => {
       isDisabled
       w="25%"
       ml="10"
-      value={item.cantidad.toString()}
+      value={cantidad.toString()}
     />
 
     <Select
@@ -32,6 +48,7 @@ const InputSelectCombo = ({item, unidades}) => {
       ml="2"
       minWidth="40%"
       fontSize= "16"
+      isDisabled={item.IdUnidad.toString() ==="7" ? true : item.IdUnidad.toString()==="8" ? true: false}
       _selectedItem={{
         bg: "indigo",
         fontSize: "16",
@@ -59,8 +76,8 @@ const Ingredients = ({Receta}) => {
     {label:"g",value:"2"}
   ]);*/
 
-  var unidades = [{label:"kg",value:"1"},
-  {label:"gr",value:"2"}]
+  var unidades = [{label:"...",value:"1"},
+  ]
 
   const baseUrl =  config.baseUrl;
 

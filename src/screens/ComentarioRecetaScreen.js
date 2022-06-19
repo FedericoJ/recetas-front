@@ -13,9 +13,11 @@ const Comentarios =({recetas}) =>{
 
   const baseUrl =  config.baseUrl;
 
-  const fetcher = url => axios.get(`${baseUrl}/receta/getValoracionesByReceta?idReceta=${recetas}`).then(res => res.data)
+  receta =variables.getReceta();
+
+  const fetcher = url => axios.get(`${baseUrl}/receta/getValoracionesByReceta?idReceta=${receta}`).then(res => res.data)
   
-  const ingredientes=useSWR(`${baseUrl}/receta/getValoracionesByReceta?idReceta=${recetas}`, fetcher);
+  const ingredientes=useSWR(`${baseUrl}/receta/getValoracionesByReceta?idReceta=${receta}`, fetcher);
 
 
   if (!ingredientes.data){

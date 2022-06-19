@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Divider, Flex, Box, Heading, Center,NativeBaseProvider,Text,Button,Input,Icon,View } from "native-base";
-import {StyleSheet,TouchableOpacity, Modal,} from 'react-native';
+import {StyleSheet,TouchableOpacity, Modal,KeyboardAvoidingView} from 'react-native';
 import {  ButtonConIconoFondoRosa, ButtonConIconoNegro,ButtonFondoRosa, ButtonFondoBlanco,ButtonConIconoFondoBlanco,ButtonModalUnico, ButtonInvisible } from './ButtonsLogin';
 import { useNavigation } from '@react-navigation/native';
 import { FontAwesome } from '@expo/vector-icons'; 
@@ -127,15 +127,14 @@ const ModalPoup = ({ visible, children }) => {
                     </View>
 
                     <View style={{backgroundColor:'#ffff'}}>
-
-                        <Input style={{backgroundColor:'#ffff'}} value={busqueda} onChangeText={setBusqueda} mx="2" my="3" size="large" placeholder="Input" 
-                        InputRightElement={
-                                            <TouchableOpacity
-                                                onPress = { () => onPressSearch() }
-                                            >
-                                               {<FontAwesome name="search" size={24} color="black"/>}
-                                            </TouchableOpacity>
-                                            } />
+                            <Input style={{backgroundColor:'#ffff'}} value={busqueda} onChangeText={setBusqueda} mx="2" my="3" size="large" placeholder="Input" 
+                            InputRightElement={
+                                                <TouchableOpacity
+                                                    onPress = { () => onPressSearch() }
+                                                >
+                                                {<FontAwesome name="search" size={24} color="black"/>}
+                                                </TouchableOpacity>
+                                                } />
                     
                         <View style={{flexDirection:"row",alignItems:"center",backgroundColor:'#ffff',}}>
                             <Boton> </Boton>
@@ -184,6 +183,7 @@ const ModalPoup = ({ visible, children }) => {
                 </View>    
 
             </NativeBaseProvider>
+                                
             );
             };
         
