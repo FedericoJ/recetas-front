@@ -100,9 +100,9 @@ const Recetas=({tipos}) =>{
                                     spacing={4}
                                     count={5}
                                     starSize={15}
-                                    fullStar= {<FontAwesome size={15} name="star" color="blue" />}
-                                    emptyStar= {<FontAwesome size={15}  name="star-o" color="blue" />}
-                                    halfStar={<FontAwesome size={15}  name="star-half" color="blue" />} />
+                                    fullStar= {<FontAwesome size={15} name="star" color="gold" />}
+                                    emptyStar= {<FontAwesome size={15}  name="star-o" color="gold" />}
+                                    halfStar={<FontAwesome size={15}  name="star-half" color="gold" />} />
 
                                  <Text style={{textAlign:"left",fontSize:15,marginRight:'2%'}}>
                                     {CalificacionProm}
