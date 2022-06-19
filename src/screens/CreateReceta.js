@@ -29,12 +29,12 @@ import {
   ButtonCreateRosa,
   ButtonModalUnico,
 } from "../components/ButtonsLogin";
-import UploadImageReceta from "../components/UploadImageReceta";
-import UploadImagePaso from "../components/UploadImagePaso";
 import { useNavigation } from "@react-navigation/native";
 import { ProgressSteps, ProgressStep } from "react-native-progress-steps";
 import { Ionicons } from '@expo/vector-icons';
 import {useNetInfo} from "@react-native-community/netinfo";
+import GalleryPaso from "../components/GalleryPaso";
+import GalleryReceta from "../components/GalleryReceta";
 
 const ModalPoup = ({ visible, children }) => {
   const [showModal, setShowModal] = React.useState(visible);
@@ -196,7 +196,7 @@ const CreateReceta = () => {
           >
             <View style={styles.container}>
               <View style={{ width: "100%", height: 200 }}>
-                <UploadImageReceta />
+                <GalleryReceta />
               </View>
               <NativeBaseProvider>
                 <ModalPoup visible={visibleExisteReceta}>
@@ -405,7 +405,7 @@ const CreateReceta = () => {
                 />
                 <View style={styles.imagenPaso}>
                   <View style={{ width: "20%", marginLeft: "5%" }}>
-                   <UploadImagePaso />
+                   <GalleryPaso />
                   </View>
                 </View>
 
