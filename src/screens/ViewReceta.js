@@ -216,7 +216,7 @@ const ViewReceta = ({ navigation }) => {
             />
             <ButtonModal
               text="Guardar"
-              onPress={() => onGuardarComment(values.IdReceta)
+              onPress={() => onGuardarComment(values.idReceta)
               }
             />
           </View>

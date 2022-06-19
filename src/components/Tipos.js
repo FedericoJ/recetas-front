@@ -1,5 +1,7 @@
 import * as React from 'react';
 import {View,Text,Image,TouchableOpacity} from 'react-native';
+import variables from '../config/variables';
+import { useNavigation } from '@react-navigation/core';
 
 
 const buscarImagen =(nombre) =>{
@@ -10,7 +12,7 @@ const buscarImagen =(nombre) =>{
        if (nombre ==="Pastas"){
         return require('../assets/Pastas.jpg')
        } else{
-           if(nombre ==="Budines"){
+           if(nombre ==="Budines"){ //pissas , libritos
             return require('../assets/Budines.jpg')
            }else{
             return require('../assets/Tortas.jpg')
@@ -23,11 +25,23 @@ const buscarImagen =(nombre) =>{
 const Tipos =({categorias})=> {
 
     var imagen =buscarImagen(categorias.descripcion);
+    const navigation =useNavigation();
         
+    const onPressHandler=(categorias)=>{
+        console.log(categorias)
+
+        variables.setBusqueda(categorias.idTipo);
+
+        variables.setServicio("recetaPorTipo");
+
+        navigation.navigate('Results')
+
+    }
 
         return (
              
-                <TouchableOpacity style={{ justifyContent:"center", backgroundColor:'#ffff',width:'40%', alignItems:"center",marginHorizontal:'5%',marginVertical:'5%' ,margin:1 }}>
+                <TouchableOpacity style={{ justifyContent:"center", backgroundColor:'#ffff',width:'40%', alignItems:"center",marginHorizontal:'5%',marginVertical:'5%' ,margin:1 }}
+                onPress={()=>onPressHandler(categorias)}>
                     <Image style={{resizeMode: 'cover',width: '100%',height: 100}} 
                     source={imagen}>
                     </Image>
