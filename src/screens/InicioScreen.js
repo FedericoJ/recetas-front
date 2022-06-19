@@ -1,14 +1,17 @@
-import React, {useState} from 'react';
+import React, {useState, useContext} from 'react';
 import { Box, Text, Heading, VStack, CheckCircleIcon, Button, HStack, Center, NativeBaseProvider, Icon  } from "native-base";
 import { StyleSheet, Image, View, Modal} from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import {  ButtonFondoBlanco, ButtonFondoRosa , ButtonModal} from '../components/ButtonsLogin';
 import {useNetInfo} from "@react-native-community/netinfo";
-
+import { UserContext } from "../context/RecetappContext";
 
 const InicioScreen = () => {
 
   const netInfo = useNetInfo();
+
+  const {logout} = useContext(UserContext);
+  // logout();
 
   const wifiLogin = () => {
     if(!netInfo.isConnected){

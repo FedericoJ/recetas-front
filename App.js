@@ -24,8 +24,8 @@ import EnterNewPassword from "./src/screens/EnterNewPassword";
 // import EditarPerfilScreen from "./src/screens/EditarPerfilScreen";
 import CambiarContraseniaScreen from "./src/screens/CambiarContraseniaScreen";
 // import Favoritos from "./src/screens/Favoritos";
-import Guardadas from "./src/screens/Guardadas";
-import MisRecetas from "./src/screens/MisRecetas";
+// import Guardadas from "./src/screens/Guardadas";
+// import MisRecetas from "./src/screens/MisRecetas";
 // import CreateReceta from "./src/screens/CreateReceta";
 import WifiScreen from "./src/screens/WifiScreen";
 // import NoResults from "./src/screens/NoResults";
@@ -114,14 +114,14 @@ const Main = () => {
               name="Favoritos"
               component={Favoritos}
             /> */}
-            <Stack.Screen
+            {/* <Stack.Screen
               name="Guardadas"
               component={Guardadas}
-            />
-            <Stack.Screen
+            /> */}
+            {/* <Stack.Screen
               name="MisRecetas"
               component={MisRecetas}
-            />
+            /> */}
             {/* <Stack.Screen
           name="CreateReceta"
           component={CreateReceta}
