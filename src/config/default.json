@@ -1,9 +1,6 @@
 {
-    
-<<<<<<< HEAD
+
     "baseUrl": "https://recetas-node-deploy.herokuapp.com"
-=======
-    "baseUrl": "http://192.168.85.252:3000"
->>>>>>> 16524cd806b0cabcf95922a135b824d571f0eb7e
+
 }
 
