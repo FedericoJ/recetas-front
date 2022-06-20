@@ -4,6 +4,15 @@ var busqueda;
 var idUsuario;
 var idReceta;
 var nickname;
+var order;
+
+const setOrder=(criterio)=>{
+    order=criterio;
+}
+
+const getOrder=()=>{
+    return order;
+}
 
 const setUsuario=(idUser)=>{
     idUsuario =idUser
@@ -65,5 +74,7 @@ export default {
     getUsuario,
     setReceta,
     getReceta,
-getNick,
-setNick}
+    getNick,
+    setNick,
+    getOrder,
+    setOrder}

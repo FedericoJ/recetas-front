@@ -6,10 +6,13 @@ import Categorias from "../components/Categorias";
 import { FAB } from "react-native-paper";
 
 const Principal = ({ navigation }) => {
+
+  const[data,setData] =React.useState([]);
+
   return (
     <KeyboardAvoidingView  style={styles.container}>
 
-      <Tabs />
+      <Tabs setData={setData}/>
 
       <Galeria navegacion={navigation} />
 

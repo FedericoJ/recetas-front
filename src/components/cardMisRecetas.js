@@ -20,7 +20,7 @@ const MiReceta =()=>{
 
     const nombre = 'mrv'//variables.getNick();
 
-    const fetcher = url => axios.get(`${baseUrl}/receta/recetaPorUsuario?nombre=${nombre}`).then(res => res.data)
+    const fetcher = url => axios.get(`${baseUrl}/receta/recetaPorUsuario?nombre=${nombre}&order=Date`).then(res => res.data)
 
     const {data,error}=useSWR(`${baseUrl}/receta/recetaPorUsuario?nombre=${nombre}`, fetcher);
 
