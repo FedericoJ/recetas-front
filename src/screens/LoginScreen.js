@@ -66,6 +66,7 @@ const LoginScreen = () => {
       if (res.status === 201) {
         variables.setUsuario(res.data.data[0].idUsuario);
         variables.setNick(res.data.data[0].nickname);
+        variables.setMail(res.data.data[0].mail);
         navigation.navigate('Principal');
       }
       if (res.status === 202 || res.status === 203) {
