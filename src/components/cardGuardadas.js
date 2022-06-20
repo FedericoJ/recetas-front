@@ -39,9 +39,10 @@ import { Swipeable } from 'react-native-gesture-handler';
 
 
    return(
-     <View style= {{width:140, backgroundColor:"red", alignItems:"center", justifyContent:'center'}}>
-       <Animated.Text style= {[Style, {backgroundColor:'red',fontWeight:'600', color:'white'}]}>Eliminar</Animated.Text>
-     </View>
+    <View style= {{marginTop:"2%",marginBottom:"2%", width:140, backgroundColor:"#DC143C", borderRadius: 20,alignItems:"center", justifyContent:'center'}}>
+      <Animated.Text style= {[Style, {fontWeight:'600', color:'white'}]}>Eliminar</Animated.Text>
+    </View>
+ 
    )
  }
  

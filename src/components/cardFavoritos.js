@@ -3,7 +3,8 @@ import {Animated,
   Text, 
   View,
   SafeAreaView,
-FlatList } from 'react-native';
+FlatList, 
+TouchableOpacity} from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import RecetasFavoritos from './RecetasFavSave';
 import { Swipeable,GestureHandlerRootView } from 'react-native-gesture-handler';
@@ -28,9 +29,11 @@ import variables from '../config/variables';
    }
 
    return(
-     <View style= {{width:140, backgroundColor:"#DC143C", borderRadius: 20,alignItems:"center", justifyContent:'center'}}>
+    
+     <View style= {{marginTop:"2%",marginBottom:"2%", width:140, backgroundColor:"#DC143C", borderRadius: 20,alignItems:"center", justifyContent:'center'}}>
        <Animated.Text style= {[Style, {fontWeight:'600', color:'white'}]}>Eliminar</Animated.Text>
      </View>
+    
    )
  }
  

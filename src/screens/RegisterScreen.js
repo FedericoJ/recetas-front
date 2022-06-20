@@ -51,7 +51,9 @@ const RegisterScreen = () => {
 
   //Para validar mail y password
   const [errorEmail, setErrorEmail] = React.useState("");
+  const [errorEmailSN, setErrorEmailSN] = React.useState(false);
   const [errorAlias, setErrorAlias] = React.useState("");
+  const [errorAliasSN, setErrorAliasSN] = React.useState(false);
   const [visibleAlias, setVisibleAlias] = useState(false);
   const [aliasRecomendado1, setAliasRecomendado1] = React.useState("");
   const [aliasRecomendado2, setAliasRecomendado2] = React.useState("");
@@ -83,11 +85,13 @@ const RegisterScreen = () => {
   }
 
   const validateData = () => {
-    setErrorEmail("")
+    setErrorEmail("");
+    setErrorEmailSN(false);
     let isValid = true
 
     if (!validateEmail(mail)) {
       setErrorEmail("Formato de mail invalido")
+      setErrorEmailSN(true);
       isValid = false
     }
     return isValid
@@ -97,6 +101,7 @@ const RegisterScreen = () => {
 
   const ValidateAlias = async () => {
     setErrorAlias("")
+    setErrorAliasSN(false);
 
     const setup = {
       headers: {
@@ -107,7 +112,8 @@ const RegisterScreen = () => {
     try {
       const res = await axios.get(`${baseUrl}/usuario/validarAlias?alias=${nickname}`, setup);
       if (res.status === 201) {
-        setVisibleAlias(true)
+        setVisibleAlias(true);
+        setErrorAliasSN(true);
         setErrorAlias("Username en uso, cambialo o elegí uno");
         setAliasRecomendado1(nickname + 1);
         setAliasRecomendado2(nickname + 2);
@@ -186,7 +192,8 @@ const RegisterScreen = () => {
                 placeholder="Email"
                 backgroundColor="#FFFF"
                 value={mail}
-                onChangeText={setEmail} />
+                onChangeText={setEmail}
+                isInvalid={errorEmailSN} />
             </FormControl>
             <Text textAlign='center'>{errorEmail}</Text>
             <FormControl isRequired>
@@ -195,6 +202,7 @@ const RegisterScreen = () => {
                 backgroundColor="#FFFF"
                 value={nickname}
                 onChangeText={setUsuario}
+                isInvalid={errorAliasSN} 
               />
             </FormControl>
 
