@@ -91,6 +91,16 @@ const ModalPoup = ({ visible, children}) => {
                 if(activeElement ==="tipo"){
                     servicio="recetaPorNombreTipo";
                 }
+            
+            const baseUrl =  config.baseUrl;
+           
+                axios.get(`${baseUrl}/receta/${servicio}?nombre=${busqueda}&order=${ordenar}`)
+                .then(function(res){
+                    variables.setBusqueda(res.data);
+                    setData(res.data)
+                    navigation.navigate('Results');
+                })
+               .catch(function(error){console.log(error)})
 
         }
 
