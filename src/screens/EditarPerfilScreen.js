@@ -21,7 +21,7 @@ import {
   const EditarPerfilScreen = () => {
 
     const navigation = useNavigation();
-     const [ nombre, setNombre] = useState("");
+     const [ nombre, setNombre] = useState(variables.getNombre());
      const [ usuario, setUsuario] = useState("");
      const [ mail, setMail] = useState("");
      
@@ -35,7 +35,7 @@ import {
         }
       }
       const avatar = 'mrv'; //Ver como pasar esto.
-      const IdUsuario = variables.getUsuario;
+      const IdUsuario = variables.getUsuario();
       const body = JSON.stringify({nombre,avatar,IdUsuario})
 
       try {
@@ -43,6 +43,7 @@ import {
         console.log(res);
         if (res.status === 201) {
           navigation.navigate('Perfil');
+          variables.setNombre(nombre);
         }
       }catch(error){
         alert(error);
@@ -75,7 +76,7 @@ import {
           <FormControl >
             <Input
               placeholder="Usuario" 
-              value={usuario}
+              value={variables.getNick()}
               isDisabled
               backgroundColor= 'white'
             />
@@ -83,7 +84,7 @@ import {
         <FormControl >
             <Input
               placeholder="Mail" 
-              value={mail}
+              value={variables.getMail()}
               isDisabled
               backgroundColor= 'white'
             />
