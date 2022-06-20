@@ -68,11 +68,10 @@ const LoginScreen = () => {
       const res = await axios.post(`${baseUrl}/usuario/login`, body, setup);
       if (res.status === 201) {
         variables.setUsuario(res.data.data[0].idUsuario);
-        navigation.navigate('Principal')
-        login(mail);
         variables.setNick(res.data.data[0].nickname);
         variables.setMail(res.data.data[0].mail);
-
+        navigation.navigate('Principal')
+        login(mail);
       }
       if (res.status === 202 || res.status === 203) {
         setVisible(true);

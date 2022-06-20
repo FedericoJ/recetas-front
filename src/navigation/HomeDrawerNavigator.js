@@ -9,7 +9,7 @@ import FavoritosStackNavigator from "./FavoritosStackNavigator";
 import CreateRecetaStackNavigator from "./CreateRecetaStackNavigator";
 import GuardadasStackNavigator from "./GuardadasStackNavigator";
 import MisRecetasStackNavigator from "./MisRecetasStackNavigator";
-import InicioStackNavigator from "./InicioStackNavigator";
+// import InicioStackNavigator from "./InicioStackNavigator";
 
 
 const Drawer = createDrawerNavigator();
@@ -17,7 +17,11 @@ const Drawer = createDrawerNavigator();
 const HomeDrawerNavigator = () => {
     return (
         <Drawer.Navigator drawerContent={props => <CustomDrawer {...props} />}
-        screenOptions={{ drawerActiveBackgroundColor:'#FFD700', drawerActiveTintColor: '#fff', drawerLabelStyle: {marginLeft:-25}}}
+        screenOptions={{ 
+            drawerActiveBackgroundColor:'#FFD700', 
+            drawerActiveTintColor: '#fff',
+            drawerInactiveTintColor: '#333', 
+            drawerLabelStyle: {marginLeft:-25}}}
         >
             <Drawer.Screen
                 name="RecetApp"
@@ -71,7 +75,7 @@ const HomeDrawerNavigator = () => {
                     )
                 }}
             />
-            <Drawer.Screen
+            {/* <Drawer.Screen
                 name="Cerrar Sesion"
                 screenOptions={{ headerShown: false }}
                 component={InicioStackNavigator}
@@ -80,7 +84,7 @@ const HomeDrawerNavigator = () => {
                         <Ionicons name="log-out-outline" size={22} color={color} />
                     )
                 }}
-            />
+            /> */}
         </Drawer.Navigator>
     )
 }

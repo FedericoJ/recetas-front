@@ -1,6 +1,8 @@
 import React from 'react';
 import { View, Text, Image, ImageBackground } from 'react-native';
 import { DrawerContentScrollView, DrawerItemList } from '@react-navigation/drawer';
+import { TouchableOpacity } from 'react-native-gesture-handler';
+import { Ionicons } from '@expo/vector-icons';
 
 // import Ionicons from 'react-native-vector-icons/Ionicons';
 // import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
@@ -20,10 +22,15 @@ const CustomDrawer = (props) => {
           <DrawerItemList {...props} />
         </View>
       </DrawerContentScrollView>
-      <View>
-        <Text>
-          Ger corneta
-        </Text>
+      <View style={{ padding: 20, borderTopWidth: 1, borderTopColor: '#ccc' }}>
+        <TouchableOpacity onPress={() => { }} style={{ paddingVertical: 15 }}>
+          <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+            <Ionicons name='log-out-outline' size={22}></Ionicons>
+            <Text style={{ marginLeft: 5 }}>
+              Cerrar Sesion
+            </Text>
+          </View>
+        </TouchableOpacity>
       </View>
     </View>
   )
