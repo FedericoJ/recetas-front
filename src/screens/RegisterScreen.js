@@ -75,6 +75,7 @@ const RegisterScreen = () => {
   }
 
   const RegisterUser = () => {
+    setVisibleAlias(false);
     if (!validateData()) {
       return;
     }
