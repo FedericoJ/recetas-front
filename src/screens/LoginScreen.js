@@ -70,7 +70,8 @@ const LoginScreen = () => {
         variables.setUsuario(res.data.data[0].idUsuario);
         variables.setNick(res.data.data[0].nickname);
         variables.setMail(res.data.data[0].mail);
-        navigation.navigate('Principal')
+        variables.setNombre(res.data.data[0].nombre);
+        navigation.navigate('Principal');
         login(mail);
       }
       if (res.status === 202 || res.status === 203) {

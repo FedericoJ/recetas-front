@@ -74,8 +74,8 @@ const CargarIngrediente = ({unidades, ingredientes}) => {
         <HStack mt="3" w="90%" key={ing.valor}>
           <Input
             style={{ backgroundColor: "#ffff", textAlign: "center" }}
-            mx="1"
-            w="44%"
+            mx="0.5"
+            w="40%"
             fontSize="16"
             placeholder="Ingrediente"
             value={ingrediente}
@@ -85,7 +85,7 @@ const CargarIngrediente = ({unidades, ingredientes}) => {
           <Input
             style={{ backgroundColor: "#ffff", textAlign: "center" }}
             mx="1"
-            w="21%"
+            w="25%"
             fontSize="16"
             placeholder="Cant"
             value={cantidad}
@@ -95,8 +95,10 @@ const CargarIngrediente = ({unidades, ingredientes}) => {
           <Select
             style={{ backgroundColor: "#ffff" }}
             selectedValue={unidadSel}
-            marginRight="47%"
-            w="50%"
+            // marginRight="47%"
+            // w="50%"
+            mx="0.5"
+            width="110"
             fontSize="16"
             mr="2"
             alignSelf="flex-end"
@@ -120,6 +122,39 @@ const CargarIngrediente = ({unidades, ingredientes}) => {
   );
 };
 
+const CargarPasos = ({descripcion}) => {
+
+  const [descPaso, setdescPaso] = useState("");
+  return (
+    <View>
+      {/* {descripcion.map((ing, indice) => ( */}
+        <HStack mt="3" w="90%" //key={ing.valor}
+        >
+          <View flexDirection="row">
+          <Text  style={{fontSize:20, fontWeight:"bold", marginLeft:"2%"}}>1 </Text> 
+            <TextArea
+              style={{ backgroundColor: "#ffff" }}
+              w="85%"
+              mx="1"
+              placeholder="Descripcion"
+              value={descPaso}
+              onChangeText={setdescPaso}
+              fontSize="20"
+              marginBottom="5%"
+            />
+            </View>
+    <View style={styles.imagenPaso}>
+        <View style={{ width: "20%", marginLeft: "7%" }}>
+          <GalleryPaso />
+        </View>
+    </View>
+        </HStack>
+        {/* ))}    */}
+    </View>  
+  );
+};
+
+
 
 const CreateReceta = () => {
   const navigation = useNavigation();
@@ -132,7 +167,7 @@ const CreateReceta = () => {
   const [personas, setPersonas] = useState("");
   const [categoriaSel, setCategoriaSel] = useState("1");
   const [ingredientes, setIngredientes] = useState([{ valor: "valor" }]);
-  const [descPaso, setdescPaso] = useState("");
+  const [pasos, setPasos] = useState([{ valor: "valor" }]);
   const [visibleExisteReceta, setVisibleExisteReceta] = useState("");
   const netInfo = useNetInfo();
   const [noWifi, setNoWifi] = React.useState(false);
@@ -162,6 +197,10 @@ const CreateReceta = () => {
 
   const agregarIngrediente = () => {
     setIngredientes([{valor: "1"}, ...ingredientes,]);
+  };
+
+  const agregarPaso = () => {
+    setPasos([{valor: "1"}, ...pasos,]);
   };
 
   const wifi = () => {
@@ -284,7 +323,9 @@ const CreateReceta = () => {
                     alignItems= "center"
                     ml="3"
                     w="62%"
+                    fontSize= "16"
                     _selectedItem={{
+                      
                       bg: "indigo",
                       endIcon: <CheckIcon size={5} />,
                     }}
@@ -368,16 +409,15 @@ const CreateReceta = () => {
                       alignItems: "flex-end",
                       marginTop: "5%",
                       marginBottom: "2%",
-                      marginHorizontal: "20%",
+                      marginLeft:"17%"
                     }}
                   >
                   <Ionicons name="add-circle-outline" size={25} color="black" />
 
                     <Text
-                      style={{fontSize:24, width: "90%", fontWeight: "bold" }}
+                      style={{fontSize:24, width: "80%", fontWeight: "bold" }}
                     >
-                      {" "}
-                      Agregar Ingrediente{" "}
+                      Agregar Ingrediente
                     </Text>
                   </View>
                 </TouchableOpacity>
@@ -393,23 +433,10 @@ const CreateReceta = () => {
           >
             <View style={styles.container}>
               <NativeBaseProvider>
-                <TextArea
-                  style={{ backgroundColor: "#ffff" }}
-                  w="90%"
-                  mx="5"
-                  placeholder="Descripcion"
-                  value={descPaso}
-                  onChangeText={setdescPaso}
-                  fontSize="20"
-                  marginBottom="10%"
-                />
-                <View style={styles.imagenPaso}>
-                  <View style={{ width: "20%", marginLeft: "5%" }}>
-                   <GalleryPaso />
-                  </View>
-                </View>
+                
+              <CargarPasos descripcion={descripcion}></CargarPasos>            
 
-                <TouchableOpacity>
+                <TouchableOpacity onPress={() => agregarPaso()}>
                   <View
                     style={{
                       flexDirection: "row",
@@ -514,7 +541,6 @@ const styles = StyleSheet.create({
   imagenPaso: {
     flexDirection: "row",
     backgroundColor: "#D6B1B1",
-    //justifyContent: "left",
   },
   modalBackGround: {
     flex: 1,

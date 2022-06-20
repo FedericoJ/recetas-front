@@ -6,6 +6,7 @@ var idReceta;
 var nickname;
 var order;
 var mail;
+var nombre;
 
 const setOrder=(criterio)=>{
     order=criterio;
@@ -25,6 +26,14 @@ const setMail=(mailApp)=>{
 
 const getMail=()=>{
     return mail;
+}
+
+const setNombre=(nombreApp)=>{
+    nombre = nombreApp
+}
+
+const getNombre=()=>{
+    return nombre;
 }
 
 const setNick=(alias)=>{
@@ -88,4 +97,6 @@ export default {
     getOrder,
     setOrder,
     setMail,
-    getMail}
+    getMail,
+    getNombre,
+    setNombre}

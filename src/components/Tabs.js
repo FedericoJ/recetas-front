@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Divider, Flex, Box, Heading, Center,NativeBaseProvider,Text,Button,Input,Icon,View } from "native-base";
+import { Divider, Flex, Box, Center,NativeBaseProvider,Text,Button,Input,Icon,View,Spinner,Heading,HStack } from "native-base";
 import {StyleSheet,TouchableOpacity, Modal,KeyboardAvoidingView} from 'react-native';
 import {  ButtonConIconoFondoRosa, ButtonConIconoNegro,ButtonFondoRosa, ButtonFondoBlanco,ButtonConIconoFondoBlanco,ButtonModalUnico, ButtonInvisible } from './ButtonsLogin';
 import { useNavigation } from '@react-navigation/native';
@@ -62,6 +62,7 @@ const ModalPoup = ({ visible, children}) => {
         const[contiene,setContiene]=useState(true);
         const [activeElement, setActiveElement] = useState("ingrediente");
         const[ordenar,setOrdenar]=useState("Date");
+        const[loading,setLoading]=useState(false);
     
         
         var servicio = "recetaPorIngrediente";
@@ -91,6 +92,18 @@ const ModalPoup = ({ visible, children}) => {
                 if(activeElement ==="tipo"){
                     servicio="recetaPorNombreTipo";
                 }
+            
+            const baseUrl =  config.baseUrl;
+           
+                setLoading(true);
+                axios.get(`${baseUrl}/receta/${servicio}?nombre=${busqueda}&order=${ordenar}`)
+                .then(function(res){
+                    variables.setBusqueda(res.data);
+                    setData(res.data);
+                    setLoading(false);
+                    navigation.navigate('Results');
+                })
+               .catch(function(error){console.log(error)})
 
         }
 
@@ -134,6 +147,20 @@ const ModalPoup = ({ visible, children}) => {
                     
                         <View style={{flexDirection:"row",alignItems:"center",backgroundColor:'#ffff',}}>
                             <Boton> </Boton>
+
+                        {/* Modal de Carga para completar la busqueda*/}                      
+                        <ModalPoup visible={loading}>
+                            <View style={{height:50,width:150, justifyContent:"center"}}>
+                                <NativeBaseProvider>
+                                    <HStack ml ="5">
+                                        <Spinner color="#D6B1B1"/>
+                                        <Heading ml="2" color="#D6B1B1" >
+                                        Cargando
+                                        </Heading>
+                                    </HStack>
+                                </NativeBaseProvider>
+                            </View>
+                        </ModalPoup>
                         
                         <ModalPoup visible={visible}>
                             <View style={{flexDirection:"row", alignItems:"flex-end", justifyContent: "center"}}>
