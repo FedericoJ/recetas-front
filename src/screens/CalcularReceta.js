@@ -13,7 +13,7 @@ import { FontAwesome, MaterialCommunityIcons,AntDesign} from "@expo/vector-icons
 import Stars from "react-native-stars";
 import { NativeBaseProvider, TextArea, Input, Divider,Spinner,HStack } from "native-base";
 import Ingredients from "../components/Ingredients";
-import { ButtonModal } from "../components/ButtonsLogin";
+import { ButtonModal,ButtonModalUnico } from "../components/ButtonsLogin";
 import { Rating, AirbnbRating } from 'react-native-ratings';
 import Steps from "../components/Step";
 import {ButtonFondoRosa, ButtonFondoBlanco} from '../components/ButtonsLogin';
@@ -51,6 +51,46 @@ const ModalPoup = ({ visible, children }) => {
 const CalcularReceta = ({ navigation }) => {
   const [visible, setVisible] = React.useState(false);
   const [isFavorito,setIsFavorito]=React.useState(2);
+  const [cantGuardadas, setCantGuardadas]= useState(2);
+  const [errorGuardar,setErrorGuardar]= useState(false);
+
+  // const Guardar = (muestro) =>{
+  //   console.log(muestro)
+  // if(muestro){
+  //   if(cantGuardadas < 5){
+  //     setVisible(true)
+  //     console.log("visible",visible)
+  //     return(
+  //     <ModalPoup visible={visible}>
+  //         <View style={{ alignItems: 'flex-start' }}>
+  //         <Text style={{ fontSize: 20, color: "black" }}>Las proporciones se guardaron correctamente </Text>
+  //         <View style={{ flexDirection: "row", alignItems: "center", marginTop: '2%', marginBottom: '2%', marginHorizontal: '5%' }}>
+  //         </View>
+  //         </View>
+  //         <View style={{ flexDirection: "row", alignItems: "center", marginTop: '1%', marginBottom: '1%', marginHorizontal: '1%' }}>
+  //         <ButtonModalUnico text="Cancelar" onPress={() =>  { setVisible(false), navigation.navigate("Principal")} } />
+  //         </View>
+  //     </ModalPoup>
+  //     )
+  //   }
+  //   else{
+  //     setErrorGuardar(true)
+  //     console.log("guardar",errorGuardar)
+  //     return(
+  //     <ModalPoup visible={errorGuardar}>
+  //       <View style={{ alignItems: 'flex-start' }}>
+  //       <Text style={{ fontSize: 20, color: "black" }}>Has superado la cantidad maxima de recetas guardadas (5), eliminá y volvé a intentarlo </Text>
+  //       <View style={{ flexDirection: "row", alignItems: "center", marginTop: '2%', marginBottom: '2%', marginHorizontal: '5%' }}>
+  //       </View>
+  //       </View>
+  //       <View style={{ flexDirection: "row", alignItems: "center", marginTop: '1%', marginBottom: '1%', marginHorizontal: '1%' }}>
+  //       <ButtonModalUnico text="Cancelar" onPress={() => { setErrorGuardar(false);setVisible(true) }} />
+  //       </View>
+  //   </ModalPoup>
+  //     )
+  //   }
+  // }
+  // }
 
 
       // const guardarFavorito= async (idReceta,idUsuario)=>{
@@ -209,7 +249,9 @@ const CalcularReceta = ({ navigation }) => {
         </Text>
 
         <Ingredients Receta={values.IdReceta} numero={numero} />
-
+        <View style={{marginTop:"5%",marginHorizontal:"5%",marginBottom:"5%"}}>
+        <ButtonFondoBlanco  text="Reestablecer" onPress={()=> calculo(1)}/>
+        </View>
         <Divider my="2" thickness="2" />
 
         <Text
@@ -227,8 +269,20 @@ const CalcularReceta = ({ navigation }) => {
         <Steps Receta={values.IdReceta} />
           
          <View style={{marginTop:"2%",marginHorizontal:"5%",marginBottom:"5%"}} > 
-          <ButtonFondoBlanco  text="Reestablecer" onPress={()=> calculo(1)}/>
-          <ButtonFondoRosa  text="Guardar" onPress={()=> console.log("hola")}/>
+
+         <ModalPoup visible={visible}>
+          <View style={{ alignItems: 'flex-start' }}>
+          <Text style={{ fontSize: 20, color: "black" }}>Las proporciones se guardaron correctamente </Text>
+          <View style={{ flexDirection: "row", alignItems: "center", marginTop: '2%', marginBottom: '2%', marginHorizontal: '5%' }}>
+          </View>
+          </View>
+          <View style={{ flexDirection: "row", alignItems: "center", marginTop: '1%', marginBottom: '1%', marginHorizontal: '1%' }}>
+          <ButtonModalUnico text="Cancelar" onPress={() =>  { setVisible(false), navigation.navigate("Principal")} } />
+          </View>
+        </ModalPoup>
+
+          <ButtonFondoRosa  text="Guardar" onPress={()=> setVisible(true)}/>
+          {/* <Guardar></Guardar> */}
 
         </View>
 
