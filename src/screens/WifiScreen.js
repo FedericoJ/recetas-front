@@ -5,43 +5,13 @@ import { StyleSheet, Image, View, Modal,  StatusBar,
   TouchableOpacity,  SafeAreaView,
   ScrollView,
   Platform} from 'react-native';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation } from '@react-navigation/core';
 import { MaterialIcons } from '@expo/vector-icons';
 import { ButtonFondoRosa, ButtonModalUnico } from '../components/ButtonsLogin';
 import {useNetInfo} from "@react-native-community/netinfo";
 import {  Header,  LearnMoreLinks,  Colors,  DebugInstructions,  ReloadInstructions,} from 'react-native/Libraries/NewAppScreen';
 import * as ImagePicker from 'expo-image-picker';
 
-
-const GalleryComponenet=() =>{
-	//const [image, setImage] = useState(null);
-	
-	useEffect(() => {
-		(async () => {
-		if (Platform.OS !== 'web') {
-			const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
-			if (status !== 'granted') {
-			alert('Sorry, Camera roll permissions are required to make this work!');
-			}
-		}
-		})();
-	}, []);
-	
-	const chooseImg = async () => {
-		let result = await ImagePicker.launchImageLibraryAsync({
-			mediaTypes: ImagePicker.MediaTypeOptions.All,
-			aspect: [4, 3],
-			quality: 1,			
-			allowsEditing: true,
-		});
-	
-		console.log(result);
-	
-		if (!result.cancelled) {
-		   setImage(result.uri);
-		}
-	};
-};
 
 const ModalPoup = ({visible, children}) => {
   const [showModal, setShowModal] = React.useState(visible);
@@ -104,9 +74,6 @@ const navigation = useNavigation();
                 </View> 
          </ModalPoup>
         <ButtonFondoRosa text="Validar" onPress={() => {setVisible(wifi)}}/>
-        <ButtonFondoRosa text="cargar" onPress={() => {chooseImg()}}/>
-			  {/* {image && <Image source={{ uri: image }} style={{ width: 200, height: 200 }} />} */}
-
         </Center>
       </View>
       

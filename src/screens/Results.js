@@ -1,38 +1,30 @@
 import React from 'react';
 import { ScrollView,StyleSheet,View} from 'react-native';
-import { NativeBaseProvider,Skeleton,VStack,Center } from 'native-base';
+import { NativeBaseProvider,Skeleton,VStack,Center, useNativeBase } from 'native-base';
 import Tabs from '../components/Tabs';
 import Galeria from '../components/cardResults';
 import Categorias from '../components/Categorias'
 import { FloatingAction } from "react-native-floating-action";
 import { FAB } from 'react-native-paper';
-import {useRoute } from '@react-navigation/native';
+import {useRoute, useNavigation } from '@react-navigation/native';
 import config from "../config/default.json";
 import useSWR from 'swr'
 import axios from 'axios'
 import variables from '../config/variables';
 
 const Results  = ({navigation}) => {
-
-  const route=useRoute();
-
   const baseUrl =  config.baseUrl;
-
   const service =variables.getServicio();
-
   const nombre=variables.getBusqueda();
+  const ordenar=variables.getOrder();
+  const [data,setData]=React.useState(nombre);
+    console.log("hola");
 
+    React.useEffect(() => {
+      console.log("paso por aca rey");
+    },[navigation]);
 
-  const fetcher = url => axios.get(`${baseUrl}/receta/${service}?nombre=${nombre}`).then(res => res.data)
-
-  const {data,error}=useSWR(`${baseUrl}/receta/${service}?nombre=${nombre}`, fetcher);
-
-  //console.log(route.params.service);
-  //console.log(route.params.nombre);
-  
-
-  
-    if (!data){
+    if (!nombre){
       return (
           <NativeBaseProvider>
                   <Center>
@@ -51,8 +43,8 @@ const Results  = ({navigation}) => {
     }else{
       return (
           <View style={styles.container}>
-              <Tabs style={{}}/>
-              <Galeria result={data}/>
+              <Tabs setData={setData}/>
+              <Galeria result={nombre}/>
               <FAB style={styles.fab}
                 extended
                 icon="pencil"

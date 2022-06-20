@@ -1,15 +1,18 @@
 import React, { useState } from 'react';
 import { Divider, Flex, Box, Heading, Center,NativeBaseProvider,Text,Button,Input,Icon,View } from "native-base";
-import {StyleSheet,TouchableOpacity, Modal,} from 'react-native';
+import {StyleSheet,TouchableOpacity, Modal,KeyboardAvoidingView} from 'react-native';
 import {  ButtonConIconoFondoRosa, ButtonConIconoNegro,ButtonFondoRosa, ButtonFondoBlanco,ButtonConIconoFondoBlanco,ButtonModalUnico, ButtonInvisible } from './ButtonsLogin';
 import { useNavigation } from '@react-navigation/native';
 import { FontAwesome } from '@expo/vector-icons'; 
 import { MaterialIcons } from '@expo/vector-icons';
 import variables from '../config/variables';
+import config from "../config/default.json";
+import useSWR from 'swr'
+import axios from 'axios'
 
 
 
-const ModalPoup = ({ visible, children }) => {
+const ModalPoup = ({ visible, children}) => {
     const [showModal, setShowModal] = React.useState(visible);
     React.useEffect(() => {
       toggleModal();
@@ -34,7 +37,7 @@ const ModalPoup = ({ visible, children }) => {
     const activeItemClass = {fontSize:15, color: '#AC6363',textDecorationLine: 'underline'};
     const inactiveItemClass = {fontSize:15, color: 'gray',textDecorationLine: 'underline'};
 
-    const Tabs  = () => {
+    const Tabs  = ({setData} ) => {
 
         const ITEMS = [{
             name: "ingrediente",
@@ -58,7 +61,7 @@ const ModalPoup = ({ visible, children }) => {
         const [visible, setVisible] = useState(false);
         const[contiene,setContiene]=useState(true);
         const [activeElement, setActiveElement] = useState("ingrediente");
-        const[ordenar,setOrdenar]=useState("");
+        const[ordenar,setOrdenar]=useState("Date");
     
         
         var servicio = "recetaPorIngrediente";
@@ -69,9 +72,8 @@ const ModalPoup = ({ visible, children }) => {
         };
 
 
-        const onPressSearch =() =>{
+        const onPressSearch =(ordenar) =>{
 
-          
                 if (activeElement ==="ingrediente"){
                     if (contiene) {
                         servicio="recetaPorIngrediente";
@@ -89,12 +91,6 @@ const ModalPoup = ({ visible, children }) => {
                 if(activeElement ==="tipo"){
                     servicio="recetaPorNombreTipo";
                 }
-            
-            variables.setBusqueda(busqueda);
-
-            variables.setServicio(servicio);
-
-            navigation.navigate('Results')
 
         }
 
@@ -127,15 +123,14 @@ const ModalPoup = ({ visible, children }) => {
                     </View>
 
                     <View style={{backgroundColor:'#ffff'}}>
-
-                        <Input style={{backgroundColor:'#ffff'}} value={busqueda} onChangeText={setBusqueda} mx="2" my="3" size="large" placeholder="Input" 
-                        InputRightElement={
-                                            <TouchableOpacity
-                                                onPress = { () => onPressSearch() }
-                                            >
-                                               {<FontAwesome name="search" size={24} color="black"/>}
-                                            </TouchableOpacity>
-                                            } />
+                            <Input style={{backgroundColor:'#ffff'}} value={busqueda} onChangeText={setBusqueda} mx="2" my="3" size="large" placeholder="Input" 
+                            InputRightElement={
+                                                <TouchableOpacity
+                                                    onPress = { () => onPressSearch("Date") }
+                                                >
+                                                {<FontAwesome name="search" size={24} color="black"/>}
+                                                </TouchableOpacity>
+                                                } />
                     
                         <View style={{flexDirection:"row",alignItems:"center",backgroundColor:'#ffff',}}>
                             <Boton> </Boton>
@@ -143,7 +138,7 @@ const ModalPoup = ({ visible, children }) => {
                         <ModalPoup visible={visible}>
                             <View style={{flexDirection:"row", alignItems:"flex-end", justifyContent: "center"}}>
                                 <View marginLeft="20%">
-                                <TouchableOpacity onPress={() => {setOrdenar("Abc"); setVisible(false)}}>
+                                <TouchableOpacity onPress={() => {onPressSearch("Abc");setVisible(false)}}>
                                 <Center>
                                 <MaterialIcons name="sort-by-alpha" size={40} color="black" />
                                 <Text>Nombre</Text>
@@ -151,7 +146,7 @@ const ModalPoup = ({ visible, children }) => {
                                 </TouchableOpacity>
                                 </View>
                                 <View marginLeft="20%" marginRight="20%">
-                                <TouchableOpacity onPress={() => {setOrdenar("User"); setVisible(false)}}>
+                                <TouchableOpacity onPress={() => {setVisible(false);onPressSearch("User")}}>
                                 <Center>
                                 <FontAwesome name="user" size={40} color="black" />
                                 <Text>Usuario</Text>
@@ -159,15 +154,14 @@ const ModalPoup = ({ visible, children }) => {
                                 </TouchableOpacity>
                                 </View>
                                 <View marginRight="20%">
-                                <TouchableOpacity onPress={() => {setOrdenar("Date"); setVisible(false)}}>
+                                <TouchableOpacity onPress={() => {onPressSearch("Date"),setVisible(false); }}>
                                 <Center>
-                                <MaterialIcons name="date-range" size={40} color="black" />
+                                <MaterialIcons name="date-range" size={40} color="black"/>
                                 <Text>Fecha</Text>
                                 </Center>
                                 </TouchableOpacity>
                                 </View>
                             </View>
-
                             <View
                                 style={styles.botonesModal}>
                                 <ButtonModalUnico
@@ -178,12 +172,12 @@ const ModalPoup = ({ visible, children }) => {
                                 />
                             </View>
                         </ModalPoup>
-
                             <ButtonConIconoNegro text="Ordenar" onPress={() => setVisible(true)}/>
                         </View>
                 </View>    
 
             </NativeBaseProvider>
+                                
             );
             };
         

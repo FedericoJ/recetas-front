@@ -43,6 +43,7 @@ const ModalPoup = ({ visible, children }) => {
     const [ Password , setPassword] = useState("");
     const [ RepPassword , setRepPassword] = useState("");
     const [errorPassword, setErrorPassword] = React.useState("")
+    const [errorPasswordSN, setErrorPasswordSN] = React.useState(false)
     const [visible, setVisible] = React.useState(false);
     const route = useRoute();
 
@@ -57,10 +58,12 @@ const ModalPoup = ({ visible, children }) => {
 
     const validateData = () => {
       setErrorPassword("")
+      setErrorPasswordSN(false)
       let isValid = true
   
       if (Password != RepPassword) { 
         setErrorPassword("Formato de contraseña incorrecto o no son iguales")
+        setErrorPasswordSN(true)
         isValid = false
       }
       return isValid
@@ -130,7 +133,8 @@ const ModalPoup = ({ visible, children }) => {
               value={Password}
               autoFocus={true}
               onChangeText={setPassword}
-              secureTextEntry={true}/>
+              secureTextEntry={true}
+              isInvalid={errorPasswordSN}/>
           </FormControl>
           <FormControl isRequired>
             <Input 
@@ -140,6 +144,7 @@ const ModalPoup = ({ visible, children }) => {
               value={RepPassword}
               onChangeText={setRepPassword}
               secureTextEntry={true}
+              isInvalid={errorPasswordSN}
             />
         </FormControl>
         <Text textAlign='center'>{errorPassword}</Text>

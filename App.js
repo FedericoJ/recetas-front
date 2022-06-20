@@ -29,7 +29,7 @@ import CambiarContraseniaScreen from "./src/screens/CambiarContraseniaScreen";
 // import CreateReceta from "./src/screens/CreateReceta";
 import WifiScreen from "./src/screens/WifiScreen";
 // import NoResults from "./src/screens/NoResults";
-
+// import CalcularReceta from "./src/screens/CalcularReceta";
 import HomeDrawerNavigator from "./src/navigation/HomeDrawerNavigator";
 import { UserProvider, UserContext } from "./src/context/RecetappContext";
 
@@ -134,6 +134,10 @@ const Main = () => {
           name="NoResults"
           component={NoResults}
         /> */}
+        {/* <Stack.Screen
+               name="CalcularReceta"
+               component={CalcularReceta}
+             />*/}
           </>
         )}
       </Stack.Navigator>

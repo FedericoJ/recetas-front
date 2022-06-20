@@ -9,9 +9,9 @@ import {
   TextInput,
   Modal,Box,
 } from "react-native";
-import { FontAwesome, MaterialCommunityIcons } from "@expo/vector-icons";
+import { FontAwesome, MaterialCommunityIcons,AntDesign} from "@expo/vector-icons";
 import Stars from "react-native-stars";
-import { NativeBaseProvider, TextArea, Input, Divider } from "native-base";
+import { NativeBaseProvider, TextArea, Input, Divider,Spinner,HStack } from "native-base";
 import Ingredients from "../components/Ingredients";
 import { ButtonModal } from "../components/ButtonsLogin";
 import { Rating, AirbnbRating } from 'react-native-ratings';
@@ -51,16 +51,78 @@ const ViewReceta = ({ navigation }) => {
   const [visible, setVisible] = React.useState(false);
   const [comentarios, setComentario] = useState("");
   const [calificacion, setCalificacion] = React.useState(0);
+  const [isFavorito,setIsFavorito]=React.useState(2);
+  const numero = 1;
 
-  const route=useRoute();
+      const guardarFavorito= async (idReceta,idUsuario)=>{
+        const baseUrl =  config.baseUrl;
 
+        const setup = {
+          headers: {
+            'content-type': 'application/json'
+          }
+        }
+
+        const body = JSON.stringify({idUsuario,idReceta})
+        try{
+          const res = await axios.post(`${baseUrl}/receta/cargarFavorito`, body, setup)
+          .then(function (res){
+            console.log(res.status);
+            if (res.status === 200) {
+            console.log('favorito guardado correctamente');
+            setIsFavorito(1);
+          }})
+          .catch(function(error){
+            console.log(error);
+          })
+        }catch(error){
+          console.log(error.msg);
+        }
+      }
+
+
+      const Favoritos =({receta}) =>{
+
+        const baseUrl =  config.baseUrl;
+
+        const idUsuario =1284//variables.getUsuario();
+
+        const fetcher = url => axios.get(`${baseUrl}/receta/isFavorito?idReceta=${receta}&idUsuario=${idUsuario}`).then(res => res.data)
+        
+        const favorito=useSWR(`${baseUrl}/receta/isFavorito?idReceta=${receta}&idUsuario=${idUsuario}`, fetcher);
+
+        console.log(`${baseUrl}/receta/receta/isFavorito?idReceta=${receta}&idUsuario=${idUsuario}`)
+
+        if (favorito.data){
+          setIsFavorito(favorito.data);
+        }else{
+          return (<NativeBaseProvider>
+            <HStack space={8} justifyContent="center">
+              <Spinner color="warning.500" />
+            </HStack>
+            </NativeBaseProvider>)
+        }
+        
+        if (isFavorito=== 1) {
+          return (<View>
+           <AntDesign name="heart" size={30} color="red"/>
+           </View>)
+        }else{
+          return (<View>
+            <TouchableOpacity onPress={() => guardarFavorito(receta,idUsuario)}>
+              <MaterialCommunityIcons name="heart-plus" size={30} color="gray"/>
+            </TouchableOpacity>
+          </View>)
+        }
+
+      }
 
   //const values = route.params.datos;
   const onGuardarComment = async (idReceta)=>{
 
     const idUsuario =variables.getUsuario();
     const baseUrl =  config.baseUrl;
-
+    
 
     console.log(`${baseUrl}/receta/valorarReceta`)
 
@@ -88,6 +150,8 @@ const ViewReceta = ({ navigation }) => {
   }
 
   const values = variables.getTipos();
+
+  variables.setReceta(values.IdReceta)
 
   return (
     <ScrollView style={styles.container}>
@@ -119,7 +183,7 @@ const ViewReceta = ({ navigation }) => {
         </Text>
 
         <FontAwesome
-          onPress={() => navigation.navigate("ComentarioReceta")}
+          //onPress={() => navigation.navigate("ComentarioReceta")}
           name="star"
           color="#FFD700"
         />
@@ -161,7 +225,6 @@ const ViewReceta = ({ navigation }) => {
                 marginBottom: "2%",
                 marginHorizontal: "1%",
               }}>
-
               <AirbnbRating
               count={5}
               selectedStar={(rating) => this.onStarRatingPress(rating)}
@@ -197,7 +260,6 @@ const ViewReceta = ({ navigation }) => {
               />
               </NativeBaseProvider>
           </View>
-          
           <View
             style={{
               flexDirection: "row",
@@ -216,13 +278,11 @@ const ViewReceta = ({ navigation }) => {
             />
             <ButtonModal
               text="Guardar"
-              onPress={() => onGuardarComment(values.idReceta)
+              onPress={() => onGuardarComment(values.IdReceta)
               }
             />
           </View>
-          
         </ModalPoup>
-
         <TouchableOpacity
           onPress={() => setVisible(true)}
           style={{ width: "90%", alignItems: "flex-start" }}
@@ -237,10 +297,7 @@ const ViewReceta = ({ navigation }) => {
             halfStar={<FontAwesome size={30} name="star-half" color="blue" />}
           />
         </TouchableOpacity>
-
-        <TouchableOpacity>
-          <MaterialCommunityIcons name="heart-plus" size={30} color="gray" />
-        </TouchableOpacity>
+          <Favoritos receta={values.IdReceta}></Favoritos>
       </View>
 
       <NativeBaseProvider>
@@ -327,7 +384,7 @@ const ViewReceta = ({ navigation }) => {
           Ingredientes{" "}
         </Text>
 
-        <Ingredients Receta={values.IdReceta} />
+        <Ingredients Receta={values.IdReceta} numero={numero} />
 
         <Divider my="2" thickness="2" />
 
@@ -346,7 +403,7 @@ const ViewReceta = ({ navigation }) => {
         <Steps Receta={values.IdReceta} />
           
          <View style={{marginTop:"2%",marginHorizontal:"5%",marginBottom:"5%"}} > 
-          <ButtonFondoRosa  text="Calcular Receta" onPress={()=> console.log("hola")}/>
+          <ButtonFondoRosa  text="Calcular Receta" onPress={()=> navigation.navigate("CalcularReceta")}/>
         </View>
 
       </NativeBaseProvider>

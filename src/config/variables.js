@@ -2,10 +2,45 @@ var tipos;
 var servicio;
 var busqueda;
 var idUsuario;
+var idReceta;
+var nickname;
+var order;
+var mail;
+
+const setOrder=(criterio)=>{
+    order=criterio;
+}
+
+const getOrder=()=>{
+    return order;
+}
 
 const setUsuario=(idUser)=>{
     idUsuario =idUser
-    console.log(idUsuario);
+}
+
+const setMail=(mailApp)=>{
+    mail = mailApp
+}
+
+const getMail=()=>{
+    return mail;
+}
+
+const setNick=(alias)=>{
+    nickname =alias;
+}
+
+const getNick=()=>{
+    return nickname;
+}
+
+const setReceta=(receta)=>{
+    idReceta=receta;
+}
+
+const getReceta=()=>{
+    return idReceta;
 }
 
 const getUsuario=()=>{
@@ -37,4 +72,20 @@ const getBusqueda=()=>{
     return busqueda;
 }
 
-export default {setTipos,getTipos,setServicio,getServicio,setBusqueda,getBusqueda,setUsuario,getUsuario}
+export default {
+    setTipos,
+    getTipos,
+    setServicio,
+    getServicio,
+    setBusqueda,
+    getBusqueda,
+    setUsuario,
+    getUsuario,
+    setReceta,
+    getReceta,
+    getNick,
+    setNick,
+    getOrder,
+    setOrder,
+    setMail,
+    getMail}

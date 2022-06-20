@@ -13,6 +13,7 @@ import {
   import axios from 'axios'
   import { useNavigation } from '@react-navigation/native';
   import {  ButtonFondoBlanco, ButtonFondoRosa,ButtonModalUnico, ButtonFondoRosaModal } from '../components/ButtonsLogin';
+import variables from '../config/variables';
 
 
   const ModalPoup = ({visible, children}) => {
@@ -43,27 +44,34 @@ import {
     const [visible, setVisible] = React.useState(false);
     const [ Password    , setPassword] = useState("");
     const [ Password2    , setPassword2] = useState("");
-    const [errorPassword, setErrorPassword] = React.useState("")
+    const [errorPassword, setErrorPassword] = React.useState("");
+    const [errorPasswordSN, setErrorPasswordSN] = React.useState(false);
+
+    const baseUrl = config.baseUrl;
     
     const ValidatePassword= () => {
       if(!validateData()){
         return;
       }
-      NewPassword(email);
+      NewPassword(variables.getMail());
     }
 
     const validateData = () => {
-      setErrorPassword("")
+      setErrorPassword("");
+      setErrorPasswordSN(false);
       let isValid = true
   
       if (Password != Password2) { 
         setErrorPassword("Formato de contraseña incorrecto o no son iguales")
+        setErrorPasswordSN(true)
         isValid = false
       }
       return isValid
     }
 
     const NewPassword = async (mail) => {
+      console.log("Mail");
+      console.log(variables.getMail());
 
       const setup = {
         headers:{
@@ -110,6 +118,7 @@ import {
               onChangeText={setPassword}
               backgroundColor= 'white'
               secureTextEntry={true}
+              isInvalid={errorPasswordSN}
               />
           </FormControl>
           <FormControl isRequired>
@@ -119,6 +128,7 @@ import {
               onChangeText={setPassword2}
               backgroundColor= 'white'
               secureTextEntry={true}
+              isInvalid={errorPasswordSN}
             />
         </FormControl>
         <Text textAlign='center'>{errorPassword}</Text>

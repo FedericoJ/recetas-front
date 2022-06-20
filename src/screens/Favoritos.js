@@ -18,7 +18,6 @@ return (
     <View style={styles.container}>
 
         <Favorito/>
-
       
          <FAB style={styles.fab}
           extended

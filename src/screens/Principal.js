@@ -1,15 +1,18 @@
 import React from "react";
-import { ScrollView, StyleSheet,View } from "react-native";
+import { ScrollView, StyleSheet,View,KeyboardAvoidingView } from "react-native";
 import Tabs from "../components/Tabs";
 import Galeria from "../components/Carousel";
 import Categorias from "../components/Categorias";
 import { FAB } from "react-native-paper";
 
 const Principal = ({ navigation }) => {
-  return (
-    <View style={styles.container}>
 
-      <Tabs />
+  const[data,setData] =React.useState([]);
+
+  return (
+    <KeyboardAvoidingView  style={styles.container}>
+
+      <Tabs setData={setData}/>
 
       <Galeria navegacion={navigation} />
 
@@ -23,7 +26,7 @@ const Principal = ({ navigation }) => {
         uppercase={false}
         onPress={() =>navigation.navigate('CreateReceta')}
       />
-    </View>
+    </KeyboardAvoidingView>
   );
 };
 
