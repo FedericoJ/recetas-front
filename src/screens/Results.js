@@ -18,11 +18,6 @@ const Results  = ({navigation}) => {
   const nombre=variables.getBusqueda();
   const ordenar=variables.getOrder();
   const [data,setData]=React.useState(nombre);
-    console.log("hola");
-
-    React.useEffect(() => {
-      console.log("paso por aca rey");
-    },[navigation]);
 
     if (!nombre){
       return (
