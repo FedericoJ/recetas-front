@@ -29,6 +29,7 @@ import MisRecetas from "./src/screens/MisRecetas";
 import CreateReceta from "./src/screens/CreateReceta";
 import WifiScreen from "./src/screens/WifiScreen";
 import NoResults from "./src/screens/NoResults";
+import CalcularReceta from "./src/screens/CalcularReceta";
 
 const Stack = createNativeStackNavigator();
 
@@ -115,6 +116,10 @@ const App = () => {
               <Stack.Screen
               name="NoResults"
               component={NoResults}
+            />
+              <Stack.Screen
+              name="CalcularReceta"
+              component={CalcularReceta}
             />
           </>
         )}

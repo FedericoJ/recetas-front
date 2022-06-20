@@ -52,6 +52,7 @@ const ViewReceta = ({ navigation }) => {
   const [comentarios, setComentario] = useState("");
   const [calificacion, setCalificacion] = React.useState(0);
   const [isFavorito,setIsFavorito]=React.useState(2);
+  const numero = 1;
 
       const guardarFavorito= async (idReceta,idUsuario)=>{
         const baseUrl =  config.baseUrl;
@@ -383,7 +384,7 @@ const ViewReceta = ({ navigation }) => {
           Ingredientes{" "}
         </Text>
 
-        <Ingredients Receta={values.IdReceta} />
+        <Ingredients Receta={values.IdReceta} numero={numero} />
 
         <Divider my="2" thickness="2" />
 
@@ -402,7 +403,7 @@ const ViewReceta = ({ navigation }) => {
         <Steps Receta={values.IdReceta} />
           
          <View style={{marginTop:"2%",marginHorizontal:"5%",marginBottom:"5%"}} > 
-          <ButtonFondoRosa  text="Calcular Receta" onPress={()=> console.log("hola")}/>
+          <ButtonFondoRosa  text="Calcular Receta" onPress={()=> navigation.navigate("CalcularReceta")}/>
         </View>
 
       </NativeBaseProvider>

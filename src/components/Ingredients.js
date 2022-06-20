@@ -1,14 +1,26 @@
-import React, { useState } from "react";
+import React, { useState, setState } from "react";
 import { View, Text } from "react-native";
 import { NativeBaseProvider, Input, Select, CheckIcon,HStack,Spinner} from "native-base";
 import axios from 'axios'
 import config from "../config/default.json";
 import useSWR from 'swr'
 
-const InputSelectCombo = ({item, unidades}) => {
+const InputSelectCombo = ({item, unidades, numero}) => {
+
+  console.log(numero);
 
   const [unidadSeleccionada, setUnidadSeleccionada] = useState(item.IdUnidad.toString());
-  const [cantidad,setCantidad]=useState(item.cantidad)
+  
+  const calculo = (numero) =>{
+    console.log(numero)
+    var cant = (((item.cantidad)*numero))
+    console.log(cant)
+    return(cant)
+  }
+ 
+
+  const [cantidad,setCantidad]=useState(calculo(numero));
+
  
   const onChangeHandler = (item) => {
     
@@ -16,15 +28,15 @@ const InputSelectCombo = ({item, unidades}) => {
     var conversion =1;
 
     try{
-      axios.get(`${baseUrl}/ingredientes/getFactorConversion?idOrigen=${unidadSeleccionada}&idDestino=${item}`)
+    axios.get(`${baseUrl}/ingredientes/getFactorConversion?idOrigen=${unidadSeleccionada}&idDestino=${item}`)
     .then(function(res){
-            conversion=res.data;
-            setCantidad(conversion * cantidad);
-            setUnidadSeleccionada(item);
-          })
-      .catch(function(error){console.log(error)});  
+    conversion=res.data;
+    setCantidad(conversion * calculo(numero));
+    setUnidadSeleccionada(item);
+    })
+    .catch(function(error){console.log(error)});  
     }catch(error){
-      console.log(error.msg)
+    console.log(error.msg)
     }
    
   };
@@ -39,7 +51,7 @@ const InputSelectCombo = ({item, unidades}) => {
       isDisabled
       w="25%"
       ml="10"
-      value={cantidad.toString()}
+      value={(calculo(numero)).toString()}
     />
 
     <Select
@@ -69,7 +81,7 @@ const InputSelectCombo = ({item, unidades}) => {
 }
 
 
-const Ingredients = ({Receta}) => {
+const Ingredients = ({Receta, numero}) => {
 
   /*const [unidades,setUnidades] = useState([
     {label:"kg",value:"1"},
@@ -117,7 +129,7 @@ const Ingredients = ({Receta}) => {
             >
               <Text style={{ fontSize: 16 , width:"40%"}}>{element.nombre}</Text>
   
-              <InputSelectCombo  unidades={unidades} item={element}/>
+              <InputSelectCombo  unidades={unidades} item={element} numero={numero}/>
               
             </View>
           ))}
