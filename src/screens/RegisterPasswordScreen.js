@@ -23,6 +23,7 @@ const RegisterPasswordScreen = () => {
   const [password, setPassword] = useState("");
   const [password2, setPassword2] = useState("");
   const [errorPassword, setErrorPassword] = React.useState("")
+  const [errorPasswordSN, setErrorPasswordSN] = React.useState(false)
   const route = useRoute();
 
   const baseUrl = config.baseUrl;
@@ -36,10 +37,12 @@ const RegisterPasswordScreen = () => {
 
   const validateData = () => {
     setErrorPassword("")
+    setErrorPasswordSN(false)
     let isValid = true
 
     if (password != password2) { 
       setErrorPassword("Formato de contraseña incorrecto o no son iguales")
+      setErrorPasswordSN(true)
       isValid = false
     }
     return isValid
@@ -114,6 +117,7 @@ const RegisterPasswordScreen = () => {
                 value={password}
                 onChangeText={setPassword}
                 secureTextEntry={true}
+                isInvalid={errorPasswordSN}
               />
             </FormControl>
             <FormControl isRequired>
@@ -123,6 +127,7 @@ const RegisterPasswordScreen = () => {
                 value={password2}
                 onChangeText={setPassword2}
                 secureTextEntry={true}
+                isInvalid={errorPasswordSN}
               />
             </FormControl>
             <Text textAlign='center'>{errorPassword}</Text>

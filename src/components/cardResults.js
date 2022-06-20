@@ -29,7 +29,7 @@ const Categorias =({result})=>{
             <FlatList style= {{marginHorizontal:'2%'}} data ={result}
                 numColumns={1}
                 renderItem={({item}) => (<Recetas navegacion={navigation} tipos ={item}/>)}>
-                
+                refreshing={true}
              </FlatList>
 
         </SafeAreaView>

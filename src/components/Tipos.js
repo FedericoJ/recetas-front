@@ -2,6 +2,9 @@ import * as React from 'react';
 import {View,Text,Image,TouchableOpacity} from 'react-native';
 import variables from '../config/variables';
 import { useNavigation } from '@react-navigation/core';
+import config from "../config/default.json";
+import useSWR from 'swr'
+import axios from 'axios'
 
 
 const buscarImagen =(nombre) =>{
@@ -34,7 +37,15 @@ const Tipos =({categorias})=> {
 
         variables.setServicio("recetaPorTipo");
 
-        navigation.navigate('Results')
+        const baseUrl =  config.baseUrl;
+           
+        axios.get(`${baseUrl}/receta/recetaPorTipo?nombre=${categorias.idTipo}&order=Abc`)
+        .then(function(res){
+            variables.setBusqueda(res.data);
+            navigation.navigate('Results');
+        })
+        .catch(function(error){console.log(error)})
+
 
     }
 

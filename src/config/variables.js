@@ -4,9 +4,27 @@ var busqueda;
 var idUsuario;
 var idReceta;
 var nickname;
+var order;
+var mail;
+
+const setOrder=(criterio)=>{
+    order=criterio;
+}
+
+const getOrder=()=>{
+    return order;
+}
 
 const setUsuario=(idUser)=>{
     idUsuario =idUser
+}
+
+const setMail=(mailApp)=>{
+    mail = mailApp
+}
+
+const getMail=()=>{
+    return mail;
 }
 
 const setNick=(alias)=>{
@@ -65,5 +83,9 @@ export default {
     getUsuario,
     setReceta,
     getReceta,
-getNick,
-setNick}
+    getNick,
+    setNick,
+    getOrder,
+    setOrder,
+    setMail,
+    getMail}
