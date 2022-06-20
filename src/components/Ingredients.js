@@ -7,14 +7,10 @@ import useSWR from 'swr'
 
 const InputSelectCombo = ({item, unidades, numero}) => {
 
-  console.log(numero);
-
   const [unidadSeleccionada, setUnidadSeleccionada] = useState(item.IdUnidad.toString());
   
   const calculo = (numero) =>{
-    console.log(numero)
     var cant = (((item.cantidad)*numero))
-    console.log(cant)
     return(cant)
   }
  
