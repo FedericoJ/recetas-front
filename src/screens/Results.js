@@ -17,7 +17,10 @@ const Results  = ({navigation}) => {
   const service =variables.getServicio();
   const nombre=variables.getBusqueda();
   const ordenar=variables.getOrder();
+  const [activo,setActivo] = React.useState(variables.getActivo());
   const [data,setData]=React.useState(nombre);
+  const [busqueda,setBusqueda] =React.useState(variables.getTexto());
+  
 
     if (!nombre){
       return (
@@ -38,7 +41,8 @@ const Results  = ({navigation}) => {
     }else{
       return (
           <View style={styles.container}>
-              <Tabs setData={setData}/>
+              <Tabs setData={setData} mostrar={true} activo ={activo} setActivo={setActivo}
+              busqueda={busqueda} setBusqueda={setBusqueda}/>
               <Galeria result={nombre}/>
               <FAB style={styles.fab}
                 extended

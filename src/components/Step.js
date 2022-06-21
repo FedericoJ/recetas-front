@@ -3,7 +3,7 @@ import {View,Text,Image,TouchableOpacity,Button} from 'react-native';
 import Stars from 'react-native-stars';
 import { FontAwesome, MaterialCommunityIcons } from '@expo/vector-icons'; 
 import {NativeBaseProvider,TextArea,Input,Select,CheckIcon,HStack,Spinner} from "native-base";
-import ImageView from 'react-native-image-view';
+import ImageView from 'react-native-image-viewing';
 import axios from 'axios'
 import config from "../config/default.json";
 import useSWR from 'swr'
@@ -75,7 +75,7 @@ const ViewImagesAndVideo = ({imagenesw,idPaso,indice}) => {
                     glideAlways
                     images={images}
                     imageIndex={0}
-                    animationType="fade"
+                    animationType="none"
                     isVisible={galeriaSeleccionada}
                     onClose={() => setgaleriaSeleccionada(false)}
                     

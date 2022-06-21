@@ -44,7 +44,7 @@ const Categorias =()=>{
 
     
     return (
-            <SafeAreaView style={{height: '55%'}}>
+            <SafeAreaView style={{height: '45%'}}>
             <Text  style={{textAlign:"center",marginVertical:'1%' , fontSize:20,fontWeight:"bold"}}> Categorias </Text>
                 <FlatList style={{marginHorizontal:'1%'}} data ={data}
                 numColumns={2}

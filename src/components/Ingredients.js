@@ -26,9 +26,9 @@ const InputSelectCombo = ({item, unidades, numero}) => {
     try{
     axios.get(`${baseUrl}/ingredientes/getFactorConversion?idOrigen=${unidadSeleccionada}&idDestino=${item}`)
     .then(function(res){
-    conversion=res.data;
-    setCantidad(conversion * calculo(numero));
-    setUnidadSeleccionada(item);
+      conversion=res.data;
+      setCantidad(conversion * calculo(numero));
+      setUnidadSeleccionada(item);
     })
     .catch(function(error){console.log(error)});  
     }catch(error){

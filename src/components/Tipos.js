@@ -31,17 +31,19 @@ const Tipos =({categorias})=> {
     const navigation =useNavigation();
         
     const onPressHandler=(categorias)=>{
-        console.log(categorias)
 
         variables.setBusqueda(categorias.idTipo);
 
         variables.setServicio("recetaPorTipo");
+
+        variables.setTextoBusqueda("");
 
         const baseUrl =  config.baseUrl;
            
         axios.get(`${baseUrl}/receta/recetaPorTipo?nombre=${categorias.idTipo}&order=Abc`)
         .then(function(res){
             variables.setBusqueda(res.data);
+            variables.setActivo("tipo");
             navigation.navigate('Results');
         })
         .catch(function(error){console.log(error)})

@@ -4,19 +4,32 @@ import Tabs from "../components/Tabs";
 import Galeria from "../components/Carousel";
 import Categorias from "../components/Categorias";
 import { FAB } from "react-native-paper";
+import { useIsFocused } from '@react-navigation/native';
 
 const Principal = ({ navigation }) => {
 
   const[data,setData] =React.useState([]);
+  const[activo,setActivo]=React.useState("ingrediente");
+  const [busqueda,setBusqueda] =React.useState("");
+
+  React.useEffect(() => {
+    const unsubscribe = navigation.addListener('focus', () => {
+        setActivo("ingrediente");
+        setBusqueda("");
+    });
+    // Return the function to unsubscribe from the event so it gets removed on unmount
+    return unsubscribe;
+  }, [navigation])
 
   return (
     <KeyboardAvoidingView  style={styles.container}>
 
-      <Tabs setData={setData}/>
+      <Tabs setData={setData} mostrar={false} activo ={activo} setActivo={setActivo}
+          busqueda={busqueda} setBusqueda={setBusqueda}/>
 
       <Galeria navegacion={navigation} />
 
-      <Categorias />
+      <Categorias/>
 
       <FAB
         style={styles.fab}

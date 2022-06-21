@@ -34,10 +34,10 @@ const ModalPoup = ({ visible, children}) => {
     );
   };
 
-    const activeItemClass = {fontSize:15, color: '#AC6363',textDecorationLine: 'underline'};
-    const inactiveItemClass = {fontSize:15, color: 'gray',textDecorationLine: 'underline'};
+    const Tabs  = ({setData,mostrar,activo,setActivo,busqueda,setBusqueda} ) => {
 
-    const Tabs  = ({setData} ) => {
+        const activeItemClass = {fontSize:15, color: '#AC6363',textDecorationLine: 'underline'};
+        const inactiveItemClass = {fontSize:15, color: 'gray',textDecorationLine: 'underline'};
 
         const ITEMS = [{
             name: "ingrediente",
@@ -57,25 +57,33 @@ const ModalPoup = ({ visible, children}) => {
         }];
 
         const navigation = useNavigation();
-        const [busqueda,setBusqueda] =useState("");
+        
         const [visible, setVisible] = useState(false);
         const[contiene,setContiene]=useState(true);
-        const [activeElement, setActiveElement] = useState("ingrediente");
+        //const [activeElement, setActiveElement] = useState(activo);
         const[ordenar,setOrdenar]=useState("Date");
         const[loading,setLoading]=useState(false);
-    
         
         var servicio = "recetaPorIngrediente";
 
         const onPressHandler = (item) => {
-            setActiveElement(item.name)
+            setActivo(item.name)
             //console.log(item.name);
         };
+
+        const _MostrarOrdenar=()=>{
+            if (mostrar){
+                return (<ButtonConIconoNegro text="Ordenar" onPress={() => setVisible(true)}/>)
+            }else{
+                return null;
+            }
+            
+        }
 
 
         const onPressSearch =(ordenar) =>{
 
-                if (activeElement ==="ingrediente"){
+                if (activo ==="ingrediente"){
                     if (contiene) {
                         servicio="recetaPorIngrediente";
                     }else{
@@ -83,13 +91,13 @@ const ModalPoup = ({ visible, children}) => {
                     }
                 }
 
-                if(activeElement ==="usuario"){
+                if(activo ==="usuario"){
                     servicio="recetaPorUsuario";
                 }   
-                if(activeElement ==="plato"){
+                if(activo ==="plato"){
                     servicio="RecetaPorNombre";
                 }
-                if(activeElement ==="tipo"){
+                if(activo ==="tipo"){
                     servicio="recetaPorNombreTipo";
                 }
             
@@ -101,6 +109,8 @@ const ModalPoup = ({ visible, children}) => {
                     variables.setBusqueda(res.data);
                     setData(res.data);
                     setLoading(false);
+                    variables.setActivo(activo);
+                    variables.setTextoBusqueda(busqueda);
                     navigation.navigate('Results');
                 })
                .catch(function(error){console.log(error)})
@@ -111,7 +121,7 @@ const ModalPoup = ({ visible, children}) => {
 
         const Boton =() =>{
 
-            if (activeElement ==="ingrediente"){
+            if (activo ==="ingrediente"){
                 if (contiene){
                     return (<ButtonConIconoFondoRosa text="Contiene" onPress={() => setContiene(false)}/>)
                 }else{
@@ -130,7 +140,7 @@ const ModalPoup = ({ visible, children}) => {
                     <View style={styles.container}>
                         {ITEMS.map( (item, i) => (
                             <TouchableOpacity key={item.name} onPress={() => onPressHandler(item)}>
-                                <Text  style={activeElement === item.name ? activeItemClass : inactiveItemClass}> {item.label} </Text>
+                                <Text  style={activo===item.name ? activeItemClass : inactiveItemClass}> {item.label} </Text>
                             </TouchableOpacity>
                         ))}
                     </View>
@@ -199,7 +209,7 @@ const ModalPoup = ({ visible, children}) => {
                                 />
                             </View>
                         </ModalPoup>
-                            <ButtonConIconoNegro text="Ordenar" onPress={() => setVisible(true)}/>
+                            {_MostrarOrdenar()}
                         </View>
                 </View>    
 
@@ -213,9 +223,8 @@ const ModalPoup = ({ visible, children}) => {
         container: {
             height:"15%",
           flexDirection:"row",
-          marginTop:"5%",
           alignItems:"center",
-          backgroundColor:'#ffff',
+          backgroundColor:'#FFFFFF',
           justifyContent:"space-between"
         },
         modalBackGround: {

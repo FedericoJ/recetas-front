@@ -7,6 +7,25 @@ var nickname;
 var order;
 var mail;
 var nombre;
+var activo;
+var textoBusqueda;
+
+const setTextoBusqueda=(texto)=>{
+    textoBusqueda=texto;
+}
+
+const getTexto=()=>{
+
+    return textoBusqueda;
+}
+
+const setActivo=(active)=>{
+    activo = active;
+}
+
+const getActivo=()=>{
+    return activo;
+}
 
 const setOrder=(criterio)=>{
     order=criterio;
@@ -99,4 +118,8 @@ export default {
     setMail,
     getMail,
     getNombre,
-    setNombre}
+    setNombre,
+    setActivo,
+    getActivo,
+    setTextoBusqueda,
+    getTexto}
