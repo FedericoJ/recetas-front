@@ -34,6 +34,30 @@ const ModalPoup = ({ visible, children}) => {
     );
   };
 
+  const ModalPoup2 = ({ visible, children}) => {
+    const [showModal2, setShowModal2] = React.useState(visible);
+    React.useEffect(() => {
+      toggleModal2();
+    }, [visible]);
+    const toggleModal2 = () => {
+      if (visible) {
+        setShowModal2(true);
+      } else {
+        setShowModal2(false);
+      }
+    };
+  
+    return (
+      <Modal transparent visible={showModal2}>
+        <View style={styles.modalBackGround}>
+          <View style={[styles.modalContainer2]}>{children}</View>
+        </View>
+      </Modal>
+    );
+  };
+
+  
+
     const Tabs  = ({setData,mostrar,activo,setActivo,busqueda,setBusqueda} ) => {
 
         const activeItemClass = {fontSize:15, color: '#AC6363',textDecorationLine: 'underline'};
@@ -159,18 +183,18 @@ const ModalPoup = ({ visible, children}) => {
                             <Boton> </Boton>
 
                         {/* Modal de Carga para completar la busqueda*/}                      
-                        <ModalPoup visible={loading}>
+                        <ModalPoup2  visible={loading}>
                             <View style={{height:50,width:150, justifyContent:"center"}}>
                                 <NativeBaseProvider>
-                                    <HStack ml ="5">
-                                        <Spinner color="#D6B1B1"/>
-                                        <Heading ml="2" color="#D6B1B1" >
+                                    <HStack marginHorizontal="90%">
+                                        <Spinner size="lg" color="black"/>
+                                        {/* <Heading ml="2" color="#D6B1B1" >
                                         Cargando
-                                        </Heading>
+                                        </Heading> */}
                                     </HStack>
                                 </NativeBaseProvider>
                             </View>
-                        </ModalPoup>
+                        </ModalPoup2>
                         
                         <ModalPoup visible={visible}>
                             <View style={{flexDirection:"row", alignItems:"flex-end", justifyContent: "center"}}>
@@ -252,6 +276,14 @@ const ModalPoup = ({ visible, children}) => {
             alignItems: "center",
             marginTop: "10%",
             marginHorizontal: "1%",
+          },
+          modalContainer2: {
+            width: "80%",
+            backgroundColor: "transparent",
+            paddingHorizontal: 20,
+            paddingVertical: 30,
+            borderRadius: 20,
+            elevation: 20,
           },
       });
     
