@@ -134,7 +134,7 @@ import variables from '../config/variables';
         <Text textAlign='center'>{errorPassword}</Text>
         <View marginTop="120%">
         <ButtonFondoRosa text="Guardar" onPress={() => ValidatePassword()}/>
-        <ButtonFondoBlanco text="Cancelar" onPress={() => navigation.navigate('Perfil')}/>
+        <ButtonFondoBlanco text="Cancelar" onPress={() => navigation.navigate('PerfilScreen')}/>
         </View>
         </VStack>
       </Box>
@@ -150,7 +150,7 @@ import variables from '../config/variables';
                 
                 <View style={{flexDirection:"row" , alignItems:"center", marginTop:'1%', marginBottom:'1%', marginHorizontal:'1%'}}>
 
-                <ButtonModalUnico text="Aceptar"onPress={() => { navigation.navigate('Perfil');setVisible(false); }}/>
+                <ButtonModalUnico text="Aceptar"onPress={() => { navigation.navigate('PerfilScreen');setVisible(false); }}/>
                 
                 </View> 
 

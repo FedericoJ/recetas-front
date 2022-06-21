@@ -42,7 +42,7 @@ import {
         const res = await axios.post(`${baseUrl}/usuario/modificarUsuario`,body,setup);
         console.log(res);
         if (res.status === 201) {
-          navigation.navigate('Perfil');
+          navigation.navigate('PerfilScreen');
           variables.setNombre(nombre);
         }
       }catch(error){
@@ -94,7 +94,7 @@ import {
         <GalleryComponenet/>
         </View>
           <ButtonFondoRosa text="Guardar" onPress={() => EditarPerfil()}/>
-          <ButtonFondoBlanco text="Cancelar" onPress={() => navigation.navigate('Perfil')}/>
+          <ButtonFondoBlanco text="Cancelar" onPress={() => navigation.navigate('PerfilScreen')}/>
         </VStack>
       </Box>
       </View>
