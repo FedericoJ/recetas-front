@@ -65,22 +65,27 @@ const LoginScreen = () => {
     const body = JSON.stringify({ mail, password })
     
     try {
-      const res = await axios.post(`${baseUrl}/usuario/login`, body, setup);
-      if (res.status === 201) {
-        variables.setUsuario(res.data.data[0].idUsuario);
-        variables.setNick(res.data.data[0].nickname);
-        variables.setMail(res.data.data[0].mail);
-        variables.setNombre(res.data.data[0].nombre);
-        navigation.navigate('Principal');
-        login(mail);
-      }
-      if (res.status === 202 || res.status === 203) {
-        setVisible(true);
-        //alert("Invalid username or password")
-      }
+      axios.post(`${baseUrl}/usuario/login`, body, setup)
+      .then(function(res){
+        if (res.status === 201) {
+          variables.setUsuario(res.data.data[0].idUsuario);
+          variables.setNick(res.data.data[0].nickname);
+          variables.setMail(res.data.data[0].mail);
+          variables.setNombre(res.data.data[0].nombre);
+          //navigation.navigate('Principal');
+          navigation.navigate('Home');
+          login(mail);
+        }
+        if (res.status === 202 || res.status === 203) {
+          setVisible(true);
+          //alert("Invalid username or password")
+        }
+      })
+      .catch(function(error){console.log(error)})
+      
     } catch (error) {
-      console.log(error)
-      alert("Servicio no disponible")
+      console.log(error.msg)
+      alert(error.msg)
     }
   }
     ;

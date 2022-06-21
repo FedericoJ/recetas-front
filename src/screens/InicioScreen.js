@@ -11,6 +11,20 @@ const InicioScreen = () => {
   const netInfo = useNetInfo();
 
   const {logout} = useContext(UserContext);
+
+  React.useEffect(() => {
+    
+    const unsubscribe = navigation.addListener('focus', () => {
+      logout();
+      return unsubscribe;
+    });
+
+    navigation.addListener('beforeRemove', (e) => {
+        // If we don't have unsaved changes, then we don't need to do anything
+        return;
+    });
+    
+  }, [navigation])
   // logout();
 
   const wifiLogin = () => {

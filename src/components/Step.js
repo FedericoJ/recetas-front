@@ -3,7 +3,7 @@ import {View,Text,Image,TouchableOpacity,Button} from 'react-native';
 import Stars from 'react-native-stars';
 import { FontAwesome, MaterialCommunityIcons } from '@expo/vector-icons'; 
 import {NativeBaseProvider,TextArea,Input,Select,CheckIcon,HStack,Spinner} from "native-base";
-import ImageView from 'react-native-image-viewing';
+import ImageView from 'react-native-image-view';
 import axios from 'axios'
 import config from "../config/default.json";
 import useSWR from 'swr'

@@ -52,7 +52,7 @@ const Main = () => {
   return (
     <NavigationContainer>
       <Stack.Navigator>
-        {!isAuthenticated && (
+        {isAuthenticated && (
           <>
             {/* aca usas solo una pantalla, porque el resto van como hijas de las otras */}
             <Stack.Screen name="Home" options={{ headerShown: false }} component={HomeDrawerNavigator} />
