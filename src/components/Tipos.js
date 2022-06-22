@@ -18,7 +18,17 @@ const buscarImagen =(nombre) =>{
            if(nombre ==="Budines"){ //pissas , libritos
             return require('../assets/Budines.jpg')
            }else{
-            return require('../assets/Tortas.jpg')
+               if (nombre==="Pizza"){
+                return require('../assets/Pizza.jpg')
+               }else{
+                   if (nombre==="Libritos"){
+                    return require('../assets/Libritos.jpg')
+                   }else{
+                    return require('../assets/Tortas.jpg')
+                   }
+               
+               }
+            
            }
        }
 
