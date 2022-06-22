@@ -6,6 +6,7 @@ export const UserContext = React.createContext({ name: '', auth: false });
 // Create function to provide UserContext
 export const UserProvider = ({ children }) => {
   const [user, setUser] = React.useState({ name: '', auth: false });
+  const [name, setName] = React.useState("");
 
   const login = (name) => {
     setUser((user) => ({
