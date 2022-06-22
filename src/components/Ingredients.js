@@ -8,16 +8,14 @@ import useSWR from 'swr'
 const InputSelectCombo = ({item, unidades, numero}) => {
 
   const [unidadSeleccionada, setUnidadSeleccionada] = useState(item.IdUnidad.toString());
+  const [cantidad,setCantidad]=useState(item.cantidad)//useState(calculo(numero));
+  const recalculo = item.cantidad * numero;
   
-  const calculo = (numero) =>{
-    var cant = (((item.cantidad)*numero))
-    return(cant)
-  }
- 
+  React.useEffect(() => {
+      setCantidad(recalculo);
+  },[recalculo]);
 
-  const [cantidad,setCantidad]=useState(calculo(numero));
 
- 
   const onChangeHandler = (item) => {
     
     const baseUrl =  config.baseUrl;
@@ -27,7 +25,8 @@ const InputSelectCombo = ({item, unidades, numero}) => {
     axios.get(`${baseUrl}/ingredientes/getFactorConversion?idOrigen=${unidadSeleccionada}&idDestino=${item}`)
     .then(function(res){
       conversion=res.data;
-      setCantidad(conversion * calculo(numero));
+      const multiplicacion = conversion * recalculo;
+      setCantidad(multiplicacion);
       setUnidadSeleccionada(item);
     })
     .catch(function(error){console.log(error)});  
@@ -47,7 +46,7 @@ const InputSelectCombo = ({item, unidades, numero}) => {
       isDisabled
       w="25%"
       ml="10"
-      value={(calculo(numero)).toString()}
+      value={cantidad.toString()}
     />
 
     <Select

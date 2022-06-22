@@ -51,8 +51,11 @@ const ViewReceta = ({ navigation }) => {
   const [visible, setVisible] = React.useState(false);
   const [comentarios, setComentario] = useState("");
   const [calificacion, setCalificacion] = React.useState(0);
-  const [isFavorito,setIsFavorito]=React.useState(2);
+  const [isFavorito,setIsFavorito]=React.useState(0);
   const numero = 1;
+  const idUsuario =1284//variables.getUsuario();
+
+
 
       const guardarFavorito= async (idReceta,idUsuario)=>{
         const baseUrl =  config.baseUrl;
@@ -83,19 +86,7 @@ const ViewReceta = ({ navigation }) => {
 
       const Favoritos =({receta}) =>{
 
-        const baseUrl =  config.baseUrl;
-
-        const idUsuario =1284//variables.getUsuario();
-
-        const fetcher = url => axios.get(`${baseUrl}/receta/isFavorito?idReceta=${receta}&idUsuario=${idUsuario}`).then(res => res.data)
-        
-        const favorito=useSWR(`${baseUrl}/receta/isFavorito?idReceta=${receta}&idUsuario=${idUsuario}`, fetcher);
-
-        console.log(`${baseUrl}/receta/receta/isFavorito?idReceta=${receta}&idUsuario=${idUsuario}`)
-
-        if (favorito.data){
-          setIsFavorito(favorito.data);
-        }else{
+        if (isFavorito===0){
           return (<NativeBaseProvider>
             <HStack space={8} justifyContent="center">
               <Spinner color="warning.500" />
@@ -151,7 +142,25 @@ const ViewReceta = ({ navigation }) => {
 
   const values = variables.getTipos();
 
-  variables.setReceta(values.IdReceta)
+  variables.setReceta(values.IdReceta);
+
+  React.useEffect(() => {
+    const unsubscribe = navigation.addListener('focus', () => {
+      const baseUrl =  config.baseUrl;
+
+      console.log(`${baseUrl}/receta/isFavorito?idReceta=${values.IdReceta}&idUsuario=${idUsuario}`)
+
+      axios.get(`${baseUrl}/receta/isFavorito?idReceta=${values.IdReceta}&idUsuario=${idUsuario}`).then(res => res.data)
+      .then(function(res){
+        console.log(res);
+          setIsFavorito(res);
+        })
+      .catch(function(error){console.log(error)});
+
+      })
+    // Return the function to unsubscribe from the event so it gets removed on unmount
+    return unsubscribe;
+  }, [navigation])
 
   return (
     <ScrollView style={styles.container}>
