@@ -59,6 +59,7 @@ import {
                       .then(function(res){
                           if (res.status === 201) {
                             variables.setNombre(nombre);
+                            variables.setAvatar(avatar);
                             console.log("ejecucion ok perfil modificado");
                             navigation.navigate('PerfilScreen');
                           }
@@ -72,7 +73,6 @@ import {
       } catch( err ) {
           console.log(err);
       }
-
     }
     ;
 
