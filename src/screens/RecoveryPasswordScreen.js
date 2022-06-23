@@ -136,7 +136,7 @@ const RecoveryPasswordScreen = () => {
 
 
             <ButtonFondoRosa text="Recuperar" onPress={() => RecoveryPassword()} />
-            <ButtonFondoBlanco text="Cancelar" onPress={() => navigation.navigate('Home')} />
+            <ButtonFondoBlanco text="Cancelar" onPress={() => navigation.navigate('Login')} />
           </VStack>
         </Box>
       </View>

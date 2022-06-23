@@ -15,7 +15,7 @@ import RegisterFailedScreen from "./src/screens/RegisterFailedScreen";
 import InicioScreen from "./src/screens/InicioScreen";
 import SplashScreen from "./src/screens/SplashScreen";
 import RecoveryPasswordScreen from "./src/screens/RecoveryPasswordScreen";
-// import DigitVerify from "./src/screens/DigitVerify";
+import DigitVerify from "./src/screens/DigitVerify";
 import EnterNewPassword from "./src/screens/EnterNewPassword";
 // import Results from "./src/screens/Results";
 // import Receta from "./src/screens/ViewReceta";
@@ -63,7 +63,7 @@ const Main = () => {
         />
         <Stack.Screen name="Scanner" component={ScannerScreen} />
         
-        <Stack.Screen name="DigitVerify" component={DigitVerify} />
+        
         <Stack.Screen name="Results" component={Results} />
         <Stack.Screen name="Receta" component={Receta} />
         <Stack.Screen
@@ -89,6 +89,7 @@ const Main = () => {
               name="RecoveryPassword"
               component={RecoveryPasswordScreen}
             />
+            <Stack.Screen name="DigitVerify" component={DigitVerify} />
             <Stack.Screen name="Splash" component={SplashScreen} />
             <Stack.Screen
               name="RegisterPassword"
