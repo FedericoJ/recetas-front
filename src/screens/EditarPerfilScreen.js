@@ -21,12 +21,13 @@ import {
   const EditarPerfilScreen = () => {
 
     const navigation = useNavigation();
-     const [ nombre, setNombre] = useState(variables.getNombre());
-     const [ usuario, setUsuario] = useState("");
-     const [ mail, setMail] = useState("");
-     
-
+    const [ nombre, setNombre] = useState(variables.getNombre());
+    const [ usuario, setUsuario] = useState("");
+    const [ mail, setMail] = useState("");
+    const [base64,setBase64] =React.useState("")
+    const [image, setImage] = useState(variables.getAvatar);
     const baseUrl =  config.baseUrl;
+
     const EditarPerfil = async () => {
 
       const setup = {
@@ -34,20 +35,43 @@ import {
           'content-type' : 'application/json'
         }
       }
-      const avatar = 'mrv'; //Ver como pasar esto.
       const IdUsuario = variables.getUsuario();
-      const body = JSON.stringify({nombre,avatar,IdUsuario})
+      const cloudPreset = 'y02lecbn';
+      const cloudUrl    = 'https://api.cloudinary.com/v1_1/dwghwqi4l/upload';
 
-      try {
-        const res = await axios.post(`${baseUrl}/usuario/modificarUsuario`,body,setup);
-        console.log(res);
-        if (res.status === 201) {
-          navigation.navigate('PerfilScreen');
-          variables.setNombre(nombre);
-        }
-      }catch(error){
-        alert(error);
+      const formData = new FormData();
+      formData.append('upload_preset', cloudPreset );
+      formData.append('file', 'data:image/jpg;base64,' + base64)
+
+      try { 
+          
+          fetch( cloudUrl, {
+              method: 'POST',
+              body: formData
+          })
+          .then(response => response.json())
+          .then(data => {
+                if (data.secure_url !== '') {
+                  try{
+                    const avatar=data.secure_url;
+                    const body = JSON.stringify({nombre,avatar,IdUsuario})
+                      axios.post(`${baseUrl}/usuario/modificarUsuario`,body,setup)
+                      .then(function(res){
+                          if (res.status === 201) {
+                            variables.setNombre(nombre);
+                            console.log("ejecucion ok perfil modificado");
+                          }
+                      })
+                      .catch(function(error){console.log(error)})
+                    }catch(error){
+                      alert(error.msg);
+                    }
+              }
+          })
+      } catch( err ) {
+          console.log(err);
       }
+
     }
     ;
 
@@ -91,7 +115,7 @@ import {
         </FormControl>
 
         <View style={styles.container}>
-        <GalleryComponenet/>
+        <GalleryComponenet image={image} setImage={setImage} setBase64={setBase64}/>
         </View>
           <ButtonFondoRosa text="Guardar" onPress={() => EditarPerfil()}/>
           <ButtonFondoBlanco text="Cancelar" onPress={() => navigation.navigate('PerfilScreen')}/>

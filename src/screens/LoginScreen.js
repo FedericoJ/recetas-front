@@ -72,6 +72,7 @@ const LoginScreen = () => {
           variables.setNick(res.data.data[0].nickname);
           variables.setMail(res.data.data[0].mail);
           variables.setNombre(res.data.data[0].nombre);
+          variables.setAvatar(res.data.data[0].avatar);
           //navigation.navigate('Principal');
           navigation.navigate('Home');
           login(mail);

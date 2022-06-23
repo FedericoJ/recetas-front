@@ -5,8 +5,9 @@ import { AntDesign } from '@expo/vector-icons';
 
 
 
-export default function GalleryComponenet() {
-	const [image, setImage] = useState(null);
+export default function GalleryComponenet({image,setImage,setBase64}) {
+    
+    console.log(image);
 	
 	useEffect(() => {
 		(async () => {
@@ -16,7 +17,8 @@ export default function GalleryComponenet() {
 			alert('Sorry, Camera roll permissions are required to make this work!');
 			}
 		}
-		})();
+        })();
+        setImage(image);
 	}, []);
 	
 	const chooseImg = async () => {
@@ -24,19 +26,20 @@ export default function GalleryComponenet() {
 			mediaTypes: ImagePicker.MediaTypeOptions.All,
 			aspect: [4, 3],
 			quality: 1,			
-			allowsEditing: true,
+            allowsEditing: true,
+            base64:true
 		});
 	
-		console.log(result);
-	
 		if (!result.cancelled) {
-		   setImage(result.uri);
+           const {uri,base64} =result;
+           setImage(uri);
+           setBase64(base64);
 		}
 	};
 	
 	return (
 		<View style={imageUploaderStyles.container}>	
-            {image && <Image source={{ uri: image }} style={{ width: 200, height: 200 }} />}
+            <Image style={{ width:400, height:400 }} source={{uri:image}}/>
             <View style={imageUploaderStyles.uploadBtnContainer}>
             <TouchableOpacity onPress={chooseImg} style={imageUploaderStyles.uploadBtn} >
 

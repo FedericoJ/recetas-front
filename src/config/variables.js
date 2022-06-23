@@ -9,9 +9,19 @@ var mail;
 var nombre;
 var activo;
 var textoBusqueda;
+var avatar;
 
 const setTextoBusqueda=(texto)=>{
     textoBusqueda=texto;
+}
+
+const setAvatar=(image)=>{
+
+    avatar=image;
+}
+
+const getAvatar=()=>{
+    return avatar;
 }
 
 const getTexto=()=>{
@@ -122,4 +132,6 @@ export default {
     setActivo,
     getActivo,
     setTextoBusqueda,
-    getTexto}
+    getTexto,
+getAvatar,
+setAvatar}
