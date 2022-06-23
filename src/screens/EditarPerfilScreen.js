@@ -60,6 +60,7 @@ import {
                           if (res.status === 201) {
                             variables.setNombre(nombre);
                             console.log("ejecucion ok perfil modificado");
+                            navigation.navigate('PerfilScreen');
                           }
                       })
                       .catch(function(error){console.log(error)})
