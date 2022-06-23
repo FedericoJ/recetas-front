@@ -7,7 +7,7 @@ import { AntDesign } from '@expo/vector-icons';
 
 export default function GalleryComponenet({image,setImage,setBase64}) {
     
-    console.log(image);
+    console.log("imagen:",image);
 	
 	useEffect(() => {
 		(async () => {
@@ -39,7 +39,7 @@ export default function GalleryComponenet({image,setImage,setBase64}) {
 	
 	return (
 		<View style={imageUploaderStyles.container}>	
-            <Image style={{ width:400, height:400 }} source={{uri:image}}/>
+            <Image style={{ width:200, height:200 }} source={{uri:image.trim()}}/>
             <View style={imageUploaderStyles.uploadBtnContainer}>
             <TouchableOpacity onPress={chooseImg} style={imageUploaderStyles.uploadBtn} >
 

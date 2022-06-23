@@ -19,13 +19,13 @@ import {
   import GalleryComponenet from '../components/Gallery';
   
   const EditarPerfilScreen = () => {
-
+    const imagen =variables.getAvatar()
     const navigation = useNavigation();
     const [ nombre, setNombre] = useState(variables.getNombre());
     const [ usuario, setUsuario] = useState("");
     const [ mail, setMail] = useState("");
     const [base64,setBase64] =React.useState("")
-    const [image, setImage] = useState(variables.getAvatar);
+    const [image, setImage] = useState(imagen);
     const baseUrl =  config.baseUrl;
 
     const EditarPerfil = async () => {
@@ -53,7 +53,7 @@ import {
           .then(data => {
                 if (data.secure_url !== '') {
                   try{
-                    const avatar=data.secure_url;
+                    const avatar=data.secure_url.trim();
                     const body = JSON.stringify({nombre,avatar,IdUsuario})
                       axios.post(`${baseUrl}/usuario/modificarUsuario`,body,setup)
                       .then(function(res){
