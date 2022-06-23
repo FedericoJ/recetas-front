@@ -53,7 +53,7 @@ const ViewReceta = ({ navigation }) => {
   const [calificacion, setCalificacion] = React.useState(0);
   const [isFavorito,setIsFavorito]=React.useState(0);
   const numero = 1;
-  const idUsuario =1284//variables.getUsuario();
+  const idUsuario =variables.getUsuario();
 
 
 
