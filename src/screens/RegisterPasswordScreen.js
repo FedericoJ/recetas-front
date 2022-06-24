@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { StyleSheet, Text, Image, View } from 'react-native';
+import { StyleSheet, Text, Image, View, Modal } from 'react-native';
 import {
   Box,
   Heading,
@@ -9,12 +9,34 @@ import {
   Button,
   Center,
   NativeBaseProvider,
-  ScrollView
+  ScrollView, HStack, Spinner,
 } from "native-base";
 import config from "../config/default.json";
 import axios from 'axios'
 import { useNavigation, useRoute } from '@react-navigation/native';
 import { ButtonFondoBlanco, ButtonFondoRosa } from '../components/ButtonsLogin';
+
+const ModalPoup2 = ({ visible, children}) => {
+  const [showModal2, setShowModal2] = React.useState(visible);
+  React.useEffect(() => {
+    toggleModal2();
+  }, [visible]);
+  const toggleModal2 = () => {
+    if (visible) {
+      setShowModal2(true);
+    } else {
+      setShowModal2(false);
+    }
+  };
+
+  return (
+    <Modal transparent visible={showModal2}>
+      <View style={styles.modalBackGround}>
+        <View style={[styles.modalContainer2]}>{children}</View>
+      </View>
+    </Modal>
+  );
+};
 
 const RegisterPasswordScreen = () => {
 
@@ -25,6 +47,7 @@ const RegisterPasswordScreen = () => {
   const [errorPassword, setErrorPassword] = React.useState("")
   const [errorPasswordSN, setErrorPasswordSN] = React.useState(false)
   const route = useRoute();
+  const[loading,setLoading]=useState(false);
 
   const baseUrl = config.baseUrl;
 
@@ -58,11 +81,14 @@ const RegisterPasswordScreen = () => {
     const body = JSON.stringify({ nombre, mail, password });
   
    try {
+    setLoading(true);
       const res = await axios.post(`${baseUrl}/usuario/crearInvitadoUpdate`, body, setup);
       if (res.status === 201) {
+        setLoading(false);
         navigation.navigate('RegisterSuccess')
       }
     } catch (error) {
+      setLoading(false);
       alert(error)
     }
   }
@@ -131,6 +157,17 @@ const RegisterPasswordScreen = () => {
               />
             </FormControl>
             <Text textAlign='center'>{errorPassword}</Text>
+
+              {/* Modal de Carga para completar la busqueda*/}                      
+                <ModalPoup2  visible={loading}>
+                <View style={{height:50,width:150, justifyContent:"center"}}>
+                 <NativeBaseProvider>
+                    <HStack marginHorizontal="90%">
+                     <Spinner size="lg" color="black"/>
+                    </HStack>
+                 </NativeBaseProvider>
+                </View>
+            </ModalPoup2>
             <ButtonFondoRosa text="Finalizar" onPress={() => ValidatePassword()} />
             <ButtonFondoBlanco text="Cancelar" onPress={() => navigation.navigate('Inicio')} />
           </VStack>
@@ -159,6 +196,20 @@ const styles = StyleSheet.create({
   },
   text: {
     fontSize: 42,
+  },
+  modalContainer2: {
+    width: "80%",
+    backgroundColor: "transparent",
+    paddingHorizontal: 20,
+    paddingVertical: 30,
+    borderRadius: 20,
+    elevation: 20,
+  },
+  modalBackGround: {
+    flex: 1,
+    backgroundColor: 'rgba(0,0,0,0.5)',
+    justifyContent: 'center',
+    alignItems: 'center',
   },
 });
 

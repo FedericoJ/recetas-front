@@ -11,7 +11,7 @@ import {
   NativeBaseProvider,
   ScrollView,
   Link,
-  HStack
+  HStack, Spinner,
 } from "native-base";
 import config from "../config/default.json";
 import axios from 'axios'
@@ -42,6 +42,28 @@ const ModalPoup = ({ visible, children }) => {
   );
 };
 
+const ModalPoup2 = ({ visible, children}) => {
+  const [showModal2, setShowModal2] = React.useState(visible);
+  React.useEffect(() => {
+    toggleModal2();
+  }, [visible]);
+  const toggleModal2 = () => {
+    if (visible) {
+      setShowModal2(true);
+    } else {
+      setShowModal2(false);
+    }
+  };
+
+  return (
+    <Modal transparent visible={showModal2}>
+      <View style={styles.modalBackGround}>
+        <View style={[styles.modalContainer2]}>{children}</View>
+      </View>
+    </Modal>
+  );
+};
+
 
 const DigitVerify = () => {
 
@@ -53,6 +75,7 @@ const DigitVerify = () => {
   const [Code5, setCode5] = useState("");
   const [Code6, setCode6] = useState("");
   const route = useRoute();
+  const[loading,setLoading]=useState(false);
 
   const [visible, setVisible] = React.useState(false);
   const [visibleError, setVisibleError] = React.useState(false);
@@ -75,9 +98,11 @@ const RecoveryPassword = async (mail) => {
   const baseUrl = config.baseUrl;
 
   try {
+    setLoading(true);
     console.log(mail);
     const res = await axios.get(`${baseUrl}/usuario/SendRecoveryPassword?mail=${mail}`, body, setup);
   } catch (error) {
+    setLoading(false);
     alert("Error");
   }
 }
@@ -90,14 +115,18 @@ const Verify = async (mail) => {
   }
 
   try {
+    setLoading(true);
     const res = await axios.get(`${baseUrl}/usuario/validarCodigoRecuperacion?mail=${mail}&codigo=${Code1 + Code2 + Code3 + Code4 + Code5 + Code6}`, setup);
     if (res.status === 202) {
+      setLoading(false);
       setVisibleError(true);
     }
     if (res.status === 201) {
+      setLoading(false);
       navigation.navigate('EnterNewPassword', { email: mail })
     }
   } catch (error) {
+    setLoading(false);
     alert("Error");
   }
 }
@@ -205,6 +234,18 @@ return <View style={styles.container}>
             />
           </View>
         </ModalPoup>
+
+                        {/* Modal de Carga para completar la busqueda*/}                      
+                        <ModalPoup2  visible={loading}>
+                <View style={{height:50,width:150, justifyContent:"center"}}>
+                 <NativeBaseProvider>
+                    <HStack marginHorizontal="90%">
+                     <Spinner size="lg" color="black"/>
+                    </HStack>
+                 </NativeBaseProvider>
+                </View>
+            </ModalPoup2>
+
         <HStack mt="6" justifyContent="center" >
           <Link onPress={() => functionCombined(route.params.email)} _text={{
             color: "#AC6363",

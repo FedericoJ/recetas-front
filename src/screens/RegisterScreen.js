@@ -10,7 +10,7 @@ import {
   Center,
   NativeBaseProvider,
   ScrollView
-} from "native-base";
+, HStack, Spinner} from "native-base";
 import config from "../config/default.json";
 import axios from 'axios'
 import { useNavigation } from '@react-navigation/native';
@@ -39,11 +39,34 @@ const ModalPoup = ({visible, children}) => {
 
 };
 
+const ModalPoup2 = ({ visible, children}) => {
+  const [showModal2, setShowModal2] = React.useState(visible);
+  React.useEffect(() => {
+    toggleModal2();
+  }, [visible]);
+  const toggleModal2 = () => {
+    if (visible) {
+      setShowModal2(true);
+    } else {
+      setShowModal2(false);
+    }
+  };
+
+  return (
+    <Modal transparent visible={showModal2}>
+      <View style={styles.modalBackGround}>
+        <View style={[styles.modalContainer2]}>{children}</View>
+      </View>
+    </Modal>
+  );
+};
+
 const RegisterScreen = () => {
 
   const [visible, setVisible] = React.useState(false);
   const [visibleMailRegistrado, setVisibleMailRegistrado] = React.useState(false);
   const [visibleSoporte, setVisibleSoporte] = React.useState(false);
+  const[loading,setLoading]=useState(false);
 
   const navigation = useNavigation();
   const [nickname, setUsuario] = useState("");
@@ -62,6 +85,7 @@ const RegisterScreen = () => {
   const Alias = () => {
     if (visibleAlias){
       return(
+        
         <View flexDirection ="row" alignitems="center" justifyContent='space-between' py="8">
       <ButtonAliasRecomendado text={aliasRecomendado1} onPress={() => setearUsuarioRecomendado(aliasRecomendado1)} />
       <ButtonAliasRecomendado text={aliasRecomendado2} onPress={() => setearUsuarioRecomendado(aliasRecomendado2)} />
@@ -110,8 +134,10 @@ const RegisterScreen = () => {
     }
 
     try {
+      setLoading(true);
       const res = await axios.get(`${baseUrl}/usuario/validarAlias?alias=${nickname}`, setup);
       if (res.status === 201) {
+        setLoading(false);
         setVisibleAlias(true);
         setErrorAliasSN(true);
         setErrorAlias("Username en uso, cambialo o elegí uno");
@@ -120,9 +146,11 @@ const RegisterScreen = () => {
         setAliasRecomendado3(nickname + 3);
       }
       if (res.status === 202) {
+        setLoading(false);
         Register();
       }
     } catch (error) {
+      setLoading(false);
       alert("Ocurrio un error al momento de validar Alias.")
     }
   }
@@ -137,18 +165,23 @@ const RegisterScreen = () => {
     const body = JSON.stringify({ nickname, mail })
 
     try {
+      setLoading(true);
       const res = await axios.post(`${baseUrl}/usuario/crearInvitado`, body, setup);
       console.log(res);
       if (res.status === 201) {
+        setLoading(false);
         setVisible(true);
       }
       if (res.status === 202) {
+        setLoading(false);
         setVisibleMailRegistrado(true);
       }
       if (res.status === 203) {
+        setLoading(false);
         setVisibleSoporte(true);
       }
     } catch (error) {
+      setLoading(false);
       alert("Ocurrio un error al momento de registrar su cuenta.")
     }
   }
@@ -249,6 +282,17 @@ const RegisterScreen = () => {
                 </View> 
          </ModalPoup>
 
+                                 {/* Modal de Carga para completar la busqueda*/}                      
+                                 <ModalPoup2  visible={loading}>
+                <View style={{height:50,width:150, justifyContent:"center"}}>
+                 <NativeBaseProvider>
+                    <HStack marginHorizontal="90%">
+                     <Spinner size="lg" color="black"/>
+                    </HStack>
+                 </NativeBaseProvider>
+                </View>
+            </ModalPoup2>
+
             <ButtonFondoRosa text="Registrarse" onPress={() => RegisterUser()}/>
             <ButtonFondoBlanco text="Cancelar" onPress={() => navigation.navigate('Inicio')} />
           </VStack>
@@ -318,6 +362,14 @@ modalContainer: {
     marginTop: "5%",
     marginBottom: "1%",
     marginHorizontal: "1%",
+  },
+  modalContainer2: {
+    width: "80%",
+    backgroundColor: "transparent",
+    paddingHorizontal: 20,
+    paddingVertical: 30,
+    borderRadius: 20,
+    elevation: 20,
   },
 });
 

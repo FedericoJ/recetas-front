@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext } from 'react'
 import { StyleSheet, Text, Image, View, Modal } from 'react-native';
-import { Box, Heading, VStack, FormControl, Input, Button, Center, NativeBaseProvider, ScrollView, HStack, Link, } from "native-base";
+import { Box, Heading, VStack, FormControl, Input, Button, Center, NativeBaseProvider, ScrollView, HStack, Link, Spinner } from "native-base";
 import config from "../config/default.json";
 import axios from 'axios'
 import { useNavigation } from '@react-navigation/native';
@@ -32,6 +32,27 @@ const ModalPoup = ({ visible, children }) => {
 
 };
 
+const ModalPoup2 = ({ visible, children}) => {
+  const [showModal2, setShowModal2] = React.useState(visible);
+  React.useEffect(() => {
+    toggleModal2();
+  }, [visible]);
+  const toggleModal2 = () => {
+    if (visible) {
+      setShowModal2(true);
+    } else {
+      setShowModal2(false);
+    }
+  };
+
+  return (
+    <Modal transparent visible={showModal2}>
+      <View style={styles.modalBackGround}>
+        <View style={[styles.modalContainer2]}>{children}</View>
+      </View>
+    </Modal>
+  );
+};
 
 const LoginScreen = () => {
 
@@ -41,6 +62,7 @@ const LoginScreen = () => {
   const [password, setPassword] = useState("");
   const [visible, setVisible] = React.useState(false);
   const [noWifi, setNoWifi] = React.useState(false);
+  const[loading,setLoading]=useState(false);
 
   const {login} = useContext(UserContext);
 
@@ -65,9 +87,11 @@ const LoginScreen = () => {
     const body = JSON.stringify({ mail, password })
     
     try {
+      setLoading(true);
       axios.post(`${baseUrl}/usuario/login`, body, setup)
       .then(function(res){
         if (res.status === 201) {
+          setLoading(false);
           variables.setUsuario(res.data.data[0].idUsuario);
           variables.setNick(res.data.data[0].nickname);
           variables.setMail(res.data.data[0].mail);
@@ -78,6 +102,7 @@ const LoginScreen = () => {
           login(mail);
         }
         if (res.status === 202 || res.status === 203) {
+          setLoading(false);
           setVisible(true);
           //alert("Invalid username or password")
         }
@@ -166,6 +191,17 @@ const LoginScreen = () => {
               </View>
             </ModalPoup>
 
+            {/* Modal de Carga para completar la busqueda*/}                      
+             <ModalPoup2  visible={loading}>
+                <View style={{height:50,width:150, justifyContent:"center"}}>
+                 <NativeBaseProvider>
+                    <HStack marginHorizontal="90%">
+                     <Spinner size="lg" color="black"/>
+                    </HStack>
+                 </NativeBaseProvider>
+                </View>
+            </ModalPoup2>
+
             <ButtonFondoRosa text="Ingresar" onPress={() => setNoWifi(wifi)} />
             <ButtonFondoBlanco text="Cancelar" onPress={() => navigation.navigate('Inicio')} />
             <HStack mt="6" justifyContent="center" >
@@ -216,6 +252,14 @@ const styles = StyleSheet.create({
   modalContainer: {
     width: '80%',
     backgroundColor: '#F7F4F4',
+    paddingHorizontal: 20,
+    paddingVertical: 30,
+    borderRadius: 20,
+    elevation: 20,
+  },
+  modalContainer2: {
+    width: "80%",
+    backgroundColor: "transparent",
     paddingHorizontal: 20,
     paddingVertical: 30,
     borderRadius: 20,
