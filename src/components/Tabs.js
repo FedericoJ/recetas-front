@@ -60,8 +60,8 @@ const ModalPoup = ({ visible, children}) => {
 
     const Tabs  = ({setData,mostrar,activo,setActivo,busqueda,setBusqueda} ) => {
 
-        const activeItemClass = {fontSize:15, color: '#AC6363',textDecorationLine: 'underline'};
-        const inactiveItemClass = {fontSize:15, color: 'gray',textDecorationLine: 'underline'};
+        const activeItemClass = {fontSize:20, color: '#AC6363',textDecorationLine: 'underline',fontWeight:'bold' };
+        const inactiveItemClass = {fontSize:15, color: 'gray',textDecorationLine: 'underline' };
 
         const ITEMS = [{
             name: "ingrediente",
@@ -164,13 +164,13 @@ const ModalPoup = ({ visible, children}) => {
                     <View style={styles.container}>
                         {ITEMS.map( (item, i) => (
                             <TouchableOpacity key={item.name} onPress={() => onPressHandler(item)}>
-                                <Text  style={activo===item.name ? activeItemClass : inactiveItemClass}> {item.label} </Text>
+                                <Text font style={activo===item.name ? activeItemClass : inactiveItemClass}> {item.label} </Text>
                             </TouchableOpacity>
                         ))}
                     </View>
 
                     <View style={{backgroundColor:'#ffff'}}>
-                            <Input style={{backgroundColor:'#ffff'}} value={busqueda} onChangeText={setBusqueda} mx="2" my="3" size="large" placeholder="Input" 
+                            <Input style={{backgroundColor:'#ffff'}} value={busqueda} onChangeText={setBusqueda} mx="2" my="3" size="large" placeholder="Ingrese su busqueda..." 
                             InputRightElement={
                                                 <TouchableOpacity
                                                     onPress = { () => onPressSearch("Date") }
