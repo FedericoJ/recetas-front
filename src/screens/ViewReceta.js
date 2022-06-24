@@ -89,7 +89,7 @@ const ViewReceta = ({ navigation }) => {
         if (isFavorito===0){
           return (<NativeBaseProvider>
             <HStack space={8} justifyContent="center">
-              <Spinner color="warning.500" />
+              <Spinner color="black" />
             </HStack>
             </NativeBaseProvider>)
         }

@@ -89,11 +89,6 @@ const Recetas=({tipos}) =>{
 
                             <View style={{marginTop:"15%",marginRight:'20%',alignItems:"flex-end",flexDirection:"row-reverse",justifyContent:"flex-start"}} >
 
-                                <TouchableOpacity>
-
-                                    <MaterialCommunityIcons name="heart-plus-outline" size={30} color="red" />
-                            
-                                </TouchableOpacity>
  
                                 <Stars
                                     value={CalificacionProm}
