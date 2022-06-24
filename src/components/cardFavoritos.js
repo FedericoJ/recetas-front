@@ -36,68 +36,53 @@ import variables from '../config/variables';
     
    )
  }
- 
-
-const Favorito =()=>{
+const Favorito =({favoritos,setFavoritos})=>{
     const navigation = useNavigation();
-    const [datos,setDatos] =useState([]);
-
-    const baseUrl =  config.baseUrl;
-    const idUsuario =1284;//variables.getUsuario();
-
-    const cargarDatos=()=>{
-
-      const navigation = useNavigation();
        
-      const baseUrl =  config.baseUrl;
-
-      const fetcher = url => axios.get(`${baseUrl}/receta/getFavorito?idUsuario=${idUsuario}`).then(res => res.data)
-
-      const {data,error}=useSWR(`${baseUrl}/receta/recetasSemana`, fetcher)
-
-        if (data){
-            return (<SafeAreaView style={{ marginVertical:'5%'}}>
-            <Text  style={{textAlign:"center",fontSize:20,fontWeight:"bold",marginBottom:'2%'}}> Favoritos </Text> 
-            <FlatList style= {{marginHorizontal:'5%'}} data ={data}
-                  numColumns={1}
-                  renderItem={({item, index}) =>(
-                    <GestureHandlerRootView>
-                      <Swipeable overshootRight={false} onSwipeableRightOpen={()=>deleteItem(item.id)} renderRightActions={RenderRight}> 
-                        <RecetasFavoritos navegacion={navigation} tipos ={item}/>
-                        </Swipeable>
-                    </GestureHandlerRootView>)}>
-            </FlatList>
-          </SafeAreaView>
-          )
-        }else{
-          return (
-            <NativeBaseProvider>
-                    <Center>
-                    <VStack w="90%"  borderWidth="1" space={8} overflow="hidden" rounded="md" _dark={{
-                    borderColor: "coolGray.500"
-                        }} _light={{
-                    borderColor: "coolGray.200"
-                        }}>
-                    <Skeleton h="40" />
-                    <Skeleton.Text px="4" />
-                    <Skeleton px="4" my="4" rounded="md" startColor="primary.100" />
-                    </VStack>
-                </Center>
-            </NativeBaseProvider>)
+      
+      const deleteItem = (idReceta) => {
+        const baseUrl =  config.baseUrl;
+        const idUsuario =1454;//variables.getUsuario();
+        const setup = {
+          headers: {
+            'content-type': 'application/json'
+          }
         }
-            
+        const body = JSON.stringify({idUsuario, idReceta})
+        console.log(`${baseUrl}/receta/eliminarFavorito`);
+        
+        axios.post(`${baseUrl}/receta/eliminarFavorito`, body, setup)
+        .then(function(res){
+          console.log(res.status);
+          if(res.status==200){
+            axios.get(`${baseUrl}/receta/getFavorito?idUsuario=${idUsuario}`)
+            .then(function(res){
+                setFavoritos(res.data);
+            })
+            .catch(function(error){console.log(error)})
+          }
+        })
+        .catch(function(error){console.log(error)})
+      }
+
+      return (<SafeAreaView style={{ marginVertical:'5%'}}>
+      <Text  style={{textAlign:"center",fontSize:20,fontWeight:"bold",marginBottom:'2%'}}> Favoritos </Text> 
+      <FlatList style= {{marginHorizontal:'5%'}} data ={favoritos}
+            numColumns={1}
+            renderItem={({item, index}) =>(
+              <GestureHandlerRootView>
+                <Swipeable overshootRight={false} onSwipeableRightOpen={()=>deleteItem(item.IdReceta)} renderRightActions={RenderRight}> 
+                  <RecetasFavoritos navegacion={navigation} tipos ={item}/>
+                  </Swipeable>
+              </GestureHandlerRootView>)}>
+      </FlatList>
+    </SafeAreaView>
+    )
+               
 
     }
     
 
-    const deleteItem = (id) => {
-      // alert ('item of ID: ${id} will be deleted')
-      //return cargarDatos();
-    }
-     
-  return cargarDatos();
-      
-      
-}
+  
 
 export default Favorito;
