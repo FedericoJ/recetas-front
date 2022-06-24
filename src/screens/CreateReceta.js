@@ -122,37 +122,34 @@ const CargarIngrediente = ({unidades, ingredientes}) => {
   );
 };
 
-// const CargarPasos = ({pasos}) => {
-
-//   const [paso, setPaso] = useState("");
-//   return (
-//     <View>
-//       {pasos.map((ing, indice) => ( 
-//         <HStack mt="3" w="90%" key={ing.valor}
-//         >
-//           <View flexDirection="row">
-//           <Text  style={{fontSize:20, fontWeight:"bold", marginLeft:"2%"}}>1 </Text> 
-//             <TextArea
-//               style={{ backgroundColor: "#ffff" }}
-//               w="85%"
-//               mx="1"
-//               placeholder="Descripcion"
-//               value={paso}
-//               onChangeText={setPaso}
-//               fontSize="20"
-//               marginBottom="5%"
-//             />
-//             </View>
-//          <View style={styles.imagenPaso}>
-//         <View style={{ width: "20%", marginLeft: "7%" }}>
-//           <GalleryPaso />
-//         </View>
-//     </View>
-//         </HStack>
-//         ))} 
-//     </View>  
-//   );
-// };
+const CargarPasos = ({pasos}) => {
+const [paso, setPaso] = useState("");
+const [images,setImages]=useState([{valor:"valor"}])
+return (
+  <View>
+    {pasos.map((ing, indice) => ( 
+      <View>
+      <HStack mt="3" w="100%" mx="2" key={ing.valor}>
+              <Text  style={{fontSize:20, fontWeight:"bold"}}>{indice+1}{")"}</Text> 
+                <TextArea
+                style={{ backgroundColor: "#ffff" }}xcca
+                  w="90%"
+                  mx="2"
+                placeholder="Descripcion"
+                  value={paso}
+                  onChangeText={setPaso}
+                  fontSize="20"
+                  marginBottom="5%"
+                />
+        </HStack>
+          <View style={{ width: "20%", marginLeft: "7%" }}>
+              <GalleryPaso images={images} setImages={setImages}/>
+          </View>
+        </View>
+          ))} 
+  </View>  
+   );
+ };
 
 
 
@@ -167,7 +164,7 @@ const CreateReceta = () => {
   const [personas, setPersonas] = useState("");
   const [categoriaSel, setCategoriaSel] = useState("1");
   const [ingredientes, setIngredientes] = useState([{ valor: "valor" }]);
-  const [paso, setPaso] = useState("");
+  const [pasos, setPasos] = useState([{valor:"valor"}]);
   const [visibleExisteReceta, setVisibleExisteReceta] = useState("");
   const netInfo = useNetInfo();
   const [noWifi, setNoWifi] = React.useState(false);
@@ -432,26 +429,8 @@ const CreateReceta = () => {
             previousBtnTextStyle={{ color: "black", fontWeight: "bold" }}
           >
             <View style={styles.container}>
-              <NativeBaseProvider>
-              <View flexDirection="row">
-                    <Text  style={{fontSize:20, fontWeight:"bold", marginLeft:"2%"}}>1 </Text> 
-                  <TextArea
-                    style={{ backgroundColor: "#ffff" }}
-                    w="85%"
-                    mx="1"
-                    placeholder="Descripcion"
-                    value={paso}
-                    onChangeText={setPaso}
-                    fontSize="20"
-                    marginBottom="5%"
-                  />
-                </View>
-
-              <View style={styles.imagenPaso}>
-              <View style={{ width: "20%", marginLeft: "7%" }}>
-                <GalleryPaso />
-              </View>          
-              </View>
+             
+             <CargarPasos pasos={pasos}/>
 
                 <TouchableOpacity onPress={() => agregarPaso()}>
                   <View
@@ -473,7 +452,6 @@ const CreateReceta = () => {
                     </Text>
                   </View>
                 </TouchableOpacity>
-              </NativeBaseProvider>
             </View>
           </ProgressStep>
 
