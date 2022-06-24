@@ -9,7 +9,7 @@ import {
   Button,
   Center,
   NativeBaseProvider,
-  ScrollView
+  ScrollView, Spinner, HStack
 } from "native-base";
 import config from "../config/default.json";
 import axios from 'axios'
@@ -39,11 +39,34 @@ const ModalPoup = ({ visible, children }) => {
   );
 };
 
+const ModalPoup2 = ({ visible, children}) => {
+  const [showModal2, setShowModal2] = React.useState(visible);
+  React.useEffect(() => {
+    toggleModal2();
+  }, [visible]);
+  const toggleModal2 = () => {
+    if (visible) {
+      setShowModal2(true);
+    } else {
+      setShowModal2(false);
+    }
+  };
+
+  return (
+    <Modal transparent visible={showModal2}>
+      <View style={styles.modalBackGround}>
+        <View style={[styles.modalContainer2]}>{children}</View>
+      </View>
+    </Modal>
+  );
+};
+
 const RecoveryPasswordScreen = () => {
 
   const navigation = useNavigation();
   const [Usuario, setUsuario] = useState("");
   const [mail, setMail] = useState("");
+  const[loading,setLoading]=useState(false);
 
   const [visible, setVisible] = React.useState(false);
 
@@ -58,13 +81,16 @@ const RecoveryPasswordScreen = () => {
     const body = JSON.stringify({ mail })
 
     try {
+      setLoading(true);
       console.log(mail);
       const res = await axios.get(`${baseUrl}/usuario/SendRecoveryPassword?mail=${mail}`, setup);
       if (res.status === 201) {
+        setLoading(false);
         setVisible(true);
       }
    
     }catch(error){
+      setLoading(false);
     console.log(error.msg)
     }
 
@@ -133,6 +159,16 @@ const RecoveryPasswordScreen = () => {
                 />
               </View>
             </ModalPoup>
+                        {/* Modal de Carga para completar la busqueda*/}                      
+                        <ModalPoup2  visible={loading}>
+                <View style={{height:50,width:150, justifyContent:"center"}}>
+                 <NativeBaseProvider>
+                    <HStack marginHorizontal="90%">
+                     <Spinner size="lg" color="black"/>
+                    </HStack>
+                 </NativeBaseProvider>
+                </View>
+            </ModalPoup2>
 
 
             <ButtonFondoRosa text="Recuperar" onPress={() => RecoveryPassword()} />
@@ -189,6 +225,14 @@ const styles = StyleSheet.create({
     marginTop: "5%",
     marginBottom: "1%",
     marginHorizontal: "1%",
+  },
+  modalContainer2: {
+    width: "80%",
+    backgroundColor: "transparent",
+    paddingHorizontal: 20,
+    paddingVertical: 30,
+    borderRadius: 20,
+    elevation: 20,
   },
 });
 
