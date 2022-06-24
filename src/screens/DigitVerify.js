@@ -101,6 +101,7 @@ const RecoveryPassword = async (mail) => {
     setLoading(true);
     console.log(mail);
     const res = await axios.get(`${baseUrl}/usuario/SendRecoveryPassword?mail=${mail}`, body, setup);
+    setLoading(false);
   } catch (error) {
     setLoading(false);
     alert("Error");
