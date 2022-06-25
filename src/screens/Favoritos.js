@@ -57,19 +57,6 @@ const Favoritos  = ({navigation}) => {
         alert(error)
       }
     });
-
-
-
-    // const unsubscribe = navigation.addListener('focus', () => {
-    //   const idUsuario =variables.getUsuario();
-    //   axios.get(`${baseUrl}/receta/getFavorito?idUsuario=${idUsuario}`)
-    //   .then(function(res){
-    //     console.log("pase");
-    //       setFavoritos(res.data);
-    //   })
-
-    // });
-    // Return the function to unsubscribe from the event so it gets removed on unmount
     return unsubscribe;
   }, [navigation])
 

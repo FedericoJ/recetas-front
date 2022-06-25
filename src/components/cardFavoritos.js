@@ -90,8 +90,7 @@ const Favorito =({favoritos,setFavoritos})=>{
             setLoading(false);
             alert(error)
           }
-        }
-        ;
+        };
 
       //   axios.post(`${baseUrl}/receta/eliminarFavorito`, body, setup)
       //   .then(function(res){

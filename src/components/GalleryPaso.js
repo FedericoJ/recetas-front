@@ -4,22 +4,10 @@ import { Button, Image, View, Platform,StyleSheet, TouchableOpacity , Text} from
 import { AntDesign } from '@expo/vector-icons';
 import { HStack, NativeBaseProvider } from 'native-base';
 
-
-
-export default function GalleryPaso({images,setImages}) {
+const ImageToLoad =({images,setImages})=>{
 	const [image, setImage] = useState(null);
-	
-	useEffect(() => {
-		(async () => {
-		if (Platform.OS !== 'web') {
-			const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
-			if (status !== 'granted') {
-			alert('Sorry, Camera roll permissions are required to make this work!');
-			}
-		}
-		})();
-	}, []);
-	
+
+
 	const chooseImg = async () => {
 		let result = await ImagePicker.launchImageLibraryAsync({
 			mediaTypes: ImagePicker.MediaTypeOptions.All,
@@ -35,19 +23,46 @@ export default function GalleryPaso({images,setImages}) {
 		   setImages([{valor: "1"}, ...images,]);
 		}
 	};
+
+	const IconoCamara=()=>{
+		if (image){
+			return null;
+		}else{
+			return (<AntDesign name="camera" size={20} color="black" />)
+		}
+	}
+
+	return(<View style={imageUploaderStyles.container}>	
+		{image && <Image source={{ uri: image }} style={{ width: 50, height: 50 }} />}
+		<View>
+			<TouchableOpacity onPress={chooseImg} >
+			{IconoCamara()}
+			</TouchableOpacity>
+		</View>
+	</View>);
+
+}
+
+
+export default function GalleryPaso() {
+	const [images,setImages]=useState([{valor:"valor"}])
+
+	useEffect(() => {
+		(async () => {
+		if (Platform.OS !== 'web') {
+			const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
+			if (status !== 'granted') {
+			alert('Sorry, Camera roll permissions are required to make this work!');
+			}
+		}
+		})();
+	}, []);
 	
 	return (
 		<View style={{flexDirection:"row"}}>
 			 {images.map((ing, indice) => ( 
 			<View>
-					<View style={imageUploaderStyles.container}>	
-						{image && <Image source={{ uri: image }} style={{ width: 50, height: 50 }} />}
-						<View>
-							<TouchableOpacity onPress={chooseImg} >
-							<AntDesign name="camera" size={20} color="black" />
-							</TouchableOpacity>
-						</View>
-					</View>
+				<ImageToLoad images={images} setImages={setImages}/>
 			</View>
 			 ))}
 		</View>

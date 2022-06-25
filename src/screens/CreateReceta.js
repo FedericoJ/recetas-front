@@ -35,6 +35,8 @@ import { Ionicons } from '@expo/vector-icons';
 import {useNetInfo} from "@react-native-community/netinfo";
 import GalleryPaso from "../components/GalleryPaso";
 import GalleryReceta from "../components/GalleryReceta";
+import config from "../config/default.json";
+import axios from 'axios'
 
 const ModalPoup = ({ visible, children }) => {
   const [showModal, setShowModal] = React.useState(visible);
@@ -58,20 +60,17 @@ const ModalPoup = ({ visible, children }) => {
   );
 };
 
-const CargarIngrediente = ({unidades, ingredientes}) => {
+const InputSelectCombo =({unidades}) =>{
 
   const [unidadSel, setUnidadesSel] = useState("1");
   const [ingrediente, setIngrediente] = useState("");
   const [cantidad, setCantidad] = useState("");
+
   const onChangeHandler2 = (item) => {
     setUnidadesSel(item);
   };
-  console.log('ingredientes');
-  console.log(ingredientes);
-  return (
-    <View>
-      {ingredientes.map((ing, indice) => (
-        <HStack mt="3" w="90%" key={ing.valor}>
+
+  return (<HStack mt="3" w="90%">
           <Input
             style={{ backgroundColor: "#ffff", textAlign: "center" }}
             mx="0.5"
@@ -112,39 +111,59 @@ const CargarIngrediente = ({unidades, ingredientes}) => {
               <Select.Item
                 key={unidad.value}
                 label={unidad.label}
-                value={unidad.value}
+                value={unidad.value.toString()}
               />
             ))}
           </Select>
-        </HStack>
+        </HStack>);
+
+};
+
+
+const CargarIngrediente = ({unidades, ingredientes}) => {
+
+  return (
+    <View>
+      {ingredientes.map((ing, indice) => (
+        <View key={ing.valor} >
+          <InputSelectCombo unidades={unidades} />
+        </View>
       ))}
     </View>
   );
 };
 
+const InputPasos =()=>{
+  const [paso, setPaso] = useState("");
+  return(
+    <TextArea
+        style={{ backgroundColor: "#ffff" }}xcca
+          w="90%"
+          mx="2"
+        placeholder="Descripcion"
+          value={paso}
+          onChangeText={setPaso}
+          fontSize="20"
+          marginBottom="5%"
+        />
+  )
+
+}
+
 const CargarPasos = ({pasos}) => {
-const [paso, setPaso] = useState("");
-const [images,setImages]=useState([{valor:"valor"}])
+
 return (
   <View>
     {pasos.map((ing, indice) => ( 
       <View>
-      <HStack mt="3" w="100%" mx="2" key={ing.valor}>
-              <Text  style={{fontSize:20, fontWeight:"bold"}}>{indice+1}{")"}</Text> 
-                <TextArea
-                style={{ backgroundColor: "#ffff" }}xcca
-                  w="90%"
-                  mx="2"
-                placeholder="Descripcion"
-                  value={paso}
-                  onChangeText={setPaso}
-                  fontSize="20"
-                  marginBottom="5%"
-                />
-        </HStack>
-          <View style={{ width: "20%", marginLeft: "7%" }}>
-              <GalleryPaso images={images} setImages={setImages}/>
-          </View>
+         <HStack mt="3" w="100%" mx="2" key={ing.valor}>
+            <Text  style={{fontSize:20, fontWeight:"bold"}}>{indice+1}{")"}</Text> 
+            <InputPasos/>
+            </HStack>
+            <View style={{ width: "20%", marginLeft: "7%" }}>
+                <GalleryPaso/>
+            </View>
+ 
         </View>
           ))} 
   </View>  
@@ -156,7 +175,7 @@ return (
 const CreateReceta = () => {
   const navigation = useNavigation();
   const [visible, setVisible] = React.useState(false);
- 
+  const baseUrl =  config.baseUrl;
   const [value, setValue] = React.useState(0);
   const [titulo, setTitulo] = useState("");
   const [descripcion, setDescripcion] = useState("");
@@ -172,9 +191,8 @@ const CreateReceta = () => {
   const [visibleWifi, setVisibleWifi] = React.useState(false);
 
   const [categorias, setCategorias] = useState([
-    { label: "Pasta", value: "1" },
-    { label: "Emapanadas", value: "2" },
-    { label: "Comida China", value: "3" },
+    { descripcion: "...", idTipo: "1" },
+   
   ]);
 
   const onChangeHandler = (item) => {
@@ -182,10 +200,32 @@ const CreateReceta = () => {
   };
 
   const [unidades, setUnidades] = useState([
-    { label: "Kg", value: "1" },
-    { label: "Gr", value: "2" },
-    { label: "Lt", value: "3" },
+    { label: "...", value: "1" },
+
   ]);
+
+
+  React.useEffect(() => {
+    /*Cargando combos*/
+    const unsubscribe = navigation.addListener('focus', () => {
+    try {
+      axios.get(`${baseUrl}/ingredientes/getTiposreceta`)
+      .then(function(res){
+          const categ =res.data;
+          axios.get(`${baseUrl}/ingredientes/getUnidades`)
+          .then(function(res){
+            setCategorias(categ);
+            setUnidades(res.data);
+          })
+          
+      })
+      } catch (error) {
+        alert(error)
+      }
+    });
+    return unsubscribe;
+  }, [navigation])
+
 
   const onChangeBlur = () => {
     setVisibleExisteReceta(true);
@@ -330,9 +370,9 @@ const CreateReceta = () => {
                   >
                     {categorias.map((categoria) => (
                       <Select.Item
-                        key={categoria.value}
-                        label={categoria.label}
-                        value={categoria.value}
+                        key={categoria.idTipo}
+                        label={categoria.descripcion}
+                        value={categoria.idTipo.toString()}
                       />
                     ))}
                   </Select>
