@@ -113,11 +113,6 @@ const ViewReceta = ({ navigation }) => {
 
     const idUsuario =variables.getUsuario();
     const baseUrl =  config.baseUrl;
-    
-
-    console.log(`${baseUrl}/receta/valorarReceta`)
-
-    console.log(variables.getUsuario());
 
     setVisible(false);
 
@@ -130,13 +125,14 @@ const ViewReceta = ({ navigation }) => {
     }
     const body = JSON.stringify({idUsuario,idReceta,comentarios, calificacion })
 
-      const res = await axios.post(`${baseUrl}/receta/valorarReceta`, body, setup);
-
-      if (res.status === 200) {
-        setComentario("");
-        setVisible(false);
-      }
-
+      const res = await axios.post(`${baseUrl}/receta/valorarReceta`, body, setup)
+      .then(function(res){
+        if (res.status === 200) {
+          setComentario("");
+          setVisible(false);
+        }
+      })
+    .catch(function(err){console.log(err)});
 
   }
 

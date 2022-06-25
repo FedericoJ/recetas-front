@@ -36,7 +36,8 @@ import {useNetInfo} from "@react-native-community/netinfo";
 import GalleryPaso from "../components/GalleryPaso";
 import GalleryReceta from "../components/GalleryReceta";
 import config from "../config/default.json";
-import axios from 'axios'
+import axios from 'axios';
+import variables from '../config/variables';
 
 const ModalPoup = ({ visible, children }) => {
   const [showModal, setShowModal] = React.useState(visible);
@@ -228,8 +229,16 @@ const CreateReceta = () => {
 
 
   const onChangeBlur = () => {
-    setVisibleExisteReceta(true);
-    console.log(visible);
+    const idUsuario =10//variables.getUsuario();
+    axios.get(`${baseUrl}/receta/buscarRecetaPorUsuarioyNombre?nombre=${titulo.trim()}&idUsuario=${idUsuario}`)
+    .then(function(res){
+        if (res.data.length!==0){
+          console.log(res.data[0].idReceta)
+          setVisibleExisteReceta(true);
+        }
+        
+      })
+    //setVisibleExisteReceta(true);
   };
 
   const agregarIngrediente = () => {
