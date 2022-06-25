@@ -8,6 +8,7 @@ import { ButtonFondoBlanco, ButtonFondoRosa, ButtonModal, ButtonModalUnico } fro
 import {useNetInfo} from "@react-native-community/netinfo";
 import { UserContext } from "../context/RecetappContext";
 import variables from "../config/variables";
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
 const ModalPoup = ({ visible, children }) => {
@@ -77,6 +78,27 @@ const LoginScreen = () => {
     }
   };
 
+  const storeLoginData = async (value) => {
+    try {
+
+      
+      await AsyncStorage.setItem('@idUsuario', value.idUsuario)
+    } catch (e) {
+      // error
+    }
+
+  }
+  
+  const getData = async () => {
+    try {
+      const jsonValue = await AsyncStorage.getItem('@storage_Key')
+      return jsonValue != null ? JSON.parse(jsonValue) : null;
+    } catch(e) {
+      // error reading value
+    }
+  }
+  
+
   const Login = async () => {
 
     const setup = {
@@ -100,6 +122,7 @@ const LoginScreen = () => {
           //navigation.navigate('Principal');
           navigation.navigate('Home');
           login(mail);
+          storeLoginData(res.data.data[0]);
         }
         if (res.status === 202 || res.status === 203) {
           setLoading(false);
