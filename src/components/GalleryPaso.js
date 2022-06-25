@@ -28,13 +28,16 @@ const ImageToLoad =({images,setImages})=>{
 		if (image){
 			return null;
 		}else{
-			return (<AntDesign name="camera" size={20} color="black" />)
+			return (
+			<View style= {imageUploaderStyles.camarita}>
+			<AntDesign name="camera" size={20} color="black" />
+			</View>)
 		}
 	}
 
 	return(<View style={imageUploaderStyles.container}>	
 		{image && <Image source={{ uri: image }} style={{ width: 50, height: 50 }} />}
-		<View>
+		<View style= {{backgroundColor:"#efefef"}}>
 			<TouchableOpacity onPress={chooseImg} >
 			{IconoCamara()}
 			</TouchableOpacity>
@@ -72,9 +75,9 @@ export default function GalleryPaso() {
 
 const imageUploaderStyles=StyleSheet.create({
    container:{
-    height:50,
- 	width:50,
-	backgroundColor:'#efefef',
+    height:60,
+ 	width:60,
+	//backgroundColor:'#efefef',
 	justifyContent:"center",
 	alignItems:"center"
  //    borderRadius:999,
@@ -85,7 +88,7 @@ uploadBtnContainer:{
     position:'absolute',
     right:0,
     bottom:0,
-    backgroundColor:'lightgrey',
+    backgroundColor:'red',
     width:'100%',
     height:'30%',
 },
@@ -93,7 +96,18 @@ uploadBtn:{
     display:'flex',
     alignItems:"center",
     justifyContent:'center'
+},
+camarita:{
+	height:60,
+	width:60,
+	borderColor:"black",
+	borderWidth:"1",
+	backgroundColor: "#D6B1B1",
+	display:'flex',
+	alignItems:"center",
+	justifyContent:'center'
 }
+
 
  })
  
