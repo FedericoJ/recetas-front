@@ -18,7 +18,7 @@ const MiReceta =()=>{
        
     const baseUrl =  config.baseUrl;
 
-    const nombre = 'mrv'//variables.getNick();
+    const nombre = variables.getNick();
 
     const fetcher = url => axios.get(`${baseUrl}/receta/recetaPorUsuario?nombre=${nombre}&order=Date`).then(res => res.data)
 

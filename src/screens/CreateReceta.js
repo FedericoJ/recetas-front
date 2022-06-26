@@ -61,6 +61,29 @@ const ModalPoup = ({ visible, children }) => {
   );
 };
 
+const ModalPoup2 = ({ visible, children}) => {
+  const [showModal2, setShowModal2] = React.useState(visible);
+  React.useEffect(() => {
+    toggleModal2();
+  }, [visible]);
+  const toggleModal2 = () => {
+    if (visible) {
+      setShowModal2(true);
+    } else {
+      setShowModal2(false);
+    }
+  };
+
+  return (
+    <Modal transparent visible={showModal2}>
+      <View style={styles.modalBackGround}>
+        <View style={[styles.modalContainer2]}>{children}</View>
+      </View>
+    </Modal>
+  );
+};
+
+
 const InputSelectCombo =({unidades}) =>{
 
   const [unidadSel, setUnidadesSel] = useState("1");
@@ -185,6 +208,7 @@ const CreateReceta = () => {
   const [noWifi, setNoWifi] = React.useState(false);
   const [visibleCarga, setVisibleCarga] = React.useState(false);
   const [visibleWifi, setVisibleWifi] = React.useState(false);
+  const[loading,setLoading]=useState(false);
 
   const [categorias, setCategorias] = useState([
     { descripcion: "...", idTipo: "1" },
@@ -246,6 +270,7 @@ const CreateReceta = () => {
 
   const wifi = () => {
     if(netInfo.type === "wifi"){
+      saveReceta()
       setVisibleCarga(true)
     }
     else {
@@ -279,6 +304,7 @@ const CreateReceta = () => {
       formData.append('file', 'data:image/jpg;base64,' + base64Foto)
 
       try { 
+        setLoading(true);
           fetch( cloudUrl, {
               method: 'POST',
               body: formData
@@ -293,15 +319,18 @@ const CreateReceta = () => {
                 axios.post(`${baseUrl}/receta/postReceta`, body, setup)
                 .then(function(res){
                     console.log(res.data);
+                    setLoading(false);
                 })
 
               }catch(error){
+                setLoading(false);
                 console.log(idUsuario,nombre,descripcion,data.secure_url,porciones,cantidadPersonas,idTipo);
                 console.log("falle en el post",error.msg)
               }
             }
           })
         }catch(error){
+          setLoading(false);
           console.log("falle cloudinary",error.msg)
         }
 
@@ -326,6 +355,7 @@ const CreateReceta = () => {
             label="Descripción"
             nextBtnText="Siguiente"
             previousBtnText="Anterior"
+            //onNext= {ValidateInput()}
             nextBtnTextStyle={{ color: "black", fontWeight: "bold" }}
           >
             <View style={styles.container}>
@@ -567,7 +597,7 @@ const CreateReceta = () => {
                 </View>
                 <View style={{ flexDirection: "row", alignItems: "center", marginTop: '1%', marginBottom: '1%', marginHorizontal: '1%' }}>
                 <ButtonModal text="Cancelar" onPress={() => { setNoWifi(false);setVisibleWifi(true) }} />
-                <ButtonModal text="Aceptar" onPress={() => {setNoWifi(false); setVisibleCarga(true) }} />
+                <ButtonModal text="Aceptar" onPress={() => {setNoWifi(false); setVisibleCarga(true); saveReceta(); }} />
                 </View>
             </ModalPoup>
             
@@ -605,11 +635,22 @@ const CreateReceta = () => {
                 />
               </View>
             </ModalPoup>
+
+            <ModalPoup2  visible={loading}>
+                <View style={{height:50,width:150, justifyContent:"center"}}>
+                 <NativeBaseProvider>
+                    <HStack marginHorizontal="90%">
+                     <Spinner size="lg" color="black"/>
+                    </HStack>
+                 </NativeBaseProvider>
+                </View>
+            </ModalPoup2>
+
             <View style={styles.botones}>
               <ButtonCreateRosa
                 text="Guardar"
                 onPress={() => {
-                  saveReceta();
+                  wifi();
                 }}
               />
             </View>
@@ -674,6 +715,14 @@ const styles = StyleSheet.create({
     alignItems: "flex-start",
     marginTop: "2%",
     marginBottom: "1%",
+  },
+  modalContainer2: {
+    width: "80%",
+    backgroundColor: "transparent",
+    paddingHorizontal: 20,
+    paddingVertical: 30,
+    borderRadius: 20,
+    elevation: 20,
   },
 });
 
