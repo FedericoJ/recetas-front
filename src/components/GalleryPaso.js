@@ -26,10 +26,10 @@ const ImageToLoad =({images,setImages})=>{
 
 	const IconoCamara=()=>{
 		if (image){
-			return null;
+			return (<View></View>);
 		}else{
 			return (
-			<View style= {imageUploaderStyles.camarita}>
+			<View style={imageUploaderStyles.camarita}>
 			<AntDesign name="camera" size={20} color="black" />
 			</View>)
 		}
@@ -39,7 +39,7 @@ const ImageToLoad =({images,setImages})=>{
 		{image && <Image source={{ uri: image }} style={{ width: 50, height: 50 }} />}
 		<View style= {{backgroundColor:"#efefef"}}>
 			<TouchableOpacity onPress={chooseImg} >
-			{IconoCamara()}
+				<IconoCamara/>
 			</TouchableOpacity>
 		</View>
 	</View>);
@@ -64,7 +64,7 @@ export default function GalleryPaso() {
 	return (
 		<View style={{flexDirection:"row"}}>
 			 {images.map((ing, indice) => ( 
-			<View>
+			<View key ={indice+1}>
 				<ImageToLoad images={images} setImages={setImages}/>
 			</View>
 			 ))}
@@ -101,8 +101,8 @@ camarita:{
 	height:60,
 	width:60,
 	borderColor:"black",
-	borderWidth:"1",
-	backgroundColor: "#D6B1B1",
+	borderWidth:1,
+	backgroundColor:"#D6B1B1",
 	display:'flex',
 	alignItems:"center",
 	justifyContent:'center'

@@ -5,7 +5,7 @@ import { AntDesign } from '@expo/vector-icons';
 
 
 
-export default function GalleryReceta() {
+export default function GalleryReceta({base64Foto ,setBase64Foto}) {
 	const [image, setImage] = useState(null);
 	
 	useEffect(() => {
@@ -24,13 +24,17 @@ export default function GalleryReceta() {
 			mediaTypes: ImagePicker.MediaTypeOptions.All,
 			aspect: [4, 3],
 			quality: 1,			
-			allowsEditing: true,
+            allowsEditing: true,
+            base64:true
 		});
 	
 		console.log(result);
 	
 		if (!result.cancelled) {
-		   setImage(result.uri);
+            const {uri,base64} =result;
+           setImage(uri);
+           console.log(base64);
+           setBase64Foto(base64);
 		}
 	};
 	

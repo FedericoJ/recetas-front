@@ -146,32 +146,26 @@ const InputPasos =()=>{
           onChangeText={setPaso}
           fontSize="20"
           marginBottom="5%"
-        />
-  )
-
+        />)
 }
 
 const CargarPasos = ({pasos}) => {
 
-return (
-  <View>
+return (<View>
     {pasos.map((ing, indice) => ( 
       <View>
-         <HStack mt="3" w="100%" mx="2" key={ing.valor}>
+         <HStack mt="3" w="100%" mx="2" key={indice+1}>
             <Text  style={{fontSize:20, fontWeight:"bold"}}>{indice+1}{")"}</Text> 
             <InputPasos/>
             </HStack>
             <View style={{ width: "20%", marginLeft: "7%" }}>
                 <GalleryPaso/>
             </View>
- 
         </View>
           ))} 
   </View>  
-   );
- };
-
-
+   )
+ }
 
 const CreateReceta = () => {
   const navigation = useNavigation();
@@ -187,6 +181,7 @@ const CreateReceta = () => {
   const [pasos, setPasos] = useState([{valor:"valor"}]);
   const [visibleExisteReceta, setVisibleExisteReceta] = useState("");
   const netInfo = useNetInfo();
+  const [base64Foto,setBase64Foto] =React.useState(null);
   const [noWifi, setNoWifi] = React.useState(false);
   const [visibleCarga, setVisibleCarga] = React.useState(false);
   const [visibleWifi, setVisibleWifi] = React.useState(false);
@@ -258,6 +253,60 @@ const CreateReceta = () => {
     }
   };
 
+  const saveReceta=()=>{
+    /* 
+    PostIngredienteutiladoPorReceta
+    Cloudinary para la multimedia de los pasos , obtengo datos
+    PostPaso -> Ver de guardar la multimedia acá dentro}`*/
+    const idUsuario =variables.getUsuario();
+    const nombre= titulo;
+    const cantidadPersonas = personas;
+    const idTipo = categoriaSel.valueOf();   
+    
+      const setup = {
+        headers: {
+          'content-type': 'application/json'
+        }
+      }
+      
+      console.log(base64Foto);
+
+      const cloudPreset = 'y02lecbn';
+      const cloudUrl    = 'https://api.cloudinary.com/v1_1/dwghwqi4l/upload';
+
+      const formData = new FormData();
+      formData.append('upload_preset', cloudPreset );
+      formData.append('file', 'data:image/jpg;base64,' + base64Foto)
+
+      try { 
+          fetch( cloudUrl, {
+              method: 'POST',
+              body: formData
+          })
+          .then(response => response.json())
+          .then(data => {
+            if (data.secure_url !=='') {
+              console.log(data);
+             try{
+                const foto=data.secure_url.trim();
+                const body = JSON.stringify({idUsuario,nombre,descripcion,foto,porciones,cantidadPersonas,idTipo})
+                axios.post(`${baseUrl}/receta/postReceta`, body, setup)
+                .then(function(res){
+                    console.log(res.data);
+                })
+
+              }catch(error){
+                console.log(idUsuario,nombre,descripcion,data.secure_url,porciones,cantidadPersonas,idTipo);
+                console.log("falle en el post",error.msg)
+              }
+            }
+          })
+        }catch(error){
+          console.log("falle cloudinary",error.msg)
+        }
+
+  }
+
   return (
     <View style={styles.container}>
       <NativeBaseProvider>
@@ -281,7 +330,7 @@ const CreateReceta = () => {
           >
             <View style={styles.container}>
               <View style={{ width: "100%", height: 200 }}>
-                <GalleryReceta />
+                <GalleryReceta base64Foto ={base64Foto} setBase64Foto={setBase64Foto}/>
               </View>
               <NativeBaseProvider>
                 <ModalPoup visible={visibleExisteReceta}>
@@ -480,7 +529,6 @@ const CreateReceta = () => {
             <View style={styles.container}>
              
              <CargarPasos pasos={pasos}/>
-
                 <TouchableOpacity onPress={() => agregarPaso()}>
                   <View
                     style={{
@@ -561,7 +609,7 @@ const CreateReceta = () => {
               <ButtonCreateRosa
                 text="Guardar"
                 onPress={() => {
-                  wifi();
+                  saveReceta();
                 }}
               />
             </View>
