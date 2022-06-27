@@ -4,6 +4,7 @@ import React, { useContext } from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { LogBox } from "react-native";
+import {YellowBox} from 'react-native';
 // import HomeScreen from "./src/screens/HomeScreen";
 // import ScannerScreen from "./src/screens/Scanner";
 import LoginScreen from "./src/screens/LoginScreen";
@@ -44,8 +45,10 @@ const App = () => {
 };
 
 LogBox.ignoreLogs([
-  "[react-native-gesture-handler] Seems like you're using an old API with gesture components, check out new Gestures system!",
+  "[react-native-gesture-handler] Seems like you're using an old API with gesture components, check out new Gestures system!"
 ]);
+
+LogBox.ignoreAllLogs();
 
 const Main = () => {
   const { isAuthenticated } = useContext(UserContext)
