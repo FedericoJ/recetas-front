@@ -12,7 +12,9 @@ import Guardada from '../components/cardGuardadas';
 
 const Guardadas  = ({navigation}) => {
 
-
+// Llamar al GetRecetaPorID segun el length del array guardado en base
+// llama ok al servicio push en el array que muestra las cards
+// la card en el onpress va a llamar a calcularReceta pasandole por parametro el numero ya la receta la llena antes
 
 return (
     <View style={styles.container}>

@@ -19,6 +19,7 @@ import {
   HStack,
   Select,
   CheckIcon,
+  Spinner,
   Box, Center
 } from "native-base";
 import {
@@ -84,15 +85,36 @@ const ModalPoup2 = ({ visible, children}) => {
 };
 
 
-const InputSelectCombo =({unidades}) =>{
+const InputSelectCombo =({unidades,ingredientes,setIngredientes,indice}) =>{
+  //{ cantidad: "",nombre:"",idUnidad:"1" 
+  const [unidadSel, setUnidadesSel] = useState(ingredientes[indice].idUnidad);
+  const [ingrediente, setIngrediente] = useState(ingredientes[indice].descripcion);
+  const [cantidad, setCantidad] = useState(ingredientes[indice].cantidad);
 
-  const [unidadSel, setUnidadesSel] = useState("1");
-  const [ingrediente, setIngrediente] = useState("");
-  const [cantidad, setCantidad] = useState("");
+  console.log("indice llegando",indice);
 
   const onChangeHandler2 = (item) => {
+    onBlurCombo(item);
     setUnidadesSel(item);
   };
+
+  const onBlurCombo=(item)=>{
+    const newIngrediente=ingredientes.slice()
+    const guardando =[{idUnidad:item,descripcion:ingrediente,cantidad:cantidad,observaciones:""}];
+    newIngrediente[indice] = guardando;
+    setIngredientes(newIngrediente);
+
+  }
+
+  const onBlurIngredientes=()=>{
+
+    const newIngrediente=ingredientes.slice()
+    const guardando =[{idUnidad:unidadSel,descripcion:ingrediente,cantidad:cantidad,observaciones:""}];
+    
+    newIngrediente[indice] = guardando;
+    setIngredientes(newIngrediente);
+
+  }
 
   return (<HStack mt="3" w="90%">
           <Input
@@ -104,6 +126,7 @@ const InputSelectCombo =({unidades}) =>{
             value={ingrediente}
             onChangeText={setIngrediente}
             marginLeft="5%"
+            onBlur={() => onBlurIngredientes()}
           />
           <Input
             style={{ backgroundColor: "#ffff", textAlign: "center" }}
@@ -113,6 +136,7 @@ const InputSelectCombo =({unidades}) =>{
             placeholder="Cant"
             value={cantidad}
             onChangeText={setCantidad}
+            onBlur={() => onBlurIngredientes()}
           />
 
           <Select
@@ -144,13 +168,12 @@ const InputSelectCombo =({unidades}) =>{
 };
 
 
-const CargarIngrediente = ({unidades, ingredientes}) => {
-
+const CargarIngrediente = ({unidades, ingredientes,setIngredientes}) => {
   return (
     <View>
       {ingredientes.map((ing, indice) => (
-        <View key={ing.valor} >
-          <InputSelectCombo unidades={unidades} />
+        <View key={indice} >
+          <InputSelectCombo unidades={unidades} ingredientes={ingredientes} setIngredientes={setIngredientes} indice={indice}/>
         </View>
       ))}
     </View>
@@ -200,7 +223,7 @@ const CreateReceta = () => {
   const [porciones, setPorciones] = useState("");
   const [personas, setPersonas] = useState("");
   const [categoriaSel, setCategoriaSel] = useState("1");
-  const [ingredientes, setIngredientes] = useState([{ valor: "valor" }]);
+  const [ingredientes, setIngredientes] = useState([{ cantidad: "",descripcion:"",idUnidad:"1",observaciones:""}]);
   const [pasos, setPasos] = useState([{valor:"valor"}]);
   const [visibleExisteReceta, setVisibleExisteReceta] = useState("");
   const netInfo = useNetInfo();
@@ -209,6 +232,7 @@ const CreateReceta = () => {
   const [visibleCarga, setVisibleCarga] = React.useState(false);
   const [visibleWifi, setVisibleWifi] = React.useState(false);
   const[loading,setLoading]=useState(false);
+
 
   const [categorias, setCategorias] = useState([
     { descripcion: "...", idTipo: "1" },
@@ -261,7 +285,8 @@ const CreateReceta = () => {
   };
 
   const agregarIngrediente = () => {
-    setIngredientes([{valor: "1"}, ...ingredientes,]);
+    setIngredientes([{cantidad:"",descripcion:"",idUnidad:"1",observaciones:""}, ...ingredientes,]);
+
   };
 
   const agregarPaso = () => {
@@ -283,6 +308,13 @@ const CreateReceta = () => {
     PostIngredienteutiladoPorReceta
     Cloudinary para la multimedia de los pasos , obtengo datos
     PostPaso -> Ver de guardar la multimedia acá dentro}`*/
+
+    const idReceta = 184;
+    const bodyIng = JSON.stringify({idReceta,ingredientes:ingredientes})
+
+    console.log(ingredientes);
+    console.log(bodyIng);
+
     const idUsuario =variables.getUsuario();
     const nombre= titulo;
     const cantidadPersonas = personas;
@@ -293,8 +325,6 @@ const CreateReceta = () => {
           'content-type': 'application/json'
         }
       }
-      
-      console.log(base64Foto);
 
       const cloudPreset = 'y02lecbn';
       const cloudUrl    = 'https://api.cloudinary.com/v1_1/dwghwqi4l/upload';
@@ -318,13 +348,13 @@ const CreateReceta = () => {
                 const body = JSON.stringify({idUsuario,nombre,descripcion,foto,porciones,cantidadPersonas,idTipo})
                 axios.post(`${baseUrl}/receta/postReceta`, body, setup)
                 .then(function(res){
-                    console.log(res.data);
                     setLoading(false);
+                    
+
                 })
 
               }catch(error){
                 setLoading(false);
-                console.log(idUsuario,nombre,descripcion,data.secure_url,porciones,cantidadPersonas,idTipo);
                 console.log("falle en el post",error.msg)
               }
             }
@@ -524,7 +554,7 @@ const CreateReceta = () => {
             <View style={styles.container}>
               <NativeBaseProvider>
 
-                <CargarIngrediente unidades={unidades} ingredientes={ingredientes}></CargarIngrediente>
+                <CargarIngrediente unidades={unidades} ingredientes={ingredientes} setIngredientes={setIngredientes}></CargarIngrediente>
 
                 <TouchableOpacity onPress={() => agregarIngrediente()}
                 >
