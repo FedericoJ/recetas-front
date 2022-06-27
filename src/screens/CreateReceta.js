@@ -19,7 +19,7 @@ import {
   HStack,
   Select,
   CheckIcon,
-  Box, Center
+  Box, Center, Spinner
 } from "native-base";
 import {
   ButtonModal,
@@ -255,7 +255,6 @@ const CreateReceta = () => {
           console.log(res.data[0].idReceta)
           setVisibleExisteReceta(true);
         }
-        
       })
     //setVisibleExisteReceta(true);
   };
@@ -336,6 +335,21 @@ const CreateReceta = () => {
 
   }
 
+
+const [modalErrorDatos, setModalErrorDatos] =useState(false);
+const[error, setError] =useState(false);
+
+onNextStep = () => {
+  setError(false)
+  console.log("codigo")
+  console.log(base64Foto)
+  if (titulo.trim() ==0 || descripcion.trim() == 0 || personas.trim() == 0 || porciones.trim() == 0 || base64Foto === null)
+  {
+  setModalErrorDatos(true)
+  setError(true)}
+};
+
+
   return (
     <View style={styles.container}>
       <NativeBaseProvider>
@@ -354,8 +368,8 @@ const CreateReceta = () => {
           <ProgressStep
             label="Descripción"
             nextBtnText="Siguiente"
-            previousBtnText="Anterior"
-            //onNext= {ValidateInput()}
+            onNext={onNextStep}
+            errors={error}
             nextBtnTextStyle={{ color: "black", fontWeight: "bold" }}
           >
             <View style={styles.container}>
@@ -391,16 +405,29 @@ const CreateReceta = () => {
                     />
                   </View>
                 </ModalPoup>
+
+                <ModalPoup visible={modalErrorDatos}>
+                <View style={{ alignItems: 'flex-start' }}>
+                <Text style={{ fontSize: 20, color: "black" }}>Por favor complete todos los campos </Text>
+                <View style={{ flexDirection: "row", alignItems: "center", marginTop: '2%', marginBottom: '2%', marginHorizontal: '5%' }}>
+                </View>
+                </View>
+                <View style={{ flexDirection: "row", alignItems: "center", marginTop: '1%', marginBottom: '1%', marginHorizontal: '1%' }}>
+                <ButtonModalUnico text="Aceptar" onPress={() => setModalErrorDatos(false)} />
+                </View>
+            </ModalPoup>
                 <View
                   style={{
-                    flexDirection: "row",
+                    // flexDirection: "row",
                     alignItems: "center",
                     marginTop: "5%",
                     marginBottom: "2%",
                     marginHorizontal: "5%",
+
                   }}
                 >
                   <FormControl isRequired>
+                    
                     <Input
                       placeholder="Titulo"
                       backgroundColor="#FFFF"
