@@ -98,7 +98,6 @@ const Ingredients = ({Receta, numero}) => {
   
   const ingredientes=useSWR(`${baseUrl}/ingredientes/getIngredienteUtilizadoPorReceta?idReceta=${Receta}`, fetcher);
 
-
   if (!ingredientes.data){
     return( <NativeBaseProvider>
             <HStack space={8} justifyContent="center">

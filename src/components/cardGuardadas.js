@@ -48,7 +48,7 @@ import { Swipeable } from 'react-native-gesture-handler';
  
 
 
-const Guardada =()=>{
+const Guardada =({datos})=>{
     const navigation = useNavigation();
     const [item, setItem] = useState(tipos);
     const deleteItem = (id) => {
@@ -60,7 +60,7 @@ const Guardada =()=>{
         <SafeAreaView style={{ marginVertical:'5%'}}>
           
         <Text  style={{textAlign:"center",fontSize:20,fontWeight:"bold",marginBottom:'2%'}}> Guardadas </Text> 
-            <FlatList style= {{marginHorizontal:'5%'}} data ={tipos}
+            <FlatList style= {{marginHorizontal:'5%'}} data ={datos}
                 numColumns={1}
                 renderItem={({item, index}) =>(
                 <Swipeable overshootRight={false} onSwipeableRightOpen={deleteItem(item.id)} renderRightActions={RenderRight}> 

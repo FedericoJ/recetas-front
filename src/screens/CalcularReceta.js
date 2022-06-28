@@ -23,7 +23,7 @@ import useSWR from 'swr'
 import axios from 'axios'
 import variables from '../config/variables';
 import { calculateInitialScale } from "react-native-image-view/src/utils";
-
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
 const ModalPoup = ({ visible, children }) => {
@@ -53,6 +53,14 @@ const CalcularReceta = ({ navigation }) => {
   const [isFavorito, setIsFavorito] = React.useState(2);
   const [cantGuardadas, setCantGuardadas] = useState(2);
   const [errorGuardar, setErrorGuardar] = useState(false);
+
+
+
+  const GuardarRecetaStorage = (idReceta, numero) => {
+    guardarRecetasDispositivo(idReceta, numero);
+    setVisible(true);
+  } 
+
 
   // const Guardar = (muestro) =>{
   //   console.log(muestro)
@@ -139,6 +147,20 @@ const CalcularReceta = ({ navigation }) => {
       setNumero(numero)
     }
   };
+
+
+
+  const guardarRecetasDispositivo = async(id, num) => {
+    const receta = {id, num};
+    const recetasGuardadas = await AsyncStorage.getItem('recetasGuardadas');
+    if (recetasGuardadas != null) {
+      const nuevasRecetas = JSON.parse(recetasGuardadas).concat(receta);
+      console.log('Recetas Guardadas: ', nuevasRecetas);
+      await AsyncStorage.setItem('recetasGuardadas', JSON.stringify(nuevasRecetas));
+    } else {
+      await AsyncStorage.setItem('recetasGuardadas',JSON.stringify([receta]));
+    }
+  } 
 
   return (
     <ScrollView style={styles.container}>
@@ -298,7 +320,8 @@ const CalcularReceta = ({ navigation }) => {
             </View>
           </ModalPoup>
 
-          <ButtonFondoRosa text="Guardar" onPress={() => setVisible(true)} />
+        <ButtonFondoRosa  text="Guardar" onPress={()=> GuardarRecetaStorage(values.IdReceta, numero)}/>
+          {/* <ButtonFondoRosa  text="Guardar" onPress={()=> setVisible(true)}/> */}
           {/* <Guardar></Guardar> */}
 
         </View>
