@@ -14,9 +14,9 @@ const ImageToLoad =({images,setImages})=>{
 			aspect: [4, 3],
 			quality: 1,			
 			allowsEditing: true,
+			base64:true
 		});
-	
-		console.log(result);
+
 	
 		if (!result.cancelled) {
 		   setImage(result.uri);

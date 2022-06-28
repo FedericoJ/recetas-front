@@ -9,7 +9,6 @@ import { useNavigation } from '@react-navigation/core';
 import { MaterialIcons } from '@expo/vector-icons';
 import { ButtonFondoRosa, ButtonModalUnico } from '../components/ButtonsLogin';
 import {useNetInfo} from "@react-native-community/netinfo";
-import {  Header,  LearnMoreLinks,  Colors,  DebugInstructions,  ReloadInstructions,} from 'react-native/Libraries/NewAppScreen';
 import * as ImagePicker from 'expo-image-picker';
 
 
