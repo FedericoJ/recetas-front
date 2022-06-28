@@ -44,8 +44,8 @@ const InputSelectCombo = ({item, unidades, numero}) => {
       textAlign:"center" }} 
       fontSize= "16"
       isDisabled
-      w="25%"
-      ml="10"
+      w="30%"
+      ml="8"
       value={cantidad.toString()}
     />
 
