@@ -44,8 +44,8 @@ const InputSelectCombo = ({item, unidades, numero}) => {
       textAlign:"center" }} 
       fontSize= "16"
       isDisabled
-      w="25%"
-      ml="10"
+      w="30%"
+      ml="8"
       value={cantidad.toString()}
     />
 
@@ -97,7 +97,6 @@ const Ingredients = ({Receta, numero}) => {
   fetcher = url => axios.get(`${baseUrl}/ingredientes/getIngredienteUtilizadoPorReceta?idReceta=${Receta}`).then(res => res.data)
   
   const ingredientes=useSWR(`${baseUrl}/ingredientes/getIngredienteUtilizadoPorReceta?idReceta=${Receta}`, fetcher);
-
 
   if (!ingredientes.data){
     return( <NativeBaseProvider>

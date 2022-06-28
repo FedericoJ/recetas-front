@@ -21,7 +21,7 @@ const ModalPoup = ({visible, children}) => {
       if(visible){
           setShowModal(true);
       }
-      else {setShowModal(false)};
+      else {setShowModal(false)}
   }
   
   return <Modal transparent visible={showModal}>
