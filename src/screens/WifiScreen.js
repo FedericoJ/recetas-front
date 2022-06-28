@@ -1,116 +1,112 @@
-import React from "react";
-import { Text, NativeBaseProvider, Center } from "native-base";
-import { StyleSheet, View, Modal } from "react-native";
-import { useNavigation } from "@react-navigation/core";
-import { MaterialIcons } from "@expo/vector-icons";
-import { ButtonFondoRosa, ButtonModalUnico } from "../components/ButtonsLogin";
-import { useNetInfo } from "@react-native-community/netinfo";
+import React, { Fragment, Component, useState, useEffect } from 'react';
+import { Box, Text, Heading, VStack, CheckCircleIcon, Button, HStack, Center, NativeBaseProvider, Icon  } from "native-base";
+import { StyleSheet, Image, View, Modal,  StatusBar, 
+  Dimensions,
+  TouchableOpacity,  SafeAreaView,
+  ScrollView,
+  Platform} from 'react-native';
+import { useNavigation } from '@react-navigation/core';
+import { MaterialIcons } from '@expo/vector-icons';
+import { ButtonFondoRosa, ButtonModalUnico } from '../components/ButtonsLogin';
+import {useNetInfo} from "@react-native-community/netinfo";
+import {  Header,  LearnMoreLinks,  Colors,  DebugInstructions,  ReloadInstructions,} from 'react-native/Libraries/NewAppScreen';
+import * as ImagePicker from 'expo-image-picker';
 
-const ModalPoup = ({ visible, children }) => {
+
+const ModalPoup = ({visible, children}) => {
   const [showModal, setShowModal] = React.useState(visible);
   React.useEffect(() => {
-    toggleModal();
-  }, [visible]);
-  const toggleModal = () => {
-    if (visible) {
-      setShowModal(true);
-    } else {
-      setShowModal(false);
-    }
-  };
-
-  return (
-    <Modal transparent visible={showModal}>
+      toggleModal();
+  },[visible])
+  const toggleModal = () =>{
+      if(visible){
+          setShowModal(true);
+      }
+      else {setShowModal(false)};
+  }
+  
+  return <Modal transparent visible={showModal}>
       <View style={styles.modalBackGround}>
-        <View style={[styles.modalContainer]}>{children}</View>
+          <View style={[styles.modalContainer]}>
+              {children}
+          </View>
       </View>
-    </Modal>
-  );
+  </Modal>;
+
 };
 
+
 const WifiScreen = () => {
+
   const [visible, setVisible] = React.useState(false);
 
   const netInfo = useNetInfo();
 
   const wifi = () => {
-    if (netInfo.type === "wifi") {
-      setVisible(true);
-    } else {
-      setVisible(false);
+    if(netInfo.type === "wifi"){
+      setVisible(true)
+    }
+    else {
+      setVisible(false)
     }
   };
 
-  const navigation = useNavigation();
 
-  return (
-    <View>
-      <Center>
-        <View style={styles.centerContent}>
-          <MaterialIcons name="wifi-off" size={100} color="black" />
-        </View>
+const navigation = useNavigation();
 
-        <ButtonFondoRosa
-          text="Volver"
-          onPress={() => navigation.navigate("Home")}
-        />
-        <ModalPoup visible={visible}>
-          <View style={{ alignItems: "flex-start" }}>
-            <Text>Type: {netInfo.type}</Text>
-            <Text>Is Connected? {netInfo.isConnected?.toString()}</Text>
-          </View>
-          <View
-            style={{
-              flexDirection: "row",
-              alignItems: "center",
-              marginTop: "1%",
-              marginBottom: "1%",
-              marginHorizontal: "1%",
-            }}
-          >
-            <ButtonModalUnico
-              text="Aceptar"
-              onPress={() => {
-                setVisible(false);
-              }}
-            />
-          </View>
-        </ModalPoup>
-        <ButtonFondoRosa
-          text="Validar"
-          onPress={() => {
-            setVisible(wifi);
-          }}
-        />
-      </Center>
-    </View>
-  );
+
+    return (
+      <View >
+          <Center>
+      <View style={styles.centerContent}>
+      <MaterialIcons name="wifi-off" size={100} color="black" />  
+      </View>
+
+
+        <ButtonFondoRosa text="Volver" onPress={() => navigation.navigate('Home')}/>
+        <ModalPoup visible = {visible}>
+                <View style = {{alignItems: 'flex-start'}}>
+                      <Text>Type: {netInfo.type}</Text>
+                      <Text>Is Connected? {netInfo.isConnected?.toString()}</Text>
+                </View>
+                <View style={{flexDirection:"row" , alignItems:"center", marginTop:'1%', marginBottom:'1%', marginHorizontal:'1%'}}>
+                <ButtonModalUnico text="Aceptar"onPress={() => { setVisible(false) }}/>             
+                </View> 
+         </ModalPoup>
+        <ButtonFondoRosa text="Validar" onPress={() => {setVisible(wifi)}}/>
+        </Center>
+      </View>
+      
+)
 };
 
 const styles = StyleSheet.create({
-  centerContent: {},
+
+  centerContent: {
+
+  },
   modalBackGround: {
     flex: 1,
-    backgroundColor: "rgba(0,0,0,0.5)",
-    justifyContent: "center",
-    alignItems: "center",
+    backgroundColor: 'rgba(0,0,0,0.5)',
+    justifyContent: 'center',
+    alignItems: 'center',
   },
-  modalContainer: {
-    width: "80%",
-    backgroundColor: "#F7F4F4",
+modalContainer: {
+    width: '80%',
+    backgroundColor: '#F7F4F4',
     paddingHorizontal: 20,
     paddingVertical: 30,
     borderRadius: 20,
     elevation: 20,
   },
 });
-
-const WifiScreenPage = () => (
-  <NativeBaseProvider>
-    <Center flex={1} backgroundColor="#D6B1B1">
-      <WifiScreen />
-    </Center>
-  </NativeBaseProvider>
-);
-
-export default WifiScreenPage;
+    export default () => {
+        return (
+          <NativeBaseProvider>
+            <Center flex={1}  backgroundColor= '#D6B1B1'>
+                <WifiScreen />
+            </Center>
+          </NativeBaseProvider>
+        );
+    };
+    

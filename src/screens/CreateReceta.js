@@ -1,29 +1,43 @@
 import React, { useState } from "react";
-import { StyleSheet, View, Text, TouchableOpacity, Modal } from "react-native";
+import {
+  ScrollView,
+  StyleSheet,
+  Image,
+  View,
+  Text,
+  TouchableOpacity,
+  TextInput,
+  Modal, 
+} from "react-native";
 import {
   NativeBaseProvider,
   TextArea,
   Input,
+  Divider,
   FormControl,
+  VStack,
   HStack,
   Select,
   CheckIcon,
-  Spinner,
+  Box, Center, Spinner
 } from "native-base";
 import {
   ButtonModal,
+  ButtonFondoBlanco,
+  ButtonFondoRosa,
+  ButtonCreateBlanco,
   ButtonCreateRosa,
   ButtonModalUnico,
 } from "../components/ButtonsLogin";
 import { useNavigation } from "@react-navigation/native";
 import { ProgressSteps, ProgressStep } from "react-native-progress-steps";
-import { Ionicons } from "@expo/vector-icons";
-import { useNetInfo } from "@react-native-community/netinfo";
+import { Ionicons } from '@expo/vector-icons';
+import {useNetInfo} from "@react-native-community/netinfo";
 import GalleryPaso from "../components/GalleryPaso";
 import GalleryReceta from "../components/GalleryReceta";
 import config from "../config/default.json";
-import axios from "axios";
-import variables from "../config/variables";
+import axios from 'axios';
+import variables from '../config/variables';
 
 const ModalPoup = ({ visible, children }) => {
   const [showModal, setShowModal] = React.useState(visible);
@@ -47,7 +61,7 @@ const ModalPoup = ({ visible, children }) => {
   );
 };
 
-const ModalPoup2 = ({ visible, children }) => {
+const ModalPoup2 = ({ visible, children}) => {
   const [showModal2, setShowModal2] = React.useState(visible);
   React.useEffect(() => {
     toggleModal2();
@@ -69,293 +83,253 @@ const ModalPoup2 = ({ visible, children }) => {
   );
 };
 
-const InputSelectCombo = ({
-  unidades,
-  ingrediente,
-  setIngredientes,
-  indice,
-}) => {
-  // cantidad: ""
-  // descripcion: ""
-  // id: 0
-  // idUnidad: "1"
-  // observaciones: ""
 
-  console.log(ingrediente);
+const InputSelectCombo =({unidades,ingredientes,setIngredientes,indice}) =>{
+  //{ cantidad: "",nombre:"",idUnidad:"1" 
+  const [unidadSel, setUnidadesSel] = useState("1");
+  const [ingrediente, setIngrediente] = useState("");
+  const [cantidad, setCantidad] = useState("");
 
-  const { cantidad, descripcion, idUnidad } = ingrediente;
 
-  const nombreIngredienteHandler = (descripcion) => {
-    setIngredientes((prev) => {
-      const newIngredientes = [...prev];
-      newIngredientes[indice].descripcion = descripcion;
-      return newIngredientes;
-    });
+  const onChangeHandler2 = (item) => {
+    onBlurCombo(item);
+    setUnidadesSel(item);
   };
 
-  const cantidadHandler = (cantidad) => {
-    setIngredientes((prev) => {
-      const newIngredientes = [...prev];
-      newIngredientes[indice].cantidad = cantidad;
-      return newIngredientes;
-    });
-  };
-
-  const onIdUnidadHandler = (idUnidad) => {
-    setIngredientes((prev) => {
-      const newIngredientes = [...prev];
-      newIngredientes[indice].idUnidad = idUnidad;
-      return newIngredientes;
-    });
-  };
-
-  const onBlurCombo = (item) => {
+  const onBlurCombo=(item)=>{
     /*const newIngrediente=ingredientes.slice()
     const guardando =[{id:indice,idUnidad:item,descripcion:ingrediente,cantidad:cantidad,observaciones:""}];
     newIngrediente[indice] = guardando;
     setIngredientes(newIngrediente);*/
-  };
 
-  const onBlurIngredientes = () => {
-    /* const newIngrediente=ingredientes.slice()
+  }
+
+  const onBlurIngredientes=()=>{
+
+   /* const newIngrediente=ingredientes.slice()
     const guardando =[{idUnidad:unidadSel,descripcion:ingrediente,cantidad:cantidad,observaciones:""}];
     
     newIngrediente[indice] = guardando;
     setIngredientes(newIngrediente);*/
-  };
 
-  return (
-    <HStack mt="3" w="90%">
-      <Input
-        style={{ backgroundColor: "#ffff", textAlign: "center" }}
-        mx="0.5"
-        w="40%"
-        fontSize="16"
-        placeholder="Ingrediente"
-        value={descripcion}
-        onChangeText={nombreIngredienteHandler}
-        marginLeft="5%"
-        onBlur={() => onBlurIngredientes()}
-      />
-      <Input
-        style={{ backgroundColor: "#ffff", textAlign: "center" }}
-        mx="1"
-        w="25%"
-        fontSize="16"
-        placeholder="Cant"
-        value={cantidad}
-        onChangeText={cantidadHandler}
-        onBlur={() => onBlurIngredientes()}
-      />
+  }
 
-      <Select
-        style={{ backgroundColor: "#ffff" }}
-        // marginRight="47%"
-        // w="50%"
-        defaultValue={idUnidad}
-        mx="0.5"
-        width="110"
-        fontSize="16"
-        mr="2"
-        alignSelf="flex-end"
-        _selectedItem={{
-          bg: "indigo",
-          endIcon: <CheckIcon size={1} />,
-        }}
-        onValueChange={onIdUnidadHandler}
-      >
-        {unidades.map((unidad) => (
-          <Select.Item
-            key={unidad.value}
-            label={unidad.label}
-            value={unidad.value.toString()}
+  return (<HStack mt="3" w="90%">
+          <Input
+            style={{ backgroundColor: "#ffff", textAlign: "center" }}
+            mx="0.5"
+            w="40%"
+            fontSize="16"
+            placeholder="Ingrediente"
+            value={ingrediente}
+            onChangeText={setIngrediente}
+            marginLeft="5%"
+            onBlur={() => onBlurIngredientes()}
           />
-        ))}
-      </Select>
-    </HStack>
-  );
+          <Input
+            style={{ backgroundColor: "#ffff", textAlign: "center" }}
+            mx="1"
+            w="25%"
+            fontSize="16"
+            placeholder="Cant"
+            value={cantidad}
+            onChangeText={setCantidad}
+            onBlur={() => onBlurIngredientes()}
+          />
+
+          <Select
+            style={{ backgroundColor: "#ffff" }}
+            selectedValue={unidadSel}
+            // marginRight="47%"
+            // w="50%"
+            mx="0.5"
+            width="110"
+            fontSize="16"
+            mr="2"
+            alignSelf="flex-end"
+            _selectedItem={{
+              bg: "indigo",
+              endIcon: <CheckIcon size={1} />,
+            }}
+            onValueChange={onChangeHandler2}
+          >
+            {unidades.map((unidad) => (
+              <Select.Item
+                key={unidad.value}
+                label={unidad.label}
+                value={unidad.value.toString()}
+              />
+            ))}
+          </Select>
+        </HStack>);
+
 };
 
-const CargarIngrediente = ({ unidades, ingredientes, setIngredientes }) => {
+const CargarIngrediente = ({unidades,ingredientes,setIngredientes}) => {
   return (
     <View>
-      {ingredientes.map((ing) => (
+      {ingredientes.map((ing, indice) => (
         <View>
-          <InputSelectCombo
-            key={ing.id}
-            unidades={unidades}
-            ingrediente={ing}
-            setIngredientes={setIngredientes}
-            indice={ing.id}
-          />
+          <InputSelectCombo key={ing.id} unidades={unidades} ingredientes={ingredientes} setIngredientes={setIngredientes} indice={ing.id}/>
         </View>
       ))}
     </View>
   );
 };
 
-const InputPasos = () => {
+const InputPasos =()=>{
   const [paso, setPaso] = useState("");
-  return (
+  return(
     <TextArea
-      style={{ backgroundColor: "#ffff" }}
-      xcca
-      w="90%"
-      mx="2"
-      placeholder="Descripcion"
-      value={paso}
-      onChangeText={setPaso}
-      fontSize="20"
-      marginBottom="5%"
-    />
-  );
-};
+        style={{ backgroundColor: "#ffff" }}xcca
+          w="90%"
+          mx="2"
+        placeholder="Descripcion"
+          value={paso}
+          onChangeText={setPaso}
+          fontSize="20"
+          marginBottom="5%"
+        />)
+}
 
-const CargarPasos = ({ pasos }) => {
-  return (
-    <View>
-      {pasos.map((ing, indice) => (
-        <View>
-          <HStack mt="3" w="100%" mx="2" key={indice + 1}>
-            <Text style={{ fontSize: 20, fontWeight: "bold" }}>
-              {indice + 1}
-              {")"}
-            </Text>
-            <InputPasos />
-          </HStack>
-          <View style={{ width: "20%", marginLeft: "7%" }}>
-            <GalleryPaso />
-          </View>
+const CargarPasos = ({pasos}) => {
+
+return (<View>
+    {pasos.map((ing, indice) => ( 
+      <View>
+         <HStack mt="3" w="100%" mx="2" key={indice+1}>
+            <Text  style={{fontSize:20, fontWeight:"bold"}}>{indice+1}{")"}</Text> 
+            <InputPasos/>
+            </HStack>
+            <View style={{ width: "20%", marginLeft: "7%" }}>
+                <GalleryPaso/>
+            </View>
         </View>
-      ))}
-    </View>
-  );
-};
+          ))} 
+  </View>  
+   )
+ }
 
 const CreateReceta = () => {
   const navigation = useNavigation();
-  const baseUrl = config.baseUrl;
+  const [visible, setVisible] = React.useState(false);
+  const baseUrl =  config.baseUrl;
+  const [value, setValue] = React.useState(0);
   const [titulo, setTitulo] = useState("");
   const [descripcion, setDescripcion] = useState("");
   const [porciones, setPorciones] = useState("");
   const [personas, setPersonas] = useState("");
   const [categoriaSel, setCategoriaSel] = useState("1");
-  const [ingredientes, setIngredientes] = useState([
-    { id: 0, cantidad: "", descripcion: "", idUnidad: "1", observaciones: "" },
-  ]);
-  const [pasos, setPasos] = useState([{ valor: "valor" }]);
+  const [ingredientes, setIngredientes] = useState([{ id: 0 ,cantidad: "",descripcion:"",idUnidad:"1",observaciones:""}]);
+  const [pasos, setPasos] = useState([{valor:"valor"}]);
   const [visibleExisteReceta, setVisibleExisteReceta] = useState("");
   const netInfo = useNetInfo();
-  const [base64Foto, setBase64Foto] = React.useState(null);
+  const [base64Foto,setBase64Foto] =React.useState(null);
   const [noWifi, setNoWifi] = React.useState(false);
   const [visibleCarga, setVisibleCarga] = React.useState(false);
   const [visibleWifi, setVisibleWifi] = React.useState(false);
-  const [loading, setLoading] = useState(false);
+  const[loading,setLoading]=useState(false);
+
 
   const [categorias, setCategorias] = useState([
     { descripcion: "...", idTipo: "1" },
+   
   ]);
 
   const onChangeHandler = (item) => {
     setCategoriaSel(item);
   };
 
-  const [unidades, setUnidades] = useState([{ label: "...", value: "1" }]);
+  const [unidades, setUnidades] = useState([
+    { label: "...", value: "1" },
+
+  ]);
+
 
   React.useEffect(() => {
     /*Cargando combos*/
-    const unsubscribe = navigation.addListener("focus", () => {
-      try {
-        axios
-          .get(`${baseUrl}/ingredientes/getTiposreceta`)
-          .then(function (res) {
-            const categ = res.data;
-            axios
-              .get(`${baseUrl}/ingredientes/getUnidades`)
-              .then(function (res) {
-                setCategorias(categ);
-                setUnidades(res.data);
-              });
-          });
+    const unsubscribe = navigation.addListener('focus', () => {
+    try {
+      axios.get(`${baseUrl}/ingredientes/getTiposreceta`)
+      .then(function(res){
+          const categ =res.data;
+          axios.get(`${baseUrl}/ingredientes/getUnidades`)
+          .then(function(res){
+            setCategorias(categ);
+            setUnidades(res.data);
+          })
+          
+      })
       } catch (error) {
-        alert(error);
+        alert(error)
       }
     });
     return unsubscribe;
-  }, [navigation]);
+  }, [navigation])
+
 
   const onChangeBlur = () => {
-    const idUsuario = 10; //variables.getUsuario();
-    axios
-      .get(
-        `${baseUrl}/receta/buscarRecetaPorUsuarioyNombre?nombre=${titulo.trim()}&idUsuario=${idUsuario}`
-      )
-      .then(function (res) {
-        if (res.data.length !== 0) {
-          console.log(res.data[0].idReceta);
+    const idUsuario =10//variables.getUsuario();
+    axios.get(`${baseUrl}/receta/buscarRecetaPorUsuarioyNombre?nombre=${titulo.trim()}&idUsuario=${idUsuario}`)
+    .then(function(res){
+        if (res.data.length!==0){
+          console.log(res.data[0].idReceta)
           setVisibleExisteReceta(true);
         }
-      });
+      })
     //setVisibleExisteReceta(true);
   };
 
   const agregarIngrediente = () => {
-    setIngredientes((prevState) => [
-      ...prevState,
-      {
-        id: prevState.length,
-        cantidad: "",
-        descripcion: "",
-        idUnidad: "1",
-        observaciones: "",
-      },
-    ]);
+    setIngredientes([...ingredientes,{id:ingredientes.length+1,cantidad:"",descripcion:"",idUnidad:"1",observaciones:""}]);
+
   };
 
   const agregarPaso = () => {
-    setPasos([{ valor: "1" }, ...pasos]);
+    setPasos([{valor: "1"}, ...pasos,]);
   };
 
   const wifi = () => {
-    if (netInfo.type === "wifi") {
-      saveReceta();
-      setVisibleCarga(true);
-    } else {
-      setNoWifi(true);
+    if(netInfo.type === "wifi"){
+      saveReceta()
+      setVisibleCarga(true)
+    }
+    else {
+      setNoWifi(true)
     }
   };
 
-  const saveReceta = () => {
+  const saveReceta=()=>{
     /* 
     PostIngredienteutiladoPorReceta
     Cloudinary para la multimedia de los pasos , obtengo datos
     PostPaso -> Ver de guardar la multimedia acá dentro}`*/
 
     const idReceta = 184;
-    const bodyIng = JSON.stringify({ idReceta, ingredientes: ingredientes });
+    const bodyIng = JSON.stringify({idReceta,ingredientes:ingredientes})
 
     console.log(ingredientes);
     console.log(bodyIng);
 
-    const idUsuario = variables.getUsuario();
-    const nombre = titulo;
+    const idUsuario =variables.getUsuario();
+    const nombre= titulo;
     const cantidadPersonas = personas;
-    const idTipo = categoriaSel.valueOf();
+    const idTipo = categoriaSel.valueOf();   
+    
+      const setup = {
+        headers: {
+          'content-type': 'application/json'
+        }
+      }
 
-    const setup = {
-      headers: {
-        "content-type": "application/json",
-      },
-    };
+      const cloudPreset = 'y02lecbn';
+      const cloudUrl    = 'https://api.cloudinary.com/v1_1/dwghwqi4l/upload';
 
-    const cloudPreset = "y02lecbn";
-    const cloudUrl = "https://api.cloudinary.com/v1_1/dwghwqi4l/upload";
+      const formData = new FormData();
+      formData.append('upload_preset', cloudPreset );
+      formData.append('file', 'data:image/jpg;base64,' + base64Foto)
 
-    const formData = new FormData();
-    formData.append("upload_preset", cloudPreset);
-    formData.append("file", "data:image/jpg;base64," + base64Foto);
-
-    /*try { 
+      /*try { 
         setLoading(true);
           fetch( cloudUrl, {
               method: 'POST',
@@ -385,20 +359,23 @@ const CreateReceta = () => {
           setLoading(false);
           console.log("falle cloudinary",error.msg)
         }*/
-  };
 
-  const [modalErrorDatos, setModalErrorDatos] = useState(false);
-  const [error, setError] = useState(false);
+  }
 
-  const onNextStep = () => {
-    /*setError(false)
+
+const [modalErrorDatos, setModalErrorDatos] =useState(false);
+const[error, setError] =useState(false);
+
+onNextStep = () => {
+  /*setError(false)
   console.log("codigo")
   console.log(base64Foto)
   if (titulo.trim() ==0 || descripcion.trim() == 0 || personas.trim() == 0 || porciones.trim() == 0 || base64Foto === null)
   {
   setModalErrorDatos(true)
   setError(true)}*/
-  };
+};
+
 
   return (
     <View style={styles.container}>
@@ -424,15 +401,12 @@ const CreateReceta = () => {
           >
             <View style={styles.container}>
               <View style={{ width: "100%", height: 200 }}>
-                <GalleryReceta
-                  base64Foto={base64Foto}
-                  setBase64Foto={setBase64Foto}
-                />
+                <GalleryReceta base64Foto ={base64Foto} setBase64Foto={setBase64Foto}/>
               </View>
               <NativeBaseProvider>
                 <ModalPoup visible={visibleExisteReceta}>
                   <View style={{ alignItems: "flex-start" }}>
-                    <Text style={{ color: "black" }}>
+                    <Text style={{  color: "black" }}>
                       Ya existe una receta con este nombre
                     </Text>
                   </View>
@@ -460,35 +434,15 @@ const CreateReceta = () => {
                 </ModalPoup>
 
                 <ModalPoup visible={modalErrorDatos}>
-                  <View style={{ alignItems: "flex-start" }}>
-                    <Text style={{ fontSize: 20, color: "black" }}>
-                      Por favor complete todos los campos{" "}
-                    </Text>
-                    <View
-                      style={{
-                        flexDirection: "row",
-                        alignItems: "center",
-                        marginTop: "2%",
-                        marginBottom: "2%",
-                        marginHorizontal: "5%",
-                      }}
-                    ></View>
-                  </View>
-                  <View
-                    style={{
-                      flexDirection: "row",
-                      alignItems: "center",
-                      marginTop: "1%",
-                      marginBottom: "1%",
-                      marginHorizontal: "1%",
-                    }}
-                  >
-                    <ButtonModalUnico
-                      text="Aceptar"
-                      onPress={() => setModalErrorDatos(false)}
-                    />
-                  </View>
-                </ModalPoup>
+                <View style={{ alignItems: 'flex-start' }}>
+                <Text style={{ fontSize: 20, color: "black" }}>Por favor complete todos los campos </Text>
+                <View style={{ flexDirection: "row", alignItems: "center", marginTop: '2%', marginBottom: '2%', marginHorizontal: '5%' }}>
+                </View>
+                </View>
+                <View style={{ flexDirection: "row", alignItems: "center", marginTop: '1%', marginBottom: '1%', marginHorizontal: '1%' }}>
+                <ButtonModalUnico text="Aceptar" onPress={() => setModalErrorDatos(false)} />
+                </View>
+            </ModalPoup>
                 <View
                   style={{
                     // flexDirection: "row",
@@ -496,9 +450,11 @@ const CreateReceta = () => {
                     marginTop: "5%",
                     marginBottom: "2%",
                     marginHorizontal: "5%",
+
                   }}
                 >
                   <FormControl isRequired>
+                    
                     <Input
                       placeholder="Titulo"
                       backgroundColor="#FFFF"
@@ -533,7 +489,7 @@ const CreateReceta = () => {
 
                 <HStack mt="2" w="100%">
                   <Text
-                    style={{ fontSize: 25, marginLeft: "5%", width: "45%" }}
+                    style={{fontSize:25, marginLeft: "5%", width: "45%" }}
                   >
                     {" "}
                     Categoria{" "}
@@ -542,12 +498,13 @@ const CreateReceta = () => {
                   <Select
                     style={{ backgroundColor: "#ffff" }}
                     selectedValue={categoriaSel}
-                    flexDirection="row"
-                    alignItems="center"
+                    flexDirection= "row"
+                    alignItems= "center"
                     ml="3"
                     w="62%"
-                    fontSize="16"
+                    fontSize= "16"
                     _selectedItem={{
+                      
                       bg: "indigo",
                       endIcon: <CheckIcon size={5} />,
                     }}
@@ -571,7 +528,7 @@ const CreateReceta = () => {
                     marginHorizontal: "5%",
                   }}
                 >
-                  <Text style={{ fontSize: 25, width: "55%" }}>
+                  <Text style={{fontSize:25,  width: "55%" }}>
                     {" "}
                     Porciones{" "}
                   </Text>
@@ -596,7 +553,7 @@ const CreateReceta = () => {
                     marginHorizontal: "5%",
                   }}
                 >
-                  <Text style={{ fontSize: 25, width: "55%" }}> Personas </Text>
+                  <Text style={{fontSize:25,width: "55%" }}> Personas </Text>
 
                   <Input
                     style={{ backgroundColor: "#ffff", textAlign: "center" }}
@@ -620,30 +577,24 @@ const CreateReceta = () => {
           >
             <View style={styles.container}>
               <NativeBaseProvider>
-                <CargarIngrediente
-                  unidades={unidades}
-                  ingredientes={ingredientes}
-                  setIngredientes={setIngredientes}
-                ></CargarIngrediente>
 
-                <TouchableOpacity onPress={() => agregarIngrediente()}>
+                <CargarIngrediente unidades={unidades} ingredientes={ingredientes} setIngredientes={setIngredientes}></CargarIngrediente>
+
+                <TouchableOpacity onPress={() => agregarIngrediente()}
+                >
                   <View
                     style={{
                       flexDirection: "row",
                       alignItems: "flex-end",
                       marginTop: "5%",
                       marginBottom: "2%",
-                      marginLeft: "17%",
+                      marginLeft:"17%"
                     }}
                   >
-                    <Ionicons
-                      name="add-circle-outline"
-                      size={25}
-                      color="black"
-                    />
+                  <Ionicons name="add-circle-outline" size={25} color="black" />
 
                     <Text
-                      style={{ fontSize: 24, width: "80%", fontWeight: "bold" }}
+                      style={{fontSize:24, width: "80%", fontWeight: "bold" }}
                     >
                       Agregar Ingrediente
                     </Text>
@@ -660,27 +611,28 @@ const CreateReceta = () => {
             previousBtnTextStyle={{ color: "black", fontWeight: "bold" }}
           >
             <View style={styles.container}>
-              <CargarPasos pasos={pasos} />
-              <TouchableOpacity onPress={() => agregarPaso()}>
-                <View
-                  style={{
-                    flexDirection: "row",
-                    alignItems: "flex-end",
-                    marginTop: "5%",
-                    marginBottom: "2%",
-                    marginHorizontal: "27%",
-                  }}
-                >
+             
+             <CargarPasos pasos={pasos}/>
+                <TouchableOpacity onPress={() => agregarPaso()}>
+                  <View
+                    style={{
+                      flexDirection: "row",
+                      alignItems: "flex-end",
+                      marginTop: "5%",
+                      marginBottom: "2%",
+                      marginHorizontal: "27%",
+                    }}
+                  >
                   <Ionicons name="add-circle-outline" size={25} color="black" />
 
-                  <Text
-                    style={{ fontSize: 24, width: "90%", fontWeight: "bold" }}
-                  >
-                    {" "}
-                    Agregar Paso{" "}
-                  </Text>
-                </View>
-              </TouchableOpacity>
+                    <Text
+                      style={{fontSize:24, width: "90%", fontWeight: "bold" }}
+                    >
+                      {" "}
+                      Agregar Paso{" "}
+                    </Text>
+                  </View>
+                </TouchableOpacity>
             </View>
           </ProgressStep>
 
@@ -692,48 +644,17 @@ const CreateReceta = () => {
             nextBtnDisabled={true}
           >
             <ModalPoup visible={noWifi}>
-              <View style={{ alignItems: "flex-start" }}>
-                <Text style={{ fontSize: 20, color: "black" }}>
-                  No se encuentra conectado a una red Wifi. ¿Desea publicarla
-                  igualmente?{" "}
-                </Text>
-                <View
-                  style={{
-                    flexDirection: "row",
-                    alignItems: "center",
-                    marginTop: "2%",
-                    marginBottom: "2%",
-                    marginHorizontal: "5%",
-                  }}
-                ></View>
-              </View>
-              <View
-                style={{
-                  flexDirection: "row",
-                  alignItems: "center",
-                  marginTop: "1%",
-                  marginBottom: "1%",
-                  marginHorizontal: "1%",
-                }}
-              >
-                <ButtonModal
-                  text="Cancelar"
-                  onPress={() => {
-                    setNoWifi(false);
-                    setVisibleWifi(true);
-                  }}
-                />
-                <ButtonModal
-                  text="Aceptar"
-                  onPress={() => {
-                    setNoWifi(false);
-                    setVisibleCarga(true);
-                    saveReceta();
-                  }}
-                />
-              </View>
+                <View style={{ alignItems: 'flex-start' }}>
+                <Text style={{ fontSize: 20, color: "black" }}>No se encuentra conectado a una red Wifi. ¿Desea publicarla igualmente? </Text>
+                <View style={{ flexDirection: "row", alignItems: "center", marginTop: '2%', marginBottom: '2%', marginHorizontal: '5%' }}>
+                </View>
+                </View>
+                <View style={{ flexDirection: "row", alignItems: "center", marginTop: '1%', marginBottom: '1%', marginHorizontal: '1%' }}>
+                <ButtonModal text="Cancelar" onPress={() => { setNoWifi(false);setVisibleWifi(true) }} />
+                <ButtonModal text="Aceptar" onPress={() => {setNoWifi(false); setVisibleCarga(true); saveReceta(); }} />
+                </View>
             </ModalPoup>
-
+            
             <ModalPoup visible={visibleWifi}>
               <View style={{ alignItems: "flex-start" }}>
                 <Text style={{ color: "black" }}>
@@ -753,7 +674,7 @@ const CreateReceta = () => {
 
             <ModalPoup visible={visibleCarga}>
               <View style={{ alignItems: "flex-start" }}>
-                <Text style={{ color: "black" }}>
+                <Text style={{  color: "black" }}>
                   La receta se cargó correctamente, la verás publicada cuando
                   sea autorizada
                 </Text>
@@ -769,16 +690,14 @@ const CreateReceta = () => {
               </View>
             </ModalPoup>
 
-            <ModalPoup2 visible={loading}>
-              <View
-                style={{ height: 50, width: 150, justifyContent: "center" }}
-              >
-                <NativeBaseProvider>
-                  <HStack marginHorizontal="90%">
-                    <Spinner size="lg" color="black" />
-                  </HStack>
-                </NativeBaseProvider>
-              </View>
+            <ModalPoup2  visible={loading}>
+                <View style={{height:50,width:150, justifyContent:"center"}}>
+                 <NativeBaseProvider>
+                    <HStack marginHorizontal="90%">
+                     <Spinner size="lg" color="black"/>
+                    </HStack>
+                 </NativeBaseProvider>
+                </View>
             </ModalPoup2>
 
             <View style={styles.botones}>
@@ -861,12 +780,10 @@ const styles = StyleSheet.create({
   },
 });
 
-const CreateRecetaView = () => {
+export default () => {
   return (
     <NativeBaseProvider>
       <CreateReceta />
     </NativeBaseProvider>
   );
 };
-
-export default CreateRecetaView;
