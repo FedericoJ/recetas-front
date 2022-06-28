@@ -19,8 +19,7 @@ import {
   HStack,
   Select,
   CheckIcon,
-  Spinner,
-  Box, Center
+  Box, Center, Spinner
 } from "native-base";
 import {
   ButtonModal,
@@ -87,11 +86,10 @@ const ModalPoup2 = ({ visible, children}) => {
 
 const InputSelectCombo =({unidades,ingredientes,setIngredientes,indice}) =>{
   //{ cantidad: "",nombre:"",idUnidad:"1" 
-  const [unidadSel, setUnidadesSel] = useState(ingredientes[indice].idUnidad);
-  const [ingrediente, setIngrediente] = useState(ingredientes[indice].descripcion);
-  const [cantidad, setCantidad] = useState(ingredientes[indice].cantidad);
+  const [unidadSel, setUnidadesSel] = useState("1");
+  const [ingrediente, setIngrediente] = useState("");
+  const [cantidad, setCantidad] = useState("");
 
-  console.log("indice llegando",indice);
 
   const onChangeHandler2 = (item) => {
     onBlurCombo(item);
@@ -99,20 +97,20 @@ const InputSelectCombo =({unidades,ingredientes,setIngredientes,indice}) =>{
   };
 
   const onBlurCombo=(item)=>{
-    const newIngrediente=ingredientes.slice()
-    const guardando =[{idUnidad:item,descripcion:ingrediente,cantidad:cantidad,observaciones:""}];
+    /*const newIngrediente=ingredientes.slice()
+    const guardando =[{id:indice,idUnidad:item,descripcion:ingrediente,cantidad:cantidad,observaciones:""}];
     newIngrediente[indice] = guardando;
-    setIngredientes(newIngrediente);
+    setIngredientes(newIngrediente);*/
 
   }
 
   const onBlurIngredientes=()=>{
 
-    const newIngrediente=ingredientes.slice()
+   /* const newIngrediente=ingredientes.slice()
     const guardando =[{idUnidad:unidadSel,descripcion:ingrediente,cantidad:cantidad,observaciones:""}];
     
     newIngrediente[indice] = guardando;
-    setIngredientes(newIngrediente);
+    setIngredientes(newIngrediente);*/
 
   }
 
@@ -167,13 +165,12 @@ const InputSelectCombo =({unidades,ingredientes,setIngredientes,indice}) =>{
 
 };
 
-
-const CargarIngrediente = ({unidades, ingredientes,setIngredientes}) => {
+const CargarIngrediente = ({unidades,ingredientes,setIngredientes}) => {
   return (
     <View>
       {ingredientes.map((ing, indice) => (
-        <View key={indice} >
-          <InputSelectCombo unidades={unidades} ingredientes={ingredientes} setIngredientes={setIngredientes} indice={indice}/>
+        <View>
+          <InputSelectCombo key={ing.id} unidades={unidades} ingredientes={ingredientes} setIngredientes={setIngredientes} indice={ing.id}/>
         </View>
       ))}
     </View>
@@ -223,7 +220,7 @@ const CreateReceta = () => {
   const [porciones, setPorciones] = useState("");
   const [personas, setPersonas] = useState("");
   const [categoriaSel, setCategoriaSel] = useState("1");
-  const [ingredientes, setIngredientes] = useState([{ cantidad: "",descripcion:"",idUnidad:"1",observaciones:""}]);
+  const [ingredientes, setIngredientes] = useState([{ id: 0 ,cantidad: "",descripcion:"",idUnidad:"1",observaciones:""}]);
   const [pasos, setPasos] = useState([{valor:"valor"}]);
   const [visibleExisteReceta, setVisibleExisteReceta] = useState("");
   const netInfo = useNetInfo();
@@ -279,13 +276,12 @@ const CreateReceta = () => {
           console.log(res.data[0].idReceta)
           setVisibleExisteReceta(true);
         }
-        
       })
     //setVisibleExisteReceta(true);
   };
 
   const agregarIngrediente = () => {
-    setIngredientes([{cantidad:"",descripcion:"",idUnidad:"1",observaciones:""}, ...ingredientes,]);
+    setIngredientes([...ingredientes,{id:ingredientes.length+1,cantidad:"",descripcion:"",idUnidad:"1",observaciones:""}]);
 
   };
 
@@ -333,7 +329,7 @@ const CreateReceta = () => {
       formData.append('upload_preset', cloudPreset );
       formData.append('file', 'data:image/jpg;base64,' + base64Foto)
 
-      try { 
+      /*try { 
         setLoading(true);
           fetch( cloudUrl, {
               method: 'POST',
@@ -362,9 +358,24 @@ const CreateReceta = () => {
         }catch(error){
           setLoading(false);
           console.log("falle cloudinary",error.msg)
-        }
+        }*/
 
   }
+
+
+const [modalErrorDatos, setModalErrorDatos] =useState(false);
+const[error, setError] =useState(false);
+
+onNextStep = () => {
+  /*setError(false)
+  console.log("codigo")
+  console.log(base64Foto)
+  if (titulo.trim() ==0 || descripcion.trim() == 0 || personas.trim() == 0 || porciones.trim() == 0 || base64Foto === null)
+  {
+  setModalErrorDatos(true)
+  setError(true)}*/
+};
+
 
   return (
     <View style={styles.container}>
@@ -384,8 +395,8 @@ const CreateReceta = () => {
           <ProgressStep
             label="Descripción"
             nextBtnText="Siguiente"
-            previousBtnText="Anterior"
-            //onNext= {ValidateInput()}
+            onNext={onNextStep}
+            errors={error}
             nextBtnTextStyle={{ color: "black", fontWeight: "bold" }}
           >
             <View style={styles.container}>
@@ -421,16 +432,29 @@ const CreateReceta = () => {
                     />
                   </View>
                 </ModalPoup>
+
+                <ModalPoup visible={modalErrorDatos}>
+                <View style={{ alignItems: 'flex-start' }}>
+                <Text style={{ fontSize: 20, color: "black" }}>Por favor complete todos los campos </Text>
+                <View style={{ flexDirection: "row", alignItems: "center", marginTop: '2%', marginBottom: '2%', marginHorizontal: '5%' }}>
+                </View>
+                </View>
+                <View style={{ flexDirection: "row", alignItems: "center", marginTop: '1%', marginBottom: '1%', marginHorizontal: '1%' }}>
+                <ButtonModalUnico text="Aceptar" onPress={() => setModalErrorDatos(false)} />
+                </View>
+            </ModalPoup>
                 <View
                   style={{
-                    flexDirection: "row",
+                    // flexDirection: "row",
                     alignItems: "center",
                     marginTop: "5%",
                     marginBottom: "2%",
                     marginHorizontal: "5%",
+
                   }}
                 >
                   <FormControl isRequired>
+                    
                     <Input
                       placeholder="Titulo"
                       backgroundColor="#FFFF"

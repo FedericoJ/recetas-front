@@ -120,7 +120,7 @@ const LoginScreen = () => {
           variables.setNombre(res.data.data[0].nombre);
           variables.setAvatar(res.data.data[0].avatar);
           //navigation.navigate('Principal');
-          navigation.navigate('Home');
+          //navigation.navigate('Home');
           login(mail);
           storeLoginData(res.data.data[0]);
         }
