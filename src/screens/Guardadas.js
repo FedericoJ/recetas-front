@@ -49,15 +49,6 @@ const Guardadas = ({ navigation }) => {
 
       <Guardada datos={arRecGuardadas}/>
 
-
-      <FAB style={styles.fab}
-        extended
-        icon="pencil"
-        label="Nueva"
-        uppercase={false}
-        onPress={() => console.log('Pressed')}
-      />
-
     </View>
   );
 };
