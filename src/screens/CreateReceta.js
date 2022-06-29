@@ -24,6 +24,7 @@ import GalleryReceta from "../components/GalleryReceta";
 import config from "../config/default.json";
 import axios from "axios";
 import variables from "../config/variables";
+import { Constants } from "expo-barcode-scanner";
 
 const ModalPoup = ({ visible, children }) => {
   const [showModal, setShowModal] = React.useState(visible);
@@ -239,6 +240,7 @@ const CreateReceta = () => {
   const [visibleCarga, setVisibleCarga] = React.useState(false);
   const [visibleWifi, setVisibleWifi] = React.useState(false);
   const [loading, setLoading] = useState(false);
+  const [idRecetaElimina,setIdRecetaElimina]=useState(null);
 
   const [categorias, setCategorias] = useState([
     { descripcion: "...", idTipo: "1" },
@@ -273,7 +275,7 @@ const CreateReceta = () => {
   }, [navigation]);
 
   const onChangeBlur = () => {
-    const idUsuario = 10; //variables.getUsuario();
+    const idUsuario = 11; //variables.getUsuario();
     axios
       .get(
         `${baseUrl}/receta/buscarRecetaPorUsuarioyNombre?nombre=${titulo.trim()}&idUsuario=${idUsuario}`
@@ -281,6 +283,7 @@ const CreateReceta = () => {
       .then(function (res) {
         if (res.data.length !== 0) {
           console.log(res.data[0].idReceta);
+          setIdRecetaElimina(res.data[0].idReceta)
           setVisibleExisteReceta(true);
         }
       });
@@ -330,9 +333,22 @@ const CreateReceta = () => {
 
   const saveReceta = async() => {
     /* 
-    PostIngredienteutiladoPorReceta
     Cloudinary para la multimedia de los pasos , obtengo datos
-    PostPaso -> Ver de guardar la multimedia acá dentro}`*/
+    Solo falta esto y la receta esta OK}`*/
+    const setup = {
+      headers: {
+        "content-type": "application/json",
+      },
+    };
+
+    if (idRecetaElimina){
+      const bodyElimina = JSON.stringify({idReceta:idRecetaElimina});
+      axios.post(`${baseUrl}/receta/eliminarReceta`,bodyElimina,setup)
+      .then(function(res){
+        console.log("Receta ",idRecetaElimina, " eliminada");
+      })
+      .catch(function(error){console.log(error)})
+    }
     
 
     const idUsuario = variables.getUsuario();
@@ -340,25 +356,18 @@ const CreateReceta = () => {
     const cantidadPersonas = personas;
     const idTipo = categoriaSel.valueOf();
 
-    const setup = {
-      headers: {
-        "content-type": "application/json",
-      },
-    };
+    
 
     const cloudPreset = "y02lecbn";
     const cloudUrl = "https://api.cloudinary.com/v1_1/dwghwqi4l/upload";
 
-    //const formData = new FormData();
-   // formData.append("upload_preset", cloudPreset);
-    //formData.append("file", "data:image/jpg;base64," + base64Foto);
-    //formData.append("file", "data:image/jpg;base64," + base64Foto);
-    //console.log(JSON.stringify({ idreceta:364,paso:pasos}));
+     const formData = new FormData();
+     formData.append("upload_preset", cloudPreset);
+     formData.append("file", "data:image/jpg;base64," + base64Foto);
     var arrPaso=[];
-    var arrMultimedia=[];
 
     pasos.forEach(async (paso,i)=>{
-        arrPaso[arrPaso.length]=({nroPaso:paso.nroPaso,texto:paso.texto,multimedia:arrMultimedia})
+        arrPaso[arrPaso.length]=({nroPaso:paso.nroPaso,texto:paso.texto,multimedia:[]})
 
         paso.multimedia.forEach(async multi=>{
 
@@ -376,7 +385,8 @@ const CreateReceta = () => {
               .then(data => {
                 if(data.secure_url!==''){
                   console.log("entre")
-                  arrPaso[i].multimedia[arrPaso[i].multimedia.length]=({tipo_contenido:"foto",extension:data.format,urlContenido:data.secure_url});
+                  const multiPaso={tipo_contenido:"foto",extension:data.format,urlContenido:data.secure_url}
+                  arrPaso[i].multimedia[arrPaso[i].multimedia.length]=(multiPaso);
                 //console.log(i,arrPaso[i].multimedia.length);
               }
             })
@@ -388,9 +398,7 @@ const CreateReceta = () => {
       })
     })
 
-    console.log(arrPaso);
-
-    /*try { 
+    try { 
         setLoading(true);
           fetch( cloudUrl, {
               method: 'POST',
@@ -413,8 +421,7 @@ const CreateReceta = () => {
                   axios.post(`${baseUrl}/ingredientes/postIngredienteUtilizadoPorReceta`,bodyIng,setup)
                   .then(function(res){
                       console.log("guarde los ingredientes");
-                      const bodyPaso = JSON.stringify({ idreceta:idReceta,paso:pasos});
-                      
+                      const bodyPaso = JSON.stringify({ idreceta:idReceta,paso:arrPaso});
                       console.log(bodyPaso);
                       axios.post(`${baseUrl}/receta/postPaso`,bodyPaso,setup)
                       .then(function(res){
@@ -439,7 +446,7 @@ const CreateReceta = () => {
         }finally{
           console.log("guarde la receta completa")
           setLoading(false);
-        }*/
+        }
   };
 
   const [modalErrorDatos, setModalErrorDatos] = useState(false);
