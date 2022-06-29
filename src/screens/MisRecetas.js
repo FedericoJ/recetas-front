@@ -13,14 +13,6 @@ const MisRecetas  = ({navigation}) => {
 return (
     <View style={styles.container}>
         <MiReceta/>
-      
-         <FAB style={styles.fab}
-          extended
-          icon="pencil"
-          label ="Nueva"
-          uppercase={false}
-          onPress={() => console.log('Pressed')}
-          />
 
      </View>
   );

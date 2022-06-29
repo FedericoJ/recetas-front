@@ -76,14 +76,6 @@ const Favoritos  = ({navigation}) => {
   
           <Favorito favoritos={favoritos} setFavoritos={setFavoritos}/>
         
-           <FAB style={styles.fab}
-            extended
-            icon="pencil"
-            label ="Nueva"
-            uppercase={false}
-            onPress={() => console.log('Pressed')}
-            />
-  
        </View>
     );
 
