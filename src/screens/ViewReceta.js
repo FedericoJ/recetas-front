@@ -408,7 +408,10 @@ const ViewReceta = ({ navigation }) => {
         <Steps Receta={values.IdReceta} />
           
          <View style={{marginTop:"2%",marginHorizontal:"5%",marginBottom:"5%"}} > 
-          <ButtonFondoRosa  text="Calcular Receta" onPress={()=> navigation.navigate("CalcularReceta")}/>
+          <ButtonFondoRosa  text="Calcular Receta" onPress={()=> {
+            navigation.navigate("CalcularReceta");
+            variables.setNumero(1);
+        }}/>
         </View>
 
       </NativeBaseProvider>

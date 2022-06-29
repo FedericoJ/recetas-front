@@ -10,6 +10,7 @@ var nombre;
 var activo;
 var textoBusqueda;
 var avatar;
+var numero;
 
 const setTextoBusqueda=(texto)=>{
     textoBusqueda=texto;
@@ -110,6 +111,14 @@ const getBusqueda=()=>{
     return busqueda;
 }
 
+const setNumero = (num) => {
+    numero = num;
+}
+
+const getNumero = () => {
+    return numero;
+}
+
 export default {
     setTipos,
     getTipos,
@@ -134,4 +143,6 @@ export default {
     setTextoBusqueda,
     getTexto,
 getAvatar,
-setAvatar}
+setAvatar,
+setNumero,
+getNumero}
