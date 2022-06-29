@@ -33,7 +33,6 @@ export default function GalleryReceta({base64Foto ,setBase64Foto}) {
 		if (!result.cancelled) {
             const {uri,base64} =result;
            setImage(uri);
-           console.log(base64);
            setBase64Foto(base64);
 		}
 	};

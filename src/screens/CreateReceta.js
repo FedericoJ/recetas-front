@@ -207,13 +207,12 @@ const CargarPasos = ({ pasos,setPasos}) => {
         <View key={paso.id}>
           <HStack mt="3" w="100%" mx="2">
             <Text style={{ fontSize: 20, fontWeight: "bold" }}>
-              {paso.nroPaso}
-              {")"}
+              {paso.nroPaso}{")"}
             </Text>
             <InputPasos paso={paso} setPasos={setPasos} indice={paso.id}/>
           </HStack>
           <View style={{ width: "20%", marginLeft: "7%" }}>
-            <GalleryPaso />
+            <GalleryPaso paso={paso} setPasos={setPasos} indice={paso.id}/>
           </View>
         </View>
       ))}
@@ -232,7 +231,7 @@ const CreateReceta = () => {
   const [ingredientes, setIngredientes] = useState([
     { id: 0, cantidad: "", descripcion: "", idUnidad: "1", observaciones: "" },
   ]);
-  const [pasos, setPasos] = useState([{ id:0 , nroPaso: 1, texto:"", multimedia:[] }]);
+  const [pasos, setPasos] = useState([{ id:0 , nroPaso: 1, texto:"", multimedia:[{id:0,imagen:"",base64:"",tipo:""}] }]);
   const [visibleExisteReceta, setVisibleExisteReceta] = useState("");
   const netInfo = useNetInfo();
   const [base64Foto, setBase64Foto] = React.useState(null);
@@ -310,7 +309,7 @@ const CreateReceta = () => {
         id: prevState.length,
         nroPaso: prevState.length+1,
         texto: "",
-        multimedia:[]
+        multimedia:[{id:0,imagen:"",base64:"",tipo:""}]
       },
     ]);
 
@@ -326,12 +325,14 @@ const CreateReceta = () => {
     }
   };
 
-  const saveReceta = () => {
+
+
+
+  const saveReceta = async() => {
     /* 
     PostIngredienteutiladoPorReceta
     Cloudinary para la multimedia de los pasos , obtengo datos
     PostPaso -> Ver de guardar la multimedia acá dentro}`*/
-
     
 
     const idUsuario = variables.getUsuario();
@@ -348,12 +349,48 @@ const CreateReceta = () => {
     const cloudPreset = "y02lecbn";
     const cloudUrl = "https://api.cloudinary.com/v1_1/dwghwqi4l/upload";
 
-    const formData = new FormData();
-    formData.append("upload_preset", cloudPreset);
-    formData.append("file", "data:image/jpg;base64," + base64Foto);
+    //const formData = new FormData();
+   // formData.append("upload_preset", cloudPreset);
+    //formData.append("file", "data:image/jpg;base64," + base64Foto);
+    //formData.append("file", "data:image/jpg;base64," + base64Foto);
+    //console.log(JSON.stringify({ idreceta:364,paso:pasos}));
+    var arrPaso=[];
+    var arrMultimedia=[];
 
-    console.log(pasos);
-    try { 
+    pasos.forEach(async (paso,i)=>{
+        arrPaso[arrPaso.length]=({nroPaso:paso.nroPaso,texto:paso.texto,multimedia:arrMultimedia})
+
+        paso.multimedia.forEach(async multi=>{
+
+          if (multi.imagen!==""){
+            const formData2 = new FormData();
+            //console.log("entre",i);
+            formData2.append("upload_preset", cloudPreset);
+            formData2.append("file", "data:image/jpg;base64," + multi.base64)
+            try {
+                fetch( cloudUrl, {
+                  method: 'POST',
+                  body: formData2
+              })
+              .then(response => response.json())
+              .then(data => {
+                if(data.secure_url!==''){
+                  console.log("entre")
+                  arrPaso[i].multimedia[arrPaso[i].multimedia.length]=({tipo_contenido:"foto",extension:data.format,urlContenido:data.secure_url});
+                //console.log(i,arrPaso[i].multimedia.length);
+              }
+            })
+            }catch(error){
+              console.log(error)
+            }
+          }
+
+      })
+    })
+
+    console.log(arrPaso);
+
+    /*try { 
         setLoading(true);
           fetch( cloudUrl, {
               method: 'POST',
@@ -377,6 +414,7 @@ const CreateReceta = () => {
                   .then(function(res){
                       console.log("guarde los ingredientes");
                       const bodyPaso = JSON.stringify({ idreceta:idReceta,paso:pasos});
+                      
                       console.log(bodyPaso);
                       axios.post(`${baseUrl}/receta/postPaso`,bodyPaso,setup)
                       .then(function(res){
@@ -390,7 +428,7 @@ const CreateReceta = () => {
                     console.log("falle en el post ingredientes",error)
                   })
                 })
-
+                
               }catch(error){
                 console.log("falle en el post recetas",error.msg)
               }
@@ -401,7 +439,7 @@ const CreateReceta = () => {
         }finally{
           console.log("guarde la receta completa")
           setLoading(false);
-        }
+        }*/
   };
 
   const [modalErrorDatos, setModalErrorDatos] = useState(false);

@@ -4,10 +4,7 @@ import { Button, Image, View, Platform,StyleSheet, TouchableOpacity , Text} from
 import { AntDesign } from '@expo/vector-icons';
 import { HStack, NativeBaseProvider } from 'native-base';
 
-const ImageToLoad =({images,setImages})=>{
-	const [image, setImage] = useState(null);
-
-
+const ImageToLoad =({img,setPasos,indicePaso,indice})=>{
 	const chooseImg = async () => {
 		let result = await ImagePicker.launchImageLibraryAsync({
 			mediaTypes: ImagePicker.MediaTypeOptions.All,
@@ -16,40 +13,43 @@ const ImageToLoad =({images,setImages})=>{
 			allowsEditing: true,
 			base64:true
 		});
-
 	
 		if (!result.cancelled) {
-		   setImage(result.uri);
-		   setImages([{valor: "1"}, ...images,]);
+			const {uri,base64} =result;
+			setPasos((prev) => {
+				const newPasos = [...prev];
+				const length=newPasos[indicePaso].multimedia.length;
+				newPasos[indicePaso].multimedia[indice]={id:indice,imagen:uri,base64:base64,tipo:"imagen"} 
+				newPasos[indicePaso].multimedia.push({id:length,imagen:"",base64:"",tipo:""})
+				return newPasos;
+			  });
 		}
 	};
 
 	const IconoCamara=()=>{
-		if (image){
-			return (<View></View>);
+		if (img.imagen){
+			return(null);
 		}else{
 			return (
 			<View style={imageUploaderStyles.camarita}>
-			<AntDesign name="camera" size={20} color="black" />
+				<AntDesign name="camera" size={20} color="black"/>
 			</View>)
 		}
 	}
 
 	return(<View style={imageUploaderStyles.container}>	
-		{image && <Image source={{ uri: image }} style={{ width: 50, height: 50 }} />}
+		<Image source={{ uri: img.imagen }} style={{ width: 50, height: 50 }} />
 		<View style= {{backgroundColor:"#efefef"}}>
 			<TouchableOpacity onPress={chooseImg} >
 				<IconoCamara/>
 			</TouchableOpacity>
 		</View>
-	</View>);
+		</View>);
 
 }
 
 
-export default function GalleryPaso() {
-	const [images,setImages]=useState([{valor:"valor"}])
-
+export default function GalleryPaso({paso,setPasos,indice}) {
 	useEffect(() => {
 		(async () => {
 		if (Platform.OS !== 'web') {
@@ -63,9 +63,9 @@ export default function GalleryPaso() {
 	
 	return (
 		<View style={{flexDirection:"row"}}>
-			 {images.map((ing, indice) => ( 
-			<View key ={indice+1}>
-				<ImageToLoad images={images} setImages={setImages}/>
+			 {paso.multimedia.map((img, ind) => ( 
+			<View key={img.id}>
+			<ImageToLoad img={img} setPasos={setPasos} indicePaso={indice} indice={img.id}/>
 			</View>
 			 ))}
 		</View>
