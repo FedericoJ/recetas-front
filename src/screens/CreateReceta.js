@@ -332,9 +332,7 @@ const CreateReceta = () => {
 
 
   const saveReceta = async() => {
-    /* 
-    Cloudinary para la multimedia de los pasos , obtengo datos
-    Solo falta esto y la receta esta OK}`*/
+
     const setup = {
       headers: {
         "content-type": "application/json",
@@ -349,21 +347,18 @@ const CreateReceta = () => {
       })
       .catch(function(error){console.log(error)})
     }
-    
 
     const idUsuario = variables.getUsuario();
     const nombre = titulo;
     const cantidadPersonas = personas;
     const idTipo = categoriaSel.valueOf();
 
-    
-
     const cloudPreset = "y02lecbn";
     const cloudUrl = "https://api.cloudinary.com/v1_1/dwghwqi4l/upload";
 
-     const formData = new FormData();
-     formData.append("upload_preset", cloudPreset);
-     formData.append("file", "data:image/jpg;base64," + base64Foto);
+    const formData = new FormData();
+    formData.append("upload_preset", cloudPreset);
+    formData.append("file", "data:image/jpg;base64," + base64Foto);
     var arrPaso=[];
 
     pasos.forEach(async (paso,i)=>{
@@ -373,7 +368,6 @@ const CreateReceta = () => {
 
           if (multi.imagen!==""){
             const formData2 = new FormData();
-            //console.log("entre",i);
             formData2.append("upload_preset", cloudPreset);
             formData2.append("file", "data:image/jpg;base64," + multi.base64)
             try {
@@ -384,7 +378,6 @@ const CreateReceta = () => {
               .then(response => response.json())
               .then(data => {
                 if(data.secure_url!==''){
-                  console.log("entre")
                   const multiPaso={tipo_contenido:"foto",extension:data.format,urlContenido:data.secure_url}
                   arrPaso[i].multimedia[arrPaso[i].multimedia.length]=(multiPaso);
                 //console.log(i,arrPaso[i].multimedia.length);
