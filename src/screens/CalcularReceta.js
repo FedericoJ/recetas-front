@@ -62,43 +62,17 @@ const CalcularReceta = ({ navigation }) => {
   } 
 
 
-  // const Guardar = (muestro) =>{
-  //   console.log(muestro)
-  // if(muestro){
-  //   if(cantGuardadas < 5){
-  //     setVisible(true)
-  //     console.log("visible",visible)
-  //     return(
-  //     <ModalPoup visible={visible}>
-  //         <View style={{ alignItems: 'flex-start' }}>
-  //         <Text style={{ fontSize: 20, color: "black" }}>Las proporciones se guardaron correctamente </Text>
-  //         <View style={{ flexDirection: "row", alignItems: "center", marginTop: '2%', marginBottom: '2%', marginHorizontal: '5%' }}>
-  //         </View>
-  //         </View>
-  //         <View style={{ flexDirection: "row", alignItems: "center", marginTop: '1%', marginBottom: '1%', marginHorizontal: '1%' }}>
-  //         <ButtonModalUnico text="Cancelar" onPress={() =>  { setVisible(false), navigation.navigate("Principal")} } />
-  //         </View>
-  //     </ModalPoup>
-  //     )
-  //   }
-  //   else{
-  //     setErrorGuardar(true)
-  //     console.log("guardar",errorGuardar)
-  //     return(
-  //     <ModalPoup visible={errorGuardar}>
-  //       <View style={{ alignItems: 'flex-start' }}>
-  //       <Text style={{ fontSize: 20, color: "black" }}>Has superado la cantidad maxima de recetas guardadas (5), eliminá y volvé a intentarlo </Text>
-  //       <View style={{ flexDirection: "row", alignItems: "center", marginTop: '2%', marginBottom: '2%', marginHorizontal: '5%' }}>
-  //       </View>
-  //       </View>
-  //       <View style={{ flexDirection: "row", alignItems: "center", marginTop: '1%', marginBottom: '1%', marginHorizontal: '1%' }}>
-  //       <ButtonModalUnico text="Cancelar" onPress={() => { setErrorGuardar(false);setVisible(true) }} />
-  //       </View>
-  //   </ModalPoup>
-  //     )
-  //   }
-  // }
-  // }
+   const Guardar = () =>{
+      const recetasGuardadas = AsyncStorage.getItem('recetasGuardadas');
+      const cantidadRecetas =Object.keys(recetasGuardadas).length;
+      console.log("cantidad de recetas",cantidadRecetas);
+     if(cantidadRecetas < 5){
+       setVisible(true)
+     }
+     else{
+       setErrorGuardar(true)
+     }
+   }
 
 
   // const guardarFavorito= async (idReceta,idUsuario)=>{
@@ -309,20 +283,33 @@ const CalcularReceta = ({ navigation }) => {
 
         <View style={{ marginTop: "2%", marginHorizontal: "5%", marginBottom: "5%" }} >
 
-          <ModalPoup visible={visible}>
-            <View style={{ alignItems: 'flex-start' }}>
-              <Text style={{ fontSize: 20, color: "black" }}>Las proporciones se guardaron correctamente </Text>
-              <View style={{ flexDirection: "row", alignItems: "center", marginTop: '2%', marginBottom: '2%', marginHorizontal: '5%' }}>
-              </View>
-            </View>
-            <View style={{ flexDirection: "row", alignItems: "center", marginTop: '1%', marginBottom: '1%', marginHorizontal: '1%' }}>
-              <ButtonModalUnico text="Aceptar" onPress={() => { setVisible(false), navigation.navigate("Principal") }} />
-            </View>
-          </ModalPoup>
+        <ModalPoup visible={visible}>
+           <View style={{ alignItems: 'flex-start' }}>
+           <Text style={{ fontSize: 20, color: "black" }}>Las proporciones se guardaron correctamente </Text>
+          <View style={{ flexDirection: "row", alignItems: "center", marginTop: '2%', marginBottom: '2%', marginHorizontal: '5%' }}>
+           </View>
+           </View>
+           <View style={{ flexDirection: "row", alignItems: "center", marginTop: '1%', marginBottom: '1%', marginHorizontal: '1%' }}>
+           <ButtonModalUnico text="Aceptar" onPress={() =>  {GuardarRecetaStorage(values.IdReceta, numero), setVisible(false), navigation.navigate("Principal")} } />
+           </View>
+       </ModalPoup>
 
-        <ButtonFondoRosa  text="Guardar" onPress={()=> GuardarRecetaStorage(values.IdReceta, numero)}/>
+       <ModalPoup visible={errorGuardar}>
+         <View style={{ alignItems: 'flex-start' }}>
+         <Text style={{ fontSize: 20, color: "black" }}>Has superado la cantidad maxima de recetas guardadas (5), eliminá y volvé a intentarlo </Text>
+         <View style={{ flexDirection: "row", alignItems: "center", marginTop: '2%', marginBottom: '2%', marginHorizontal: '5%' }}>
+         </View>
+         </View>
+         <View style={{ flexDirection: "row", alignItems: "center", marginTop: '1%', marginBottom: '1%', marginHorizontal: '1%' }}>
+         <ButtonModalUnico text="Aceptar" onPress={() => { setErrorGuardar(false) }} />
+         </View>
+     </ModalPoup>
+
+
+        {/* <Guardar></Guardar> */}
+        <ButtonFondoRosa  text="Guardar" onPress={()=> Guardar() }/>
           {/* <ButtonFondoRosa  text="Guardar" onPress={()=> setVisible(true)}/> */}
-          {/* <Guardar></Guardar> */}
+          
 
         </View>
 
