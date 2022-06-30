@@ -276,7 +276,7 @@ const CreateReceta = () => {
   }, [navigation]);
 
   const onChangeBlur = () => {
-    const idUsuario = 11; //variables.getUsuario();
+    const idUsuario = variables.getUsuario();
     axios
       .get(
         `${baseUrl}/receta/buscarRecetaPorUsuarioyNombre?nombre=${titulo.trim()}&idUsuario=${idUsuario}`
@@ -311,7 +311,7 @@ const CreateReceta = () => {
           setIngredientes(auxIng);
           axios.get(`${baseUrl}/receta/getPasos?idReceta=${idRecetaElimina}`)
           .then(function(res){
-            resPaso=res.data;
+            var resPaso=res.data;
             axios.get(`${baseUrl}/ingredientes/getMultimedia?idReceta=${idRecetaElimina}`)
             .then(function(res){
               var arrPasoAux=[];

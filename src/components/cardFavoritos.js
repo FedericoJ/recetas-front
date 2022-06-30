@@ -64,7 +64,7 @@ const Favorito =({favoritos,setFavoritos})=>{
       
       const deleteItem = (idReceta) => {
         const baseUrl =  config.baseUrl;
-        const idUsuario =1454;//variables.getUsuario();
+        const idUsuario = variables.getUsuario();
         const setup = {
           headers: {
             'content-type': 'application/json'
