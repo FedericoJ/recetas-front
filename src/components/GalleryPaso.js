@@ -28,7 +28,7 @@ const ImageToLoad =({img,setPasos,indicePaso,indice})=>{
 
 	const IconoCamara=()=>{
 		if (img.imagen){
-			return(null);
+			return(<View></View>);
 		}else{
 			return (
 			<View style={imageUploaderStyles.camarita}>

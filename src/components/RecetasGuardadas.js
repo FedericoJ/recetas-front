@@ -8,13 +8,13 @@ import { ButtonFondoBlanco, ButtonFondoRosa, ButtonModal, ButtonModalUnico } fro
 
 
 const Recetas=({tipos}) =>{
-
-        const {Descripcion,IdReceta,Nombre,alias,foto,CalificacionProm} = tipos;
+        console.log('tipos',tipos);
+        const {Descripcion,IdReceta,Nombre,alias,foto,CalificacionProm,numero} = tipos;
         const  navigation  = useNavigation();
         const recetasHandler=(tipos,navigation) =>{
-
+            variables.setNumero(numero);
             variables.setTipos(tipos); 
-            navigation.navigate('Receta');
+            navigation.navigate('CalcularReceta');
             
         }
        
