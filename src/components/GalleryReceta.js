@@ -5,7 +5,7 @@ import { AntDesign } from '@expo/vector-icons';
 
 
 
-export default function GalleryReceta({base64Foto ,setBase64Foto}) {
+export default function GalleryReceta({base64Foto ,setBase64Foto,uriFoto,setUriFoto}) {
 	const [image, setImage] = useState(null);
 	
 	useEffect(() => {
@@ -28,21 +28,19 @@ export default function GalleryReceta({base64Foto ,setBase64Foto}) {
             base64:true
 		});
 	
-		console.log(result);
-	
 		if (!result.cancelled) {
             const {uri,base64} =result;
-           setImage(uri);
+           setUriFoto(uri);
            setBase64Foto(base64);
 		}
 	};
 	
 	return (
 		<View style={imageUploaderStyles.container}>	
-            {image  &&<Image source={{ uri: image }} style={{ width: "100%", height: "100%" }} />}
+            <Image source={{ uri: uriFoto }} style={{ width: "100%", height: "100%" }} />
             <View style={imageUploaderStyles.uploadBtnContainer}>
             <TouchableOpacity onPress={chooseImg} style={imageUploaderStyles.uploadBtn} >
-            <Text>{image ? 'Editar ' : 'Cargar '}una Imagen</Text>
+            <Text>{uriFoto ? 'Editar ' : 'Cargar '}una Imagen</Text>
             <AntDesign name="camera" size={20} color="black" />
             </TouchableOpacity>
 			</View>

@@ -3,6 +3,7 @@ import * as ImagePicker from 'expo-image-picker';
 import { Button, Image, View, Platform,StyleSheet, TouchableOpacity , Text} from 'react-native';
 import { AntDesign } from '@expo/vector-icons';
 import { HStack, NativeBaseProvider } from 'native-base';
+import * as FileSystem from 'expo-file-system';
 
 const ImageToLoad =({img,setPasos,indicePaso,indice})=>{
 	const chooseImg = async () => {
@@ -15,11 +16,19 @@ const ImageToLoad =({img,setPasos,indicePaso,indice})=>{
 		});
 	
 		if (!result.cancelled) {
-			const {uri,base64} =result;
+			const {uri,base64,type} =result;
+			var baseaux=base64;
+			var tipo="imagen"
+			console.log(result);
+			if (type==="video") {
+				baseaux=await FileSystem.readAsStringAsync(uri, { encoding: 'base64' });
+				tipo="video"
+			}
+
 			setPasos((prev) => {
 				const newPasos = [...prev];
 				const length=newPasos[indicePaso].multimedia.length;
-				newPasos[indicePaso].multimedia[indice]={id:indice,imagen:uri,base64:base64,tipo:"imagen"} 
+				newPasos[indicePaso].multimedia[indice]={id:indice,imagen:uri,base64:baseaux,tipo:tipo} 
 				newPasos[indicePaso].multimedia.push({id:length,imagen:"",base64:"",tipo:""})
 				return newPasos;
 			  });
@@ -39,11 +48,10 @@ const ImageToLoad =({img,setPasos,indicePaso,indice})=>{
 
 	return(<View style={imageUploaderStyles.container}>	
 		<Image source={{ uri: img.imagen }} style={{ width: 50, height: 50 }} />
-		<View style= {{backgroundColor:"#efefef"}}>
+
 			<TouchableOpacity onPress={chooseImg} >
 				<IconoCamara/>
 			</TouchableOpacity>
-		</View>
 		</View>);
 
 }
@@ -62,9 +70,9 @@ export default function GalleryPaso({paso,setPasos,indice}) {
 	}, []);
 	
 	return (
-		<View style={{flexDirection:"row"}}>
+		<View style={{flexDirection:"row",alignItems:"center"}}>
 			 {paso.multimedia.map((img, ind) => ( 
-			<View key={img.id}>
+			<View style={{marginRight:"10%"}}key={img.id}>
 			<ImageToLoad img={img} setPasos={setPasos} indicePaso={indice} indice={img.id}/>
 			</View>
 			 ))}
@@ -75,11 +83,10 @@ export default function GalleryPaso({paso,setPasos,indice}) {
 
 const imageUploaderStyles=StyleSheet.create({
    container:{
-    height:60,
- 	width:60,
+    height:50,
+ 	width:50,
 	//backgroundColor:'#efefef',
 	justifyContent:"center",
-	alignItems:"center"
  //    borderRadius:999,
 
 },
@@ -98,14 +105,15 @@ uploadBtn:{
     justifyContent:'center'
 },
 camarita:{
-	height:60,
-	width:60,
+	height:50,
+	width:50,
 	borderColor:"black",
 	borderWidth:1,
 	backgroundColor:"#D6B1B1",
 	display:'flex',
 	alignItems:"center",
-	justifyContent:'center'
+	justifyContent:'center',
+	marginBottom:"100%"
 }
 
 
