@@ -6,6 +6,7 @@ import {Animated,
 FlatList } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import RecetasFavoritos from './RecetasFavSave';
+import RecetasGuardadas from './RecetasGuardadas';
 import { Swipeable } from 'react-native-gesture-handler';
 
 
@@ -64,7 +65,8 @@ const Guardada =({datos})=>{
                 numColumns={1}
                 renderItem={({item, index}) =>(
                 <Swipeable overshootRight={false} onSwipeableRightOpen={deleteItem(item.id)} renderRightActions={RenderRight}> 
-                 <RecetasFavoritos navegacion={navigation} tipos ={item} index={index} setItem={setItem}/>
+                 {/* <RecetasFavoritos navegacion={navigation} tipos ={item} index={index} setItem={setItem}/> */}
+                 <RecetasGuardadas navegacion={navigation} tipos ={item} index={index} setItem={setItem}/>
                  </Swipeable>)}>
              </FlatList>
 

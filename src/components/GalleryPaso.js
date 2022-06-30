@@ -3,6 +3,7 @@ import * as ImagePicker from 'expo-image-picker';
 import { Button, Image, View, Platform,StyleSheet, TouchableOpacity , Text} from 'react-native';
 import { AntDesign } from '@expo/vector-icons';
 import { HStack, NativeBaseProvider } from 'native-base';
+import * as FileSystem from 'expo-file-system';
 
 const ImageToLoad =({img,setPasos,indicePaso,indice})=>{
 	const chooseImg = async () => {
@@ -15,11 +16,19 @@ const ImageToLoad =({img,setPasos,indicePaso,indice})=>{
 		});
 	
 		if (!result.cancelled) {
-			const {uri,base64} =result;
+			const {uri,base64,type} =result;
+			var baseaux=base64;
+			var tipo="imagen"
+			console.log(result);
+			if (type==="video") {
+				baseaux=await FileSystem.readAsStringAsync(uri, { encoding: 'base64' });
+				tipo="video"
+			}
+
 			setPasos((prev) => {
 				const newPasos = [...prev];
 				const length=newPasos[indicePaso].multimedia.length;
-				newPasos[indicePaso].multimedia[indice]={id:indice,imagen:uri,base64:base64,tipo:"imagen"} 
+				newPasos[indicePaso].multimedia[indice]={id:indice,imagen:uri,base64:baseaux,tipo:tipo} 
 				newPasos[indicePaso].multimedia.push({id:length,imagen:"",base64:"",tipo:""})
 				return newPasos;
 			  });

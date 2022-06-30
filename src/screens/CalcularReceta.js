@@ -55,11 +55,22 @@ const CalcularReceta = ({ navigation }) => {
   const [errorGuardar, setErrorGuardar] = useState(false);
 
 
+  React.useEffect(() => {
+    const unsubscribe = navigation.addListener('focus', () => {
+      if (variables.getNumero()) {
+        calculo(variables.getNumero())
+      }
+
+    });
+
+    return unsubscribe;
+
+  }, [navigation])
 
   const GuardarRecetaStorage = (idReceta, numero) => {
     guardarRecetasDispositivo(idReceta, numero);
     setVisible(true);
-  } 
+  }
 
 
   // const Guardar = (muestro) =>{
@@ -150,17 +161,17 @@ const CalcularReceta = ({ navigation }) => {
 
 
 
-  const guardarRecetasDispositivo = async(id, num) => {
-    const receta = {id, num};
+  const guardarRecetasDispositivo = async (id, num) => {
+    const receta = { id, num };
     const recetasGuardadas = await AsyncStorage.getItem('recetasGuardadas');
     if (recetasGuardadas != null) {
       const nuevasRecetas = JSON.parse(recetasGuardadas).concat(receta);
       console.log('Recetas Guardadas: ', nuevasRecetas);
       await AsyncStorage.setItem('recetasGuardadas', JSON.stringify(nuevasRecetas));
     } else {
-      await AsyncStorage.setItem('recetasGuardadas',JSON.stringify([receta]));
+      await AsyncStorage.setItem('recetasGuardadas', JSON.stringify([receta]));
     }
-  } 
+  }
 
   return (
     <ScrollView style={styles.container}>
@@ -220,17 +231,17 @@ const CalcularReceta = ({ navigation }) => {
 
         <View style={{ marginTop: "2%", marginHorizontal: "5%", flexDirection: "row" }} >
           <View marginLeft="7%" width="40%">
-        <Input
-          fontSize="12"
-          style={{ backgroundColor: "#ffff", textAlign: "center" }}
-          onChangeText={setNuevasPorciones}
-          value={nuevasPorciones}
-          placeholder="¿Cuantas Porciones?"
-          keyboardType="numeric"
-        />
-        </View>
-        <View marginLeft="5%" marginRight="10%" width="40%" marginTop = "-2%">
-            <ButtonFondoRosa text="Calcular X Porciones" onPress={() => calculo(nuevasPorciones/values.Porciones)} />
+            <Input
+              fontSize="12"
+              style={{ backgroundColor: "#ffff", textAlign: "center" }}
+              onChangeText={setNuevasPorciones}
+              value={nuevasPorciones}
+              placeholder="¿Cuantas Porciones?"
+              keyboardType="numeric"
+            />
+          </View>
+          <View marginLeft="5%" marginRight="10%" width="40%" marginTop="-2%">
+            <ButtonFondoRosa text="Calcular X Porciones" onPress={() => calculo(nuevasPorciones / values.Porciones)} />
           </View>
         </View>
 
@@ -320,7 +331,7 @@ const CalcularReceta = ({ navigation }) => {
             </View>
           </ModalPoup>
 
-        <ButtonFondoRosa  text="Guardar" onPress={()=> GuardarRecetaStorage(values.IdReceta, numero)}/>
+          <ButtonFondoRosa text="Guardar" onPress={() => GuardarRecetaStorage(values.IdReceta, numero)} />
           {/* <ButtonFondoRosa  text="Guardar" onPress={()=> setVisible(true)}/> */}
           {/* <Guardar></Guardar> */}
 
