@@ -398,14 +398,14 @@ const CreateReceta = () => {
       },
     };
 
-    /*if (idRecetaElimina) {
+    if (idRecetaElimina) {
       const bodyElimina = JSON.stringify({ idReceta: idRecetaElimina });
       axios.post(`${baseUrl}/receta/eliminarReceta`, bodyElimina, setup)
         .then(function (res) {
           console.log("Receta ", idRecetaElimina, " eliminada");
         })
         .catch(function (error) { console.log(error) })
-    }*/
+    }
 
     const idUsuario = variables.getUsuario();
     const nombre = titulo;
