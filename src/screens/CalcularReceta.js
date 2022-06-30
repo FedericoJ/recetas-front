@@ -69,15 +69,15 @@ const CalcularReceta = ({ navigation }) => {
 
   const GuardarRecetaStorage = (idReceta, numero) => {
     guardarRecetasDispositivo(idReceta, numero);
-    setVisible(true);
+    //setVisible(true);
   }
 
 
    const Guardar = () =>{
       const recetasGuardadas = AsyncStorage.getItem('recetasGuardadas');
-      const cantidadRecetas =Object.keys(recetasGuardadas).length;
-      console.log("cantidad de recetas",cantidadRecetas);
-     if(cantidadRecetas < 5){
+      //const cantidadRecetas =JSON.parse(recetasGuardadas).length; //Object.keys(recetasGuardadas).length;
+      //console.log("cantidad de recetas",cantidadRecetas);
+     if((JSON.parse(recetasGuardadas).length) < 5){
        setVisible(true)
      }
      else{
@@ -141,9 +141,18 @@ const CalcularReceta = ({ navigation }) => {
     if (recetasGuardadas != null) {
       const nuevasRecetas = JSON.parse(recetasGuardadas).concat(receta);
       console.log('Recetas Guardadas: ', nuevasRecetas);
-      await AsyncStorage.setItem('recetasGuardadas', JSON.stringify(nuevasRecetas));
+      console.log("pepito")
+      console.log(JSON.parse(recetasGuardadas).length)
+      if((JSON.parse(recetasGuardadas).length) < 5){
+        await AsyncStorage.setItem('recetasGuardadas', JSON.stringify(nuevasRecetas));
+        setVisible(true)
+      }
+      else{
+        setErrorGuardar(true)
+      }
     } else {
       await AsyncStorage.setItem('recetasGuardadas', JSON.stringify([receta]));
+      setVisible(true);
     }
   }
 
@@ -301,7 +310,7 @@ const CalcularReceta = ({ navigation }) => {
            </View>
            </View>
            <View style={{ flexDirection: "row", alignItems: "center", marginTop: '1%', marginBottom: '1%', marginHorizontal: '1%' }}>
-           <ButtonModalUnico text="Aceptar" onPress={() =>  {GuardarRecetaStorage(values.IdReceta, numero), setVisible(false), navigation.navigate("Principal")} } />
+           <ButtonModalUnico text="Aceptar" onPress={() =>  {setVisible(false), navigation.navigate("Principal")} } />
            </View>
        </ModalPoup>
 
@@ -318,7 +327,7 @@ const CalcularReceta = ({ navigation }) => {
 
 
         {/* <Guardar></Guardar> */}
-        <ButtonFondoRosa  text="Guardar" onPress={()=> Guardar() }/>
+        <ButtonFondoRosa  text="Guardar" onPress={()=> GuardarRecetaStorage(values.IdReceta, numero) }/>
 
           {/* <ButtonFondoRosa  text="Guardar" onPress={()=> setVisible(true)}/> */}
           
