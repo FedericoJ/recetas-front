@@ -163,9 +163,8 @@ const CargarIngrediente = ({ unidades, ingredientes, setIngredientes }) => {
   return (
     <View>
       {ingredientes.map((ing) => (
-        <View>
+        <View  key={ing.id}>
           <InputSelectCombo
-            key={ing.id}
             unidades={unidades}
             ingrediente={ing}
             setIngredientes={setIngredientes}
@@ -237,6 +236,7 @@ const CreateReceta = () => {
   const [visibleExisteReceta, setVisibleExisteReceta] = useState("");
   const netInfo = useNetInfo();
   const [base64Foto, setBase64Foto] = React.useState(null);
+  const [uriFoto, setUriFoto] = React.useState(null);
   const [noWifi, setNoWifi] = React.useState(false);
   const [visibleCarga, setVisibleCarga] = React.useState(false);
   const [visibleWifi, setVisibleWifi] = React.useState(false);
@@ -290,6 +290,54 @@ const CreateReceta = () => {
       });
     //setVisibleExisteReceta(true);
   };
+
+  const onEditReceta = () =>{
+    setVisibleExisteReceta(false);
+
+    axios.get(`${baseUrl}/receta/recetaPorId?idReceta=${idRecetaElimina}`)
+    .then(function(res){
+        setDescripcion(res.data[0].Descripcion);
+        setPorciones(res.data[0].Porciones.toString());
+        setPersonas(res.data[0].CantidadPersonas.toString());
+        setCategoriaSel(res.data[0].IdTipo.toString());
+        setUriFoto(res.data[0].foto);
+        axios.get(`${baseUrl}/ingredientes/getIngredienteUtilizadoPorReceta?idReceta=${idRecetaElimina}`)
+        .then(function(res){
+          var auxIng=[]
+          res.data.forEach((ing,i)=>{
+            const ingAux ={id:i,cantidad:ing.cantidad.toString(),descripcion:ing.nombre,idUnidad:ing.IdUnidad.toString(),observaciones:""}
+            auxIng.push(ingAux)
+          })
+          setIngredientes(auxIng);
+          axios.get(`${baseUrl}/receta/getPasos?idReceta=${idRecetaElimina}`)
+          .then(function(res){
+            resPaso=res.data;
+            axios.get(`${baseUrl}/ingredientes/getMultimedia?idReceta=${idRecetaElimina}`)
+            .then(function(res){
+              var arrPasoAux=[];
+              resPaso.forEach((paso,i)=>{
+                const pasoAux={id:i,nroPaso:paso.nroPaso,texto:paso.texto,multimedia:[{ id: 0, imagen: "", base64: "", tipo: "" }]}
+                arrPasoAux.push(pasoAux);
+                res.data.forEach((multi,ind)=>{
+                  if (paso.idPaso===multi.idPaso){
+                    const auxMulti={id:arrPasoAux[i].multimedia.length,imagen:multi.urlContenido,base64:"",tipo:multi.tipo_contenido}
+                    arrPasoAux[i].multimedia.push(auxMulti);
+                  }
+                })
+              
+              })
+              //console.log(arrPasoAux);
+              setPasos(arrPasoAux);
+            })
+
+          })
+
+        })
+         
+      
+    })
+
+  }
 
   const agregarIngrediente = () => {
     setIngredientes((prevState) => [
@@ -498,6 +546,8 @@ const CreateReceta = () => {
                 <GalleryReceta
                   base64Foto={base64Foto}
                   setBase64Foto={setBase64Foto}
+                  uriFoto ={uriFoto}
+                  setUriFoto={setUriFoto}
                 />
               </View>
               <NativeBaseProvider>
@@ -512,7 +562,7 @@ const CreateReceta = () => {
                     <ButtonModal
                       text="Editar"
                       onPress={() => {
-                        setVisibleExisteReceta(false);
+                        onEditReceta();
                       }}
                     />
                     <ButtonModal

@@ -48,11 +48,10 @@ const ImageToLoad =({img,setPasos,indicePaso,indice})=>{
 
 	return(<View style={imageUploaderStyles.container}>	
 		<Image source={{ uri: img.imagen }} style={{ width: 50, height: 50 }} />
-		<View style= {{backgroundColor:"#efefef"}}>
+
 			<TouchableOpacity onPress={chooseImg} >
 				<IconoCamara/>
 			</TouchableOpacity>
-		</View>
 		</View>);
 
 }
@@ -71,9 +70,9 @@ export default function GalleryPaso({paso,setPasos,indice}) {
 	}, []);
 	
 	return (
-		<View style={{flexDirection:"row"}}>
+		<View style={{flexDirection:"row",alignItems:"center"}}>
 			 {paso.multimedia.map((img, ind) => ( 
-			<View key={img.id}>
+			<View style={{marginRight:"10%"}}key={img.id}>
 			<ImageToLoad img={img} setPasos={setPasos} indicePaso={indice} indice={img.id}/>
 			</View>
 			 ))}
@@ -84,11 +83,10 @@ export default function GalleryPaso({paso,setPasos,indice}) {
 
 const imageUploaderStyles=StyleSheet.create({
    container:{
-    height:60,
- 	width:60,
+    height:50,
+ 	width:50,
 	//backgroundColor:'#efefef',
 	justifyContent:"center",
-	alignItems:"center"
  //    borderRadius:999,
 
 },
@@ -107,14 +105,15 @@ uploadBtn:{
     justifyContent:'center'
 },
 camarita:{
-	height:60,
-	width:60,
+	height:50,
+	width:50,
 	borderColor:"black",
 	borderWidth:1,
 	backgroundColor:"#D6B1B1",
 	display:'flex',
 	alignItems:"center",
-	justifyContent:'center'
+	justifyContent:'center',
+	marginBottom:"100%"
 }
 
 
