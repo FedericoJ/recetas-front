@@ -320,7 +320,7 @@ const CreateReceta = () => {
                 arrPasoAux.push(pasoAux);
                 res.data.forEach((multi,ind)=>{
                   if (paso.idPaso===multi.idPaso){
-                    const auxMulti={id:arrPasoAux[i].multimedia.length,imagen:multi.urlContenido,base64:"",tipo:multi.tipo_contenido}
+                    const auxMulti={id:arrPasoAux[i].multimedia.length,extension:multi.extension,imagen:multi.urlContenido,base64:"",tipo:multi.tipo_contenido}
                     arrPasoAux[i].multimedia.push(auxMulti);
                   }
                 })
@@ -398,14 +398,14 @@ const CreateReceta = () => {
       },
     };
 
-    if (idRecetaElimina) {
+    /*if (idRecetaElimina) {
       const bodyElimina = JSON.stringify({ idReceta: idRecetaElimina });
       axios.post(`${baseUrl}/receta/eliminarReceta`, bodyElimina, setup)
         .then(function (res) {
           console.log("Receta ", idRecetaElimina, " eliminada");
         })
         .catch(function (error) { console.log(error) })
-    }
+    }*/
 
     const idUsuario = variables.getUsuario();
     const nombre = titulo;
@@ -424,9 +424,10 @@ const CreateReceta = () => {
       arrPaso[arrPaso.length] = ({ nroPaso: paso.nroPaso, texto: paso.texto, multimedia: [] })
 
       paso.multimedia.forEach(async multi => {
-
-          if (multi.imagen!==""){
+          if (multi.imagen!=="" && multi.base64!==""){
+            
             const formData2 = new FormData();
+            console.log("hola");
             formData2.append("upload_preset", cloudPreset);
             if(multi.tipo==="video"){
               formData2.append("file", "data:video/mp4;base64," + multi.base64)
@@ -444,66 +445,103 @@ const CreateReceta = () => {
                 if(data.secure_url!==''){
                   console.log(data.secure_url);
                   const multiPaso={tipo_contenido:multi.tipo,extension:data.format,urlContenido:data.secure_url}
-                  arrPaso[i].multimedia[arrPaso[i].multimedia.length]=(multiPaso);
+                  arrPaso[i].multimedia.push(multiPaso);
                 //console.log(i,arrPaso[i].multimedia.length);
               }
             })
             }catch(error){
               console.log(error)
             }
+          }else{
+            if (multi.imagen!==""){
+                const auxMulti={tipo_contenido:multi.tipo,extension:multi.extension,urlContenido:multi.imagen}
+                arrPaso[i].multimedia.push(auxMulti);
+            }
           }
       })
     })
 
-    try {
+    if (!base64Foto){
       setLoading(true);
-      fetch(cloudUrl, {
-        method: 'POST',
-        body: formData
-      })
-        .then(response => response.json())
-        .then(data => {
-          if (data.secure_url !== '') {
-            console.log(data);
-            try {
-              console.log("guarde foto ", data.secure_url.trim());
-              const foto = data.secure_url.trim();
-              const body = JSON.stringify({ idUsuario, nombre, descripcion, foto, porciones, cantidadPersonas, idTipo })
-              axios.post(`${baseUrl}/receta/postReceta`, body, setup)
+      const body = JSON.stringify({ idUsuario, nombre, descripcion, foto:uriFoto, porciones, cantidadPersonas, idTipo })
+      axios.post(`${baseUrl}/receta/postReceta`, body, setup)
+      .then(function (res) {
+          console.log("guarde receta:", res.data.result.IdRecetaCreado);
+          const idReceta = res.data.result.IdRecetaCreado;
+          const bodyIng = JSON.stringify({ idReceta, ingredientes: ingredientes });
+          axios.post(`${baseUrl}/ingredientes/postIngredienteUtilizadoPorReceta`, bodyIng, setup)
+            .then(function (res) {
+              console.log("guarde los ingredientes");
+              const bodyPaso = JSON.stringify({ idreceta: idReceta, paso: arrPaso });
+              console.log(arrPaso);
+              axios.post(`${baseUrl}/receta/postPaso`, bodyPaso, setup)
                 .then(function (res) {
-                  console.log("guarde receta:", res.data.result.IdRecetaCreado);
-
-                  const idReceta = res.data.result.IdRecetaCreado;
-                  const bodyIng = JSON.stringify({ idReceta, ingredientes: ingredientes });
-                  axios.post(`${baseUrl}/ingredientes/postIngredienteUtilizadoPorReceta`, bodyIng, setup)
-                    .then(function (res) {
-                      console.log("guarde los ingredientes");
-                      const bodyPaso = JSON.stringify({ idreceta: idReceta, paso: arrPaso });
-                      console.log(arrPaso);
-                      axios.post(`${baseUrl}/receta/postPaso`, bodyPaso, setup)
-                        .then(function (res) {
-                          console.log("guarde los pasos");
-                        })
-                        .catch(function (error) {
-                          console.log("falle en el post pasos", error)
-                        })
-                    })
-                    .catch(function (error) {
-                      console.log("falle en el post ingredientes", error)
-                    })
+                  setLoading(false);
+                  console.log("guarde los pasos");
                 })
-
-            } catch (error) {
-              console.log("falle en el post recetas", error.msg)
-            }
-          }
+                .catch(function (error) {
+                  console.log("falle en el post pasos", error)
+                })
+            })
+            .catch(function (error) {
+              console.log("falle en el post ingredientes", error)
+            })
         })
-    } catch (error) {
-      console.log("falle cloudinary", error.msg)
-    } finally {
-      console.log("guarde la receta completa")
-      setLoading(false);
+        .catch(function(err){console.log("falle en el post receta sin imagen ",err)})
+
+    }else{
+      try {
+        setLoading(true);
+        fetch(cloudUrl, {
+          method: 'POST',
+          body: formData
+        })
+          .then(response => response.json())
+          .then(data => {
+            if (data.secure_url !== '') {
+              console.log(data);
+              try {
+                console.log("guarde foto ", data.secure_url.trim());
+                const foto = data.secure_url.trim();
+                const body = JSON.stringify({ idUsuario, nombre, descripcion, foto, porciones, cantidadPersonas, idTipo })
+                axios.post(`${baseUrl}/receta/postReceta`, body, setup)
+                  .then(function (res) {
+                    console.log("guarde receta:", res.data.result.IdRecetaCreado);
+  
+                    const idReceta = res.data.result.IdRecetaCreado;
+                    const bodyIng = JSON.stringify({ idReceta, ingredientes: ingredientes });
+                    axios.post(`${baseUrl}/ingredientes/postIngredienteUtilizadoPorReceta`, bodyIng, setup)
+                      .then(function (res) {
+                        console.log("guarde los ingredientes");
+                        const bodyPaso = JSON.stringify({ idreceta: idReceta, paso: arrPaso });
+                        console.log(arrPaso);
+                        axios.post(`${baseUrl}/receta/postPaso`, bodyPaso, setup)
+                          .then(function (res) {
+                            console.log("guarde los pasos");
+                          })
+                          .catch(function (error) {
+                            console.log("falle en el post pasos", error)
+                          })
+                      })
+                      .catch(function (error) {
+                        console.log("falle en el post ingredientes", error)
+                      })
+                  })
+  
+              } catch (error) {
+                console.log("falle en el post recetas", error.msg)
+              }
+            }
+          })
+      } catch (error) {
+        console.log("falle cloudinary", error.msg)
+      } finally {
+        console.log("guarde la receta completa")
+        setLoading(false);
+      }
     }
+
+   
   };
 
   const [modalErrorDatos, setModalErrorDatos] = useState(false);
